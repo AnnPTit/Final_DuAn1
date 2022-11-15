@@ -57,20 +57,20 @@ public class NhanVien implements Serializable{
     @JoinColumn(name ="IdCV",nullable = false)
     private ChucVu chucVu;
     
-    @OneToMany(mappedBy = "nhanVien",fetch = FetchType.LAZY)
-    private List<HoaDonBan> listHoaDon ; 
-    
+//    @OneToMany(mappedBy = "nhanVien",fetch = FetchType.LAZY)
+//    private List<HoaDonBan> listHoaDon ; 
+//    
 
     @Column(name = "TrangThai")
     private Integer trangThai;
 
-    public List<HoaDonBan> getListHoaDon() {
-        return listHoaDon;
-    }
-
-    public void setListHoaDon(List<HoaDonBan> listHoaDon) {
-        this.listHoaDon = listHoaDon;
-    }
+//    public List<HoaDonBan> getListHoaDon() {
+//        return listHoaDon;
+//    }
+//
+//    public void setListHoaDon(List<HoaDonBan> listHoaDon) {
+//        this.listHoaDon = listHoaDon;
+//    }
 
     
     public String getId() {

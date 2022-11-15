@@ -17,35 +17,37 @@ import org.hibernate.Session;
  * @author ADMIN
  */
 public class NhanVienRepository {
+
     Session session = HibernateConfig.getFACTORY().openSession();
     List<NhanVien> list = new ArrayList<>();
-    
-    public List<NhanVien> getList(){
+
+    public List<NhanVien> getList() {
         Query query = session.createQuery("From NhanVien");
         list = query.getResultList();
         return list;
     }
-     public NhanVien getNhanVien(String maNv) {
+
+    public NhanVien getNhanVien(String maNv) {
         try {
             String sql = "SELECT * FROM NhanVien WHERE maNV = :ma";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(NhanVien.class);
             query.setParameter("ma", maNv);
             NhanVien results = (NhanVien) query.getSingleResult();
-           // NhanVien results = (NhanVien) query.list();
-            if(results == null){
+            // NhanVien results = (NhanVien) query.list();
+            if (results == null) {
                 return null;
             }
             return results;
-            
+
         } catch (Exception e) {
-            System.out.println("lỗi lấy nhân viên");
-            e.printStackTrace();
+//            System.out.println("lỗi lấy nhân viên");
+//            e.printStackTrace();
+            return null;
         }
-        return null;
-        
+
     }
-    
+
     public static void main(String[] args) {
         List<NhanVien> list = new NhanVienRepository().getList();
         System.out.println(list);

@@ -44,8 +44,8 @@ public class HibernateConfig {
 
         conf.setProperties(properties);
         
-//        conf.addAnnotatedClass(NhanVien.class);
-//        conf.addAnnotatedClass(ChucVu.class);
+        conf.addAnnotatedClass(NhanVien.class);
+        conf.addAnnotatedClass(ChucVu.class);
         conf.addAnnotatedClass(Mau.class);     
         conf.addAnnotatedClass(SanPham.class);
         conf.addAnnotatedClass(ChatLieu.class);
