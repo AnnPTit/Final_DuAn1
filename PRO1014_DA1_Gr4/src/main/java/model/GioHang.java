@@ -6,6 +6,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,11 +33,11 @@ public class GioHang implements Serializable {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdKH", referencedColumnName = "ID")
+    @JoinColumn(name = "IdKH")
     private KhachHang khachHang;
     
     @OneToMany(mappedBy = "gioHang",fetch = FetchType.EAGER)
-    private List<GioHangChiTiet> listGhct ;
+    private Set<GioHangChiTiet> listGhct ;
     
     @Column(name = "MaGH")
     private String maGH;
@@ -97,13 +98,15 @@ public class GioHang implements Serializable {
         this.trangThai = trangThai;
     }
 
-    public List<GioHangChiTiet> getListGhct() {
+    public Set<GioHangChiTiet> getListGhct() {
         return listGhct;
     }
 
-    public void setListGhct(List<GioHangChiTiet> listGhct) {
+    public void setListGhct(Set<GioHangChiTiet> listGhct) {
         this.listGhct = listGhct;
     }
+
+ 
     
 
     @Override

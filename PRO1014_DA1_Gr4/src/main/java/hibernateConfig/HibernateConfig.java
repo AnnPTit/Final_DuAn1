@@ -52,12 +52,12 @@ public class HibernateConfig {
         conf.addAnnotatedClass(DanhMuc.class);
         conf.addAnnotatedClass(NSX.class);
         conf.addAnnotatedClass(ChiTietSanPham.class);
-//        conf.addAnnotatedClass(GioHang.class);
-//        conf.addAnnotatedClass(GioHangChiTiet.class);
-//        conf.addAnnotatedClass(KhachHang.class);
-//        conf.addAnnotatedClass(KhuyenMai.class);
-//        conf.addAnnotatedClass(HoaDonBan.class);
-//        conf.addAnnotatedClass(HoaDonChiTiet.class);
+        conf.addAnnotatedClass(GioHang.class);
+        conf.addAnnotatedClass(GioHangChiTiet.class);
+        conf.addAnnotatedClass(KhachHang.class);
+        conf.addAnnotatedClass(KhuyenMai.class);
+        conf.addAnnotatedClass(HoaDonBan.class);
+        conf.addAnnotatedClass(HoaDonChiTiet.class);
       
         // 12893467239
         // oihljkasdhf

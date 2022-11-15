@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -51,7 +52,7 @@ public class KhachHang implements Serializable {
     @OneToOne(mappedBy = "khachHang")
     private GioHang gioHang ; 
     
-    @OneToOne(mappedBy = "khachHang")
+    @OneToMany(mappedBy = "khachHang")
     private List<HoaDonBan> listhoaDonBan;
 
     public List<HoaDonBan> getListhoaDonBan() {

@@ -6,6 +6,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class HoaDonBan implements Serializable {
     private NhanVien nhanVien;
 
     @OneToMany(mappedBy = "hoaDonBan", fetch = FetchType.EAGER)
-    private List<HoaDonChiTiet> listHdCt;
+    private Set<HoaDonChiTiet> listHdCt;
 
     @ManyToOne
     @JoinColumn(name = "IdKH")
@@ -92,13 +93,15 @@ public class HoaDonBan implements Serializable {
         this.nhanVien = nhanVien;
     }
 
-    public List<HoaDonChiTiet> getListHdCt() {
+    public Set<HoaDonChiTiet> getListHdCt() {
         return listHdCt;
     }
 
-    public void setListHdCt(List<HoaDonChiTiet> listHdCt) {
+    public void setListHdCt(Set<HoaDonChiTiet> listHdCt) {
         this.listHdCt = listHdCt;
     }
+
+    
 
     public KhachHang getKhachHang() {
         return khachHang;
@@ -172,12 +175,13 @@ public class HoaDonBan implements Serializable {
     public HoaDonBan() {
     }
 
-    public HoaDonBan(Integer id, NhanVien nhanVien, List<HoaDonChiTiet> listHdCt, KhachHang khachHang, String maHDB, String ngayTao, String ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
+    public HoaDonBan(Integer id, NhanVien nhanVien, Set<HoaDonChiTiet> listHdCt, KhachHang khachHang, String maHDB, KhuyenMai khuyenMai, String ngayTao, String ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
         this.id = id;
         this.nhanVien = nhanVien;
         this.listHdCt = listHdCt;
         this.khachHang = khachHang;
         this.maHDB = maHDB;
+        this.khuyenMai = khuyenMai;
         this.ngayTao = ngayTao;
         this.ngayThanhToan = ngayThanhToan;
         this.nguoiNhan = nguoiNhan;
@@ -185,5 +189,7 @@ public class HoaDonBan implements Serializable {
         this.diaChi = diaChi;
         this.trangThai = trangThai;
     }
+
+   
 
 }
