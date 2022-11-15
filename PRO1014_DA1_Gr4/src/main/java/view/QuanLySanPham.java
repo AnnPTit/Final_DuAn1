@@ -705,7 +705,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int row = tbThuocTinh.getSelectedRow();
         Integer id = (Integer) tbThuocTinh.getValueAt(row, 0);
-
         if (index == 0) {
             if (validateThuocTinh()) {
                 String result = new SanPhamImp().update(getSP(), id);

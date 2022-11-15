@@ -5,23 +5,26 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
- * @author ADMIN
+ * @author Laptop
  */
 @Entity
 @Table(name = "KhachHang")
 public class KhachHang implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,41 +32,49 @@ public class KhachHang implements Serializable {
     private Integer id;
 
     @Column(name = "MaKH")
-    private String maKH;
+    private String code;
 
     @Column(name = "TenKH")
-    private String tenKH;
+    private String name;
 
     @Column(name = "GioiTinh")
-    private Boolean gioiTinh;
-    
+    private Boolean sex;
+
     @Column(name = "DiaChi")
-    private String diaChi;
-    
+    private String address;
+
     @Column(name = "SDT")
-    private String sdt ; 
-    
+    private String phone;
+
     @Column(name = "Email")
-    private String email ; 
-    
+    private String email;
+
     @Column(name = "TrangThai")
-    private Integer trangThai ; 
-    
-    @OneToOne(mappedBy = "khachHang")
-    private GioHang gioHang ; 
-    
-    @OneToMany(mappedBy = "khachHang")
-    private List<HoaDonBan> listhoaDonBan;
+    private Integer status;
 
-    public List<HoaDonBan> getListhoaDonBan() {
-        return listhoaDonBan;
+    @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
+    private GioHang gioHang ;
+
+
+
+    public KhachHang(Integer id, String code, String name, Boolean sex, String address, String phone, String email, Integer status, GioHang gioHang) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.sex = sex;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.gioHang = gioHang;
     }
 
-    public void setListhoaDonBan(List<HoaDonBan> listhoaDonBan) {
-        this.listhoaDonBan = listhoaDonBan;
+    public KhachHang() {
     }
     
-    
+
+
+
 
     public Integer getId() {
         return id;
@@ -73,44 +84,44 @@ public class KhachHang implements Serializable {
         this.id = id;
     }
 
-    public String getMaKH() {
-        return maKH;
+    public String getCode() {
+        return code;
     }
 
-    public void setMaKH(String maKH) {
-        this.maKH = maKH;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getTenKH() {
-        return tenKH;
+    public String getName() {
+        return name;
     }
 
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Boolean getGioiTinh() {
-        return gioiTinh;
+    public Boolean getSex() {
+        return sex;
     }
 
-    public void setGioiTinh(Boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
+    public void setSex(Boolean sex) {
+        this.sex = sex;
     }
 
-    public String getDiaChi() {
-        return diaChi;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -121,12 +132,12 @@ public class KhachHang implements Serializable {
         this.email = email;
     }
 
-    public Integer getTrangThai() {
-        return trangThai;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setTrangThai(Integer trangThai) {
-        this.trangThai = trangThai;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public GioHang getGioHang() {
@@ -137,13 +148,17 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
+  
+
     @Override
     public String toString() {
-        return "KhachHang{" + "id=" + id + ", maKH=" + maKH + ", tenKH=" + tenKH + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email + ", trangThai=" + trangThai + ", gioHang=" + gioHang + '}';
+        return "KhachHang{" + "id=" + id + ", code=" + code + ", name=" + name
+                + ", sex=" + sex + ", address=" + address + ", phone=" + phone
+                + ", email=" + email + ", status=" + status + '}';
     }
-    
-    
-    
-    
 
+    public Object[] toDataRow() {
+        return new Object[]{id, code, name, sex == true ? "Male" : "Female",
+            address, phone, email, status == 1 ? "Active" : "InActive"};
+    }
 }

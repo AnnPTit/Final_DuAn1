@@ -22,6 +22,7 @@ model\HoaDonBan.class
 model\KhachHang.class
 model\HoaDonChiTiet.class
 service\NSXService.class
+view\Login1.class
 service\impl\DanhMucImpl.class
 view\QuanLySanPham$8.class
 model\ChiTietSanPham.class
@@ -31,11 +32,13 @@ model\KhuyenMai.class
 view\QuanLySanPham.class
 view\QuanLySanPham$5.class
 view\QuanLySanPham$2.class
+service\impl\NhanVienImpl.class
 model\NSX.class
 service\MauSacService.class
 model\GioHangChiTiet.class
 model\SanPham.class
 service\SanPhamService.class
+view\Login1$2.class
 repository\MauRepository.class
 model\GioHang.class
 model\DanhMuc.class
@@ -43,4 +46,6 @@ view\QuanLySanPham$6.class
 view\QuanLySanPham$9.class
 service\impl\CTSPImpl.class
 view\QuanLySanPham$3.class
+service\INhanVienService.class
+view\Login1$1.class
 service\impl\SanPhamImp.class
