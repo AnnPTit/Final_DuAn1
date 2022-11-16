@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\swing\scrollbar\ModernScrollBarUI.java
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\view\QuanLySP.java
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\swing\scrollbar\ScrollBarCustom.java
@@ -82,3 +83,43 @@ C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\swing\table\Act
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\repository\NSXRepository.java
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\service\SanPhamService.java
 C:\Users\HP\OneDrive\Máy tính\Baby\PRO1014_DA1_Gr4\src\main\java\view\Main.java
+=======
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\NSX.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\ChatLieuRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\DanhMucImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\INhanVienService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\NhanVienRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\MauRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\ChatLieuService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\ChucVu.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\NhanVien.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\SanPham.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\SanPhamRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\ChatLieuImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\KhuyenMai.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\SanPhamImp.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\HoaDonBan.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\CTSPRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\CTSPImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\SanPhamService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\Mau.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\NSXImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\GioHangChiTiet.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\MauSacImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\MauSacService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\GioHang.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\ChatLieu.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\DanhMuc.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\DanhMucRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\hibernateConfig\HibernateConfig.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\HoaDonChiTiet.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\repository\NSXRepository.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\ChiTietSanPham.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\CTSPService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\view\Login1.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\DanhMucService.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\impl\NhanVienImpl.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\model\KhachHang.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\view\QuanLySanPham.java
+D:\DuAn_1\Final_DuAn1\PRO1014_DA1_Gr4\src\main\java\service\NSXService.java
+>>>>>>> 84de3616443a70e9198297ca7854ca54f980b856

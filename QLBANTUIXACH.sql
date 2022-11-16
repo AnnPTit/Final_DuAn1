@@ -216,3 +216,8 @@ go
 
 Alter table HoaDon add constraint FK_HD_KM 
 foreign key(IdKM) references KhuyenMai(Id)
+
+create trigger Auto_Add_Gh on khachHang after insert as 
+begin 
+insert into GioHang values((select id from inserted) ,null,GETDATE(),null,1)
+end

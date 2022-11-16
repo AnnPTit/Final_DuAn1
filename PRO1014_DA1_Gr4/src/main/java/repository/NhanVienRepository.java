@@ -28,23 +28,23 @@ public class NhanVienRepository {
     }
 
     public NhanVien getNhanVien(String maNv) {
-        try {
-            String sql = "SELECT * FROM NhanVien WHERE maNV = :ma";
-            SQLQuery query = session.createSQLQuery(sql);
-            query.addEntity(NhanVien.class);
-            query.setParameter("ma", maNv);
-            NhanVien results = (NhanVien) query.getSingleResult();
-            // NhanVien results = (NhanVien) query.list();
-            if (results == null) {
+            try {
+                String sql = "SELECT * FROM NhanVien WHERE maNV = :ma";
+                SQLQuery query = session.createSQLQuery(sql);
+                query.addEntity(NhanVien.class);
+                query.setParameter("ma", maNv);
+                NhanVien results = (NhanVien) query.getSingleResult();
+                // NhanVien results = (NhanVien) query.list();
+                if (results == null) {
+                    return null;
+                }
+                return results;
+
+            } catch (Exception e) {
+    //            System.out.println("lỗi lấy nhân viên");
+    //            e.printStackTrace();
                 return null;
             }
-            return results;
-
-        } catch (Exception e) {
-//            System.out.println("lỗi lấy nhân viên");
-//            e.printStackTrace();
-            return null;
-        }
 
     }
 

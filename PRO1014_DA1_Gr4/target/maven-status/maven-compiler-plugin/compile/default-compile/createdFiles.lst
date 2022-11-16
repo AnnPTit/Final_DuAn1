@@ -19,6 +19,12 @@ model\ChucVu.class
 view\QuanLySanPham$1.class
 view\QuanLySanPham$4.class
 model\KhachHang.class
+<<<<<<< HEAD
+=======
+model\HoaDonChiTiet.class
+service\NSXService.class
+view\Login1.class
+>>>>>>> 84de3616443a70e9198297ca7854ca54f980b856
 service\impl\DanhMucImpl.class
 model\ChiTietSanPham.class
 swing\table\TableCellAction.class
@@ -36,17 +42,26 @@ swing\MenuAnimation.class
 swing\scrollbar\ModernScrollBarUI.class
 view\QuanLySP$1.class
 view\QuanLySanPham$5.class
+<<<<<<< HEAD
 view\Form_Home.class
 swing\Button$1.class
 swing\ProgressBarCustom$1.class
 component\Menu$1.class
+=======
+view\QuanLySanPham$2.class
+service\impl\NhanVienImpl.class
+model\NSX.class
+>>>>>>> 84de3616443a70e9198297ca7854ca54f980b856
 service\MauSacService.class
 view\Main$4.class
 model\GioHangChiTiet.class
 service\SanPhamService.class
 view\Login1$2.class
+<<<<<<< HEAD
 view\QuanLySP$8.class
 swing\PanelPopup.class
+=======
+>>>>>>> 84de3616443a70e9198297ca7854ca54f980b856
 repository\MauRepository.class
 model\GioHang.class
 model\DanhMuc.class
@@ -132,7 +147,11 @@ swing\icon\IconFont.class
 utilities\ExportExcel.class
 view\QuanLySanPham$3.class
 service\INhanVienService.class
+<<<<<<< HEAD
 swing\icon\IconFontSwing.class
 swing\MenuButton$2.class
 view\QuanLySP$4.class
+=======
+view\Login1$1.class
+>>>>>>> 84de3616443a70e9198297ca7854ca54f980b856
 service\impl\SanPhamImp.class
