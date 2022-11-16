@@ -71,4 +71,15 @@ public class DanhMucRepository {
             return false;
         }
     }
+    
+    public DanhMuc getById(int id) {
+        DanhMuc danhMuc = null;
+        try {
+            Query q = ses.createQuery("SELECT dm FROM DanhMuc dm WHERE dm.id=:id");
+            q.setParameter("id", id);
+            danhMuc = (DanhMuc) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return danhMuc;
+    }
 }

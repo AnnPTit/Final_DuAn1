@@ -79,4 +79,14 @@ public class SanPhamRepository {
             return false;
         }
     }
+    public SanPham getById(int id) {
+        SanPham sanPham = null;
+        try {
+            Query q = ses.createQuery("SELECT sp FROM SanPham sp WHERE sp.id=:id");
+            q.setParameter("id", id);
+            sanPham = (SanPham) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return sanPham;
+    }
 }

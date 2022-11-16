@@ -71,4 +71,15 @@ public class ChatLieuRepository {
             return false;
         }
     }
+    
+    public ChatLieu getById(int id) {
+        ChatLieu chatLieu = null;
+        try {
+            Query q = ses.createQuery("SELECT cl FROM ChatLieu cl WHERE cl.id =: id");
+            q.setParameter("id", id);
+            chatLieu = (ChatLieu) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return chatLieu;
+    }
 }

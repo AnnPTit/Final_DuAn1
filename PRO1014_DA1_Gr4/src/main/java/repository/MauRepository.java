@@ -70,4 +70,15 @@ public class MauRepository {
             return false;
         }
     }
+    
+    public Mau getById(int id) {
+        Mau mau = null;
+        try {
+            Query q = ses.createQuery("SELECT mau FROM Mau mau WHERE mau.id =: id");
+            q.setParameter("id", id);
+            mau = (Mau) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return mau;
+    }
 }

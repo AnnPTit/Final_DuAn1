@@ -71,4 +71,15 @@ public class NSXRepository {
             return false;
         }
     }
+    
+    public NSX getById(int id) {
+        NSX nsx = null;
+        try {
+            Query q = ses.createQuery("SELECT nsx FROM NSX nsx WHERE nsx.id =: id");
+            q.setParameter("id", id);
+            nsx = (NSX) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return nsx;
+    }
 }
