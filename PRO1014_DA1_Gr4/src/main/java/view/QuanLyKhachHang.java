@@ -70,6 +70,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     private KhachHang validateThongTin() {
         KhachHang khachHang = new KhachHang();
         boolean check = true;
+        int id = Integer.valueOf(lbId.getText());
         String ma = null;
         try {
             ma = txtMa.getText();
@@ -140,6 +141,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
 
         if (check == true) {
             //   khachHang = new KhachHang(ma, ten, sex, diaChi, sdt, email, trangThai,null);
+            khachHang.setId(id);
             khachHang.setCode(ma);
             khachHang.setName(ten);
             khachHang.setSex(sex);

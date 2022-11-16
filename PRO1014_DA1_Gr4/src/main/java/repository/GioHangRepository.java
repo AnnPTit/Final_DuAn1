@@ -57,9 +57,10 @@ public class GioHangRepository {
         Integer check = 0;
         try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transision = session.beginTransaction();
-            Query query = session.createQuery("UPDATE GioHang SET NgayThanhToan =:ngaythanhtoan , TrangThai = :trangthai ");
+            Query query = session.createQuery("UPDATE GioHang SET NgayThanhToan =:ngaythanhtoan , TrangThai = :trangthai where IdKH = :idkh");
             query.setParameter("ngaythanhtoan", gioHang.getNgayThanhToan());
             query.setParameter("trangthai", gioHang.getTrangThai());
+            query.setParameter("idkh", gioHang.getKhachHang().getId());
             check = query.executeUpdate();
             transision.commit();
             return true;
