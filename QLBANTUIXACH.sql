@@ -221,3 +221,15 @@ create trigger Auto_Add_Gh on khachHang after insert as
 begin 
 insert into GioHang values((select id from inserted) ,null,GETDATE(),null,1)
 end
+
+ALTER TRIGGER [dbo].[trg_Update] ON [dbo].[HoaDonChiTiet] AFTER INSERT AS 
+BEGIN
+	UPDATE ChiTietSP
+	SET SoLuongTon = SoLuongTon - (
+		SELECT SoLuong
+		FROM inserted
+		WHERE IdChiTietSP = ChiTietSP.Id
+	)
+	FROM ChiTietSP
+	JOIN inserted ON ChiTietSP.Id = inserted.IdChiTietSP
+END
