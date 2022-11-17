@@ -11,8 +11,8 @@ import model.NhanVien;
 
 import view.QuanLySanPham;
 import javax.swing.JFrame;
-import service.INhanVienService;
 import service.impl.NhanVienImpl;
+import service.NhanVienService;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Login1 extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    INhanVienService nhanVienService = new NhanVienImpl();
+    NhanVienService nhanVienService = new NhanVienImpl();
 
     public Login1() {
         initComponents();

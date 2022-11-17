@@ -27,7 +27,7 @@ public class NhanVien implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private String id;
+    private Integer id;
 
     @Column(name = "MaNV")
     private String maNV;
@@ -35,6 +35,7 @@ public class NhanVien implements Serializable{
     @Column(name = "TenNV")
     private String tenNV;
 
+//    @Tem
     @Column(name = "NgaySinh")
     private String ngaySinh;
 
@@ -73,11 +74,11 @@ public class NhanVien implements Serializable{
 //    }
 
     
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -169,7 +170,7 @@ public class NhanVien implements Serializable{
     public NhanVien() {
     }
 
-    public NhanVien(String id, String maNV, String tenNV, String ngaySinh, Boolean gioiTinh, String diaChi, String sdt, String email, String pass, ChucVu ChucVu, Integer trangThai) {
+    public NhanVien(Integer id, String maNV, String tenNV, String ngaySinh, Boolean gioiTinh, String diaChi, String sdt, String email, String pass, ChucVu ChucVu, Integer trangThai) {
         this.id = id;
         this.maNV = maNV;
         this.tenNV = tenNV;
@@ -183,5 +184,8 @@ public class NhanVien implements Serializable{
         this.trangThai = trangThai;
     }
     
+    public Object[] toDataRow() {
+        return new Object[] {id,maNV,pass,tenNV,chucVu.getTenCv(),ngaySinh,gioiTinh==true?"Nam":"Nữ",diaChi,sdt,email,trangThai==0?"Đang làm việc":"Nghỉ việc"};
+    }
     
 }

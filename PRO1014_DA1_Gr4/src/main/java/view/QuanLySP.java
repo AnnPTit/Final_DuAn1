@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-import java.io.IOException;
 import model.ChatLieu;
 import model.ChiTietSanPham;
 import model.DanhMuc;
@@ -26,7 +25,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import utilities.Excel;
 import utilities.ExportExcel;
 import utilities.ImportExcel;
 

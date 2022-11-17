@@ -9,11 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,8 +23,7 @@ import javax.persistence.Temporal;
 @Table(name = "GioHang")
 public class GioHang implements Serializable {
 
-  //  private static final long serialVersionUID = 1L;
-
+    //  private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -33,19 +32,18 @@ public class GioHang implements Serializable {
     @OneToOne
     @JoinColumn(name = "IdKH")
     private KhachHang khachHang;
-    
-    @OneToMany(mappedBy = "gioHang")
-    private List<GioHangChiTiet> listGhct ;
 
+//    @OneToMany(mappedBy = "gioHang")
+//    private List<GioHangChiTiet> listGhct ;
     @Column(name = "MaGH")
     private String ma;
 
     @Column(name = "NgayTao")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date ngayTao;
 
     @Column(name = "NgayThanhToan")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date ngayThanhToan;
 
     @Column(name = "TrangThai")
@@ -111,24 +109,7 @@ public class GioHang implements Serializable {
         this.trangThai = trangThai;
     }
 
-    public List<GioHangChiTiet> getListGhct() {
-        return listGhct;
-    }
-
-    public void setListGhct(List<GioHangChiTiet> listGhct) {
-        this.listGhct = listGhct;
-    }
-    
-
-    @Override
-    public String toString() {
-        return "GioHang{" + "id=" + id + ", khachHang=" + khachHang.getName() + ", listGhct=" + listGhct + ", ma=" + ma + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", trangThai=" + trangThai + '}';
-    }
-    
-
     public Object[] toDataRow() {
-        return new Object[]{
-            id, khachHang.getId(), ma, ngayTao, ngayThanhToan, trangThai
-        };
+        return new Object[]{id,khachHang.getId(),ma,ngayTao,ngayThanhToan,trangThai};
     }
 }

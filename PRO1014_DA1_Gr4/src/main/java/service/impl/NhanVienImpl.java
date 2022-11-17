@@ -4,25 +4,58 @@
  */
 package service.impl;
 
+import java.util.List;
 import model.NhanVien;
 import repository.NhanVienRepository;
-import service.INhanVienService;
+import service.NhanVienService;
 
 /**
  *
  * @author ADMIN
  */
-public class NhanVienImpl implements INhanVienService {
+public class NhanVienImpl implements NhanVienService {
 
-    private NhanVienRepository nhanVienRepository;
+    private NhanVienRepository nvRepo = new NhanVienRepository();
 
     public NhanVienImpl() {
-        nhanVienRepository = new NhanVienRepository();
+    }
+    
+    
+    @Override
+    public List<NhanVien> getAll() {
+        return nvRepo.getAll();
     }
 
     @Override
     public NhanVien getNhanVien(String maNV) {
-        return nhanVienRepository.getNhanVien(maNV);
+        return nvRepo.getNhanVien(maNV);
+    }
+
+    @Override
+    public String add(NhanVien nv) {
+        if(nvRepo.add(nv)) {
+            return "Thêm thành công";
+        } else {
+            return "Thêm thất bại";
+        }
+    }
+
+    @Override
+    public String update(NhanVien nv, Integer id) {
+        if(nvRepo.update(nv, id)) {
+            return "Sửa thành công";
+        } else {
+            return "Sửa thất bại";
+        }
+    }
+
+    @Override
+    public String updateTrangThai(Integer id) {
+        if(nvRepo.updateTrangThai(id)) {
+            return "Xóa thành công";
+        } else {
+            return "Xóa thất bại";
+        }
     }
 
 }

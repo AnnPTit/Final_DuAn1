@@ -24,57 +24,49 @@ import javax.persistence.Table;
 @Table(name = "KhachHang")
 public class KhachHang implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
 
     @Column(name = "MaKH")
-    private String code;
+    private String ma;
 
     @Column(name = "TenKH")
-    private String name;
+    private String ten;
 
     @Column(name = "GioiTinh")
-    private Boolean sex;
+    private Boolean gioiTinh;
 
     @Column(name = "DiaChi")
-    private String address;
+    private String diaChi;
 
     @Column(name = "SDT")
-    private String phone;
+    private String sdt;
 
     @Column(name = "Email")
     private String email;
 
     @Column(name = "TrangThai")
-    private Integer status;
+    private Integer trangThai;
 
     @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
-    private GioHang gioHang ;
-
-
-
-    public KhachHang(Integer id, String code, String name, Boolean sex, String address, String phone, String email, Integer status, GioHang gioHang) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.sex = sex;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.status = status;
-        this.gioHang = gioHang;
-    }
+    private GioHang gioHang;
 
     public KhachHang() {
     }
-    
 
-
-
+    public KhachHang(Integer id, String ma, String ten, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai, GioHang gioHang) {
+        this.id = id;
+        this.ma = ma;
+        this.ten = ten;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.email = email;
+        this.trangThai = trangThai;
+        this.gioHang = gioHang;
+    }
 
     public Integer getId() {
         return id;
@@ -84,44 +76,44 @@ public class KhachHang implements Serializable {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getMa() {
+        return ma;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setMa(String ma) {
+        this.ma = ma;
     }
 
-    public String getName() {
-        return name;
+    public String getTen() {
+        return ten;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
-    public Boolean getSex() {
-        return sex;
+    public Boolean getGioiTinh() {
+        return gioiTinh;
     }
 
-    public void setSex(Boolean sex) {
-        this.sex = sex;
+    public void setGioiTinh(Boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public String getEmail() {
@@ -132,12 +124,12 @@ public class KhachHang implements Serializable {
         this.email = email;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getTrangThai() {
+        return trangThai;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setTrangThai(Integer trangThai) {
+        this.trangThai = trangThai;
     }
 
     public GioHang getGioHang() {
@@ -148,17 +140,8 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
-  
-
-    @Override
-    public String toString() {
-        return "KhachHang{" + "id=" + id + ", code=" + code + ", name=" + name
-                + ", sex=" + sex + ", address=" + address + ", phone=" + phone
-                + ", email=" + email + ", status=" + status + '}';
-    }
-
     public Object[] toDataRow() {
-        return new Object[]{id, code, name, sex == true ? "Male" : "Female",
-            address, phone, email, status == 1 ? "Active" : "InActive"};
+        return new Object[]{id, ma, ten, gioiTinh == true ? "Nam" : "Nữ",
+            diaChi, sdt, email, trangThai == 0 ? "Đang hoạt động" : "Ngừng hoạt động"};
     }
 }

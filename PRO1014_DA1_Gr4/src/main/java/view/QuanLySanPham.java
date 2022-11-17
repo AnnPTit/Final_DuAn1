@@ -794,23 +794,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
         } else {
             rdoNKD.setSelected(true);
         }
-//        
-//        txtMaSP.setText(tbSanPham.getValueAt(row, 1).toString());
-//        cbSP.setSelectedItem(tbSanPham.getValueAt(row, 2));
-//        cbDM.setSelectedItem(tbSanPham.getValueAt(row, 3));
-//        cbCL.setSelectedItem(tbSanPham.getValueAt(row, 4));
-//        cbMau.setSelectedItem(tbSanPham.getValueAt(row, 5));
-//        cbNSX.setSelectedItem(tbSanPham.getValueAt(row, 6));
-//        txtSoLuong.setText(tbSanPham.getValueAt(row, 7).toString());
-//        txtGiaNhap.setText(tbSanPham.getValueAt(row, 8).toString());
-//        txtGiaBan.setText(tbSanPham.getValueAt(row, 9).toString());
-//        txtMoTa.setText(tbSanPham.getValueAt(row, 10).toString());
-//        String radio = tbSanPham.getValueAt(row, 13).toString();
-//        if (radio.equals("Đang kinh doanh")) {
-//            rdoDKD.setSelected(true);
-//        } else {
-//            rdoNKD.setSelected(true);
-//        }
     }//GEN-LAST:event_tbSanPhamMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed

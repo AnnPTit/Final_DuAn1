@@ -4,13 +4,17 @@
  */
 package service;
 
+import java.util.List;
 import model.NhanVien;
 
 /**
  *
  * @author ADMIN
  */
-public interface INhanVienService {
+public interface NhanVienService {
+    public List<NhanVien> getAll();
     NhanVien getNhanVien(String maNV );
-    
+    String add(NhanVien nv);
+    String update(NhanVien nv, Integer id);
+    String updateTrangThai(Integer id);
 }

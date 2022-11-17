@@ -6,7 +6,6 @@ package repository;
 
 import hibernateConfig.HibernateConfig;
 import model.DanhMuc;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;

@@ -58,10 +58,6 @@ public class Main extends javax.swing.JFrame {
                 } else if (menuIndex == 1) {
                     if (subMenuIndex == 0) {
                         main.showForm(pane.add(new QuanLySP()));
-                    } else if (subMenuIndex == 1) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 2) {
-                        main.showForm(new QuanLySP());
                     }
                 } else if (menuIndex == 2) {
                     if (subMenuIndex == 0) {
@@ -90,12 +86,10 @@ public class Main extends javax.swing.JFrame {
                 } else if (menuIndex == 4) {
                     if (subMenuIndex == 0) {
                         main.showForm(new QuanLyNhanVien());
-                    } else if (subMenuIndex == 1) {
-//                            main.showForm(new FormSalary());
                     }
                 } else if (menuIndex == 5) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLySP());
+                        main.showForm(new QuanLyKhachHang());
                     }
                 } else if (menuIndex == 6) {
                     if (subMenuIndex == 0) {
