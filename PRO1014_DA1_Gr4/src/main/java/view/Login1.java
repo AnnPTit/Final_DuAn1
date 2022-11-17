@@ -22,6 +22,8 @@ public class Login1 extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
+    // fegdf
     INhanVienService nhanVienService = new NhanVienImpl();
 
     public Login1() {
