@@ -26,7 +26,7 @@ import jdk.jfr.DataAmount;
 @Entity
 @Table(name = "ChatLieu")
 public class ChatLieu {
-
+    // asjdhkakjs
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
