@@ -76,23 +76,23 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel17 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        txtMaSP1 = new javax.swing.JTextField();
+        txtMaSP = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
-        txtSoLuong1 = new javax.swing.JTextField();
+        txtSoLuong = new javax.swing.JTextField();
         jLabel51 = new javax.swing.JLabel();
-        txtGiaNhap1 = new javax.swing.JTextField();
+        txtGiaNhap = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
-        txtGiaBan1 = new javax.swing.JTextField();
+        txtGiaBan = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
-        rdoDKD1 = new javax.swing.JRadioButton();
-        rdoNKD1 = new javax.swing.JRadioButton();
+        rdoDKD = new javax.swing.JRadioButton();
+        rdoNKD = new javax.swing.JRadioButton();
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        txtMoTa1 = new javax.swing.JTextArea();
-        btnAdd1 = new javax.swing.JButton();
+        txtMoTa = new javax.swing.JTextArea();
+        btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
@@ -141,10 +141,10 @@ public class QuanLySP extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel53, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel53.text")); // NOI18N
 
-        rdoDKD1.setSelected(true);
-        org.openide.awt.Mnemonics.setLocalizedText(rdoDKD1, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoDKD1.text")); // NOI18N
+        rdoDKD.setSelected(true);
+        org.openide.awt.Mnemonics.setLocalizedText(rdoDKD, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoDKD.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(rdoNKD1, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoNKD1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(rdoNKD, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoNKD.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel54, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel54.text")); // NOI18N
 
@@ -154,17 +154,17 @@ public class QuanLySP extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel57, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel57.text")); // NOI18N
 
-        txtMoTa1.setColumns(20);
-        txtMoTa1.setRows(5);
-        jScrollPane8.setViewportView(txtMoTa1);
+        txtMoTa.setColumns(20);
+        txtMoTa.setRows(5);
+        jScrollPane8.setViewportView(txtMoTa);
 
-        btnAdd1.setBackground(new java.awt.Color(0, 153, 204));
-        btnAdd1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
-        org.openide.awt.Mnemonics.setLocalizedText(btnAdd1, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.btnAdd1.text")); // NOI18N
-        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(0, 153, 204));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        org.openide.awt.Mnemonics.setLocalizedText(btnAdd, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.btnAdd.text")); // NOI18N
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -226,10 +226,10 @@ public class QuanLySP extends javax.swing.JPanel {
                             .addComponent(jLabel49))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaSP1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(txtSoLuong1)
-                            .addComponent(txtGiaNhap1)
-                            .addComponent(txtGiaBan1)
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(txtSoLuong)
+                            .addComponent(txtGiaNhap)
+                            .addComponent(txtGiaBan)
                             .addComponent(cbbSanPham, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(90, 90, 90)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -252,9 +252,9 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addGap(130, 130, 130)
                         .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(rdoDKD1)
+                        .addComponent(rdoDKD)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdoNKD1)))
+                        .addComponent(rdoNKD)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
@@ -269,13 +269,13 @@ public class QuanLySP extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnExport, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                             .addComponent(btnImportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 35, Short.MAX_VALUE))))
+                        .addGap(0, 44, Short.MAX_VALUE))))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,14 +291,14 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel49)
                             .addComponent(jLabel54)
-                            .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel48)
-                            .addComponent(txtMaSP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel55)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnImportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,13 +306,13 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel50)
-                            .addComponent(txtSoLuong1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel51)
-                                    .addComponent(txtGiaNhap1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -322,14 +322,14 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel52)
-                            .addComponent(txtGiaBan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel57)
                             .addComponent(cbbNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel53)
-                            .addComponent(rdoDKD1)
-                            .addComponent(rdoNKD1))))
+                            .addComponent(rdoDKD)
+                            .addComponent(rdoNKD))))
                 .addGap(20, 20, 20))
         );
 
@@ -409,8 +409,8 @@ public class QuanLySP extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -422,7 +422,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(135, Short.MAX_VALUE))
+                        .addContainerGap(144, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -438,7 +438,7 @@ public class QuanLySP extends javax.swing.JPanel {
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(658, Short.MAX_VALUE))
+                .addContainerGap(698, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab(org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jPanel16.TabConstraints.tabTitle"), jPanel16); // NOI18N
@@ -603,8 +603,8 @@ public class QuanLySP extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1056, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,10 +621,9 @@ public class QuanLySP extends javax.swing.JPanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 180, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -643,21 +642,23 @@ public class QuanLySP extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1284, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 27, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (validateSanPham()) {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
             loadChiTietSanPham(ctsp);
         }
-    }//GEN-LAST:event_btnAdd1ActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         int row = tbSanPham.getSelectedRow();
@@ -1291,7 +1292,6 @@ public class QuanLySP extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImportExcel;
@@ -1309,16 +1309,6 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel50;
@@ -1334,8 +1324,6 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel7;
@@ -1343,30 +1331,21 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JRadioButton rdoDKD;
-    private javax.swing.JRadioButton rdoDKD1;
     private javax.swing.JRadioButton rdoDangBan;
     private javax.swing.JRadioButton rdoNKD;
-    private javax.swing.JRadioButton rdoNKD1;
     private javax.swing.JRadioButton rdoNghiBan;
     private javax.swing.JTable tbSanPham;
     private javax.swing.JTable tbThuocTinh;
     private javax.swing.JTextField txtGiaBan;
-    private javax.swing.JTextField txtGiaBan1;
     private javax.swing.JTextField txtGiaNhap;
-    private javax.swing.JTextField txtGiaNhap1;
     private javax.swing.JTextField txtMa;
     private javax.swing.JTextField txtMaSP;
-    private javax.swing.JTextField txtMaSP1;
     private javax.swing.JTextArea txtMoTa;
-    private javax.swing.JTextArea txtMoTa1;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSoLuong;
-    private javax.swing.JTextField txtSoLuong1;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

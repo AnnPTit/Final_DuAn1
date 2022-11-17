@@ -16,6 +16,5 @@ public class Auth {
     public static boolean isLogin() {
         return Auth.nv != null;
     }
-    
-    
+       
 }

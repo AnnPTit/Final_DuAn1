@@ -108,6 +108,11 @@
             <version>3.17</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>com.github.lgooddatepicker</groupId>
+            <artifactId>LGoodDatePicker</artifactId>
+            <version>11.2.1</version>
+        </dependency>
     </dependencies>
     <name>PRO1014_DA1_Gr4_Vip_pro</name>
 </project>

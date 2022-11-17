@@ -35,8 +35,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         init();
-//        setIconImage(XImage.getAppImage());
-        Image icon = Toolkit.getDefaultToolkit().getImage("/icon/shop (6).png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/icon/vodien.png");
         this.setIconImage(icon);
     }
 
@@ -90,7 +89,7 @@ public class Main extends javax.swing.JFrame {
                     }
                 } else if (menuIndex == 4) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLySP());
+                        main.showForm(new QuanLyNhanVien());
                     } else if (subMenuIndex == 1) {
 //                            main.showForm(new FormSalary());
                     }
