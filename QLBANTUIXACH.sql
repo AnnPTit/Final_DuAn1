@@ -233,3 +233,28 @@ BEGIN
 	FROM ChiTietSP
 	JOIN inserted ON ChiTietSP.Id = inserted.IdCTSP
 END
+
+CREATE TRIGGER [dbo].[Update_SoLuong_AfIS_GH] ON [dbo].[GioHangChiTiet] AFTER INSERT AS 
+BEGIN
+	UPDATE ChiTietSP
+	SET SoLuongTon = SoLuongTon - (
+		SELECT SoLuong
+		FROM inserted
+		WHERE IdCTSP = ChiTietSP.Id
+	)
+	FROM ChiTietSP
+	JOIN inserted ON ChiTietSP.Id = inserted.IdCTSP
+END
+
+CREATE TRIGGER [dbo].[Update_SoLuong_AfDe_GH] ON [dbo].[GioHangChiTiet] AFTER DELETE AS 
+BEGIN
+	UPDATE ChiTietSP
+	SET SoLuongTon = SoLuongTon + (
+		SELECT SoLuong
+		FROM deleted
+		WHERE IdCTSP = ChiTietSP.Id
+	)
+	FROM ChiTietSP
+	JOIN deleted ON ChiTietSP.Id = deleted.IdCTSP
+END
+
