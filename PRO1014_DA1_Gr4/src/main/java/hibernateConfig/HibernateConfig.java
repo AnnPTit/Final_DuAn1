@@ -54,10 +54,10 @@ public class HibernateConfig {
         conf.addAnnotatedClass(ChiTietSanPham.class);
         conf.addAnnotatedClass(KhachHang.class);
         conf.addAnnotatedClass(GioHang.class);
-//        conf.addAnnotatedClass(GioHangChiTiet.class);
-//        conf.addAnnotatedClass(KhuyenMai.class);
-//        conf.addAnnotatedClass(HoaDonBan.class);
-//        conf.addAnnotatedClass(HoaDonChiTiet.class);
+        conf.addAnnotatedClass(GioHangChiTiet.class);
+        conf.addAnnotatedClass(KhuyenMai.class);
+        conf.addAnnotatedClass(HoaDonBan.class);
+        conf.addAnnotatedClass(HoaDonChiTiet.class);
         // 12893467239
         // oihljkasdhf
         ServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();

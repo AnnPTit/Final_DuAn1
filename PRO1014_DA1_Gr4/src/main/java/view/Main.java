@@ -89,7 +89,7 @@ public class Main extends javax.swing.JFrame {
                     }
                 } else if (menuIndex == 5) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLyKhachHang());
+                   //     main.showForm(new QuanLyKhachHang()); // comment lại vì lỗi không chạy được 
                     }
                 } else if (menuIndex == 6) {
                     if (subMenuIndex == 0) {

@@ -20,9 +20,21 @@ import service.NhanVienService;
  */
 public class Login1 extends javax.swing.JFrame {
 
+<<<<<<< HEAD
 
     NhanVienService nhanVienService = new NhanVienImpl();
 
+=======
+    /**
+     * Creates new form Login
+     */
+
+    NhanVienService nhanVienService = new NhanVienImpl();
+
+    
+    
+
+>>>>>>> a5e379f6311a407ebc56510d26adbccc90e3fb7d
 
     public Login1() {
         initComponents();
@@ -89,8 +101,8 @@ public class Login1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 66, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +148,7 @@ public class Login1 extends javax.swing.JFrame {
 
         NhanVien nhanVien = nhanVienService.getNhanVien(maNv);
         if (nhanVien != null) {
-            if (nhanVien.getPass().equalsIgnoreCase(doHashing(pass))) {
+            if (nhanVien.getPass().equalsIgnoreCase((pass))) {
                 if (nhanVien.getChucVu().getId() == 1) {
                     this.dispose();
                     new Main().setVisible(true);

@@ -4,31 +4,30 @@
  */
 package service.impl;
 
-import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import model.KhachHang;
 import repository.KhachHangRepository;
-import service.KhachHangService;
+import service.IKhachHangService;
 
 /**
  *
  * @author ADMIN
  */
-public class KhachHangImpl implements KhachHangService {
-
-    private KhachHangRepository khRepo = new KhachHangRepository();
+public class KhachHangImpl implements IKhachHangService{
+     private KhachHangRepository khachHangRepository;
 
     public KhachHangImpl() {
+        khachHangRepository = new KhachHangRepository();
     }
 
     @Override
-    public List<KhachHang> getAll() {
-        return khRepo.getAll();
+    public ArrayList<KhachHang> getAll() {
+        return khachHangRepository.getAll();
     }
 
     @Override
-    public String add(KhachHang kh) {
-        if(khRepo.add(kh)) {
+    public String add(KhachHang khachHang) {
+        if (khachHangRepository.add(khachHang) == true) {
             return "Thêm thành công";
         } else {
             return "Thêm thất bại";
@@ -36,21 +35,12 @@ public class KhachHangImpl implements KhachHangService {
     }
 
     @Override
-    public String update(KhachHang kh, Integer id) {
-        if(khRepo.update(kh, id)) {
-            return "Sửa thành công";
-        } else {
-            return "Sửa thất bại";
-        }
+    public String delete(KhachHang khachHang) {
+      return  "cc";
     }
 
     @Override
-    public String updateTrangThai(Integer id) {
-        if(khRepo.updateTrangThai(id)) {
-            return "Xóa thành công";
-        } else {
-            return "Xóa thất bại";
-        }
+    public KhachHang update(KhachHang khachHang) {
+        return khachHangRepository.update(khachHang);
     }
-
 }

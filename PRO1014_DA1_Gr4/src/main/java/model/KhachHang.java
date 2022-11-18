@@ -24,16 +24,18 @@ import javax.persistence.Table;
 @Table(name = "KhachHang")
 public class KhachHang implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
 
     @Column(name = "MaKH")
-    private String ma;
+    private String maKH;
 
     @Column(name = "TenKH")
-    private String ten;
+    private String tenKH;
 
     @Column(name = "GioiTinh")
     private Boolean gioiTinh;
@@ -51,15 +53,12 @@ public class KhachHang implements Serializable {
     private Integer trangThai;
 
     @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
-    private GioHang gioHang;
+    private GioHang gioHang ;
 
-    public KhachHang() {
-    }
-
-    public KhachHang(Integer id, String ma, String ten, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai, GioHang gioHang) {
+    public KhachHang(Integer id, String maKH, String tenKH, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai, GioHang gioHang) {
         this.id = id;
-        this.ma = ma;
-        this.ten = ten;
+        this.maKH = maKH;
+        this.tenKH = tenKH;
         this.gioiTinh = gioiTinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
@@ -67,6 +66,17 @@ public class KhachHang implements Serializable {
         this.trangThai = trangThai;
         this.gioHang = gioHang;
     }
+
+
+
+    
+
+    public KhachHang() {
+    }
+    
+
+
+
 
     public Integer getId() {
         return id;
@@ -76,20 +86,20 @@ public class KhachHang implements Serializable {
         this.id = id;
     }
 
-    public String getMa() {
-        return ma;
+    public String getMaKH() {
+        return maKH;
     }
 
-    public void setMa(String ma) {
-        this.ma = ma;
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
 
-    public String getTen() {
-        return ten;
+    public String getTenKH() {
+        return tenKH;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
     }
 
     public Boolean getGioiTinh() {
@@ -132,6 +142,7 @@ public class KhachHang implements Serializable {
         this.trangThai = trangThai;
     }
 
+
     public GioHang getGioHang() {
         return gioHang;
     }
@@ -140,8 +151,17 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
+  
+
+    @Override
+    public String toString() {
+        return "KhachHang{" + "id=" + id + ", code=" + maKH + ", name=" + tenKH
+                + ", sex=" + gioiTinh + ", address=" + diaChi + ", phone=" + sdt
+                + ", email=" + email + ", status=" + trangThai + '}';
+    }
+
     public Object[] toDataRow() {
-        return new Object[]{id, ma, ten, gioiTinh == true ? "Nam" : "Nữ",
-            diaChi, sdt, email, trangThai == 0 ? "Đang hoạt động" : "Ngừng hoạt động"};
+        return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Male" : "Female",
+            diaChi, sdt, email, trangThai == 1 ? "Active" : "InActive"};
     }
 }

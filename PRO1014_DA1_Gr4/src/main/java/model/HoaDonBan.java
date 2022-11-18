@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -23,9 +24,8 @@ import javax.persistence.Table;
  * @author ADMIN
  */
 @Entity
-@Table(name = "HoaDonBan")
+@Table(name = "HoaDon")
 public class HoaDonBan implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -36,13 +36,13 @@ public class HoaDonBan implements Serializable {
     private NhanVien nhanVien;
 
     @OneToMany(mappedBy = "hoaDonBan", fetch = FetchType.EAGER)
-    private Set<HoaDonChiTiet> listHdCt;
+    private List<HoaDonChiTiet> listHdCt;
 
     @ManyToOne
     @JoinColumn(name = "IdKH")
     private KhachHang khachHang;
 
-    @Column(name = "MaHDB")
+    @Column(name = "MaHD")
     private String maHDB;
 
     @ManyToOne
@@ -51,10 +51,10 @@ public class HoaDonBan implements Serializable {
     
 
     @Column(name = "NgayTao")
-    private String ngayTao;
+    private Date ngayTao;
 
     @Column(name = "NgayThanhToan")
-    private String ngayThanhToan;
+    private Date ngayThanhToan;
 
     @Column(name = "NguoiNhan")
     private String nguoiNhan;
@@ -93,15 +93,13 @@ public class HoaDonBan implements Serializable {
         this.nhanVien = nhanVien;
     }
 
-    public Set<HoaDonChiTiet> getListHdCt() {
+    public List<HoaDonChiTiet> getListHdCt() {
         return listHdCt;
     }
 
-    public void setListHdCt(Set<HoaDonChiTiet> listHdCt) {
+    public void setListHdCt(List<HoaDonChiTiet> listHdCt) {
         this.listHdCt = listHdCt;
     }
-
-    
 
     public KhachHang getKhachHang() {
         return khachHang;
@@ -119,21 +117,23 @@ public class HoaDonBan implements Serializable {
         this.maHDB = maHDB;
     }
 
-    public String getNgayTao() {
+    public Date getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(String ngayTao) {
+    public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public String getNgayThanhToan() {
+    public Date getNgayThanhToan() {
         return ngayThanhToan;
     }
 
-    public void setNgayThanhToan(String ngayThanhToan) {
+    public void setNgayThanhToan(Date ngayThanhToan) {
         this.ngayThanhToan = ngayThanhToan;
     }
+
+   
 
     public String getNguoiNhan() {
         return nguoiNhan;
@@ -169,16 +169,36 @@ public class HoaDonBan implements Serializable {
 
     @Override
     public String toString() {
-        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", listHdCt=" + listHdCt + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
+        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", khuyenMai=" + khuyenMai + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
     }
+    
+    
+
+//    @Override
+//    public String toString() {
+//        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", listHdCt=" + listHdCt + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
+//    }
 
     public HoaDonBan() {
     }
 
-    public HoaDonBan(Integer id, NhanVien nhanVien, Set<HoaDonChiTiet> listHdCt, KhachHang khachHang, String maHDB, KhuyenMai khuyenMai, String ngayTao, String ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
+//    public HoaDonBan(Integer id, NhanVien nhanVien, List<HoaDonChiTiet> listHdCt, KhachHang khachHang, String maHDB, String ngayTao, String ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
+//        this.id = id;
+//        this.nhanVien = nhanVien;
+//        this.listHdCt = listHdCt;
+//        this.khachHang = khachHang;
+//        this.maHDB = maHDB;
+//        this.ngayTao = ngayTao;
+//        this.ngayThanhToan = ngayThanhToan;
+//        this.nguoiNhan = nguoiNhan;
+//        this.sdt = sdt;
+//        this.diaChi = diaChi;
+//        this.trangThai = trangThai;
+//    }
+
+    public HoaDonBan(Integer id, NhanVien nhanVien, KhachHang khachHang, String maHDB, KhuyenMai khuyenMai, Date ngayTao, Date ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
         this.id = id;
         this.nhanVien = nhanVien;
-        this.listHdCt = listHdCt;
         this.khachHang = khachHang;
         this.maHDB = maHDB;
         this.khuyenMai = khuyenMai;
@@ -189,7 +209,5 @@ public class HoaDonBan implements Serializable {
         this.diaChi = diaChi;
         this.trangThai = trangThai;
     }
-
-   
 
 }
