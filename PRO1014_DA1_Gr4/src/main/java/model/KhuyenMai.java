@@ -6,6 +6,7 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,136 +28,151 @@ public class KhuyenMai implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "id")
+    private int id;
 
-    @Column(name = "MaKM")
-    private String maKM;
+    @Column(name = "makm")
+    private String makm;
 
-    @Column(name = "TenKM")
-    private String tenKM;
+    @Column(name = "tenkm")
+    private String tenkm;
 
-    @Column(name = "NgayTao")
-    private String ngayTao;
+    @Column(name = "ngaytao")
+    private Date ngayTao;
 
-    @Column(name = "PhanTramGiam")
-    private Integer phanTramGiam;
+    @Column(name = "phantramgiam")
+    private int phantramgiam;
 
-    @Column(name = "MinHoaDon")
-    private BigDecimal minHoaDon;
+    @Column(name = "minhoadon")
+    private int minhoadon;
 
-    @Column(name = "NgayHetHan")
-    private String ngayHetHan;
+    @Column(name = "ngayhethan")
+    private Date ngayhethan;
 
-    @Column(name = "GhiChu")
-    private String ghiChu;
+    @Column(name = "ghichu")
+    private String ghichu;
 
-    @Column(name = "TrangThai")
-    private Integer trangThai;
+    @Column(name = "trangthai")
+    private int trangthai;
     
-    @OneToMany(mappedBy = "khuyenMai",fetch = FetchType.EAGER)
-    private List<HoaDonBan> listhHoaDonBan; 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getMaKM() {
-        return maKM;
-    }
-
-    public void setMaKM(String maKM) {
-        this.maKM = maKM;
-    }
-
-    public String getTenKM() {
-        return tenKM;
-    }
-
-    public void setTenKM(String tenKM) {
-        this.tenKM = tenKM;
-    }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public Integer getPhanTramGiam() {
-        return phanTramGiam;
-    }
-
-    public void setPhanTramGiam(Integer phanTramGiam) {
-        this.phanTramGiam = phanTramGiam;
-    }
-
-    public BigDecimal getMinHoaDon() {
-        return minHoaDon;
-    }
-
-    public void setMinHoaDon(BigDecimal minHoaDon) {
-        this.minHoaDon = minHoaDon;
-    }
-
-    public String getNgayHetHan() {
-        return ngayHetHan;
-    }
-
-    public void setNgayHetHan(String ngayHetHan) {
-        this.ngayHetHan = ngayHetHan;
-    }
-
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
-    }
-
-    public Integer getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(Integer trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public List<HoaDonBan> getListhHoaDonBan() {
-        return listhHoaDonBan;
-    }
-
-    public void setListhHoaDonBan(List<HoaDonBan> listhHoaDonBan) {
-        this.listhHoaDonBan = listhHoaDonBan;
-    }
-
-    @Override
-    public String toString() {
-        return "KhuyenMai{" + "id=" + id + ", maKM=" + maKM + ", tenKM=" + tenKM + ", ngayTao=" + ngayTao + ", phanTramGiam=" + phanTramGiam + ", minHoaDon=" + minHoaDon + ", ngayHetHan=" + ngayHetHan + ", ghiChu=" + ghiChu + ", trangThai=" + trangThai + ", listhHoaDonBan=" + listhHoaDonBan + '}';
-    }
+    @OneToMany(mappedBy= "khuyenMai",fetch = FetchType.LAZY)
+    private List<HoaDonBan> listHd;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(Integer id, String maKM, String tenKM, String ngayTao, Integer phanTramGiam, BigDecimal minHoaDon, String ngayHetHan, String ghiChu, Integer trangThai, List<HoaDonBan> listhHoaDonBan) {
+    public KhuyenMai(int id, String makm, String tenkm, Date ngayTao, int phantramgiam, int minhoadon, Date ngayhethan, String ghichu, int trangthai) {
         this.id = id;
-        this.maKM = maKM;
-        this.tenKM = tenKM;
+        this.makm = makm;
+        this.tenkm = tenkm;
         this.ngayTao = ngayTao;
-        this.phanTramGiam = phanTramGiam;
-        this.minHoaDon = minHoaDon;
-        this.ngayHetHan = ngayHetHan;
-        this.ghiChu = ghiChu;
-        this.trangThai = trangThai;
-        this.listhHoaDonBan = listhHoaDonBan;
+        this.phantramgiam = phantramgiam;
+        this.minhoadon = minhoadon;
+        this.ngayhethan = ngayhethan;
+        this.ghichu = ghichu;
+        this.trangthai = trangthai;
     }
+
+    public KhuyenMai(int id, String makm, String tenkm, Date ngayTao, int phantramgiam, int minhoadon, Date ngayhethan, String ghichu, int trangthai, List<HoaDonBan> listHd) {
+        this.id = id;
+        this.makm = makm;
+        this.tenkm = tenkm;
+        this.ngayTao = ngayTao;
+        this.phantramgiam = phantramgiam;
+        this.minhoadon = minhoadon;
+        this.ngayhethan = ngayhethan;
+        this.ghichu = ghichu;
+        this.trangthai = trangthai;
+        this.listHd = listHd;
+    }
+
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMakm() {
+        return makm;
+    }
+
+    public void setMakm(String makm) {
+        this.makm = makm;
+    }
+
+    public String getTenkm() {
+        return tenkm;
+    }
+
+    public void setTenkm(String tenkm) {
+        this.tenkm = tenkm;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public int getPhantramgiam() {
+        return phantramgiam;
+    }
+
+    public void setPhantramgiam(int phantramgiam) {
+        this.phantramgiam = phantramgiam;
+    }
+
+    public int getMinhoadon() {
+        return minhoadon;
+    }
+
+    public void setMinhoadon(int minhoadon) {
+        this.minhoadon = minhoadon;
+    }
+
+    public Date getNgayhethan() {
+        return ngayhethan;
+    }
+
+    public void setNgayhethan(Date ngayhethan) {
+        this.ngayhethan = ngayhethan;
+    }
+
+    public String getGhichu() {
+        return ghichu;
+    }
+
+    public void setGhichu(String ghichu) {
+        this.ghichu = ghichu;
+    }
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public List<HoaDonBan> getListHd() {
+        return listHd;
+    }
+
+    public void setListHd(List<HoaDonBan> listHd) {
+        this.listHd = listHd;
+    }
+
+    @Override
+    public String toString() {
+        return  tenkm +"-"+phantramgiam+"%";
+    }
+
         
     
 }

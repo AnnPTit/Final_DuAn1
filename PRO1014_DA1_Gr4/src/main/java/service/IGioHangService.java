@@ -6,13 +6,27 @@ package service;
 
 import java.util.List;
 import model.GioHang;
+import model.GioHangChiTiet;
 
 /**
  *
  * @author ADMIN
  */
 public interface IGioHangService {
-     List<GioHang> getAll();
-     GioHang getGioHangByKH(int idKH);
-     String updateGioHang(GioHang gioHang);
+
+    List<GioHang> getAll();
+
+    GioHang getGioHangByKH(int idKH);
+
+    String updateGioHang(GioHang gioHang);
+
+    void addGHCT(GioHangChiTiet ghct);
+
+    List<GioHangChiTiet> getGioHangChiTiet(int idGH);
+
+    void updateTrangThaiGHCT(int idGH, int trangThai);
+
+    String deleteGhct(GioHangChiTiet ghct);
+
+    void updateSoLuongGioHang(int id, int soLuong);
 }

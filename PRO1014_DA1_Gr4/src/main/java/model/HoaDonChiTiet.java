@@ -28,11 +28,11 @@ public class HoaDonChiTiet implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "IdHDB")
+    @JoinColumn(name = "IdHD")
     private HoaDonBan hoaDonBan;
 
     @ManyToOne
-    @JoinColumn(name = "IdSpct")
+    @JoinColumn(name = "IdCTSP")
     private ChiTietSanPham chiTietSanPham;
     
     @Column(name = "SoLuong")

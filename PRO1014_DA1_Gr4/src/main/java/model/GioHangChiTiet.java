@@ -33,15 +33,13 @@ public class GioHangChiTiet implements Serializable {
     private GioHang gioHang;
     
     @ManyToOne
-    @JoinColumn(name = "IdSpct", nullable = false)
+    @JoinColumn(name = "IdCTSP", nullable = false)
     private ChiTietSanPham chiTietSanPham;
     
     @Column(name = "SoLuong")
     private Integer soLuong ; 
     
-    @Column(name = "DonGia")
-    private BigDecimal donGia ; 
-    
+  
     @Column(name = "TrangThai")
     private Integer trangThai ;
 
@@ -77,13 +75,7 @@ public class GioHangChiTiet implements Serializable {
         this.soLuong = soLuong;
     }
 
-    public BigDecimal getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(BigDecimal donGia) {
-        this.donGia = donGia;
-    }
+   
 
     public Integer getTrangThai() {
         return trangThai;
@@ -96,18 +88,18 @@ public class GioHangChiTiet implements Serializable {
     public GioHangChiTiet() {
     }
 
-    public GioHangChiTiet(Integer id, GioHang gioHang, ChiTietSanPham chiTietSanPham, Integer soLuong, BigDecimal donGia, Integer trangThai) {
+    public GioHangChiTiet(Integer id, GioHang gioHang, ChiTietSanPham chiTietSanPham, Integer soLuong, Integer trangThai) {
         this.id = id;
         this.gioHang = gioHang;
         this.chiTietSanPham = chiTietSanPham;
         this.soLuong = soLuong;
-        this.donGia = donGia;
         this.trangThai = trangThai;
     }
 
+
     @Override
     public String toString() {
-        return "GioHangChiTiet{" + "id=" + id + ", gioHang=" + gioHang + ", chiTietSanPham=" + chiTietSanPham + ", soLuong=" + soLuong + ", donGia=" + donGia + ", trangThai=" + trangThai + '}';
+        return "GioHangChiTiet{" + "id=" + id  + ", chiTietSanPham=" + chiTietSanPham + ", soLuong=" + soLuong + ", trangThai=" + trangThai + '}';
     }
     
     
