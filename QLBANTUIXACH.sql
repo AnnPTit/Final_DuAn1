@@ -1,4 +1,4 @@
-CREATE DATABASE QLBANTUIXACH 
+﻿CREATE DATABASE QLBANTUIXACH 
 GO 
 USE QLBANTUIXACH
 GO 
@@ -217,11 +217,13 @@ go
 Alter table HoaDon add constraint FK_HD_KM 
 foreign key(IdKM) references KhuyenMai(Id)
 
+-- Tự động thêm giỏ hàng khi tạo 1 khách hàng mới
 create trigger Auto_Add_Gh on khachHang after insert as 
 begin 
 insert into GioHang values((select id from inserted) ,null,GETDATE(),null,1)
 end
 
+-- Tự động update số lượng tồn  khi thanh toán 
 CREATE TRIGGER [dbo].[Update_SoLuongTon] ON [dbo].[HoaDonChiTiet] AFTER INSERT AS 
 BEGIN
 	UPDATE ChiTietSP
@@ -233,28 +235,30 @@ BEGIN
 	FROM ChiTietSP
 	JOIN inserted ON ChiTietSP.Id = inserted.IdCTSP
 END
+-- Tự động update số lượng tồn khi cho sản phẩm vào giỏ hàng 
+--CREATE TRIGGER [dbo].[Update_SoLuong_AfIS_GH] ON [dbo].[GioHangChiTiet] AFTER INSERT AS 
+--BEGIN
+--	UPDATE ChiTietSP
+--	SET SoLuongTon = SoLuongTon - (
+--		SELECT SoLuong
+--		FROM inserted
+--		WHERE IdCTSP = ChiTietSP.Id
+--	)
+--	FROM ChiTietSP
+--	JOIN inserted ON ChiTietSP.Id = inserted.IdCTSP
+--END
+-- Tự động Update sl tồn khi xóa sp khỏi giỏ hàng	
+--CREATE TRIGGER [dbo].[Update_SoLuong_AfDe_GH] ON [dbo].[GioHangChiTiet] AFTER DELETE AS 
+--BEGIN
+--	UPDATE ChiTietSP
+--	SET SoLuongTon = SoLuongTon + (
+--		SELECT SoLuong
+--		FROM deleted
+--		WHERE IdCTSP = ChiTietSP.Id
+--	)
+--	FROM ChiTietSP
+--	JOIN deleted ON ChiTietSP.Id = deleted.IdCTSP
+--END
 
-CREATE TRIGGER [dbo].[Update_SoLuong_AfIS_GH] ON [dbo].[GioHangChiTiet] AFTER INSERT AS 
-BEGIN
-	UPDATE ChiTietSP
-	SET SoLuongTon = SoLuongTon - (
-		SELECT SoLuong
-		FROM inserted
-		WHERE IdCTSP = ChiTietSP.Id
-	)
-	FROM ChiTietSP
-	JOIN inserted ON ChiTietSP.Id = inserted.IdCTSP
-END
 
-CREATE TRIGGER [dbo].[Update_SoLuong_AfDe_GH] ON [dbo].[GioHangChiTiet] AFTER DELETE AS 
-BEGIN
-	UPDATE ChiTietSP
-	SET SoLuongTon = SoLuongTon + (
-		SELECT SoLuong
-		FROM deleted
-		WHERE IdCTSP = ChiTietSP.Id
-	)
-	FROM ChiTietSP
-	JOIN deleted ON ChiTietSP.Id = deleted.IdCTSP
-END
 
