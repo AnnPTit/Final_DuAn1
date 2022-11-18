@@ -5,21 +5,19 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import model.KhachHang;
 import model.KhuyenMai;
-import model.NhanVien;
 
 /**
  *
  * @author T450s
  */
 public interface IHoaDonService {
-
     ArrayList<HoaDonBan> getListHoaDonBan();
-
-    ArrayList<KhachHang> getListKhach();
+    List<KhachHang> getListKhach();
 
     // ArrayList<NhanVien> getListNv();
     ArrayList<KhuyenMai> getListKhuyenMai();

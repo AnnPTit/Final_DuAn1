@@ -20,21 +20,9 @@ import service.NhanVienService;
  */
 public class Login1 extends javax.swing.JFrame {
 
-<<<<<<< HEAD
 
     NhanVienService nhanVienService = new NhanVienImpl();
 
-=======
-    /**
-     * Creates new form Login
-     */
-
-    NhanVienService nhanVienService = new NhanVienImpl();
-
-    
-    
-
->>>>>>> a5e379f6311a407ebc56510d26adbccc90e3fb7d
 
     public Login1() {
         initComponents();

@@ -6,7 +6,7 @@ package repository;
 
 import model.KhachHang;
 import hibernateConfig.HibernateConfig;
-import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import org.hibernate.Session;
@@ -21,75 +21,65 @@ public class KhachHangRepository {
 
     Session session = HibernateConfig.getFACTORY().openSession();
 
-    public ArrayList<KhachHang> getAll() {
+    public List<KhachHang> getAll() {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        //  Query q = (Query) em.createQuery("From SanPham");
-        Query query = (Query) em.createQuery("From KhachHang where TrangThai =: trangthai order by ID desc");
-        query.setParameter("trangthai", 1);
-        @SuppressWarnings("unchecked")
-        ArrayList<KhachHang> list = new ArrayList<>();
-        list = (ArrayList<KhachHang>) query.getResultList();
+        Query q = (Query) em.createQuery("From KhachHang");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<KhachHang> list = q.getResultList();
         return list;
     }
 
-    public Boolean add(KhachHang khachHang) {
-        Transaction transision = null;
-        Integer check = 0;
-        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
-            transision = session.beginTransaction();
-            check = (Integer) session.save(khachHang);
-            transision.commit();
-            return check > 0;
+    public boolean add(KhachHang kh) {
+        Transaction tran = null;
+        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            ses.saveOrUpdate(kh);
+            tran.commit();
+            return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
         }
-        return null;
     }
-
-//    public Integer delete(KhachHang khachHang) {
-//        Transaction transision = null;
-//        Integer check = 0;
-//        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
-//            transision = session.beginTransaction();
-//            Query query = session.createQuery("DELETE FROM KhachHang WHERE MaKH = :code");
-//            query.setParameter("code", khachHang.getCode());
-//            check = query.executeUpdate();
-//            transision.commit();
-//            return check;
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return 0;
-//    }
-    public KhachHang update(KhachHang khachHang) {
-        Transaction transision = null;
-        Integer check = 0;
-        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
-            transision = session.beginTransaction();
-            Query query = session.createQuery("""
-                                              UPDATE KhachHang SET TenKH = :name, GioiTinh = :sex,
-                                              DiaChi = :address, SDT = :phone, Email = :email,
-                                              TrangThai = :status WHERE MaKH = :code """);
-            query.setParameter("name", khachHang.getTenKH());
-            query.setParameter("sex", khachHang.getGioiTinh());
-            query.setParameter("address", khachHang.getDiaChi());
-            query.setParameter("phone", khachHang.getSdt());
-            query.setParameter("email", khachHang.getEmail());
-            query.setParameter("status", khachHang.getTrangThai());
-            query.setParameter("code", khachHang.getMaKH());
-            check = query.executeUpdate();
-            transision.commit();
+    
+    public boolean update(KhachHang kh, Integer id) {
+        Transaction tran = null;
+        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE KhachHang kh SET kh.maKH=:ma,kh.tenKH=:ten,kh.gioiTinh=:gioiTinh,"
+                    + "kh.diaChi=:diaChi,kh.sdt=:sdt,kh.email=:email WHERE kh.id=:id");
+            q.setParameter("ma", kh.getMaKH());
+            q.setParameter("ten", kh.getTenKH());
+            q.setParameter("gioiTinh", kh.getGioiTinh());
+            q.setParameter("diaChi", kh.getDiaChi());
+            q.setParameter("sdt", kh.getSdt());
+            q.setParameter("email", kh.getEmail());
+            q.setParameter("id", id);
+            q.executeUpdate();
+            tran.commit();
+            return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
         }
-        return khachHang;
     }
-
-    public static void main(String[] args) {
-        ArrayList<KhachHang> lst = new KhachHangRepository().getAll();
-        System.out.println(lst);
+    
+    public boolean updateTrangThai(Integer id) {
+        Transaction tran = null;
+        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE KhachHang kh SET kh.trangThai = 1 WHERE kh.id=:id");
+            q.setParameter("id", id);
+            q.executeUpdate();
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

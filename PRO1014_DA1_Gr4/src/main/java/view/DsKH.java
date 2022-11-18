@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.crypto.Data;
 import model.KhachHang;
-import service.IKhachHangService;
 import service.impl.KhachHangImpl;
 import utilities.Auth;
+import service.KhachHangService;
 
 /**
  *
@@ -24,7 +24,7 @@ public class DsKH extends javax.swing.JFrame {
      * Creates new form DsKH
      */
     private List<KhachHang> listKhachHang = new ArrayList<>();
-    IKhachHangService khachHangService = new KhachHangImpl();
+    KhachHangService khachHangService = new KhachHangImpl();
 
     public DsKH() {
         initComponents();

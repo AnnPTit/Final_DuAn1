@@ -24,8 +24,6 @@ import javax.persistence.Table;
 @Table(name = "KhachHang")
 public class KhachHang implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -53,7 +51,7 @@ public class KhachHang implements Serializable {
     private Integer trangThai;
 
     @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
-    private GioHang gioHang ;
+    private GioHang gioHang;
 
     public KhachHang(Integer id, String maKH, String tenKH, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai, GioHang gioHang) {
         this.id = id;
@@ -67,16 +65,8 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
-
-
-    
-
     public KhachHang() {
     }
-    
-
-
-
 
     public Integer getId() {
         return id;
@@ -142,7 +132,6 @@ public class KhachHang implements Serializable {
         this.trangThai = trangThai;
     }
 
-
     public GioHang getGioHang() {
         return gioHang;
     }
@@ -151,17 +140,8 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
-  
-
-    @Override
-    public String toString() {
-        return "KhachHang{" + "id=" + id + ", code=" + maKH + ", name=" + tenKH
-                + ", sex=" + gioiTinh + ", address=" + diaChi + ", phone=" + sdt
-                + ", email=" + email + ", status=" + trangThai + '}';
-    }
-
     public Object[] toDataRow() {
-        return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Male" : "Female",
-            diaChi, sdt, email, trangThai == 1 ? "Active" : "InActive"};
+        return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Nam" : "Nữ",
+            diaChi, sdt, email, trangThai == 0 ? "Đang hoạt động" : "Ngừng hoạt động"};
     }
 }

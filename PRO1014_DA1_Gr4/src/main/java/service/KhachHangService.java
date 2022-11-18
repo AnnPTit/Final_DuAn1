@@ -4,20 +4,16 @@
  */
 package service;
 
-import java.util.ArrayList;
+import java.util.List;
 import model.KhachHang;
 
 /**
  *
  * @author ADMIN
  */
-public interface IKhachHangService {
-
-    ArrayList<KhachHang> getAll();
-
-    String add(KhachHang khachHang);
-
-    String delete(KhachHang khachHang);
-
-    KhachHang update(KhachHang khachHang);
+public interface KhachHangService {
+    public List<KhachHang> getAll();
+    String add(KhachHang kh);
+    String update(KhachHang kh, Integer id);
+    String updateTrangThai(Integer id);
 }

@@ -5,6 +5,7 @@
 package service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import model.KhachHang;
@@ -23,7 +24,7 @@ import service.IHoaDonService;
 public class HoaDonBanSer implements IHoaDonService {
 
     HoaDonBanRepo hdr = new HoaDonBanRepo();
-    KhachHangRepository khr = new KhachHangRepository();
+    KhachHangRepository kh = new KhachHangRepository();
     KhuyenMaiRepo kmr = new KhuyenMaiRepo();
 
     @Override
@@ -32,8 +33,8 @@ public class HoaDonBanSer implements IHoaDonService {
     }
 
     @Override
-    public ArrayList<KhachHang> getListKhach() {
-        return khr.getAll();
+    public List<KhachHang> getListKhach() {
+        return kh.getAll();
     }
 
 //    @Override

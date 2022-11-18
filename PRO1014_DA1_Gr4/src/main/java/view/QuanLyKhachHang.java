@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhachHang;
-import service.IKhachHangService;
 import service.impl.KhachHangImpl;
+import service.KhachHangService;
 
 /**
  *
@@ -16,7 +16,7 @@ import service.impl.KhachHangImpl;
  */
 public class QuanLyKhachHang extends javax.swing.JPanel {
 
-    private IKhachHangService khSer = new KhachHangImpl();
+    private KhachHangService khSer = new KhachHangImpl();
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
 
@@ -27,12 +27,12 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     }
 
     void loadKhachHang(List<KhachHang> list) {
-//        DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
-//        model.setRowCount(0);
-//        list = new KhachHangImpl().getAll();
-//        for (KhachHang x : list) {
-//            model.addRow(x.toDataRow());
-//        }
+        DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
+        model.setRowCount(0);
+        list = new KhachHangImpl().getAll();
+        for (KhachHang x : list) {
+            model.addRow(x.toDataRow());
+        }
     }
 
     KhachHang getData() {
@@ -84,6 +84,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbKhachHang = new swing.table.Table();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel2.border.title"))); // NOI18N
 
@@ -275,13 +278,50 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             .addGap(0, 202, Short.MAX_VALUE)
         );
 
+        tbKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Mã KH", "Tên KH", "Giới tính", "Địa chỉ", "Điện thoại", "Email", "Trạng thái"
+            }
+        ));
+        tbKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbKhachHangMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbKhachHang);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,13 +334,14 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(293, 293, 293)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -316,28 +357,28 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMouseClicked
-//        int row = tbKhachHang.getSelectedRow();
-//        listKH = khSer.getAll();
-//        KhachHang kh = listKH.get(row);
-//        txtMa.setText(kh.getTenKH());
-//        txtTen.setText(kh.getTenKH());
-//        txtDiaChi.setText(kh.getDiaChi());
-//        txtSDT.setText(kh.getSdt());
-//        txtEmail.setText(kh.getEmail());
-//
-//        Boolean gioiTinh = kh.getGioiTinh();
-//        if (gioiTinh == true) {
-//            rdoNu.setSelected(true);
-//        } else {
-//            rdoNam.setSelected(true);
-//        }
+        int row = tbKhachHang.getSelectedRow();
+        listKH = khSer.getAll();
+        KhachHang kh = listKH.get(row);
+        txtMa.setText(kh.getMaKH());
+        txtTen.setText(kh.getTenKH());
+        txtDiaChi.setText(kh.getDiaChi());
+        txtSDT.setText(kh.getSdt());
+        txtEmail.setText(kh.getEmail());
+
+        Boolean gioiTinh = kh.getGioiTinh();
+        if (gioiTinh == true) {
+            rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
+        }
     }//GEN-LAST:event_tbKhachHangMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -349,23 +390,23 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-//        int row = tbKhachHang.getSelectedRow();
-//        Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-//
-//        if (validateForm()) {
-//            String result = new KhachHangImpl().update(getData(), id);
-//            JOptionPane.showMessageDialog(this, result);
-//            loadKhachHang(kh);
-//        }
+        int row = tbKhachHang.getSelectedRow();
+        Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
+
+        if (validateForm()) {
+            String result = new KhachHangImpl().update(getData(), id);
+            JOptionPane.showMessageDialog(this, result);
+            loadKhachHang(kh);
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-//        int row = tbKhachHang.getSelectedRow();
-//        Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-//
-//        String result = new KhachHangImpl().updateTrangThai(id);
-//        JOptionPane.showMessageDialog(this, result);
-//        loadKhachHang(kh);
+        int row = tbKhachHang.getSelectedRow();
+        Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
+
+        String result = new KhachHangImpl().updateTrangThai(id);
+        JOptionPane.showMessageDialog(this, result);
+        loadKhachHang(kh);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -381,15 +422,15 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchKeyReleased
 
     void searchByPhone() {
-//        DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
-//        tb.setRowCount(0);
-//
-//        List<KhachHang> kh = khSer.getAll();
-//        for (KhachHang x : kh) {
-//            if (x.getSdt().toLowerCase().contains(txtSearch.getText().trim().toLowerCase())) {
-//                tb.addRow(x.toDataRow());
-//            }
-//        }
+        DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
+        tb.setRowCount(0);
+
+        List<KhachHang> kh = khSer.getAll();
+        for (KhachHang x : kh) {
+            if (x.getSdt().toLowerCase().contains(txtSearch.getText().trim().toLowerCase())) {
+                tb.addRow(x.toDataRow());
+            }
+        }
     }
 
     public boolean validateForm() {
@@ -432,9 +473,12 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
+    private swing.table.Table tbKhachHang;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMa;

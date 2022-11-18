@@ -447,9 +447,9 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
         Boolean gioiTinh = nv.getGioiTinh();
         if (gioiTinh == true) {
-            rdoNu.setSelected(true);
-        } else {
             rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
         }
     }//GEN-LAST:event_tbNhanVienMouseClicked
 
