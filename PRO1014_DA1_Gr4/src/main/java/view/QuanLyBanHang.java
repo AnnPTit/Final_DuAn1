@@ -1076,7 +1076,7 @@ public class QuanLyBanHang extends javax.swing.JPanel {
         KhuyenMai km = DataGlobal.getKhuyenMai();
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
-        hoaDonBanService.update(hdb, hdb.getId());
+        hoaDonBanService.updateTrangThaiHoaDon(hdb.getId(), 2);
         loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
 
         JOptionPane.showMessageDialog(this, "Thành công");
