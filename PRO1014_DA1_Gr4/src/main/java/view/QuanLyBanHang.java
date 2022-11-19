@@ -327,7 +327,7 @@ public class QuanLyBanHang extends javax.swing.JPanel {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,9 +394,9 @@ public class QuanLyBanHang extends javax.swing.JPanel {
                             .addComponent(jLabel14)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74)
+                                .addGap(31, 31, 31)
                                 .addComponent(jLabel15)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 24, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -1075,10 +1075,13 @@ public class QuanLyBanHang extends javax.swing.JPanel {
         KhuyenMai km = DataGlobal.getKhuyenMai();
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
-        hoaDonBanService.updateTrangThaiHoaDon(hdb.getId(), 2);
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
-
+        hoaDonBanService.update(hdb, hdb.getId());
         JOptionPane.showMessageDialog(this, "Thành công");
+       
+        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+        loadTableHoaDon(hoaDonBanService.getListHoaDonBan());
+
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTaoHoaDonwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonwActionPerformed
