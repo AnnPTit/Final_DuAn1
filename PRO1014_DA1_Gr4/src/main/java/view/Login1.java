@@ -13,6 +13,7 @@ import view.QuanLySanPham;
 import javax.swing.JFrame;
 import service.impl.NhanVienImpl;
 import service.NhanVienService;
+import utilities.Auth;
 
 /**
  *
@@ -20,6 +21,9 @@ import service.NhanVienService;
  */
 public class Login1 extends javax.swing.JFrame {
 
+//    public static void main(String[] args) {
+//        System.out.println(doHashing("An123"));
+//    }
 
     NhanVienService nhanVienService = new NhanVienImpl();
 
@@ -138,10 +142,12 @@ public class Login1 extends javax.swing.JFrame {
         if (nhanVien != null) {
             if (nhanVien.getPass().equalsIgnoreCase((doHashing(pass)))) {
                 if (nhanVien.getChucVu().getId() == 1) {
+                    Auth.setNv(nhanVien);
                     this.dispose();
                     new Main().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Bạn là quản lí");
+                    Auth.setNv(nhanVien);
                     this.dispose();
                     new Main().setVisible(true);
                 }

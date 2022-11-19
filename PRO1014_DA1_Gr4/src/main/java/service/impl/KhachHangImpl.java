@@ -14,8 +14,9 @@ import service.KhachHangService;
  *
  * @author ADMIN
  */
-public class KhachHangImpl implements KhachHangService{
-     private KhachHangRepository khRepo = new KhachHangRepository();
+public class KhachHangImpl implements KhachHangService {
+
+    private KhachHangRepository khRepo = new KhachHangRepository();
 
     public KhachHangImpl() {
     }
@@ -27,7 +28,7 @@ public class KhachHangImpl implements KhachHangService{
 
     @Override
     public String add(KhachHang kh) {
-        if(khRepo.add(kh)) {
+        if (khRepo.add(kh)) {
             return "Thêm thành công";
         } else {
             return "Thêm thất bại";
@@ -36,7 +37,7 @@ public class KhachHangImpl implements KhachHangService{
 
     @Override
     public String update(KhachHang kh, Integer id) {
-        if(khRepo.update(kh, id)) {
+        if (khRepo.update(kh, id)) {
             return "Sửa thành công";
         } else {
             return "Sửa thất bại";
@@ -45,11 +46,16 @@ public class KhachHangImpl implements KhachHangService{
 
     @Override
     public String updateTrangThai(Integer id) {
-        if(khRepo.updateTrangThai(id)) {
+        if (khRepo.updateTrangThai(id)) {
             return "Thành công";
         } else {
             return "Thất bại";
         }
+    }
+
+    @Override
+    public List<KhachHang> getAllByTrangThai(int trangThai) {
+        return khRepo.getAllByTrangThai(trangThai);
     }
 
 }

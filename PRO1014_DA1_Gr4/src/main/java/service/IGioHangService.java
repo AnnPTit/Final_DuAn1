@@ -24,7 +24,7 @@ public interface IGioHangService {
 
     List<GioHangChiTiet> getGioHangChiTiet(int idGH);
 
-    void updateTrangThaiGHCT(int idGH, int trangThai);
+    Boolean updateTrangThaiGHCT(int idGH, int trangThai);
 
     String deleteGhct(GioHangChiTiet ghct);
 

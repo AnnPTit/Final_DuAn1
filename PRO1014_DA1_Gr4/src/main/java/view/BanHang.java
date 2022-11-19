@@ -652,14 +652,14 @@ public class BanHang extends javax.swing.JFrame {
                             .addComponent(btnTaoHoaDonw)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton2)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3)
-                                    .addComponent(lbnKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lbnKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -694,7 +694,7 @@ public class BanHang extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(lbnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1143,11 +1143,16 @@ public class BanHang extends javax.swing.JFrame {
         if (DataGlobal.getKhuyenMai() == null) {
             return;
         }
+        if (txtTienKhachDua.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách đưa");
+            return;
+        }
         lbnKhuyenMai.setText(DataGlobal.getKhuyenMai().getTenkm());
         double tongTien = Double.valueOf(lbnTongTien.getText());
         double phamTramGiam = DataGlobal.getKhuyenMai().getPhantramgiam();
         double tongTienSauKM = tongTien - (tongTien * phamTramGiam) / 100;
         lbnTongTien.setText(String.valueOf(tongTienSauKM));
+        lbnTienThua.setText(String.valueOf(Double.valueOf(txtTienKhachDua.getText()) - tongTienSauKM));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
