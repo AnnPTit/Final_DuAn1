@@ -20,17 +20,50 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
 
+    private final int itemPerpage = 5;
+    private int totalItem;
+    private int currentPage = -1;
+    private int numPage;
+    private List<KhachHang> listPaging = new ArrayList<>();
+
     public QuanLyKhachHang() {
         initComponents();
-        loadKhachHang(kh);
+        loadKhachHang();
         listKH = khSer.getAll();
+        listPaging = listKH;
+        this.btnNext.doClick();
+
+        totalItem = listKH.size();
+        lbTotalKhachHang.setText("Total: " + totalItem);
     }
 
-    void loadKhachHang(List<KhachHang> list) {
+    private void showListTarget(List<KhachHang> list) {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
-        list = new KhachHangImpl().getAll();
         for (KhachHang x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    List<KhachHang> getListByCurrentPage() {
+
+        totalItem = listPaging.size();
+        numPage = (totalItem - 1) / itemPerpage + 1;
+        int start = (currentPage) * itemPerpage;
+        // = 5
+        int end = start + itemPerpage;
+        if (end > totalItem) {
+            end = totalItem;
+        }
+        System.out.println(start + " - " + end);
+        return listPaging.subList(start, end);
+    }
+
+    void loadKhachHang() {
+        DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
+        model.setRowCount(0);
+        kh = new KhachHangImpl().getAll();
+        for (KhachHang x : kh) {
             model.addRow(x.toDataRow());
         }
     }
@@ -86,6 +119,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbKhachHang = new swing.table.Table();
+        btnPrevious = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        lbTotalKhachHang = new javax.swing.JLabel();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel2.border.title"))); // NOI18N
 
@@ -219,7 +255,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                     .addComponent(rdoNu)
                     .addComponent(jLabel6)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,6 +305,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -281,6 +318,16 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tbKhachHang);
+        if (tbKhachHang.getColumnModel().getColumnCount() > 0) {
+            tbKhachHang.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title0")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title1")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title2")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title3")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title4")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(5).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title5")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(6).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title6")); // NOI18N
+            tbKhachHang.getColumnModel().getColumn(7).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.tbKhachHang.columnModel.title7")); // NOI18N
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -295,21 +342,50 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnPrevious.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(btnPrevious, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.btnPrevious.text")); // NOI18N
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousActionPerformed(evt);
+            }
+        });
+
+        btnNext.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(btnNext, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.btnNext.text")); // NOI18N
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        lbTotalKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTotalKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        org.openide.awt.Mnemonics.setLocalizedText(lbTotalKhachHang, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.lbTotalKhachHang.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(btnPrevious)
+                        .addGap(91, 91, 91)
+                        .addComponent(btnNext)
+                        .addGap(247, 247, 247)
+                        .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(202, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -318,11 +394,16 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(392, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPrevious)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNext)
+                        .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(354, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -366,7 +447,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new KhachHangImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            loadKhachHang(kh);
+            loadKhachHang();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -377,7 +458,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new KhachHangImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
-            loadKhachHang(kh);
+            loadKhachHang();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -387,7 +468,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
         String result = new KhachHangImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        loadKhachHang(kh);
+        loadKhachHang();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -401,6 +482,27 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         searchByPhone();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        currentPage++;
+        if (currentPage < numPage) {
+            showListTarget(getListByCurrentPage());
+        } else {
+            currentPage = 0;
+            showListTarget(getListByCurrentPage());
+        }
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+        currentPage--;
+        if (currentPage < 0) {
+            currentPage = numPage - 1;
+            System.out.println(currentPage);
+            showListTarget(getListByCurrentPage());
+        } else {
+            showListTarget(getListByCurrentPage());
+        }
+    }//GEN-LAST:event_btnPreviousActionPerformed
 
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
@@ -441,6 +543,8 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -456,6 +560,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbTotalKhachHang;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
     private swing.table.Table tbKhachHang;
