@@ -136,7 +136,7 @@ public class Login1 extends javax.swing.JFrame {
 
         NhanVien nhanVien = nhanVienService.getNhanVien(maNv);
         if (nhanVien != null) {
-            if (nhanVien.getPass().equalsIgnoreCase((pass))) {
+            if (nhanVien.getPass().equalsIgnoreCase((doHashing(pass)))) {
                 if (nhanVien.getChucVu().getId() == 1) {
                     this.dispose();
                     new Main().setVisible(true);
