@@ -461,7 +461,7 @@
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <EmptySpace pref="30" max="32767" attributes="0"/>
+                                          <EmptySpace pref="32" max="32767" attributes="0"/>
                                           <Component id="jButton8" min="-2" pref="30" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jButton9" min="-2" pref="30" max="-2" attributes="0"/>
@@ -565,7 +565,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jPanel5" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel5" max="32767" attributes="0"/>
                                       <Component id="jPanel4" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -724,14 +724,10 @@
                                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txtTienKhachDua" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="lbnTongTien" alignment="0" pref="60" max="32767" attributes="0"/>
-                                                          <Component id="lbnNgayTao" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="lbnMaHD" alignment="0" max="32767" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="btnTaoHoaDonw" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="lbnTongTien" alignment="0" pref="60" max="32767" attributes="0"/>
+                                                      <Component id="lbnNgayTao" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="lbnMaHD" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Component id="lbnTienThua" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                               </Group>
@@ -739,21 +735,25 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="jButton2" alignment="0" pref="125" max="32767" attributes="0"/>
-                                                          <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="btnThanhToan" alignment="0" min="-2" pref="241" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="jButton1" min="-2" pref="125" max="-2" attributes="0"/>
+                                                          <Component id="jButton2" min="-2" pref="125" max="-2" attributes="0"/>
                                                       </Group>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="jButton4" pref="104" max="32767" attributes="0"/>
-                                                          <Component id="jButton3" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jButton3" min="-2" pref="104" max="-2" attributes="0"/>
+                                                          <Component id="jButton4" min="-2" pref="104" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
-                                                  <Component id="btnThanhToan" max="32767" attributes="0"/>
+                                                  <Component id="btnTaoHoaDonw" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="lbnKhuyenMai" min="-2" pref="156" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lbnKhuyenMai" min="-2" pref="87" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
@@ -763,13 +763,12 @@
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbnMaHD" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnTaoHoaDonw" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbnNgayTao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -789,28 +788,26 @@
                                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbnTienThua" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="lbnKhuyenMai" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  <Component id="jButton4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="btnThanhToan" min="-2" pref="50" max="-2" attributes="0"/>
-                                              <EmptySpace pref="22" max="32767" attributes="0"/>
-                                          </Group>
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="btnTaoHoaDonw" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbnKhuyenMai" min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="jButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="jButton4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="btnThanhToan" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1009,6 +1006,13 @@
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
                               </Events>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel17">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                  <ResourceString bundle="view/Bundle.properties" key="QuanLyBanHang.jLabel17.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                                </Property>
+                              </Properties>
                             </Component>
                           </SubComponents>
                         </Container>

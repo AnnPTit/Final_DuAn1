@@ -29,12 +29,12 @@ public class DsKH extends javax.swing.JFrame {
     public DsKH() {
         initComponents();
         loadTable();
-        listKhachHang = khachHangService.getAll();
+        listKhachHang = khachHangService.getAllByTrangThai(1);
     }
        private void loadTable() {
         DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
         model.setRowCount(0);
-        listKhachHang = khachHangService.getAll();
+        listKhachHang = khachHangService.getAllByTrangThai(1);
         for (KhachHang kh : listKhachHang) {
             model.addRow(new Object[]{
                 kh.getId(), kh.getMaKH(), kh.getTenKH(), kh.getGioiTinh() == true ? "Nam" : "Nữ",

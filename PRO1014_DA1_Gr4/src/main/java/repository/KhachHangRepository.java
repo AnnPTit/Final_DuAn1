@@ -33,9 +33,21 @@ public class KhachHangRepository {
         return list;
     }
 
+    public List<KhachHang> getAllByTrangThai(int trangThai) {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From KhachHang where trangThai =: trangthai");
+        q.setParameter("trangthai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<KhachHang> list = q.getResultList();
+        return list;
+    }
+
     public boolean add(KhachHang kh) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             ses.saveOrUpdate(kh);
             tran.commit();
@@ -45,10 +57,10 @@ public class KhachHangRepository {
             return false;
         }
     }
-    
+
     public boolean update(KhachHang kh, Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE KhachHang kh SET kh.maKH=:ma,kh.tenKH=:ten,kh.gioiTinh=:gioiTinh,"
                     + "kh.diaChi=:diaChi,kh.sdt=:sdt,kh.email=:email WHERE kh.id=:id");
@@ -67,10 +79,10 @@ public class KhachHangRepository {
             return false;
         }
     }
-    
+
     public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE KhachHang kh SET kh.trangThai = 0 WHERE kh.id=:id");
             q.setParameter("id", id);

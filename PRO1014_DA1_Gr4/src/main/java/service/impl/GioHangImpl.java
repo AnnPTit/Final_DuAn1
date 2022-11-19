@@ -56,11 +56,13 @@ public class GioHangImpl implements IGioHangService {
     }
 
     @Override
-    public void updateTrangThaiGHCT(int idGH, int trangThai) {
+    public Boolean updateTrangThaiGHCT(int idGH, int trangThai) {
         if (gioHangRepository.updateTrangThaiGhCT(idGH, trangThai) == true) {
             System.out.println("Update trạng thái giỏ hàng thành công :" + idGH);
+            return  true;
         } else {
             System.out.println("Update giỏ hàng thất bại : " + idGH);
+            return  false;
         }
     }
 
