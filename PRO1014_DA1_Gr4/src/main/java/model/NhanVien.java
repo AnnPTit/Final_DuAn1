@@ -185,7 +185,7 @@ public class NhanVien implements Serializable{
     }
     
     public Object[] toDataRow() {
-        return new Object[] {id,maNV,pass,tenNV,chucVu.getTenCv(),ngaySinh,gioiTinh==true?"Nam":"Nữ",diaChi,sdt,email,trangThai==0?"Đang làm việc":"Nghỉ việc"};
+        return new Object[] {id,maNV,pass,tenNV,chucVu.getTenCv(),ngaySinh,gioiTinh==true?"Nam":"Nữ",diaChi,sdt,email,trangThai==1?"Đang làm việc":"Nghỉ việc"};
     }
     
 }

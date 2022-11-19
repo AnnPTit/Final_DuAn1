@@ -100,7 +100,7 @@ public class NhanVienRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE NhanVien nv SET nv.trangThai = 1 WHERE nv.id=:id");
+            Query q = ses.createQuery("UPDATE NhanVien nv SET nv.trangThai = 0  WHERE nv.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();

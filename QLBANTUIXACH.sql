@@ -179,6 +179,11 @@ CONSTRAINT PK_KM PRIMARY KEY(ID)
 )
 go 
 
+INSERT INTO ChucVu VALUES('cv2',N'Nhân viên',GETDATE(),GETDATE(),1)
+SELECT * FROM ChucVu
+SELECT * FROM HoaDon
+DELETE FROM HoaDon WHERE Id = 2
+SELECT * FROM NhanVien
 
 alter table CHITIETSP add constraint fk_ctsp1 
 foreign key(IdSP) references SanPham(Id)

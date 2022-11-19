@@ -142,6 +142,6 @@ public class KhachHang implements Serializable {
 
     public Object[] toDataRow() {
         return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Nam" : "Nữ",
-            diaChi, sdt, email, trangThai == 0 ? "Đang hoạt động" : "Ngừng hoạt động"};
+            diaChi, sdt, email, trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"};
     }
 }

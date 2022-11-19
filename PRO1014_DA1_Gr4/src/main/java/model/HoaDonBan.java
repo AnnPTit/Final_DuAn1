@@ -18,6 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.bridj.ann.Template;
 
 /**
  *
@@ -49,10 +52,11 @@ public class HoaDonBan implements Serializable {
     @JoinColumn(name = "IdKM")
     private KhuyenMai khuyenMai;
     
-
+    @Temporal(TemporalType.DATE)
     @Column(name = "NgayTao")
     private Date ngayTao;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "NgayThanhToan")
     private Date ngayThanhToan;
 

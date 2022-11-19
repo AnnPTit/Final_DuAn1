@@ -37,8 +37,8 @@ public class DsKH extends javax.swing.JFrame {
         listKhachHang = khachHangService.getAll();
         for (KhachHang kh : listKhachHang) {
             model.addRow(new Object[]{
-                kh.getId(), kh.getMaKH(), kh.getTenKH(), kh.getGioiTinh() == true ? "Male" : "Female",
-                kh.getDiaChi(), kh.getSdt(), kh.getEmail(), kh.getTrangThai() == 1 ? "Active" : "InActive"
+                kh.getId(), kh.getMaKH(), kh.getTenKH(), kh.getGioiTinh() == true ? "Nam" : "Nữ",
+                kh.getDiaChi(), kh.getSdt(), kh.getEmail(), kh.getTrangThai() == 1 ? "Đang hoạt động" : "Ngừng hoạt động"
             });
         }
     }

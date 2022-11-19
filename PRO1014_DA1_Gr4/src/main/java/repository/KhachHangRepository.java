@@ -72,7 +72,7 @@ public class KhachHangRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE KhachHang kh SET kh.trangThai = 1 WHERE kh.id=:id");
+            Query q = ses.createQuery("UPDATE KhachHang kh SET kh.trangThai = 0 WHERE kh.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
