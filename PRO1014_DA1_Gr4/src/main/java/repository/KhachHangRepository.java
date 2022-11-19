@@ -26,10 +26,12 @@ public class KhachHangRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From KhachHang");
-        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        Query query = (Query) em.createQuery("From KhachHang where TrangThai =: trangthai order by ID desc");
+        query.setParameter("trangthai", 1);
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
-        List<KhachHang> list = q.getResultList();
+        @SuppressWarnings("unchecked")
+        List<KhachHang> list = query.getResultList();
         return list;
     }
 
