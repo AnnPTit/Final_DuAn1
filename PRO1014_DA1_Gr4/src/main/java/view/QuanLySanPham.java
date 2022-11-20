@@ -1,5 +1,12 @@
 package view;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import java.io.File;
 import model.ChatLieu;
 import model.ChiTietSanPham;
 import model.DanhMuc;
@@ -16,7 +23,9 @@ import service.impl.SanPhamImp;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
@@ -933,7 +942,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
 
     ChiTietSanPham getData() {
         ChiTietSanPham ct = new ChiTietSanPham();
-        ct.setMa(txtMaSP.getText());
+        String text = "QRCODE" + txtMaSP.getText().toUpperCase();
+        ct.setMa(txtMaSP.getText().toUpperCase());
         ct.setMoTa(txtMoTa.getText());
         ct.setSoLuongTon(Integer.parseInt(txtSoLuong.getText()));
         ct.setGiaNhap(BigDecimal.valueOf(Double.valueOf(txtGiaNhap.getText())));
@@ -955,6 +965,18 @@ public class QuanLySanPham extends javax.swing.JFrame {
         ct.setMauSac(mau);
         NSX nsx = (NSX) cbbNSX.getSelectedItem();
         ct.setNhaSanXuat(nsx);
+        
+        ct.setQrCode(txtMaSP.getText().toUpperCase() + ".png");
+        try {
+            String path = "img/qrcode/" + txtMaSP.getText().toUpperCase() + ".png";
+            String charset = "UTF-8";
+            Map<EncodeHintType, ErrorCorrectionLevel> map = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+            map.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+            BitMatrix bit = new MultiFormatWriter().encode(new String(text.getBytes(charset), charset),BarcodeFormat.QR_CODE,500,500,map);
+            MatrixToImageWriter.writeToFile(bit, path.substring(path.lastIndexOf('.')+1), new File(path));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
         return ct;
 
     }

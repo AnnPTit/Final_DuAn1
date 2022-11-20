@@ -5,6 +5,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -81,11 +82,14 @@ public class ChiTietSanPham {
 
     @Column(name = "TrangThai")
     private Integer trangThai;
+    
+    @Column(name = "QRCode")
+    private String qrCode;
 
     public ChiTietSanPham() {
     }
 
-    public ChiTietSanPham(Integer id, String ma, SanPham sanPham, NSX nhaSanXuat, DanhMuc danhMuc, ChatLieu chatLieu, Mau mauSac, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, Integer trangThai) {
+    public ChiTietSanPham(Integer id, String ma, SanPham sanPham, NSX nhaSanXuat, DanhMuc danhMuc, ChatLieu chatLieu, Mau mauSac, String moTa, int soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Date ngayTao, Date ngaySua, Integer trangThai, String qrCode) {
         this.id = id;
         this.ma = ma;
         this.sanPham = sanPham;
@@ -100,6 +104,7 @@ public class ChiTietSanPham {
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
         this.trangThai = trangThai;
+        this.qrCode = qrCode;
     }
 
     public Integer getId() {
@@ -212,6 +217,14 @@ public class ChiTietSanPham {
 
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public Object[] toDataRow() {

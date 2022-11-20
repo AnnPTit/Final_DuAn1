@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openide.util.Exceptions;
+
 
 /**
  *
@@ -43,7 +43,7 @@ public class Test extends javax.swing.JFrame implements Runnable,ThreadFactory{
         webPanel.setPreferredSize(size);
         webPanel.setFPSDisplayed(true);
         
-        panelWebcam.add(webPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0,0,470,300));   
+        panelWebcam.add(webPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0,0,300,200));   
         executor.execute(this);
     }
     
@@ -59,7 +59,7 @@ public class Test extends javax.swing.JFrame implements Runnable,ThreadFactory{
             BufferedImage image = null;
             
             if(webcam.isOpen()) {
-                if((image = webPanel.getImage()) == null) {
+                if((image = webcam.getImage()) == null) {
                     continue;
                 }
             }
@@ -70,7 +70,7 @@ public class Test extends javax.swing.JFrame implements Runnable,ThreadFactory{
             try {
                 res = new MultiFormatReader().decode(bitmap);
             } catch (NotFoundException ex) {
-                Exceptions.printStackTrace(ex);
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             if(res != null) {
@@ -95,58 +95,35 @@ public class Test extends javax.swing.JFrame implements Runnable,ThreadFactory{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         panelWebcam = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         txtResult = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout panelWebcamLayout = new javax.swing.GroupLayout(panelWebcam);
-        panelWebcam.setLayout(panelWebcamLayout);
-        panelWebcamLayout.setHorizontalGroup(
-            panelWebcamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
-        );
-        panelWebcamLayout.setVerticalGroup(
-            panelWebcamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 248, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelWebcam.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(panelWebcam, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 370, 240));
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(Test.class, "Test.jLabel1.text")); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         txtResult.setText(org.openide.util.NbBundle.getMessage(Test.class, "Test.txtResult.text")); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(panelWebcam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(txtResult, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelWebcam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(txtResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
+        jPanel2.add(txtResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 340, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -189,7 +166,8 @@ public class Test extends javax.swing.JFrame implements Runnable,ThreadFactory{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelWebcam;
     private javax.swing.JTextField txtResult;
     // End of variables declaration//GEN-END:variables
