@@ -73,6 +73,7 @@ GiaBan DECIMAl ,
 NgayTao DATE,
 NgaySua DATE,
 TrangThai INT , 
+QRCode NVARCHAR(20)
 CONSTRAINT PK_Ctsp PRIMARY KEY(ID)
 )
 go
