@@ -1,5 +1,6 @@
 package view;
 
+import com.github.sarxos.webcam.Webcam;
 import component.Header;
 import component.Menu;
 import event.EventMenuSelected;
@@ -31,6 +32,8 @@ public class Main extends javax.swing.JFrame {
     private Header header;
     private MainForm main;
     private Animator animator;
+    
+//    private Webcam webcam = null;
 
     public Main() {
         initComponents();
@@ -54,14 +57,14 @@ public class Main extends javax.swing.JFrame {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
 //                if (Auth.isManager()) {
                 if (menuIndex == 0) {
-                    main.showForm(new Form_Home());
+                    main.showForm(new Form_Home()); 
                 } else if (menuIndex == 1) {
                     if (subMenuIndex == 0) {
                         main.showForm(pane.add(new QuanLySP()));
                     }
                 } else if (menuIndex == 2) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLyBanHang());
+                        main.showForm(new QuanLyBanHang());                       
                     } else if (subMenuIndex == 1) {
                         main.showForm(new QuanLySP());
                     } else if (subMenuIndex == 2) {

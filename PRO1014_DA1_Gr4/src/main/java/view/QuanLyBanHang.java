@@ -10,6 +10,8 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import component.Header;
+import component.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -36,6 +38,8 @@ import model.KhuyenMai;
 import model.Mau;
 import model.NSX;
 import model.NhanVien;
+import net.miginfocom.swing.MigLayout;
+import org.jdesktop.animation.timing.Animator;
 import service.CTSPService;
 import service.IGioHangService;
 import service.IHoaDonService;
@@ -51,6 +55,27 @@ import service.impl.NhanVienImpl;
 import service.impl.SanPhamImp;
 import utilities.Auth;
 import utilities.DataGlobal;
+import component.Header;
+import component.Menu;
+import event.EventMenuSelected;
+import event.EventShowPopupMenu;
+import view.Form_Home;
+import view.MainForm;
+import view.QuanLySP;
+import swing.MenuItem;
+import swing.PopupMenu;
+import swing.icon.GoogleMaterialDesignIcons;
+import swing.icon.IconFontSwing;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+
+import net.miginfocom.swing.MigLayout;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
 
@@ -68,10 +93,15 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     DefaultComboBoxModel<Mau> cbMau = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<NSX> cbNSX = new DefaultComboBoxModel<>();
     int soLuong = 0;
+    private MigLayout layout;
+    private Menu menu;
+    private Header header;
+    private MainForm main;
+    private Animator animator;
 
     public QuanLyBanHang() {
         initComponents();
-        initWebCam();
+//        initWebCam();
         chiTietSpModel = (DefaultTableModel) tblSanPham.getModel();
         hoaDonModel = (DefaultTableModel) tblHoaDon.getModel();
         gioHangModel = (DefaultTableModel) tblGioHang.getModel();
@@ -81,6 +111,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         loadTableCTSP(listCtSp);
         btnThanhToan.setEnabled(false);
         loadAllCB();
+//        init();
     }
 
     private void loadTableCTSP(List<ChiTietSanPham> list) {
@@ -231,6 +262,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         tblHoaDon = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         panelWebcam = new javax.swing.JPanel();
+        btnCameraOff = new javax.swing.JButton();
+        btnCameraOn = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblGioHang = new javax.swing.JTable();
@@ -345,7 +378,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,6 +429,26 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         panelWebcam.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnCameraOff.setBackground(new java.awt.Color(0, 153, 204));
+        btnCameraOff.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCameraOff.setForeground(new java.awt.Color(255, 255, 255));
+        org.openide.awt.Mnemonics.setLocalizedText(btnCameraOff, org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.btnCameraOff.text")); // NOI18N
+        btnCameraOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCameraOffActionPerformed(evt);
+            }
+        });
+
+        btnCameraOn.setBackground(new java.awt.Color(0, 153, 204));
+        btnCameraOn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCameraOn.setForeground(new java.awt.Color(255, 255, 255));
+        org.openide.awt.Mnemonics.setLocalizedText(btnCameraOn, org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.btnCameraOn.text")); // NOI18N
+        btnCameraOn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCameraOnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -403,30 +456,41 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel14)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(panelWebcam, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCameraOn)
+                                .addGap(26, 26, 26)
+                                .addComponent(btnCameraOff)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel7))
-                    .addComponent(panelWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel7))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnCameraOff, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCameraOn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6))))
+                    .addComponent(panelWebcam, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126))
@@ -1001,7 +1065,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     }//GEN-LAST:event_btnThayDoiActionPerformed
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
-        // TODO add your handling code here:
         DsKH dkh = new DsKH();
         dkh.setVisible(true);
     }//GEN-LAST:event_btnChonActionPerformed
@@ -1181,6 +1244,14 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         lbnTienThua.setText(String.valueOf(Double.valueOf(txtTienKhachDua.getText()) - tongTienSauKM));
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnCameraOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCameraOnActionPerformed
+        initWebCam();
+    }//GEN-LAST:event_btnCameraOnActionPerformed
+
+    private void btnCameraOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCameraOffActionPerformed
+        webcam.close();
+    }//GEN-LAST:event_btnCameraOffActionPerformed
+
     private Webcam webcam = null;
     private WebcamPanel webPanel = null;
     private Executor executor = Executors.newSingleThreadExecutor(this);
@@ -1197,6 +1268,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         panelWebcam.add(webPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
         executor.execute(this);
+        
     }
 
     @Override
@@ -1205,7 +1277,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
-                
+
             }
             Result res = null;
             BufferedImage image = null;
@@ -1222,7 +1294,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             try {
                 res = new MultiFormatReader().decode(bitmap);
             } catch (NotFoundException ex) {
-                
             }
 
             if (res != null) {
@@ -1231,13 +1302,12 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                     for (int i = 0; i < tblSanPham.getRowCount(); i++) {
                         if (tblSanPham.getValueAt(i, 0).equals(ma)) {
                             tblSanPham.setRowSelectionInterval(i, i);
-                            System.out.println(ma);
                             JOptionPane.showMessageDialog(this, "Quét thành công: " + ma);
                             addGH();
                         }
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+
                 }
             }
         } while (true);
@@ -1249,8 +1319,10 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         th.setDaemon(true);
         return th;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCameraOff;
+    private javax.swing.JButton btnCameraOn;
     private javax.swing.JButton btnChon;
     private javax.swing.JButton btnTaoHoaDonw;
     private javax.swing.JButton btnThanhToan;
