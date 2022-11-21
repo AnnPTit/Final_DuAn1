@@ -43,4 +43,9 @@ public class KhuyenMaiSer implements IKhuyenMaiService {
         return kmr.getAllKhuyenMaiMap(minHoDon);
     }
 
+    @Override
+    public KhuyenMai getKhuyenMaiByMa(String maKM) {
+        return kmr.getKhuyenMaiByMa(maKM);
+    }
+
 }

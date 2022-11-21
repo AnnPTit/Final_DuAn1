@@ -1132,12 +1132,16 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         Date ngayThanhToan = new Date();
         hdb.setNgayThanhToan(ngayThanhToan);
         KhuyenMai km = DataGlobal.getKhuyenMai();
+        if (km == null) {
+            km = new KhuyenMaiSer().getKhuyenMaiByMa("KM00");
+        }
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
         hoaDonBanService.update(hdb, hdb.getId());
         JOptionPane.showMessageDialog(this, "Thành công");
 
         loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+
         loadTableHoaDon(hoaDonBanService.getListHoaDonBan());
 
 
@@ -1247,7 +1251,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         panelWebcam.add(webPanel, new AbsoluteConstraints(0, 0, panelWebcam.getWidth(), panelWebcam.getHeight()));
         
         executor.execute(this);
-        
+
     }
 
     @Override
@@ -1298,7 +1302,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         th.setDaemon(true);
         return th;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCameraOff;
     private javax.swing.JButton btnCameraOn;

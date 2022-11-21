@@ -4,12 +4,14 @@
  */
 package repository;
 
+import hibernateConfig.HibernateConfig;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import model.KhuyenMai;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -75,12 +77,33 @@ public class KhuyenMaiRepo {
         }
     }
 
-    public ArrayList<KhuyenMai> getAllKhuyenMaiMap(double minHoaDon) {
+    public ArrayList<KhuyenMai> getAllKhuyenMaiMap(double minHoaDon ) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From KhuyenMai where MinHoaDon < : min");
+        Query q = se.createQuery("From KhuyenMai where MinHoaDon < : min and TrangThai = 1");
         q.setParameter("min", (minHoaDon + 1));
         ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
         return ds;
+    }
+
+     public KhuyenMai getKhuyenMaiByMa(String maKM) {
+        try {
+            String sql = "SELECT * FROM KhuyenMai WHERE MaKM = :ma";
+            SQLQuery query = HibernateConfig.getFACTORY().openSession().createSQLQuery(sql);
+            query.addEntity(KhuyenMai.class);
+            query.setParameter("ma", maKM);
+            KhuyenMai results = (KhuyenMai) query.getSingleResult();
+            // NhanVien results = (NhanVien) query.list();
+            if (results == null) {
+                return null;
+            }
+            return results;
+
+        } catch (Exception e) {
+            //            System.out.println("lỗi lấy nhân viên");
+            //            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public static void main(String[] args) {
