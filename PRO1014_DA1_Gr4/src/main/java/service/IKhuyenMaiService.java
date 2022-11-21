@@ -24,4 +24,6 @@ public interface IKhuyenMaiService {
 
     List<KhuyenMai> getKhuyenMaiMap(double minHoDon);
 
+    KhuyenMai getKhuyenMaiByMa(String maKM);
+
 }

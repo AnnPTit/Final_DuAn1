@@ -180,12 +180,6 @@ CONSTRAINT PK_KM PRIMARY KEY(ID)
 )
 go 
 
-INSERT INTO ChucVu VALUES('cv2',N'Nhân viên',GETDATE(),GETDATE(),1)
-SELECT * FROM ChucVu
-SELECT * FROM HoaDon
-DELETE FROM HoaDon WHERE Id = 2
-SELECT * FROM NhanVien
-
 alter table CHITIETSP add constraint fk_ctsp1 
 foreign key(IdSP) references SanPham(Id)
 alter table CHITIETSP add constraint fk_ctsp2 
@@ -222,6 +216,10 @@ go
 
 Alter table HoaDon add constraint FK_HD_KM 
 foreign key(IdKM) references KhuyenMai(Id)
+
+insert into NhanVien values ('NV00','NhanVienAo',null , 1,null , null , null , '123',3,1) 
+insert into KhuyenMai values('KM00','KMAo',GETDATE(),0,0,null,null , 1)
+insert into KhachHang values ('KH00','Khach Hang Ban Le',1,'Global','0123456789','Guest@gmail.com',1)
 
 -- Tự động thêm giỏ hàng khi tạo 1 khách hàng mới
 create trigger Auto_Add_Gh on khachHang after insert as 
