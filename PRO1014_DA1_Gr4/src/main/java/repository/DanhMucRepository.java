@@ -7,6 +7,8 @@ package repository;
 import hibernateConfig.HibernateConfig;
 import model.DanhMuc;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,7 +21,14 @@ public class DanhMucRepository {
     Session ses = HibernateConfig.getFACTORY().openSession();
 
     public List<DanhMuc> getAll() {
-        Query q = ses.createQuery("FROM DanhMuc");
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From DanhMuc WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
         List<DanhMuc> list = q.getResultList();
         return list;
     }
@@ -41,11 +50,10 @@ public class DanhMucRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE DanhMuc dm SET dm.maDM=:ma,dm.tenDM=:ten,dm.ngaySua=:ngaySua,dm.trangThai=:trangThai WHERE dm.id=:id");
+            Query q = ses.createQuery("UPDATE DanhMuc dm SET dm.maDM=:ma,dm.tenDM=:ten,dm.ngaySua=:ngaySua WHERE dm.id=:id");
             q.setParameter("ma", dm.getMaDM());
             q.setParameter("ten", dm.getTenDM());
             q.setParameter("ngaySua", dm.getNgaySua());
-            q.setParameter("trangThai", dm.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -56,11 +64,11 @@ public class DanhMucRepository {
         }
     }
 
-    public boolean delete(DanhMuc dm, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM DanhMuc dm WHERE dm.id=:id");
+            Query q = ses.createQuery("UPDATE DanhMuc dm SET dm.trangThai = 0  WHERE dm.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();

@@ -41,8 +41,8 @@ public class MauSacImpl implements MauSacService{
     }
 
     @Override
-    public String delete(Mau ms, Integer id) {
-        if(msRepo.delete(ms, id)) {
+    public String updateTrangThai(Integer id) {
+        if(msRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";

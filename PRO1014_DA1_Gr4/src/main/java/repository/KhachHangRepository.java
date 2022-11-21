@@ -96,4 +96,17 @@ public class KhachHangRepository {
             return false;
         }
     }
+    
+    public List<KhachHang> getSumCustomer() {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = (Query) em.createQuery("SELECT COUNT(id) FROM KhachHang");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        @SuppressWarnings("unchecked")
+        List<KhachHang> list = query.getResultList();
+        return list;
+    }
 }

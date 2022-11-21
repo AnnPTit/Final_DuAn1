@@ -42,8 +42,8 @@ public class SanPhamImp implements SanPhamService{
     }
 
     @Override
-    public String delete(SanPham sp, Integer id) {
-        if(spRepo.delete(sp, id)) {
+    public String updateTrangThai(Integer id) {
+        if(spRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";

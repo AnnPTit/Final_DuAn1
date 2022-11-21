@@ -7,13 +7,16 @@ package model;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -57,8 +60,20 @@ public class ChiTietSanPham {
 //    @OneToMany(mappedBy = "chiTietSanPham", fetch = FetchType.EAGER)
 //    private List<GioHangChiTiet> listGhct;
 //    
-//    @OneToMany(mappedBy = "chiTietSanPham", fetch = FetchType.EAGER)
-//    private List<HoaDonChiTiet> listhChiTiet;
+    @OneToMany(mappedBy = "chiTietSanPham", fetch = FetchType.EAGER)
+    private List<HoaDonChiTiet> hdct;
+
+    public ChiTietSanPham(List<HoaDonChiTiet> listhChiTiet) {
+        this.hdct = listhChiTiet;
+    }
+
+    public List<HoaDonChiTiet> getListhChiTiet() {
+        return hdct;
+    }
+
+    public void setListhChiTiet(List<HoaDonChiTiet> listhChiTiet) {
+        this.hdct = listhChiTiet;
+    }
 
     @Column(name = "MoTa")
     private String moTa;
@@ -231,4 +246,5 @@ public class ChiTietSanPham {
         return new Object[]{id,ma,sanPham.getTenSP(),danhMuc.getTenDM(),chatLieu.getTenCL(),
             mauSac.getTenMau(),nhaSanXuat.getTenNSX(),soLuongTon,giaNhap,giaBan,moTa,ngayTao,ngaySua,trangThai==1?"Đang kinh doanh":"Nghỉ kinh doanh"};
     }
+    
 }

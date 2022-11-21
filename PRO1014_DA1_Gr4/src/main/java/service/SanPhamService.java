@@ -15,5 +15,5 @@ public interface SanPhamService {
    List<SanPham> getAll();
    String add(SanPham sp);
    String update(SanPham sp, Integer id);
-   String delete(SanPham sp, Integer id);
+   String updateTrangThai(Integer id);
 }

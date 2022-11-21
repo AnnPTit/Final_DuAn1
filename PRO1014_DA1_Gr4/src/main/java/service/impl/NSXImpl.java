@@ -42,8 +42,8 @@ public class NSXImpl implements NSXService{
     }
 
     @Override
-    public String delete(NSX nsx, Integer id) {
-        if(nsxRepo.delete(nsx, id)) {
+    public String updateTrangThai(Integer id) {
+        if(nsxRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";

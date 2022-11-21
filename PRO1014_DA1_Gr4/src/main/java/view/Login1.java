@@ -8,9 +8,6 @@ import java.awt.Color;
 import java.security.MessageDigest;
 import javax.swing.JOptionPane;
 import model.NhanVien;
-
-import view.QuanLySanPham;
-import javax.swing.JFrame;
 import service.impl.NhanVienImpl; 
 import service.NhanVienService;
 import utilities.Auth;

@@ -13,8 +13,15 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import service.CTSPService;
+import service.KhachHangService;
+import service.impl.CTSPImpl;
+import service.impl.KhachHangImpl;
 
 public class Form_Home extends javax.swing.JPanel {
+
+    private KhachHangService khSer = new KhachHangImpl();
+    private CTSPService ctspSer = new CTSPImpl();
 
     public Form_Home() {
         initComponents();
@@ -24,7 +31,7 @@ public class Form_Home extends javax.swing.JPanel {
     }
 
     private void initData() {
-//        initCardData();
+        initCardData();
         initNoticeBoard();
 //        initTableData();
     }
@@ -37,18 +44,17 @@ public class Form_Home extends javax.swing.JPanel {
 //            model.addRow(o);
 //        }
 //    }
-
-//    private void initCardData() {
+    private void initCardData() {
 //        Icon icon1 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.PEOPLE, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 15));
-//        card1.setData(new ModelCard("Tổng khách hàng", sDao.getSumCustomer(), 20, icon1));
+        card1.setData(new ModelCard("Tổng khách hàng", khSer.getSumCustomer().toString(), 20, null));
 //        Icon icon2 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.MONETIZATION_ON, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 15));
 //        card2.setData(new ModelCard("Doanh thu/Ngày", sDao.getRevenueDate(), 60, icon2));
 //        Icon icon3 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.SHOPPING_BASKET, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 15));
 //        card3.setData(new ModelCard("Sản phẩm / Ngày", sDao.getQuantityDate(), 80, icon3));
 //        Icon icon4 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.BUSINESS_CENTER, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 15));
-//        card4.setData(new ModelCard("Tồn kho", sDao.getInventory(), 95, icon4));
-//    }
-//
+        card4.setData(new ModelCard("Tồn kho", ctspSer.getSumProduct().toString(), 95, null));
+    }
+
     private void initNoticeBoard() {
         noticeBoard.addDate("Quy định mua hàng của shop");
         noticeBoard.addNoticeBoard(new ModelNoticeBoard(new Color(94, 49, 238), "Lưu ý", "Now", "Bạn đặt hàng vui lòng kiểm tra kỹ lại thông tin sản phẩm: Size, chất liệu, màu của sản phẩm"));

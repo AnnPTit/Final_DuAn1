@@ -53,7 +53,7 @@ public class QuanLySP extends javax.swing.JPanel {
     private List<ChiTietSanPham> listCTSP;
 
     int index = 0;
-    
+
     public QuanLySP() {
         initComponents();
         initComponents();
@@ -89,9 +89,6 @@ public class QuanLySP extends javax.swing.JPanel {
         txtGiaNhap = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
         txtGiaBan = new javax.swing.JTextField();
-        jLabel53 = new javax.swing.JLabel();
-        rdoDKD = new javax.swing.JRadioButton();
-        rdoNKD = new javax.swing.JRadioButton();
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
@@ -123,9 +120,6 @@ public class QuanLySP extends javax.swing.JPanel {
         txtMa = new javax.swing.JTextField();
         txtTen = new javax.swing.JTextField();
         cbbAll = new javax.swing.JComboBox<>();
-        jLabel37 = new javax.swing.JLabel();
-        rdoDangBan = new javax.swing.JRadioButton();
-        rdoNghiBan = new javax.swing.JRadioButton();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -144,13 +138,6 @@ public class QuanLySP extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel51, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel51.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel52, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel52.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel53, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel53.text")); // NOI18N
-
-        rdoDKD.setSelected(true);
-        org.openide.awt.Mnemonics.setLocalizedText(rdoDKD, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoDKD.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(rdoNKD, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoNKD.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel54, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel54.text")); // NOI18N
 
@@ -221,46 +208,37 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                    .addComponent(jLabel50)
+                    .addComponent(jLabel51)
+                    .addComponent(jLabel52)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel49))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                    .addComponent(txtSoLuong)
+                    .addComponent(txtGiaNhap)
+                    .addComponent(txtGiaBan)
+                    .addComponent(cbbSanPham, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(90, 90, 90)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel50)
-                            .addComponent(jLabel51)
-                            .addComponent(jLabel52)
-                            .addComponent(jLabel48)
-                            .addComponent(jLabel49))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(txtSoLuong)
-                            .addComponent(txtGiaNhap)
-                            .addComponent(txtGiaBan)
-                            .addComponent(cbbSanPham, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(90, 90, 90)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel54)
-                                    .addComponent(jLabel55)
-                                    .addComponent(jLabel56))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbbDanhMuc, 0, 120, Short.MAX_VALUE)
-                                        .addComponent(cbbChatLieu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(cbbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel57)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbbNSX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel54)
+                            .addComponent(jLabel55)
+                            .addComponent(jLabel56))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbbDanhMuc, 0, 120, Short.MAX_VALUE)
+                                .addComponent(cbbChatLieu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel57)
                         .addGap(18, 18, 18)
-                        .addComponent(rdoDKD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdoNKD)))
+                        .addComponent(cbbNSX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
@@ -331,11 +309,7 @@ public class QuanLySP extends javax.swing.JPanel {
                             .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel57)
                             .addComponent(cbbNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel53)
-                            .addComponent(rdoDKD)
-                            .addComponent(rdoNKD))))
+                        .addGap(0, 40, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
 
@@ -462,13 +436,6 @@ public class QuanLySP extends javax.swing.JPanel {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel37, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel37.text")); // NOI18N
-
-        rdoDangBan.setSelected(true);
-        org.openide.awt.Mnemonics.setLocalizedText(rdoDangBan, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoDangBan.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(rdoNghiBan, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.rdoNghiBan.text")); // NOI18N
-
         btnThem.setBackground(new java.awt.Color(0, 153, 204));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
@@ -510,30 +477,22 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbbAll, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel35)
-                                    .addComponent(jLabel36))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMa)
-                                    .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(122, 122, 122)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rdoDangBan)
-                                    .addComponent(rdoNghiBan))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                            .addComponent(jLabel35)
+                            .addComponent(jLabel36))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMa)
+                            .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(81, 81, 81))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(cbbAll, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -553,20 +512,15 @@ public class QuanLySP extends javax.swing.JPanel {
                                 .addGap(26, 26, 26)))
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel37)
-                        .addGap(18, 18, 18)
-                        .addComponent(rdoDangBan)
-                        .addGap(13, 13, 13)
+                        .addGap(113, 113, 113)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel36)
-                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdoNghiBan))))
+                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(13, 13, 13)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(cbbAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -681,7 +635,7 @@ public class QuanLySP extends javax.swing.JPanel {
         int row = tbSanPham.getSelectedRow();
         Integer id = (Integer) tbSanPham.getValueAt(row, 0);
 
-        String result = new CTSPImpl().delete(getData(), id);
+        String result = new CTSPImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
         loadChiTietSanPham(ctsp);
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -752,12 +706,6 @@ public class QuanLySP extends javax.swing.JPanel {
         txtGiaNhap.setText(String.valueOf(ct.getGiaNhap()));
         txtGiaBan.setText(String.valueOf(ct.getGiaBan()));
         txtMoTa.setText(String.valueOf(ct.getMoTa()));
-        Integer radio = ct.getTrangThai();
-        if (radio == 1) {
-            rdoDKD.setSelected(true);
-        } else {
-            rdoNKD.setSelected(true);
-        }
     }//GEN-LAST:event_tbSanPhamMouseClicked
 
     private void tbSanPhamKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSanPhamKeyPressed
@@ -772,14 +720,19 @@ public class QuanLySP extends javax.swing.JPanel {
         String text = cbbAll.getSelectedItem().toString();
         if (text.equals("Sản phẩm")) {
             index = 0;
+            clearData();
         } else if (text.equals("Danh mục")) {
             index = 1;
+            clearData();
         } else if (text.equals("Nhà sản xuất")) {
             index = 2;
+            clearData();
         } else if (text.equals("Chất liệu")) {
             index = 3;
+            clearData();
         } else if (text.equals("Màu sắc")) {
             index = 4;
+            clearData();
         }
         loadCBB();
     }//GEN-LAST:event_cbbAllActionPerformed
@@ -875,27 +828,27 @@ public class QuanLySP extends javax.swing.JPanel {
         Integer id = (Integer) tbThuocTinh.getValueAt(row, 0);
 
         if (index == 0) {
-            String result = new SanPhamImp().delete(getSanPham(), id);
+            String result = new SanPhamImp().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadSanPham(sp);
             loadAllCB();
         } else if (index == 1) {
-            String result = new DanhMucImpl().delete(getDanhMuc(), id);
+            String result = new DanhMucImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadDanhMuc(dm);
             loadAllCB();
         } else if (index == 2) {
-            String result = new NSXImpl().delete(getNSX(), id);
+            String result = new NSXImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadNSX(nsx);
             loadAllCB();
         } else if (index == 3) {
-            String result = new ChatLieuImpl().delete(getChatLieu(), id);
+            String result = new ChatLieuImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadChatLieu(cl);
             loadAllCB();
         } else if (index == 4) {
-            String result = new MauSacImpl().delete(getMauSac(), id);
+            String result = new MauSacImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadMauSac(mau);
             loadAllCB();
@@ -906,13 +859,6 @@ public class QuanLySP extends javax.swing.JPanel {
         int row = tbThuocTinh.getSelectedRow();
         txtMa.setText(tbThuocTinh.getValueAt(row, 1).toString());
         txtTen.setText(tbThuocTinh.getValueAt(row, 2).toString());
-        String radio = tbThuocTinh.getValueAt(row, 5).toString();
-
-        if (radio.equals("Đang kinh doanh")) {
-            rdoDangBan.setSelected(true);
-        } else {
-            rdoNghiBan.setSelected(true);
-        }
     }//GEN-LAST:event_tbThuocTinhMouseClicked
 
     void loadCbSanPham() {
@@ -1027,11 +973,7 @@ public class QuanLySP extends javax.swing.JPanel {
         ct.setGiaBan(BigDecimal.valueOf(Double.valueOf(txtGiaBan.getText())));
         ct.setNgayTao(new Date());
         ct.setNgaySua(new Date());
-        if (rdoDKD.isSelected()) {
-            ct.setTrangThai(1);
-        } else {
-            ct.setTrangThai(0);
-        }
+        ct.setTrangThai(1);
         SanPham sp = (SanPham) cbbSanPham.getSelectedItem();
         ct.setSanPham(sp);
         DanhMuc dm = (DanhMuc) cbbDanhMuc.getSelectedItem();
@@ -1048,8 +990,8 @@ public class QuanLySP extends javax.swing.JPanel {
             String charset = "UTF-8";
             Map<EncodeHintType, ErrorCorrectionLevel> map = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
             map.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            BitMatrix bit = new MultiFormatWriter().encode(new String(text.getBytes(charset), charset),BarcodeFormat.QR_CODE,500,500,map);
-            MatrixToImageWriter.writeToFile(bit, path.substring(path.lastIndexOf('.')+1), new File(path));
+            BitMatrix bit = new MultiFormatWriter().encode(new String(text.getBytes(charset), charset), BarcodeFormat.QR_CODE, 500, 500, map);
+            MatrixToImageWriter.writeToFile(bit, path.substring(path.lastIndexOf('.') + 1), new File(path));
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -1065,11 +1007,7 @@ public class QuanLySP extends javax.swing.JPanel {
         chiTiet.setGiaNhap(BigDecimal.valueOf(Double.valueOf(txtGiaNhap.getText())));
         chiTiet.setGiaBan(BigDecimal.valueOf(Double.valueOf(txtGiaBan.getText())));
         chiTiet.setNgaySua(new Date());
-        if (rdoDKD.isSelected()) {
-            chiTiet.setTrangThai(1);
-        } else {
-            chiTiet.setTrangThai(0);
-        }
+
         SanPham sp = (SanPham) cbbSanPham.getSelectedItem();
         chiTiet.setSanPham(sp);
         DanhMuc dm = (DanhMuc) cbbDanhMuc.getSelectedItem();
@@ -1090,11 +1028,7 @@ public class QuanLySP extends javax.swing.JPanel {
         sp.setTenSP(txtTen.getText());
         sp.setNgayTao(new Date());
         sp.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            sp.setTrangThai(1);
-        } else {
-            sp.setTrangThai(0);
-        }
+        sp.setTrangThai(1);
         return sp;
     }
 
@@ -1103,11 +1037,7 @@ public class QuanLySP extends javax.swing.JPanel {
         sp.setMaSP(txtMa.getText());
         sp.setTenSP(txtTen.getText());
         sp.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            sp.setTrangThai(1);
-        } else {
-            sp.setTrangThai(0);
-        }
+
         return sp;
     }
 
@@ -1117,11 +1047,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cl.setTenCL(txtTen.getText());
         cl.setNgayTao(new Date());
         cl.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            cl.setTrangThai(1);
-        } else {
-            cl.setTrangThai(0);
-        }
+        cl.setTrangThai(1);
         return cl;
     }
 
@@ -1130,11 +1056,6 @@ public class QuanLySP extends javax.swing.JPanel {
         cl.setMaCL(txtMa.getText());
         cl.setTenCL(txtTen.getText());
         cl.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            cl.setTrangThai(1);
-        } else {
-            cl.setTrangThai(0);
-        }
         return cl;
     }
 
@@ -1144,11 +1065,7 @@ public class QuanLySP extends javax.swing.JPanel {
         ms.setTenMau(txtTen.getText());
         ms.setNgayTao(new Date());
         ms.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            ms.setTrangThai(1);
-        } else {
-            ms.setTrangThai(0);
-        }
+        ms.setTrangThai(1);
         return ms;
     }
 
@@ -1157,11 +1074,7 @@ public class QuanLySP extends javax.swing.JPanel {
         ms.setMaMau(txtMa.getText());
         ms.setTenMau(txtTen.getText());
         ms.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            ms.setTrangThai(1);
-        } else {
-            ms.setTrangThai(0);
-        }
+
         return ms;
     }
 
@@ -1171,11 +1084,7 @@ public class QuanLySP extends javax.swing.JPanel {
         dm.setTenDM(txtTen.getText());
         dm.setNgayTao(new Date());
         dm.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            dm.setTrangThai(1);
-        } else {
-            dm.setTrangThai(0);
-        }
+        dm.setTrangThai(1);
         return dm;
     }
 
@@ -1184,11 +1093,7 @@ public class QuanLySP extends javax.swing.JPanel {
         dm.setMaDM(txtMa.getText());
         dm.setTenDM(txtTen.getText());
         dm.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            dm.setTrangThai(1);
-        } else {
-            dm.setTrangThai(0);
-        }
+
         return dm;
     }
 
@@ -1198,11 +1103,7 @@ public class QuanLySP extends javax.swing.JPanel {
         nsx.setTenNSX(txtTen.getText());
         nsx.setNgayTao(new Date());
         nsx.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            nsx.setTrangThai(1);
-        } else {
-            nsx.setTrangThai(0);
-        }
+        nsx.setTrangThai(1);
         return nsx;
     }
 
@@ -1211,11 +1112,7 @@ public class QuanLySP extends javax.swing.JPanel {
         nsx.setMaNSX(txtMa.getText());
         nsx.setTenNSX(txtTen.getText());
         nsx.setNgaySua(new Date());
-        if (rdoDangBan.isSelected()) {
-            nsx.setTrangThai(1);
-        } else {
-            nsx.setTrangThai(0);
-        }
+
         return nsx;
     }
 
@@ -1307,6 +1204,11 @@ public class QuanLySP extends javax.swing.JPanel {
 
         return true;
     }
+    
+    void clearData() {
+        txtMa.setText("");
+        txtTen.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -1326,13 +1228,11 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
@@ -1351,10 +1251,6 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane5;
-    private javax.swing.JRadioButton rdoDKD;
-    private javax.swing.JRadioButton rdoDangBan;
-    private javax.swing.JRadioButton rdoNKD;
-    private javax.swing.JRadioButton rdoNghiBan;
     private javax.swing.JTable tbSanPham;
     private javax.swing.JTable tbThuocTinh;
     private javax.swing.JTextField txtGiaBan;
