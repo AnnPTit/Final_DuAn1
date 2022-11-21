@@ -78,6 +78,8 @@ CONSTRAINT PK_Ctsp PRIMARY KEY(ID)
 )
 go
 
+SELECT * FROM HoaDon
+
 CREATE TABLE NhanVien (
 ID INT identity (1,1) not null  , 
 MaNV VARCHAR(10) , 

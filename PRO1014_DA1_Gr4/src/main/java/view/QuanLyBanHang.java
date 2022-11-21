@@ -10,8 +10,6 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
-import component.Header;
-import component.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -21,10 +19,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChatLieu;
 import model.ChiTietSanPham;
@@ -38,8 +33,6 @@ import model.KhuyenMai;
 import model.Mau;
 import model.NSX;
 import model.NhanVien;
-import net.miginfocom.swing.MigLayout;
-import org.jdesktop.animation.timing.Animator;
 import service.CTSPService;
 import service.IGioHangService;
 import service.IHoaDonService;
@@ -52,30 +45,15 @@ import service.impl.KhuyenMaiSer;
 import service.impl.MauSacImpl;
 import service.impl.NSXImpl;
 import service.impl.NhanVienImpl;
-import service.impl.SanPhamImp;
 import utilities.Auth;
 import utilities.DataGlobal;
 import component.Header;
 import component.Menu;
-import event.EventMenuSelected;
-import event.EventShowPopupMenu;
-import view.Form_Home;
 import view.MainForm;
-import view.QuanLySP;
-import swing.MenuItem;
-import swing.PopupMenu;
-import swing.icon.GoogleMaterialDesignIcons;
-import swing.icon.IconFontSwing;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
-import org.jdesktop.animation.timing.TimingTarget;
-import org.jdesktop.animation.timing.TimingTargetAdapter;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
 
@@ -1266,7 +1244,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         webPanel.setFPSDisplayed(true);
         webPanel.setMirrored(true);
 
-        panelWebcam.add(webPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
+        panelWebcam.add(webPanel, new AbsoluteConstraints(0, 0, panelWebcam.getWidth(), panelWebcam.getHeight()));
+        
         executor.execute(this);
         
     }

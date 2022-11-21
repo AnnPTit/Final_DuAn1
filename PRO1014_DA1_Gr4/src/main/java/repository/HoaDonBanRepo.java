@@ -4,7 +4,7 @@
  */
 package repository;
 
-import hibernateConfig.HibernateConfig;
+
 import java.util.ArrayList;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
