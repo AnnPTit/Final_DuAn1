@@ -92,4 +92,41 @@ public class HoaDonBanSer implements IHoaDonService {
             System.out.println("Cập nhật Thất bại");
         }
     }
+
+    @Override
+    public void updateTrangThaiHoaDonChiTiet(int id, int trangThai) {
+        if (hdr.updateTrangThaiHoaDonChiTiet(id, trangThai) == true) {
+            System.out.println("Cập nhật trạng thái hóa đơn chi tiet thành công : " + id);
+        } else {
+            System.out.println("Cập nhật Thất bại" + id);
+        }
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD) {
+        return hdr.getHoaDonChiTietByIDHd(idHD);
+    }
+
+    @Override
+    public List<HoaDonBan> getListByTrangThai(int trangThai) {
+        return hdr.getAllByTrangThai(trangThai);
+    }
+
+    @Override
+    public void deleteHoaDonCT(int idCTSP) {
+        if (hdr.deleteHoaDonChitiet(idCTSP) == true) {
+            System.out.println("Xoa hoa don chi tiet thanh cong ");
+        } else {
+            System.out.println("Thất bại");
+        }
+    }
+
+    @Override
+    public void updateSoLuongHDCT(int idCTSP, int soLuong) {
+        if (hdr.updateSoLuongHDCT(idCTSP,soLuong) == true) {
+            System.out.println("Cap nhat so luong  hoa don chi tiet thanh cong ");
+        } else {
+            System.out.println("Thất bại");
+        }
+    }
 }

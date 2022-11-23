@@ -16,7 +16,11 @@ import model.KhuyenMai;
  * @author T450s
  */
 public interface IHoaDonService {
+
     ArrayList<HoaDonBan> getListHoaDonBan();
+
+    List<HoaDonBan> getListByTrangThai(int trangThai);
+
     List<KhachHang> getListKhach();
 
     // ArrayList<NhanVien> getListNv();
@@ -34,4 +38,12 @@ public interface IHoaDonService {
 
     void updateTrangThaiHoaDon(int id, int trangThai);
 
-}
+    void updateTrangThaiHoaDonChiTiet(int id, int trangThai);
+
+    List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
+
+    void deleteHoaDonCT(int idCTSP);
+
+    public void updateSoLuongHDCT(int idCTSP, int soLuong) ;
+
+    }

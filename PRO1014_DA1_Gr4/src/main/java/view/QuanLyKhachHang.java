@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhachHang;
 import service.impl.KhachHangImpl;
-import service.KhachHangService;
+import service.IKhachHangService;
 
 
 public class QuanLyKhachHang extends javax.swing.JPanel {
 
-    private KhachHangService khSer = new KhachHangImpl();
+    private IKhachHangService khSer = new KhachHangImpl();
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
 

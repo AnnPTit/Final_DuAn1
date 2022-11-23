@@ -11,7 +11,7 @@ import model.KhachHang;
  *
  * @author ADMIN
  */
-public interface KhachHangService {
+public interface IKhachHangService {
 
     public List<KhachHang> getAll();
 

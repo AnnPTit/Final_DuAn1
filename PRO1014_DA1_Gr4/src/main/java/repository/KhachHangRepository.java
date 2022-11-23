@@ -96,7 +96,20 @@ public class KhachHangRepository {
             return false;
         }
     }
-    
+
+    public KhachHang getKhachHangByMa(String ma) {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From KhachHang where MaKH =: ma");
+        q.setParameter("ma", ma);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<KhachHang> list = q.getResultList();
+        KhachHang khachHang = (KhachHang) q.getSingleResult();
+        return khachHang;
+    }
+
     public List<KhachHang> getSumCustomer() {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
@@ -108,5 +121,6 @@ public class KhachHangRepository {
         @SuppressWarnings("unchecked")
         List<KhachHang> list = query.getResultList();
         return list;
+
     }
 }
