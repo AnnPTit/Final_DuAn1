@@ -96,6 +96,21 @@ CONSTRAINT PK_NV PRIMARY KEY(ID)
 )
 go 
 
+--SELECT MaCTSP, ChiTietSP.IdSP ,SUM(HoaDonChiTiet.SoLuong) AS SoLuongBanRa FROM ChiTietSP join HoaDonChiTiet on ChiTietSP.ID = HoaDonChiTiet.IdCTSP GROUP BY MaCTSP, ChiTietSP.IdSP ORDER BY SoLuongBanRa Desc  
+SELECT ChiTietSP.MaCTSP,ChiTietSP.IdSP, SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID  GROUP BY ChiTietSP.MaCTSP,ChiTietSP.IdSP  ORDER BY SoLuongBanRa DESC 
+
+
+SELECT * FROM HoaDon
+SELECT * FROM HoaDonChiTiet
+SELECT * FROM ChiTietSP
+UPDATE ChiTietSP SET TrangThai = 1 WHERE ID = 3
+
+SELECT * FROM GioHang
+SELECT * FROM GioHangChiTiet
+
+SELECT * FROM KhachHang
+SELECT COUNT(ID) TongKhachHang FROM KhachHang
+
 CREATE TABLE ChucVu  (
 ID INT identity (1,1) not null  , 
 MaCV VARCHAR(10) , 
