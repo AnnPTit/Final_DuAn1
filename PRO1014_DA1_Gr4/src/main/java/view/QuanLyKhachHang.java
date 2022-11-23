@@ -10,10 +10,7 @@ import model.KhachHang;
 import service.impl.KhachHangImpl;
 import service.KhachHangService;
 
-/**
- *
- * @author fallinluv2003
- */
+
 public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private KhachHangService khSer = new KhachHangImpl();
@@ -267,16 +264,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel3.border.title"))); // NOI18N
 
         txtSearch.setText(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.txtSearch.text")); // NOI18N
-        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtSearchMouseReleased(evt);
-            }
-        });
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -471,18 +458,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         loadKhachHang();
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void txtSearchMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseReleased
-
-    }//GEN-LAST:event_txtSearchMouseReleased
-
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByPhone();
-    }//GEN-LAST:event_txtSearchKeyReleased
-
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         currentPage++;
         if (currentPage < numPage) {
@@ -503,6 +478,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             showListTarget(getListByCurrentPage());
         }
     }//GEN-LAST:event_btnPreviousActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        searchByPhone();
+    }//GEN-LAST:event_txtSearchKeyReleased
 
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();

@@ -163,35 +163,35 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         buttonGroup1.add(rdoNu);
         org.openide.awt.Mnemonics.setLocalizedText(rdoNu, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.rdoNu.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(btnThem, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnThem.text")); // NOI18N
         btnThem.setBackground(new java.awt.Color(0, 153, 204));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        org.openide.awt.Mnemonics.setLocalizedText(btnThem, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnThem.text")); // NOI18N
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(btnSua, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnSua.text")); // NOI18N
         btnSua.setBackground(new java.awt.Color(0, 153, 204));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSua.setForeground(new java.awt.Color(255, 255, 255));
-        org.openide.awt.Mnemonics.setLocalizedText(btnSua, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnSua.text")); // NOI18N
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(btnClear, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnClear.text")); // NOI18N
         btnClear.setBackground(new java.awt.Color(0, 153, 204));
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        org.openide.awt.Mnemonics.setLocalizedText(btnClear, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnClear.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(btnXoa, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnXoa.text")); // NOI18N
         btnXoa.setBackground(new java.awt.Color(0, 153, 204));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
-        org.openide.awt.Mnemonics.setLocalizedText(btnXoa, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnXoa.text")); // NOI18N
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);
@@ -212,14 +212,26 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                         .addGap(48, 48, 48)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(txtMa))
-                        .addGap(101, 101, 101)
+                            .addComponent(txtMa)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbbChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, 141, Short.MAX_VALUE)
+                            .addComponent(txtPass)
+                            .addComponent(txtDiaChi))))
+                .addGap(101, 101, 101)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel10))
-                        .addGap(43, 43, 43)
+                        .addGap(101, 101, 101)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,16 +250,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                                     .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbbChucVu, javax.swing.GroupLayout.Alignment.LEADING, 0, 141, Short.MAX_VALUE)
-                            .addComponent(txtPass)
-                            .addComponent(txtDiaChi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
