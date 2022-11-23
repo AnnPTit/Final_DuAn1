@@ -58,7 +58,10 @@ public class KhachHangImpl implements IKhachHangService {
         return khRepo.getAllByTrangThai(trangThai);
     }
 
-    
+    @Override
+    public KhachHang getKhachHangByMa(String ma) {
+        return khRepo.getKhachHangByMa(ma);
+    }
 
     @Override
     public List<KhachHang> getSumCustomer() {

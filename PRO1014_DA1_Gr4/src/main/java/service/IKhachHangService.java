@@ -23,5 +23,7 @@ public interface IKhachHangService {
 
     List<KhachHang> getAllByTrangThai(int trangThai);
     
+    KhachHang getKhachHangByMa(String ma);
+    
     public List<KhachHang> getSumCustomer();
 }
