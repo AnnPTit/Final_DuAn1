@@ -11,5 +11,6 @@ public interface CTSPService {
     public List<ChiTietSanPham> getAll();
     String add(ChiTietSanPham ctsp);
     String update(ChiTietSanPham ctsp, Integer id);
-    String delete(ChiTietSanPham ctsp, Integer id);
+    String updateTrangThai(Integer id);
+    public List<ChiTietSanPham> getSumProduct();
 }

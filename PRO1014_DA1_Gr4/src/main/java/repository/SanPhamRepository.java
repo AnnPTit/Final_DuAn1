@@ -22,11 +22,12 @@ public class SanPhamRepository {
     Session ses = HibernateConfig.getFACTORY().openSession();
 
     public List<SanPham> getAll() {
-       EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From SanPham");
+        Query q = (Query) em.createQuery("From SanPham WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         List<SanPham> list = q.getResultList();
@@ -50,11 +51,10 @@ public class SanPhamRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE SanPham s SET s.maSP=:ma,s.tenSP=:ten,s.ngaySua=:ngaySua,s.trangThai=:trangThai WHERE s.id=:id");
+            Query q = ses.createQuery("UPDATE SanPham s SET s.maSP=:ma,s.tenSP=:ten,s.ngaySua=:ngaySua WHERE s.id=:id");
             q.setParameter("ma", sp.getMaSP());
             q.setParameter("ten", sp.getTenSP());
             q.setParameter("ngaySua", sp.getNgaySua());
-            q.setParameter("trangThai", sp.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -65,11 +65,11 @@ public class SanPhamRepository {
         }
     }
 
-    public boolean delete(SanPham sp, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM SanPham s WHERE s.id=:id");
+            Query q = ses.createQuery("UPDATE SanPham sp SET sp.trangThai = 0  WHERE sp.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -79,6 +79,7 @@ public class SanPhamRepository {
             return false;
         }
     }
+
     public SanPham getById(int id) {
         SanPham sanPham = null;
         try {

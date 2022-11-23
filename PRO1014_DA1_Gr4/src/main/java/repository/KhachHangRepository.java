@@ -109,10 +109,18 @@ public class KhachHangRepository {
         KhachHang khachHang = (KhachHang) q.getSingleResult();
         return khachHang;
     }
-    
-    public static void main(String[] args) {
-        String ma = "KH00";
-        KhachHang kh = new KhachHangRepository().getKhachHangByMa(ma);
-        System.out.println(kh);
+
+    public List<KhachHang> getSumCustomer() {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = (Query) em.createQuery("SELECT COUNT(id) FROM KhachHang");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        @SuppressWarnings("unchecked")
+        List<KhachHang> list = query.getResultList();
+        return list;
+
     }
 }

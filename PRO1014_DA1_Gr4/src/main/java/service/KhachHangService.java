@@ -22,4 +22,6 @@ public interface KhachHangService {
     String updateTrangThai(Integer id);
 
     List<KhachHang> getAllByTrangThai(int trangThai);
+    
+    public List<KhachHang> getSumCustomer();
 }

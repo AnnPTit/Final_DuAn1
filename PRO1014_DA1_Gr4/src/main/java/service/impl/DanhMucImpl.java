@@ -41,8 +41,8 @@ public class DanhMucImpl implements DanhMucService{
     }
 
     @Override
-    public String delete(DanhMuc dm, Integer id) {
-        if(dmRepo.delete(dm, id)) {
+    public String updateTrangThai(Integer id) {
+        if(dmRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";

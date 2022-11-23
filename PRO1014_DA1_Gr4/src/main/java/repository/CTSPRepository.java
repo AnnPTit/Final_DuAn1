@@ -23,7 +23,8 @@ public class CTSPRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From ChiTietSanPham");
+        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         List<ChiTietSanPham> list = q.getResultList();
@@ -50,8 +51,7 @@ public class CTSPRepository {
             Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.ma=:ma,ctsp.sanPham.id=:idSP,"
                     + "ctsp.nhaSanXuat.id=:idNSX,ctsp.danhMuc.id=:idDM,ctsp.chatLieu.id=:idCL,"
                     + "ctsp.mauSac.id=:idMS,ctsp.moTa=:moTa,ctsp.soLuongTon=:soLuongTon,"
-                    + "ctsp.giaNhap=:giaNhap,ctsp.giaBan=:giaBan,ctsp.ngaySua=:ngaySua,"
-                    + "ctsp.trangThai=:trangThai WHERE ctsp.id=:id");
+                    + "ctsp.giaNhap=:giaNhap,ctsp.giaBan=:giaBan,ctsp.ngaySua=:ngaySua WHERE ctsp.id=:id");
             q.setParameter("ma", ctsp.getMa());
             q.setParameter("idSP", ctsp.getSanPham().getId());
             q.setParameter("idNSX", ctsp.getNhaSanXuat().getId());
@@ -63,7 +63,6 @@ public class CTSPRepository {
             q.setParameter("giaNhap", ctsp.getGiaNhap());
             q.setParameter("giaBan", ctsp.getGiaBan());
             q.setParameter("ngaySua", ctsp.getNgaySua());
-            q.setParameter("trangThai", ctsp.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -74,11 +73,11 @@ public class CTSPRepository {
         }
     }
 
-    public boolean delete(ChiTietSanPham ctsp, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM ChiTietSanPham ctsp WHERE ctsp.id=:id");
+            Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.trangThai = 0  WHERE ctsp.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -88,4 +87,18 @@ public class CTSPRepository {
             return false;
         }
     }
+    
+    public List<ChiTietSanPham> getSumProduct() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("SELECT SUM(soLuongTon) FROM ChiTietSanPham");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<ChiTietSanPham> list = q.getResultList();
+        return list;
+    }
+    
+    
 }

@@ -7,6 +7,8 @@ package repository;
 import hibernateConfig.HibernateConfig;
 import model.Mau;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,7 +21,14 @@ public class MauRepository {
     Session ses = HibernateConfig.getFACTORY().openSession();
 
     public List<Mau> getAll() {
-        Query q = ses.createQuery("FROM Mau");
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From Mau WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
         List<Mau> list = q.getResultList();
         return list;
     }
@@ -41,11 +50,10 @@ public class MauRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE Mau ms SET ms.maMau=:ma,ms.tenMau=:ten,ms.ngaySua=:ngaySua,ms.trangThai=:trangThai WHERE ms.id=:id");
+            Query q = ses.createQuery("UPDATE Mau ms SET ms.maMau=:ma,ms.tenMau=:ten,ms.ngaySua=:ngaySua WHERE ms.id=:id");
             q.setParameter("ma", ms.getMaMau());
             q.setParameter("ten", ms.getTenMau());
             q.setParameter("ngaySua", ms.getNgaySua());
-            q.setParameter("trangThai", ms.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -56,11 +64,11 @@ public class MauRepository {
         }
     }
 
-    public boolean delete(Mau ms, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM Mau dm WHERE ms.id=:id");
+            Query q = ses.createQuery("UPDATE Mau mau SET mau.trangThai = 0  WHERE mau.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();

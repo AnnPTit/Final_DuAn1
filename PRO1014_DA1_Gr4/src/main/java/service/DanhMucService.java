@@ -15,5 +15,5 @@ public interface DanhMucService {
     public List<DanhMuc> getAll();
     String add(DanhMuc dm);
     String update(DanhMuc dm, Integer id);
-    String delete(DanhMuc dm, Integer id);
+    String updateTrangThai(Integer id);
 }

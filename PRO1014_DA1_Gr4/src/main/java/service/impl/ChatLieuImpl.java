@@ -42,8 +42,8 @@ public class ChatLieuImpl implements ChatLieuService{
     }
 
     @Override
-    public String delete(ChatLieu cl, Integer id) {
-        if(clRepo.delete(cl, id)) {
+    public String updateTrangThai(Integer id) {
+        if(clRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";

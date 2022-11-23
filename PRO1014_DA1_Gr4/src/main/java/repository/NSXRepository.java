@@ -8,6 +8,8 @@ import hibernateConfig.HibernateConfig;
 import model.NSX;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,7 +22,14 @@ public class NSXRepository {
     Session ses = HibernateConfig.getFACTORY().openSession();
 
     public List<NSX> getAll() {
-        Query q = ses.createQuery("FROM NSX");
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From NSX WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
         List<NSX> list = q.getResultList();
         return list;
     }
@@ -42,11 +51,10 @@ public class NSXRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE NSX nsx SET nsx.maNSX=:ma,nsx.tenNSX=:ten,nsx.ngaySua=:ngaySua,nsx.trangThai=:trangThai WHERE nsx.id=:id");
+            Query q = ses.createQuery("UPDATE NSX nsx SET nsx.maNSX=:ma,nsx.tenNSX=:ten,nsx.ngaySua=:ngaySua WHERE nsx.id=:id");
             q.setParameter("ma", nsx.getMaNSX());
             q.setParameter("ten", nsx.getTenNSX());
             q.setParameter("ngaySua", nsx.getNgaySua());
-            q.setParameter("trangThai", nsx.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -57,11 +65,11 @@ public class NSXRepository {
         }
     }
 
-    public boolean delete(NSX nsx, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM NSX nsx WHERE nsx.id=:id");
+            Query q = ses.createQuery("UPDATE NSX nsx SET nsx.trangThai = 0  WHERE nsx.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();

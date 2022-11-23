@@ -29,7 +29,8 @@ public class NhanVienRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From NhanVien");
+        Query q = (Query) em.createQuery("From NhanVien WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         List<NhanVien> list = q.getResultList();

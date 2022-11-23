@@ -8,6 +8,8 @@ import hibernateConfig.HibernateConfig;
 import model.ChatLieu;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,7 +22,14 @@ public class ChatLieuRepository {
     Session ses = HibernateConfig.getFACTORY().openSession();
 
     public List<ChatLieu> getAll() {
-        Query q = ses.createQuery("FROM ChatLieu");
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From ChatLieu WHERE trangThai =: trangThai ORDER BY ID DESC");
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
         List<ChatLieu> list = q.getResultList();
         return list;
     }
@@ -42,11 +51,10 @@ public class ChatLieuRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("UPDATE ChatLieu cl SET cl.maCL=:ma,cl.tenCL=:ten,cl.ngaySua=:ngaySua,cl.trangThai=:trangThai WHERE cl.id=:id");
+            Query q = ses.createQuery("UPDATE ChatLieu cl SET cl.maCL=:ma,cl.tenCL=:ten,cl.ngaySua=:ngaySua WHERE cl.id=:id");
             q.setParameter("ma", cl.getMaCL());
             q.setParameter("ten", cl.getTenCL());
             q.setParameter("ngaySua", cl.getNgaySua());
-            q.setParameter("trangThai", cl.getTrangThai());
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();
@@ -57,11 +65,11 @@ public class ChatLieuRepository {
         }
     }
 
-    public boolean delete(ChatLieu cl, Integer id) {
+    public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            Query q = ses.createQuery("DELETE FROM ChatLieu cl WHERE cl.id=:id");
+            Query q = ses.createQuery("UPDATE ChatLieu cl SET cl.trangThai = 0  WHERE cl.id=:id");
             q.setParameter("id", id);
             q.executeUpdate();
             tran.commit();

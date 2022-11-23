@@ -37,12 +37,17 @@ public class CTSPImpl implements CTSPService {
     }
 
     @Override
-    public String delete(ChiTietSanPham ctsp, Integer id) {
-        if (ctspRepo.delete(ctsp, id)) {
+    public String updateTrangThai(Integer id) {
+        if (ctspRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";
         }
     }
 
+    @Override
+    public List<ChiTietSanPham> getSumProduct() {
+        return ctspRepo.getSumProduct();
+    }
+    
 }

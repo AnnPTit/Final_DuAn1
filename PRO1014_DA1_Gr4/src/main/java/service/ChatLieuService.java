@@ -15,5 +15,5 @@ public interface ChatLieuService {
     public List<ChatLieu> getAll();
     String add(ChatLieu cl);
     String update(ChatLieu cl, Integer id);
-    String delete(ChatLieu cl, Integer id);
+    String updateTrangThai(Integer id);
 }

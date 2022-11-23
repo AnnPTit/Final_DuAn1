@@ -13,11 +13,11 @@ public class ModelCard {
         this.title = title;
     }
 
-    public int getValues() {
+    public String getValues() {
         return values;
     }
 
-    public void setValues(int values) {
+    public void setValues(String values) {
         this.values = values;
     }
 
@@ -37,7 +37,7 @@ public class ModelCard {
         this.icon = icon;
     }
 
-    public ModelCard(String title, int values, int percentage, Icon icon) {
+    public ModelCard(String title, String values, int percentage, Icon icon) {
         this.title = title;
         this.values = values;
         this.percentage = percentage;
@@ -48,7 +48,7 @@ public class ModelCard {
     }
 
     private String title;
-    private int values;
+    private String values;
     private int percentage;
     private Icon icon;
 }

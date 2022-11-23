@@ -14,5 +14,5 @@ public interface NSXService {
     public List<NSX> getAll();
     String add(NSX nsx);
     String update(NSX nsx, Integer id);
-    String delete(NSX nsx, Integer id);
+    String updateTrangThai(Integer id);
 }

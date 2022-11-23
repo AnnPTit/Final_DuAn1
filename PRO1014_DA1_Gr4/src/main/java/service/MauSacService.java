@@ -15,5 +15,5 @@ public interface MauSacService {
     public List<Mau> getAll();
     String add(Mau ms);
     String update(Mau ms, Integer id);
-    String delete(Mau ms, Integer id);
+    String updateTrangThai(Integer id);
 }

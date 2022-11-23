@@ -96,6 +96,10 @@ public class HoaDonChiTiet implements Serializable {
         this.soLuong = soLuong;
         this.trangThai = trangThai;
     }
+    
+    public Object[] toDoanhSo() {
+        return new Object[] {chiTietSanPham.getMa(),chiTietSanPham.getSanPham().getTenSP(),soLuong};
+    }
      
      
     
