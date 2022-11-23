@@ -96,4 +96,23 @@ public class KhachHangRepository {
             return false;
         }
     }
+
+    public KhachHang getKhachHangByMa(String ma) {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From KhachHang where MaKH =: ma");
+        q.setParameter("ma", ma);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<KhachHang> list = q.getResultList();
+        KhachHang khachHang = (KhachHang) q.getSingleResult();
+        return khachHang;
+    }
+    
+    public static void main(String[] args) {
+        String ma = "KH00";
+        KhachHang kh = new KhachHangRepository().getKhachHangByMa(ma);
+        System.out.println(kh);
+    }
 }

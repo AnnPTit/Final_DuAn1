@@ -140,6 +140,12 @@ public class KhachHang implements Serializable {
         this.gioHang = gioHang;
     }
 
+    @Override
+    public String toString() {
+        return "KhachHang{" + "id=" + id + ", maKH=" + maKH + ", tenKH=" + tenKH + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email + ", trangThai=" + trangThai + ", gioHang=" + gioHang + '}';
+    }
+    
+
     public Object[] toDataRow() {
         return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Nam" : "Nữ",
             diaChi, sdt, email, trangThai == 0 ? "Ngừng hoạt động" : "Đang hoạt động"};

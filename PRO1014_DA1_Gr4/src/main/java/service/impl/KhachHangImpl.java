@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import model.KhachHang;
 import repository.KhachHangRepository;
-import service.KhachHangService;
+import service.IKhachHangService;
 
 /**
  *
  * @author ADMIN
  */
-public class KhachHangImpl implements KhachHangService {
+public class KhachHangImpl implements IKhachHangService {
 
     private KhachHangRepository khRepo = new KhachHangRepository();
 
@@ -56,6 +56,11 @@ public class KhachHangImpl implements KhachHangService {
     @Override
     public List<KhachHang> getAllByTrangThai(int trangThai) {
         return khRepo.getAllByTrangThai(trangThai);
+    }
+
+    @Override
+    public KhachHang getKhachHangByMa(String ma) {
+        return khRepo.getKhachHangByMa(ma);
     }
 
 }

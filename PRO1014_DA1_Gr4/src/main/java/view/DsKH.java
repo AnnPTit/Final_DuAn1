@@ -12,7 +12,7 @@ import javax.xml.crypto.Data;
 import model.KhachHang;
 import service.impl.KhachHangImpl;
 import utilities.Auth;
-import service.KhachHangService;
+import service.IKhachHangService;
 
 /**
  *
@@ -24,7 +24,7 @@ public class DsKH extends javax.swing.JFrame {
      * Creates new form DsKH
      */
     private List<KhachHang> listKhachHang = new ArrayList<>();
-    KhachHangService khachHangService = new KhachHangImpl();
+    IKhachHangService khachHangService = new KhachHangImpl();
 
     public DsKH() {
         initComponents();
