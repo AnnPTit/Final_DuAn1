@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +28,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "CHITIETSP")
-public class ChiTietSanPham {
+public class ChiTietSanPham implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
