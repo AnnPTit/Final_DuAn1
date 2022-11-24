@@ -1446,12 +1446,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         int total = 0;
         int quantitySum = 0;
-
-<<<<<<< HEAD
         // Xuất pdf
-        HoaDonChiTiet hoaDon = new HoaDonChiTiet();
-        List<HoaDonChiTiet> hdct = new HDCTImpl().getById(hoaDon.getId());
-=======
+
         KhuyenMai km = DataGlobal.getKhuyenMai();
         if (km == null) {
             km = new KhuyenMaiImpl().getKhuyenMaiByMa("KM00");
@@ -1460,7 +1456,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         listHoaDonBan = hoaDonBanService.getListByTrangThai(2);
         HoaDonBan hoaDonBan = listHoaDonBan.get(row);
         List<HoaDonChiTiet> hdct = new HDCTImpl().getById(hoaDonBan.getId());
->>>>>>> a89c6b810003f967d18f3e1097d4d3e618b32fd1
         for (HoaDonChiTiet x : hdct) {
             String nameProduct = x.getChiTietSanPham().getSanPham().getTenSP();
             int quantity = (int) x.getSoLuong();
