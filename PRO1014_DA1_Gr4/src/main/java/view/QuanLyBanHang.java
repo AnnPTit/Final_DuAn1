@@ -1514,10 +1514,10 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         int total = 0;
         int quantitySum = 0;
 
+        // Xuất pdf
         HoaDonChiTiet hoaDon = new HoaDonChiTiet();
         List<HoaDonChiTiet> hdct = new HDCTImpl().getById(hoaDon.getId());
         for (HoaDonChiTiet x : hdct) {
-
             String nameProduct = x.getChiTietSanPham().getSanPham().getTenSP();
             int quantity = (int) x.getSoLuong();
             double price = x.getChiTietSanPham().getGiaBan().doubleValue();
