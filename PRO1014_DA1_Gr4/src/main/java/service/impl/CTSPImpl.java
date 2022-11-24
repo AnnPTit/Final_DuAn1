@@ -49,5 +49,19 @@ public class CTSPImpl implements ICTSPService {
     public List<ChiTietSanPham> getSumProduct() {
         return ctspRepo.getSumProduct();
     }
-    
+
+    @Override
+    public int getSoLuongSpByMaCTSP(String maCTSP) {
+        return ctspRepo.getSoLuongSpByMaCTSP(maCTSP);
+    }
+
+    @Override
+    public void updateSoLuongCTSP(String maCTSP, int so) {
+        if (ctspRepo.updateSoLuongCTSP(maCTSP, so)) {
+            System.out.println("Cap nhat so luong ton thanh cong");
+        }else{
+            System.out.println("Cap nhat that bai");
+        }
+    }
+
 }

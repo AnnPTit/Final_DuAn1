@@ -56,7 +56,6 @@ import service.impl.NhanVienImpl;
 import utilities.Auth;
 import utilities.DataGlobal;
 import java.awt.Color;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -995,23 +994,25 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             JOptionPane.showMessageDialog(this, "Hành động không được cho phép !", "ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (Auth.getKh() == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng !");
-            return;
-        }
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-        int row = tblGioHang.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa !");
-            return;
-        }
-        GioHangChiTiet ghct = listGioHangChiTiet.get(row);
-        int idCTSP = ghct.getChiTietSanPham().getId();
-        String result = gioHangService.deleteGhct(ghct);
-        hoaDonBanService.deleteHoaDonCT(idCTSP);
-        JOptionPane.showMessageDialog(this, result);
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+        JOptionPane.showMessageDialog(this, "Tính năng đang được bảo trì ");
+        return;
+//        if (Auth.getKh() == null) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng !");
+//            return;
+//        }
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        int row = tblGioHang.getSelectedRow();
+//        if (row == -1) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa !");
+//            return;
+//        }
+//        GioHangChiTiet ghct = listGioHangChiTiet.get(row);
+//        int idCTSP = ghct.getChiTietSanPham().getId();
+//        String result = gioHangService.deleteGhct(ghct);
+//        hoaDonBanService.deleteHoaDonCT(idCTSP);
+//        JOptionPane.showMessageDialog(this, result);
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
     }//GEN-LAST:event_btnXoaSpActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1020,20 +1021,22 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             JOptionPane.showMessageDialog(this, "Hành động không được cho phép !", "ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (Auth.getKh() == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
-            return;
-        }
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-
-        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
-            gioHangService.deleteGhct(gioHangChiTiet);
-            int id = gioHangChiTiet.getChiTietSanPham().getId();
-            hoaDonBanService.deleteHoaDonCT(id);
-        }
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
-        JOptionPane.showMessageDialog(this, "Thành công !");
+        JOptionPane.showMessageDialog(this, "Chức năng đang được bảo trì ");
+        return;
+//        if (Auth.getKh() == null) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
+//            return;
+//        }
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//
+//        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
+//            gioHangService.deleteGhct(gioHangChiTiet);
+//            int id = gioHangChiTiet.getChiTietSanPham().getId();
+//            hoaDonBanService.deleteHoaDonCT(id);
+//        }
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+//        JOptionPane.showMessageDialog(this, "Thành công !");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void btnThayDoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThayDoiActionPerformed
@@ -1131,7 +1134,13 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        listHoaDonBan = hoaDonBanService.getListHoaDonBan();
+        if (cbxTrangThaiHoaDon.getSelectedIndex() == 0) {
+            listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
+        } else if (cbxTrangThaiHoaDon.getSelectedIndex() == 1) {
+            listHoaDonBan = hoaDonBanService.getListByTrangThai(2);
+        } else {
+            listHoaDonBan = hoaDonBanService.getListByTrangThai(0);
+        }
         int row = tblHoaDon.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần thanh toán");
@@ -1142,8 +1151,26 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
         listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
 
+        listHoaDonChiTiet = hoaDonBanService.getHoaDonChiTietByIdHD(hdb.getId());
+        for (HoaDonChiTiet hdct : listHoaDonChiTiet) {
+            String maCTSP = hdct.getChiTietSanPham().getMa();
+            int soLuongMua = hdct.getSoLuong();
+            if (soLuongMua > cTSPService.getSoLuongSpByMaCTSP(maCTSP)) {
+                JOptionPane.showMessageDialog(this, "Số lượng tồn không đủ ! \n "
+                        + "Vui lòng chọn sản phẩm khác !");
+                return;
+            }
+
+        }
+
         gioHangService.updateTrangThaiGHCT(gioHang.getId(), 2); // update trạng thái giỏ hàng chi tiết -> đã thanh toán 
         hoaDonBanService.updateTrangThaiHoaDonChiTiet(hdb.getId(), 2); // update trạng thái hóa đơn chi tiết - > đã thanh toán 
+
+        List<HoaDonChiTiet> listHDCT = hoaDonBanService.getHoaDonChiTietByIdHD(hdb.getId());
+        for (HoaDonChiTiet hoaDonChiTiet : listHDCT) {
+           cTSPService.updateSoLuongCTSP(hoaDonChiTiet.getChiTietSanPham().getMa(), hoaDonChiTiet.getSoLuong()); // cập nhật số lượng tồn của chi tiết sản phẩm 
+        }
+
         Date ngayThanhToan = new Date();
         hdb.setNgayThanhToan(ngayThanhToan);
         KhuyenMai km = DataGlobal.getKhuyenMai();
@@ -1167,10 +1194,11 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công : " + hdb.getMaHDB());
 
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId())); // load lại giỏ hàng 
 
-        loadTableHoaDon(hoaDonBanService.getListHoaDonBan());
-
+        loadTableHoaDon(hoaDonBanService.getListByTrangThai(1)); // load lại hóa đơn  
+        loadTableCTSP(cTSPService.getAll());
+        clear();
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -1188,7 +1216,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
             return;
         }
-        listHoaDonBan = hoaDonBanService.getListHoaDonBan();
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
         // JOptionPane.showMessageDialog(this, listHoaDonBan);
         for (HoaDonBan hoaDonBan : listHoaDonBan) {
             if (!khachHang.getMaKH().equalsIgnoreCase("KH00")) {
@@ -1198,14 +1226,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                 }
             }
         }
-//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-//        if (listGioHangChiTiet.size() == 0) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng thêm sản phẩm");
-//            return;
-//        }
-        // ===============================
 
+        // ===============================
         // tạo hóa đơn 
         String maHD = null;
         listHoaDonBan = hoaDonBanService.getListHoaDonBan();
@@ -1252,7 +1274,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         }
 
         // Load lại table 
-        listHoaDonBan = hoaDonBanService.getListHoaDonBan();
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
         loadTableHoaDon(listHoaDonBan);
         lbnMaHD.setText(maHD);
         lbnMaHD.setForeground(Color.red);

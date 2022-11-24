@@ -8,9 +8,18 @@ import java.util.List;
  * @author fallinluv2003
  */
 public interface ICTSPService {
-    public List<ChiTietSanPham> getAll();
+
+    List<ChiTietSanPham> getAll();
+
     String add(ChiTietSanPham ctsp);
+
     String update(ChiTietSanPham ctsp, Integer id);
+
     String updateTrangThai(Integer id);
-    public List<ChiTietSanPham> getSumProduct();
+
+    List<ChiTietSanPham> getSumProduct();
+
+    int getSoLuongSpByMaCTSP(String maCTSP);
+
+    public void updateSoLuongCTSP(String maCTSP, int so) ;
 }

@@ -23,7 +23,7 @@ public class CTSPRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE trangThai =: trangThai ORDER BY ID DESC");
+        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE trangThai =: trangThai and SoLuongTon > 0 ORDER BY ID DESC");
         q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
@@ -33,7 +33,7 @@ public class CTSPRepository {
 
     public boolean add(ChiTietSanPham ctsp) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             ses.save(ctsp);
             tran.commit();
@@ -46,7 +46,7 @@ public class CTSPRepository {
 
     public boolean update(ChiTietSanPham ctsp, Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.ma=:ma,ctsp.sanPham.id=:idSP,"
                     + "ctsp.nhaSanXuat.id=:idNSX,ctsp.danhMuc.id=:idDM,ctsp.chatLieu.id=:idCL,"
@@ -75,7 +75,7 @@ public class CTSPRepository {
 
     public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.trangThai = 0  WHERE ctsp.id=:id");
             q.setParameter("id", id);
@@ -87,7 +87,7 @@ public class CTSPRepository {
             return false;
         }
     }
-    
+
     public List<ChiTietSanPham> getSumProduct() {
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
@@ -99,6 +99,39 @@ public class CTSPRepository {
         List<ChiTietSanPham> list = q.getResultList();
         return list;
     }
-    
-    
+
+    public int getSoLuongSpByMaCTSP(String maCTSP) {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("SELECT soLuongTon FROM ChiTietSanPham where MaCTSP =:ma");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        q.setParameter("ma", maCTSP);
+
+        int soLuong = (int) q.getSingleResult();
+        return soLuong;
+    }
+
+    public Boolean updateSoLuongCTSP(String maCTSP, int so) {
+
+        Transaction tran = null;
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE ChiTietSanPham  SET soLuongTon  = soLuongTon - :so  WHERE MaCTSP =:ma");
+            q.setParameter("ma", maCTSP);
+            q.setParameter("so", so);
+            q.executeUpdate();
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        new CTSPRepository().updateSoLuongCTSP("CTSP1", 2);
+    }
+
 }

@@ -1159,15 +1159,15 @@ public class QuanLySP extends javax.swing.JPanel {
             return false;
         }
 
-        try {
-            if (Integer.parseInt(soLuong) > 99) {
-                JOptionPane.showMessageDialog(this, "Số lượng phải dưới 100");
-                return false;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Số lượng phải dưới 100");
-            return false;
-        }
+//        try {
+//            if (Integer.parseInt(soLuong) > 99) {
+//                JOptionPane.showMessageDialog(this, "Số lượng phải dưới 100");
+//                return false;
+//            }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Số lượng phải dưới 100");
+//            return false;
+//        }
 
         if (Integer.valueOf(soLuong) < 1) {
             JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
