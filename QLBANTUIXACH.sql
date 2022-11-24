@@ -13,7 +13,6 @@ CONSTRAINT PK_SP PRIMARY KEY(ID)
 )
 GO 
 
-
 CREATE TABLE Mau (
 ID INT identity (1,1) not null  , 
 MaMau VARCHAR(10) , 
@@ -99,14 +98,19 @@ go
 --SELECT MaCTSP, ChiTietSP.IdSP ,SUM(HoaDonChiTiet.SoLuong) AS SoLuongBanRa FROM ChiTietSP join HoaDonChiTiet on ChiTietSP.ID = HoaDonChiTiet.IdCTSP GROUP BY MaCTSP, ChiTietSP.IdSP ORDER BY SoLuongBanRa Desc  
 SELECT ChiTietSP.MaCTSP,ChiTietSP.IdSP, SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID  GROUP BY ChiTietSP.MaCTSP,ChiTietSP.IdSP  ORDER BY SoLuongBanRa DESC 
 
-
 SELECT * FROM HoaDon
 SELECT * FROM HoaDonChiTiet
 SELECT * FROM ChiTietSP
 UPDATE ChiTietSP SET TrangThai = 1 WHERE ID = 3
 
+SELECT SUM(HoaDonChiTiet.SoLuong*ChiTietSP.GiaBan) AS DoanhThu FROM HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.IdHD = HoaDon.ID
+							inner join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID WHERE HoaDon.NgayThanhToan = GETDATE()
+
+SELECT * FROM KhuyenMai
 SELECT * FROM GioHang
 SELECT * FROM GioHangChiTiet
+
+Print GETDATE()
 
 SELECT * FROM KhachHang
 SELECT COUNT(ID) TongKhachHang FROM KhachHang
