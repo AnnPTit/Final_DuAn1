@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
 import model.NhanVien;
-import service.NhanVienService;
 import service.impl.ChucVuImpl;
 import service.impl.NhanVienImpl;
+import service.INhanVienService;
 
 /**
  *
@@ -19,7 +19,7 @@ import service.impl.NhanVienImpl;
  */
 public class QuanLyNhanVien extends javax.swing.JPanel {
 
-    private NhanVienService nvSer = new NhanVienImpl();
+    private INhanVienService nvSer = new NhanVienImpl();
     private List<NhanVien> nv = new ArrayList<>();
     private DefaultComboBoxModel<ChucVu> cbCV = new DefaultComboBoxModel<>();
     private List<NhanVien> listNV;

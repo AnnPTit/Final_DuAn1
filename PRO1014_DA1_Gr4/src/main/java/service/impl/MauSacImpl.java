@@ -6,14 +6,14 @@ package service.impl;
 
 import model.Mau;
 import repository.MauRepository;
-import service.MauSacService;
 import java.util.List;
+import service.IMauSacService;
 
 /**
  *
  * @author HP
  */
-public class MauSacImpl implements MauSacService{
+public class MauSacImpl implements IMauSacService{
     
     private MauRepository msRepo = new MauRepository();
 

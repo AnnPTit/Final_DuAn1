@@ -6,15 +6,15 @@ package service.impl;
 
 import model.ChatLieu;
 import repository.ChatLieuRepository;
-import service.ChatLieuService;
 import java.util.List;
+import service.IChatLieuService;
 
 
 /**
  *
  * @author HP
  */
-public class ChatLieuImpl implements ChatLieuService{
+public class ChatLieuImpl implements IChatLieuService{
     
     private ChatLieuRepository clRepo = new ChatLieuRepository();
 

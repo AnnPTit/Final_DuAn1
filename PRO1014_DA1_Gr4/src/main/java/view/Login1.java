@@ -9,8 +9,8 @@ import java.security.MessageDigest;
 import javax.swing.JOptionPane;
 import model.NhanVien;
 import service.impl.NhanVienImpl; 
-import service.NhanVienService;
 import utilities.Auth;
+import service.INhanVienService;
 
 /**
  *
@@ -22,7 +22,7 @@ public class Login1 extends javax.swing.JFrame {
 //        System.out.println(doHashing("An123"));
 //    }
 
-    NhanVienService nhanVienService = new NhanVienImpl();
+    INhanVienService nhanVienService = new NhanVienImpl();
 
 
     public Login1() {

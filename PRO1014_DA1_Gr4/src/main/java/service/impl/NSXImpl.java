@@ -6,15 +6,15 @@ package service.impl;
 
 import model.NSX;
 import repository.NSXRepository;
-import service.NSXService;
 import java.util.List;
+import service.INSXService;
 
 
 /**
  *
  * @author HP
  */
-public class NSXImpl implements NSXService{
+public class NSXImpl implements INSXService{
     
     private NSXRepository nsxRepo = new NSXRepository();
 

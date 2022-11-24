@@ -2,14 +2,14 @@ package service.impl;
 
 import model.ChiTietSanPham;
 import repository.CTSPRepository;
-import service.CTSPService;
 import java.util.List;
+import service.ICTSPService;
 
 /**
  *
  * @author fallinluv2003
  */
-public class CTSPImpl implements CTSPService {
+public class CTSPImpl implements ICTSPService {
 
     private CTSPRepository ctspRepo = new CTSPRepository();
 

@@ -6,14 +6,14 @@ package service.impl;
 
 import model.DanhMuc;
 import repository.DanhMucRepository;
-import service.DanhMucService;
 import java.util.List;
+import service.IDanhMucService;
 
 /**
  *
  * @author HP
  */
-public class DanhMucImpl implements DanhMucService{
+public class DanhMucImpl implements IDanhMucService{
     
     private DanhMucRepository dmRepo = new DanhMucRepository();
 

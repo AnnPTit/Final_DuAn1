@@ -46,13 +46,12 @@ import model.KhuyenMai;
 import model.Mau;
 import model.NSX;
 import model.NhanVien;
-import service.CTSPService;
 import service.IGioHangService;
 import service.IHoaDonService;
 import service.impl.CTSPImpl;
 import service.impl.GioHangImpl;
-import service.impl.HoaDonBanSer;
-import service.impl.KhuyenMaiSer;
+import service.impl.HoaDonBanImpl;
+import service.impl.KhuyenMaiImpl;
 import service.impl.NhanVienImpl;
 import utilities.Auth;
 import utilities.DataGlobal;
@@ -66,18 +65,19 @@ import javax.swing.JOptionPane;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.openide.util.Exceptions;
 import service.impl.HDCTImpl;
+import service.ICTSPService;
 
 public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
 
     DefaultTableModel hoaDonModel = new DefaultTableModel();
     DefaultTableModel chiTietSpModel = new DefaultTableModel();
     DefaultTableModel gioHangModel = new DefaultTableModel();
-    CTSPService cTSPService = new CTSPImpl();
+    ICTSPService cTSPService = new CTSPImpl();
     List<ChiTietSanPham> listCtSp = new ArrayList<>();
     List<HoaDonBan> listHoaDonBan = new ArrayList<>();
     List<GioHangChiTiet> listGioHangChiTiet = new ArrayList<>();
     List<HoaDonChiTiet> listHoaDonChiTiet = new ArrayList<>();
-    IHoaDonService hoaDonBanService = new HoaDonBanSer();
+    IHoaDonService hoaDonBanService = new HoaDonBanImpl();
     IGioHangService gioHangService = new GioHangImpl();
     DefaultComboBoxModel<DanhMuc> cbDM = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<ChatLieu> cbCL = new DefaultComboBoxModel<>();
@@ -1201,7 +1201,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         hdb.setNgayThanhToan(ngayThanhToan);
         KhuyenMai km = DataGlobal.getKhuyenMai();
         if (km == null) {
-            km = new KhuyenMaiSer().getKhuyenMaiByMa("KM00");
+            km = new KhuyenMaiImpl().getKhuyenMaiByMa("KM00");
         }
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
@@ -1334,7 +1334,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         double totalHoaDon = Double.valueOf(lbnTongTien.getText());
 
         List<KhuyenMai> list = new ArrayList<>();
-        list = new KhuyenMaiSer().getKhuyenMaiMap(totalHoaDon);
+        list = new KhuyenMaiImpl().getKhuyenMaiMap(totalHoaDon);
         if (list.size() == 0) {
             JOptionPane.showMessageDialog(this, "Tổng hóa đơn của bạn chưa đạt giá trị tối thiểu ");
             return;

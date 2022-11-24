@@ -13,16 +13,16 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import service.CTSPService;
 import service.IKhachHangService;
 import service.impl.CTSPImpl;
 import service.impl.KhachHangImpl;
 import service.IKhachHangService;
+import service.ICTSPService;
 
 public class Form_Home extends javax.swing.JPanel {
 
     private IKhachHangService khSer = new KhachHangImpl();
-    private CTSPService ctspSer = new CTSPImpl();
+    private ICTSPService ctspSer = new CTSPImpl();
 
     public Form_Home() {
         initComponents();

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
-import service.impl.KhuyenMaiSer;
+import service.impl.KhuyenMaiImpl;
 import utilities.DataGlobal;
 
 /**
@@ -29,14 +29,14 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         loadTable();
         double minHoaDon = DataGlobal.getTotalHoaDon();
-        list = new KhuyenMaiSer().getKhuyenMaiMap(minHoaDon);
+        list = new KhuyenMaiImpl().getKhuyenMaiMap(minHoaDon);
     }
 
     private void loadTable() {
         model.setNumRows(0);
         //DataGlobal dataGlobal = new DataGlobal();
         double minHoaDon = DataGlobal.getTotalHoaDon();
-        list = new KhuyenMaiSer().getKhuyenMaiMap(minHoaDon);
+        list = new KhuyenMaiImpl().getKhuyenMaiMap(minHoaDon);
         for (KhuyenMai khuyenMai : list) {
             model.addRow(new Object[]{
                 khuyenMai.getMakm(), khuyenMai.getTenkm(), khuyenMai.getPhantramgiam() + "%", khuyenMai.getNgayhethan()

@@ -13,7 +13,6 @@ import model.DanhMuc;
 import model.Mau;
 import model.NSX;
 import model.SanPham;
-import service.CTSPService;
 import service.impl.CTSPImpl;
 import service.impl.ChatLieuImpl;
 import service.impl.DanhMucImpl;
@@ -35,6 +34,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import utilities.ExportExcel;
 import utilities.ImportExcel;
+import service.ICTSPService;
 
 public class QuanLySP extends javax.swing.JPanel {
 
@@ -44,7 +44,7 @@ public class QuanLySP extends javax.swing.JPanel {
     private List<DanhMuc> dm = new ArrayList<>();
     private List<SanPham> sp = new ArrayList<>();
     private List<ChiTietSanPham> ctsp = new ArrayList<>();
-    private CTSPService ctspSer = new CTSPImpl();
+    private ICTSPService ctspSer = new CTSPImpl();
     DefaultComboBoxModel<SanPham> cbSP = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<DanhMuc> cbDM = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<ChatLieu> cbCL = new DefaultComboBoxModel<>();

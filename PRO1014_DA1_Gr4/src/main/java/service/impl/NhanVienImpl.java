@@ -7,13 +7,13 @@ package service.impl;
 import java.util.List;
 import model.NhanVien;
 import repository.NhanVienRepository;
-import service.NhanVienService;
+import service.INhanVienService;
 
 /**
  *
  * @author ADMIN
  */
-public class NhanVienImpl implements NhanVienService {
+public class NhanVienImpl implements INhanVienService {
 
     private NhanVienRepository nvRepo = new NhanVienRepository();
 

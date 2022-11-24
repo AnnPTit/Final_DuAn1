@@ -6,15 +6,15 @@ package service.impl;
 
 import model.SanPham;
 import repository.SanPhamRepository;
-import service.SanPhamService;
 import java.util.List;
+import service.ISanPhamService;
 
 
 /**
  *
  * @author HP
  */
-public class SanPhamImp implements SanPhamService{
+public class SanPhamImp implements ISanPhamService{
     
     private SanPhamRepository spRepo = new SanPhamRepository();
 
