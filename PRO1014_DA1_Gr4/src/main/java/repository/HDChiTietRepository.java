@@ -33,13 +33,7 @@ public class HDChiTietRepository {
         return list;
     }
 
-    public static void main(String[] args) {
-        HDChiTietRepository hdctRepo = new HDChiTietRepository();
-        List<HoaDonChiTiet> list = hdctRepo.getAll();
-        for (HoaDonChiTiet x : list) {
-            System.out.println(x.toString());
-        }
-    }
+
 //    
 
     public List<HoaDonChiTiet> getDoanhThu() {
@@ -62,11 +56,15 @@ public class HDChiTietRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("SELECT hdct FROM HoaDonChiTiet hdct WHERE hdct.id =: id");
+        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE IdHD =: id");
         q.setParameter("id", id);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         list = q.getResultList();
         return list;
+    }
+    public static void main(String[] args) {
+        List<HoaDonChiTiet> list = new HDChiTietRepository().getById(98);
+        System.out.println(list);
     }
 
     // Them HDCT Repo
