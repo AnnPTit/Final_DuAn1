@@ -26,4 +26,5 @@ public interface IKhuyenMaiService {
 
     KhuyenMai getKhuyenMaiByMa(String maKM);
 
+    ArrayList<KhuyenMai> getAllByTrangT(int tt);
 }

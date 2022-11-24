@@ -173,6 +173,11 @@
             <artifactId>itext</artifactId>
             <version>1.4.8</version>
         </dependency>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
     <name>PRO1014_DA1_Gr4_Vip_pro</name>
 </project>

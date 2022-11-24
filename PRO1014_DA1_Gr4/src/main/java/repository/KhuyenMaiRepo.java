@@ -42,9 +42,10 @@ public class KhuyenMaiRepo {
     public void dele(int id) {
         try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
-            String hql = "Delete KhuyenMai km where km.id= :id";
+            String hql = "Update KhuyenMai km set km.trangthai = :trangThai where km.id= :id";
             Query q = se.createQuery(hql);
             q.setParameter("id", id);
+            q.setParameter("trangThai", 0);
             int suc = q.executeUpdate();
             tran.commit();
             System.out.println("So ban da duoc ghi thanh cong" + suc);
@@ -77,7 +78,7 @@ public class KhuyenMaiRepo {
         }
     }
 
-    public ArrayList<KhuyenMai> getAllKhuyenMaiMap(double minHoaDon ) {
+    public ArrayList<KhuyenMai> getAllKhuyenMaiMap(double minHoaDon) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
         Query q = se.createQuery("From KhuyenMai where MinHoaDon < : min and TrangThai = 1");
         q.setParameter("min", (minHoaDon + 1));
@@ -85,7 +86,7 @@ public class KhuyenMaiRepo {
         return ds;
     }
 
-     public KhuyenMai getKhuyenMaiByMa(String maKM) {
+    public KhuyenMai getKhuyenMaiByMa(String maKM) {
         try {
             String sql = "SELECT * FROM KhuyenMai WHERE MaKM = :ma";
             SQLQuery query = HibernateConfig.getFACTORY().openSession().createSQLQuery(sql);
@@ -106,6 +107,14 @@ public class KhuyenMaiRepo {
 
     }
 
+    public ArrayList<KhuyenMai> getAllByTrangT(int tt){
+        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        Query q = se.createQuery("From KhuyenMai km where km.trangthai =:trangThai");
+        q.setParameter("trangThai",tt);
+        ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
+        return ds;
+    }
+    
     public static void main(String[] args) {
         List<KhuyenMai> list = new KhuyenMaiRepo().getAllKhuyenMaiMap(1000);
         System.out.println(list);

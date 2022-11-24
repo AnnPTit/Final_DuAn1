@@ -101,7 +101,7 @@ public class Main extends javax.swing.JFrame {
                         main.showForm(new QuanLySP());
                     }
                 } else if (menuIndex == 7) {
-                    main.showForm(new QuanLySP());
+                    main.showForm(new KhuyenMai1());
                 } else {
                     int i = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn đăng xuất không");
                     if (i == JOptionPane.YES_OPTION) {

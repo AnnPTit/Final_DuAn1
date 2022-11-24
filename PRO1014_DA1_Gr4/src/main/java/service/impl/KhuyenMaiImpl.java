@@ -48,4 +48,9 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
         return kmr.getKhuyenMaiByMa(maKM);
     }
 
+    @Override
+    public ArrayList<KhuyenMai> getAllByTrangT(int tt) {
+        return kmr.getAllByTrangT(tt);
+    }
+
 }
