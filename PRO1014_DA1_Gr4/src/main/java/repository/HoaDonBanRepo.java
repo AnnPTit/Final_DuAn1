@@ -25,8 +25,8 @@ public class HoaDonBanRepo {
 
     public ArrayList<HoaDonBan> getAll() {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From HoaDonBan c where c.trangThai =: trangthai order by c.id desc");
-        q.setParameter("trangthai", 1);
+        Query q = se.createQuery("From HoaDonBan order by id desc");
+       // q.setParameter("trangthai", 1);
         ArrayList<HoaDonBan> ds = (ArrayList<HoaDonBan>) q.getResultList();
         return ds;
     }

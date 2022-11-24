@@ -93,11 +93,11 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         hoaDonModel = (DefaultTableModel) tblHoaDon.getModel();
         gioHangModel = (DefaultTableModel) tblGioHang.getModel();
         listCtSp = cTSPService.getAll();
-        listHoaDonBan = hoaDonBanService.getListHoaDonBan();
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
         loadTableHoaDon(listHoaDonBan);
         loadTableCTSP(listCtSp);
         btnThanhToan.setEnabled(false);
-        loadAllCB();
+
     }
 
     private void loadTableCTSP(List<ChiTietSanPham> list) {
@@ -164,46 +164,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         }
         lbnTongTien.setText(String.valueOf(tongTien));
         lbnTongTien.setForeground(Color.red);
-    }
-//
-//    void loadCbDanhMuc() {
-//        cbbDanhMuc.setModel((DefaultComboBoxModel) cbDM);
-//        cbDM.removeAllElements();
-//        for (DanhMuc dm : new DanhMucImpl().getAll()) {
-//            cbDM.addElement(dm);
-//        }
-//    }
-//
-//    void loadCbChatLieu() {
-//        cbbCL.setModel((DefaultComboBoxModel) cbCL);
-//        cbCL.removeAllElements();
-//        for (ChatLieu cl : new ChatLieuImpl().getAll()) {
-//            cbCL.addElement(cl);
-//        }
-//    }
-//
-//    void loadCbMauSac() {
-//        cbbMau.setModel((DefaultComboBoxModel) cbMau);
-//        cbMau.removeAllElements();
-//        for (Mau mau : new MauSacImpl().getAll()) {
-//            cbMau.addElement(mau);
-//        }
-//    }
-//
-//    void loadCbNSX() {
-//        cbbNSX.setModel((DefaultComboBoxModel) cbNSX);
-//        cbNSX.removeAllElements();
-//        for (NSX nsx : new NSXImpl().getAll()) {
-//            cbNSX.addElement(nsx);
-//        }
-//    }
-
-    public void loadAllCB() {
-//        loadCbChatLieu();
-//        loadCbDanhMuc();
-//        loadCbMauSac();
-//        loadCbNSX();
-
     }
 
     void searchByName() {
@@ -1181,19 +1141,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
         listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-//        List<HoaDonChiTiet> listHDCT = new ArrayList<>();
-//
-//        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
-//            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-//            hoaDonChiTiet.setHoaDonBan(hdb);
-//            hoaDonChiTiet.setChiTietSanPham(gioHangChiTiet.getChiTietSanPham());
-//            hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
-//            hoaDonChiTiet.setTrangThai(2);
-//            listHDCT.add(hoaDonChiTiet);
-//        }
-//        for (HoaDonChiTiet hoaDonChiTiet : listHDCT) {
-//            hoaDonBanService.addHoaDonChiTiet(hoaDonChiTiet);
-//        }
 
         gioHangService.updateTrangThaiGHCT(gioHang.getId(), 2); // update trạng thái giỏ hàng chi tiết -> đã thanh toán 
         hoaDonBanService.updateTrangThaiHoaDonChiTiet(hdb.getId(), 2); // update trạng thái hóa đơn chi tiết - > đã thanh toán 
@@ -1206,15 +1153,19 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
         hoaDonBanService.update(hdb, hdb.getId()); // Update khuyến mãi + Trạng thái hóa đơn 
-        try {
-            outputPDF();
-            JOptionPane.showMessageDialog(this, "In ra PDF thanh cong");
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (BadElementException ex) {
-            Exceptions.printStackTrace(ex);
+        int oup = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn ?");
+        if (oup == JOptionPane.YES_OPTION) {
+            try {
+                outputPDF();
+                JOptionPane.showMessageDialog(this, "In hóa đơn thành công : " + hdb.getMaHDB());
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            } catch (BadElementException ex) {
+                Exceptions.printStackTrace(ex);
+            }
         }
-        JOptionPane.showMessageDialog(this, "Thành công");
+
+        JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công : " + hdb.getMaHDB());
 
         loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
 
@@ -1225,20 +1176,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
     private void btnTaoHoaDonwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHoaDonwActionPerformed
 
-//        KhachHang khachHang = new KhachHang();
-//        khachHang = Auth.getKh();
-//        if (khachHang == null) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
-//            return;
-//        }
-//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-//        if (listGioHangChiTiet.size() == 0) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng thêm sản phẩm");
-//            return;
-//        }
-        //       new TaoHoaDonFr().setVisible(true);
-        // new DsKH().setVisible(true);
         HoaDonBan hdb = new HoaDonBan();
         NhanVien nhanVien = new NhanVien();
         nhanVien = Auth.getNv();
@@ -1272,11 +1209,14 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         // tạo hóa đơn 
         String maHD = null;
         listHoaDonBan = hoaDonBanService.getListHoaDonBan();
-        int so = (listHoaDonBan.size() + 1);
+
+        int so = 0;
         if (listHoaDonBan.size() == 0) {
             maHD = "HD1";
         } else {
-            maHD = "HD " + so;
+            HoaDonBan hoaDonBan = listHoaDonBan.get(0);
+            so = (hoaDonBan.getId());
+            maHD = "HD" + so;
         }
         hdb.setNhanVien(nhanVien);
         hdb.setKhachHang(khachHang);
@@ -1451,23 +1391,14 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         return th;
     }
 
-//    public static void main(String[] args) throws FileNotFoundException {
-//        String pathh = "Success";
-//
-//        String path = "D:\\" + pathh + ".pdf";
-//
-//        PdfWriter pdfWriter = new PdfWriter(path);
-//        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-//        pdfDocument.setDefaultPageSize(PageSize.A4);
-//        Document document = new Document(pdfDocument);
-//
-//        document.add(new Paragraph("Bùi Thành Đạt đẹp trai vê lù"));
-//        document.close();
-//        System.out.println("Created PDF");
-//    }
     public void outputPDF() throws IOException, BadElementException {
         int row = tblHoaDon.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn");
+            return;
+        }
 
+        KhachHang khachHang = Auth.getKh();
         String pathh = (lbnMaHD.getText());
         System.out.println(pathh);
         String path = "D:\\" + pathh + ".pdf";
@@ -1486,7 +1417,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         table.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
         table.addCell(new Cell().add("Shop tui xach Authentication").setFontSize(30f).setBorder(Border.NO_BORDER));
 
-        table.addCell(new Cell().add("Hà Nội \n SĐT: 0953252124 - 0423425523")
+        table.addCell(new Cell().add("Ha Noi \n SĐT: 0922505266 - 0389718892")
                 .setTextAlignment(TextAlignment.RIGHT).setMarginTop(30f).setMarginBottom(30f).setBorder(Border.NO_BORDER).setMarginRight(10f)
         );
 
@@ -1498,6 +1429,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         customerInfor.addCell(new Cell(0, 4).add("Thong tin").setBold().setBorder(Border.NO_BORDER));
         customerInfor.addCell(new Cell().add("Khach hang: ").setBorder(Border.NO_BORDER));
         customerInfor.addCell(new Cell().add((tblHoaDon.getValueAt(row, 2).toString())).setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add("SDT : ").setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add(khachHang.getSdt()).setBorder(Border.NO_BORDER));
         customerInfor.addCell(new Cell().add("Ma hoa don: ").setBorder(Border.NO_BORDER));
         customerInfor.addCell(new Cell().add(tblHoaDon.getValueAt(row, 0) + "").setBorder(Border.NO_BORDER));
 
@@ -1514,10 +1447,15 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         int total = 0;
         int quantitySum = 0;
 
-        HoaDonChiTiet hoaDon = new HoaDonChiTiet();
-        List<HoaDonChiTiet> hdct = new HDCTImpl().getById(hoaDon.getId());
-        for (HoaDonChiTiet x : hdct) {
+        KhuyenMai km = DataGlobal.getKhuyenMai();
+        if (km == null) {
+            km = new KhuyenMaiImpl().getKhuyenMaiByMa("KM00");
+        }
 
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(2);
+        HoaDonBan hoaDonBan = listHoaDonBan.get(row);
+        List<HoaDonChiTiet> hdct = new HDCTImpl().getById(hoaDonBan.getId());
+        for (HoaDonChiTiet x : hdct) {
             String nameProduct = x.getChiTietSanPham().getSanPham().getTenSP();
             int quantity = (int) x.getSoLuong();
             double price = x.getChiTietSanPham().getGiaBan().doubleValue();
@@ -1525,7 +1463,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             itemInforTable.addCell(new Cell().add(quantity + ""));
             itemInforTable.addCell(new Cell().add(nf.format(price) + " VND").setTextAlignment(TextAlignment.RIGHT));
             itemInforTable.addCell(new Cell().add(nf.format(price * quantity) + " VND").setTextAlignment(TextAlignment.RIGHT));
-            total += price * quantity;
+            total += ((price * quantity) * ((km.getPhantramgiam()) / 100));
             quantitySum += quantity;
         }
 
@@ -1534,18 +1472,23 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         itemInforTable.addCell(
                 new Cell().add(quantitySum + "").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
         itemInforTable.addCell(
-                new Cell().add("Tong Tien").setTextAlignment(TextAlignment.RIGHT).setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+                new Cell().add("Chiet khau ").setTextAlignment(TextAlignment.RIGHT).setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
         itemInforTable.addCell(
-                new Cell().add(nf.format(total) + " VND").setTextAlignment(TextAlignment.RIGHT).setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+                new Cell().add((km.getPhantramgiam()) + "%").setTextAlignment(TextAlignment.RIGHT).setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+
+        itemInforTable.addCell(
+                new Cell().add("Tong Tien").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+        itemInforTable.addCell(
+                new Cell().add((lbnTongTien.getText()) + " VND").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
 
         float colWidthNote[] = {560};
         com.itextpdf.layout.element.Table customerInforNote = new com.itextpdf.layout.element.Table(colWidthNote);
 
         customerInforNote.addCell(
-                new Cell().add("Tien khach dua: " + (nf.format(txtTienKhachDua.getText())) + " VND").
+                new Cell().add("Tien khach dua: " + ((txtTienKhachDua.getText())) + " VND").
                         setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER).setBold().setFontSize(20).setFontColor(new DeviceRgb(0, 0, 0)));
         customerInforNote.addCell(
-                new Cell().add("Tien Tra Lai: " + (nf.format(lbnTienThua.getText())) + " VND").
+                new Cell().add("Tien Tra Lai: " + ((lbnTienThua.getText())) + " VND").
                         setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER).setBold().setFontSize(20).setFontColor(new DeviceRgb(0, 0, 0)));
         customerInforNote.addCell(
                 new Cell().add("Luu y: Quy khach vui long kiem tra hang truoc khi roi khoi shop \n Giu hoa don khi tra hang trong vong 2 ngay").
@@ -1570,15 +1513,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         document.close();
     }
 
-//    public static void main(String[] args) throws IOException, IOException {
-//        try {
-//            outputPDF();
-//        } catch (IOException ex) {
-//            Exceptions.printStackTrace(ex);
-//        } catch (BadElementException ex) {
-//            Exceptions.printStackTrace(ex);
-//        }
-//    }
     Locale lc = new Locale("nv", "VN");
     NumberFormat nf = NumberFormat.getInstance(lc);
 
