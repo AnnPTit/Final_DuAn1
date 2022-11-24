@@ -1468,6 +1468,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         int total = 0;
         int quantitySum = 0;
+        // Xuất pdf
 
         KhuyenMai km = DataGlobal.getKhuyenMai();
         if (km == null) {
