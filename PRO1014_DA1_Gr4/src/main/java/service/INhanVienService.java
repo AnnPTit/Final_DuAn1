@@ -18,4 +18,5 @@ public interface INhanVienService {
     String update(NhanVien nv, Integer id);
     String updateTrangThai(Integer id);
     String updatePass(NhanVien nv);
+    String forgotPass(String ma, String email);
 }

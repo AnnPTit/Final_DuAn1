@@ -67,4 +67,13 @@ public class NhanVienImpl implements INhanVienService {
         }
     }
 
+    @Override
+    public String forgotPass(String ma, String email) {
+        if(nvRepo.forgotPass(ma, email)) {
+            return "Mật khẩu mới đã được gửi đến mail của bạn";
+        } else {
+            return "Thất bại";
+        }
+    }
+
 }
