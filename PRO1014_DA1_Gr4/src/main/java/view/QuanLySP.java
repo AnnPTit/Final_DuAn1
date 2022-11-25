@@ -935,6 +935,8 @@ public class QuanLySP extends javax.swing.JPanel {
         txtTen.setText(tbThuocTinh.getValueAt(row, 2).toString());
     }//GEN-LAST:event_tbThuocTinhMouseClicked
 
+    // Update QLSP
+    
     void loadCbSanPham() {
         cbbSanPham.setModel((DefaultComboBoxModel) cbSP);
         cbSP.removeAllElements();
