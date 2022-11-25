@@ -1,14 +1,22 @@
 package repository;
 
 import hibernateConfig.HibernateConfig;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import model.ChatLieu;
 import model.ChiTietSanPham;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import model.DanhMuc;
+import model.Mau;
+import model.NSX;
+import static mssql.googlecode.concurrentlinkedhashmap.Weighers.list;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 
 /**
  *
@@ -130,8 +138,61 @@ public class CTSPRepository {
         }
     }
 
+    public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx) {
+        Transaction transaction = ses.beginTransaction();
+        String sqlEx = null;
+        String sql = sql = "select \n"
+                + "ChiTietSP.ID,\n"
+                + "ChiTietSP.MaCTSP,\n"
+                + "SanPham.TenSP,\n"
+                + "DanhMuc.TenDM,\n"
+                + "ChatLieu.TenCL ,\n"
+                + "Mau.TenMau,\n"
+                + "NSX.TenNSX,\n"
+                + "ChiTietSP.SoluongTon,\n"
+                + "ChiTietSP.GiaNhap,\n"
+                + "ChiTietSP.GiaBan,\n"
+                + "ChiTietSP.MoTa,\n"
+                + "ChiTietSP.NgayTao,\n"
+                + "ChiTietSP.NgaySua,\n"
+                + "ChiTietSP.TrangThai\n"
+                + "from ChiTietSP join SanPham on SanPham.ID = ChiTietSP.IdSP\n"
+                + "join DanhMuc on DanhMuc.ID =ChiTietSP.IdDM\n"
+                + "join ChatLieu on ChatLieu.ID = ChiTietSP.IdCL\n"
+                + "join Mau on Mau.ID = ChiTietSP.IdMau\n"
+                + "join NSX on NSX.ID = ChiTietSP.IdNSX  ";;
+        if (isdanhMuc == null && isChatLieu == null && isMau == null && isNsx == null) {
+            sqlEx = sql;
+        } else if (isdanhMuc != null && isChatLieu == null && isMau == null && isNsx == null) {
+            sqlEx = sql + "where DanhMuc.ID = ? ";
+        }
+
+        try {
+            Query query = ses.createSQLQuery(sql);
+            //  query.setLong(0, 2).list();
+            List<Object[]> rows = query.setParameter("id", 1).getResultList();
+            List<ChiTietSanPham> list = new ArrayList<>();
+            for (Object[] row : rows) {
+                ChiTietSanPham ctsp = new ChiTietSanPham();
+                ctsp.setId(Integer.parseInt(row[0].toString()));
+                ctsp.setMa(row[1].toString());
+                list.add(ctsp);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println("cc");
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
-        new CTSPRepository().updateSoLuongCTSP("CTSP1", 2);
+        List<ChiTietSanPham> list = new CTSPRepository().getChiTietSanPhamByComBoBox(null, null, null, null);
+//        for (Object[] row : list) {
+//            System.out.println(row.toString());
+//        }
+        for (ChiTietSanPham chiTietSanPham : list) {
+            System.out.println(chiTietSanPham.getId());
+        }
     }
 
 }

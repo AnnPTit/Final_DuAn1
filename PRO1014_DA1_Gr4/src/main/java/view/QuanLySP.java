@@ -53,6 +53,11 @@ public class QuanLySP extends javax.swing.JPanel {
     DefaultComboBoxModel<NSX> cbNSX = new DefaultComboBoxModel<>();
     private List<ChiTietSanPham> listCTSP;
     private ISanPhamService spSer = new SanPhamImp();
+    // DefaultComboBoxModel<SanPham> findDanhMucBoxModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<DanhMuc> findDanhMucBoxModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<ChatLieu> findChatLieuBoxModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<Mau> findMauBoxModel = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<NSX> findNSXBoxModel = new DefaultComboBoxModel<>();
 
     int index = 0;
 
@@ -67,6 +72,8 @@ public class QuanLySP extends javax.swing.JPanel {
         loadCbChatLieu();
         loadCbMauSac();
         loadCbNSX();
+       // loadCbxFindDanhMuc();
+       loadAllCBFind();
 //        txtMa.setEnabled(false);
     }
 
@@ -112,6 +119,15 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbxFindDanhMuc = new javax.swing.JComboBox<>();
+        cbxFindChatLieu = new javax.swing.JComboBox<>();
+        cbxFindMauSac = new javax.swing.JComboBox<>();
+        cbxFindNSX = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -328,18 +344,50 @@ public class QuanLySP extends javax.swing.JPanel {
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel34, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel34.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel1.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel2.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel3.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel4.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel5.text")); // NOI18N
+
+        cbxFindDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxFindChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxFindMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxFindNSX.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtSearch)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(63, Short.MAX_VALUE)
                 .addComponent(jLabel34)
                 .addGap(60, 60, 60))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearch)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxFindDanhMuc, 0, 103, Short.MAX_VALUE)
+                            .addComponent(cbxFindChatLieu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxFindMauSac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxFindNSX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +396,25 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cbxFindDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbxFindChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cbxFindMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbxFindNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204)));
@@ -908,15 +974,67 @@ public class QuanLySP extends javax.swing.JPanel {
             cbNSX.addElement(nsx);
         }
     }
-
-    public void loadAllCB() {
+    
+      public void loadAllCB() {
         loadCbChatLieu();
         loadCbDanhMuc();
         loadCbMauSac();
         loadCbNSX();
         loadCbSanPham();
     }
+    //==============================================================================
+    void loadCbxFindDanhMuc() {
+        cbxFindDanhMuc.setModel((DefaultComboBoxModel) findDanhMucBoxModel);
+        findDanhMucBoxModel.removeAllElements();
+        DanhMuc danhMuc = new DanhMuc();
+        danhMuc.setTenDM("Tất Cả Danh Mục");
+        findDanhMucBoxModel.addElement(danhMuc);
+        for (DanhMuc dm : new DanhMucImpl().getAll()) {
+            findDanhMucBoxModel.addElement(dm);
+        }
+    }
 
+    void loadCbxFindChatLieu() {
+        cbxFindChatLieu.setModel((DefaultComboBoxModel) findChatLieuBoxModel);
+        findChatLieuBoxModel.removeAllElements();
+        ChatLieu chatLieu = new ChatLieu();
+        chatLieu.setTenCL("Tất cả chất liệu");
+        findChatLieuBoxModel.addElement(chatLieu);
+        for (ChatLieu cl : new ChatLieuImpl().getAll()) {
+            findChatLieuBoxModel.addElement(cl);
+        }
+    }
+
+    void loadCbxFindMauSac() {
+        cbxFindMauSac.setModel((DefaultComboBoxModel) findMauBoxModel);
+        findMauBoxModel.removeAllElements();
+        Mau mau1 = new Mau();
+        mau1.setTenMau("Tất Cả Màu");
+        findMauBoxModel.addElement(mau1);
+        for (Mau mau : new MauSacImpl().getAll()) {
+            findMauBoxModel.addElement(mau);
+        }
+    }
+
+    void loadCbxFindNSX() {
+        cbxFindNSX.setModel((DefaultComboBoxModel) findNSXBoxModel);
+        findNSXBoxModel.removeAllElements();
+        NSX nsx1 = new NSX();
+        nsx1.setTenNSX("Tất Cả NSX");
+        findNSXBoxModel.addElement(nsx1);
+        for (NSX nsx : new NSXImpl().getAll()) {
+            findNSXBoxModel.addElement(nsx);
+        }
+    }
+  public void loadAllCBFind() {
+        loadCbxFindChatLieu();
+        loadCbxFindDanhMuc();
+        loadCbxFindMauSac();
+        loadCbxFindNSX();
+       
+    }
+  
+//===============================================================================
     void loadChiTietSanPham(List<ChiTietSanPham> list) {
         DefaultTableModel model = (DefaultTableModel) tbSanPham.getModel();
         model.setRowCount(0);
@@ -1186,7 +1304,6 @@ public class QuanLySP extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Số lượng phải dưới 100");
 //            return false;
 //        }
-
         if (Integer.valueOf(soLuong) < 1) {
             JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
             return false;
@@ -1222,7 +1339,7 @@ public class QuanLySP extends javax.swing.JPanel {
 
         return true;
     }
-    
+
     void clearData() {
         txtMa.setText("");
         txtTen.setText("");
@@ -1243,11 +1360,20 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbbMauSac;
     private javax.swing.JComboBox<String> cbbNSX;
     private javax.swing.JComboBox<String> cbbSanPham;
+    private javax.swing.JComboBox<String> cbxFindChatLieu;
+    private javax.swing.JComboBox<String> cbxFindDanhMuc;
+    private javax.swing.JComboBox<String> cbxFindMauSac;
+    private javax.swing.JComboBox<String> cbxFindNSX;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;

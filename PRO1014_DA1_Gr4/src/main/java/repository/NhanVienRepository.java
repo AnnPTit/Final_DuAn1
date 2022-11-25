@@ -45,9 +45,7 @@ public class NhanVienRepository {
             query.setParameter("ma", maNv);
             NhanVien results = (NhanVien) query.getSingleResult();
             // NhanVien results = (NhanVien) query.list();
-            if (results == null) {
-                return null;
-            }
+           
             return results;
 
         } catch (Exception e) {
