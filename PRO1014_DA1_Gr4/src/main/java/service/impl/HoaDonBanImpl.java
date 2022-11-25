@@ -12,8 +12,8 @@ import model.KhachHang;
 import repository.KhachHangRepository;
 import model.KhuyenMai;
 import model.NhanVien;
-import repository.HoaDonBanRepo;
-import repository.KhuyenMaiRepo;
+import repository.HoaDonBanRepository;
+import repository.KhuyenMaiRepository;
 
 import service.IHoaDonService;
 
@@ -23,9 +23,9 @@ import service.IHoaDonService;
  */
 public class HoaDonBanImpl implements IHoaDonService {
 
-    HoaDonBanRepo hdr = new HoaDonBanRepo();
+    HoaDonBanRepository hdr = new HoaDonBanRepository();
     KhachHangRepository kh = new KhachHangRepository();
-    KhuyenMaiRepo kmr = new KhuyenMaiRepo();
+    KhuyenMaiRepository kmr = new KhuyenMaiRepository();
 
     @Override
     public ArrayList<HoaDonBan> getListHoaDonBan() {

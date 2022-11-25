@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  *
  * @author T450s
  */
-public class KhuyenMaiRepo {
+public class KhuyenMaiRepository {
 
     public ArrayList<KhuyenMai> getAll() {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
@@ -116,7 +116,7 @@ public class KhuyenMaiRepo {
     }
     
     public static void main(String[] args) {
-        List<KhuyenMai> list = new KhuyenMaiRepo().getAllKhuyenMaiMap(1000);
+        List<KhuyenMai> list = new KhuyenMaiRepository().getAllKhuyenMaiMap(1000);
         System.out.println(list);
     }
 

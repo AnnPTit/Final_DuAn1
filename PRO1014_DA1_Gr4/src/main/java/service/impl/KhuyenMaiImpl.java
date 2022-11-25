@@ -7,7 +7,7 @@ package service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import model.KhuyenMai;
-import repository.KhuyenMaiRepo;
+import repository.KhuyenMaiRepository;
 import service.IKhuyenMaiService;
 
 /**
@@ -16,7 +16,7 @@ import service.IKhuyenMaiService;
  */
 public class KhuyenMaiImpl implements IKhuyenMaiService {
 
-    private KhuyenMaiRepo kmr = new KhuyenMaiRepo();
+    private KhuyenMaiRepository kmr = new KhuyenMaiRepository();
 
     @Override
     public ArrayList<KhuyenMai> getList() {

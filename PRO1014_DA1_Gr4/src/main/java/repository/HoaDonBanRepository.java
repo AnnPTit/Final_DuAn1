@@ -21,7 +21,7 @@ import org.hibernate.Transaction;
  *
  * @author T450s
  */
-public class HoaDonBanRepo {
+public class HoaDonBanRepository {
 
     public ArrayList<HoaDonBan> getAll() {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();

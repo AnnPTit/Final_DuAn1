@@ -61,7 +61,6 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     public KhuyenMai getForm() {
 
         boolean isValid = true;
-//        String maKm = this.txtMaKm.getText().trim();
         String tenKm = this.txtTenKm.getText().trim();
         if (tenKm.length() == 0) {
             //JOptionPane.showMessageDialog(this, " Ban de trong ten khuyen mai");
@@ -72,15 +71,6 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         } else {
             lbnMesTenKM.setText("");
         }
-//        String ngayHet = this.txtNgayHetHan.getDate().toString().trim();
-//        if (ngayHet.length() == 0) {
-//            lblMesNgayHet.setText("Bạn bỏ trống ngày hết hạn");
-//            lblMesNgayHet.setForeground(Color.red);
-//            txtNgayHetHan.requestFocus();
-//            isValid = false;
-//        } else {
-//            lblMesNgayHet.setText("");
-//        }
         String moTa = this.txtGhiChu.getText().trim();
         if (moTa.length() == 0) {
             lblMesMoTa.setText("Bạn bỏ trống mô tả ");
@@ -91,12 +81,6 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
         String ngayTao = this.txtNgayTao.getDate().toString().trim();
         Date ngtao = (Date) this.txtNgayTao.getDate();
-//        if (ngayTao.length() == 0) {
-//            ngayTao = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-//            ngtao = Date.valueOf(ngayTao);
-//        } else {
-//            ngtao = Date.valueOf(ngayTao);
-//        }
 
         String dieuKien = this.txtDieuKien.getText().trim();
         int DkapDung = 0;
@@ -144,7 +128,6 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
-                return null;
 
             }
 
@@ -153,7 +136,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
-                return null;
+
             } else {
                 lblMesPTram.setText("");
             }
@@ -161,18 +144,23 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
 
         int tthai = 1;
-        String maKm = "KM00" + (kms.getList().size() + 1);
+        String makm = this.txtMaKm.getText().trim();
+        String maKm = "";
+        if (makm.length() == 0) {
+            maKm = "KM00" + (kms.getList().size() + 1);
+        } else {
+            KhuyenMai km = this.kms.getKhuyenMaiByMa(makm);
+            if (km == null) {
+                maKm = makm;
+            } else {
+                this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
+                this.lblMesMaKm.setForeground(Color.red);
+                isValid = false;
+                return null;
+            }
+        }
         Date ngHet = (Date) this.txtNgayHetHan.getDate();
 
-//        try {
-//
-//            ngHet = Date.valueOf(ngayHet);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "Sai dinh dang ngay");
-//            return null;
-//        }
         if (isValid == false) {
             return null;
         } else {
@@ -193,6 +181,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         txtGhiChu.setText("");
         tblKhuyenMai.clearSelection();
         this.cbbTrangThai.setSelectedIndex(0);
+        this.lblMesMaKm.setText("");
     }
 
     /**
@@ -221,6 +210,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         lblMesDK = new javax.swing.JLabel();
         lblMesPTram = new javax.swing.JLabel();
         lblMesMoTa = new javax.swing.JLabel();
+        lblMesMaKm = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -300,7 +290,10 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblMesDK, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMesPTram, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(lblMesPTram, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblMesMaKm, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,7 +302,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMaKm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
+                .addComponent(lblMesMaKm, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTenKm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -704,6 +699,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblMesDK;
+    private javax.swing.JLabel lblMesMaKm;
     private javax.swing.JLabel lblMesMoTa;
     private javax.swing.JLabel lblMesNgayHet;
     private javax.swing.JLabel lblMesPTram;
