@@ -49,5 +49,10 @@ public class SanPhamImp implements ISanPhamService{
             return "Xóa thất bại";
         }
     }
+
+    @Override
+    public SanPham getByMa(String ma) {
+        return spRepo.getByMa(ma);
+    }
     
 }

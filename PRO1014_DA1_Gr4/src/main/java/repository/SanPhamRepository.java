@@ -90,4 +90,15 @@ public class SanPhamRepository {
         }
         return sanPham;
     }
+    
+    public SanPham getByMa(String ma) {
+        SanPham sanPham = null;
+        try {
+            Query q = ses.createQuery("SELECT sp FROM SanPham sp WHERE sp.maSP=:ma");
+            q.setParameter("ma", ma);
+            sanPham = (SanPham) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return sanPham;
+    }
 }

@@ -35,6 +35,7 @@ import javax.swing.table.DefaultTableModel;
 import utilities.ExportExcel;
 import utilities.ImportExcel;
 import service.ICTSPService;
+import service.ISanPhamService;
 
 public class QuanLySP extends javax.swing.JPanel {
 
@@ -51,6 +52,7 @@ public class QuanLySP extends javax.swing.JPanel {
     DefaultComboBoxModel<Mau> cbMau = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<NSX> cbNSX = new DefaultComboBoxModel<>();
     private List<ChiTietSanPham> listCTSP;
+    private ISanPhamService spSer = new SanPhamImp();
 
     int index = 0;
 
@@ -65,6 +67,7 @@ public class QuanLySP extends javax.swing.JPanel {
         loadCbChatLieu();
         loadCbMauSac();
         loadCbNSX();
+//        txtMa.setEnabled(false);
     }
 
     /**
@@ -744,6 +747,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, result);
                 loadSanPham(sp);
                 loadAllCB();
+                clearData();
             }
         } else if (index == 1) {
             if (validateThuocTinh()) {
@@ -751,6 +755,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, result);
                 loadDanhMuc(dm);
                 loadAllCB();
+                clearData();
             }
         } else if (index == 2) {
             if (validateThuocTinh()) {
@@ -758,6 +763,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, result);
                 loadNSX(nsx);
                 loadAllCB();
+                clearData();
             }
         } else if (index == 3) {
             if (validateThuocTinh()) {
@@ -765,6 +771,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, result);
                 loadChatLieu(cl);
                 loadAllCB();
+                clearData();
             }
         } else if (index == 4) {
             if (validateThuocTinh()) {
@@ -772,6 +779,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, result);
                 loadMauSac(mau);
                 loadAllCB();
+                clearData();
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -1024,6 +1032,16 @@ public class QuanLySP extends javax.swing.JPanel {
 
     SanPham getSanPham() {
         SanPham sp = new SanPham();
+//        String maSP;
+//        for (int i = 0; i < new SanPhamImp().getAll().size() + 1; i++) {
+//            maSP = "SP" + i;
+//            if(spSer.getByMa(maSP) == null) {
+//                sp.setMaSP(maSP);
+//                break;
+//            } else {
+//                continue;
+//            }
+//        }
         sp.setMaSP(txtMa.getText());
         sp.setTenSP(txtTen.getText());
         sp.setNgayTao(new Date());
@@ -1197,7 +1215,7 @@ public class QuanLySP extends javax.swing.JPanel {
     }
 
     public boolean validateThuocTinh() {
-        if (txtMa.getText().isBlank() || txtTen.getText().isBlank()) {
+        if (txtTen.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
             return false;
         }

@@ -16,4 +16,5 @@ public interface ISanPhamService {
    String add(SanPham sp);
    String update(SanPham sp, Integer id);
    String updateTrangThai(Integer id);
+   SanPham getByMa(String ma);
 }
