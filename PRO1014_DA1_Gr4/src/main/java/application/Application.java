@@ -1,6 +1,6 @@
 package application;
 
-import view.Login1;
+import view.Login;
 import view.Main;
 
 /**
@@ -23,7 +23,7 @@ public class Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new Login1().setVisible(true);
+        new Login().setVisible(true);
     }
     
 }

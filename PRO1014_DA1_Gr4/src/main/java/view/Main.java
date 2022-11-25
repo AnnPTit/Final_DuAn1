@@ -19,11 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import model.NhanVien;
 
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+import service.INhanVienService;
+import service.impl.NhanVienImpl;
+import utilities.Auth;
 
 public class Main extends javax.swing.JFrame {
 
@@ -32,9 +36,10 @@ public class Main extends javax.swing.JFrame {
     private Header header;
     private MainForm main;
     private Animator animator;
-    
-//    private Webcam webcam = null;
 
+    private INhanVienService nvSer = new NhanVienImpl();
+
+//    private Webcam webcam = null;
     public Main() {
         initComponents();
         init();
@@ -54,30 +59,19 @@ public class Main extends javax.swing.JFrame {
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int menuIndex, int subMenuIndex) {
+//                NhanVien nhanVien = nvSer.getNV();
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
 //                if (Auth.isManager()) {
                 if (menuIndex == 0) {
-                    main.showForm(new Form_Home()); 
+                    main.showForm(new Form_Home());
                 } else if (menuIndex == 1) {
                     if (subMenuIndex == 0) {
                         main.showForm(pane.add(new QuanLySP()));
                     }
                 } else if (menuIndex == 2) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLyBanHang());                       
+                        main.showForm(new QuanLyBanHang());
                     } else if (subMenuIndex == 1) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 2) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 3) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 4) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 5) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 6) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 7) {
                         main.showForm(new QuanLySP());
                     }
                 } else if (menuIndex == 3) {
@@ -87,25 +81,41 @@ public class Main extends javax.swing.JFrame {
                         main.showForm(new QuanLySP());
                     }
                 } else if (menuIndex == 4) {
-                    if (subMenuIndex == 0) {
-                        main.showForm(new QuanLyNhanVien());
+                    if (Auth.getIsCV() != 2) {
+                        JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
+                    } else {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new QuanLySP());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new QuanLySP());
+                        }
                     }
                 } else if (menuIndex == 5) {
-                    if (subMenuIndex == 0) {
-                        main.showForm(new QuanLyKhachHang());
+                    if (Auth.getIsCV() != 2) {
+                        JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
+                    } else {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new QuanLyNhanVien());
+                        }
                     }
                 } else if (menuIndex == 6) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 1) {
-                        main.showForm(new QuanLySP());
+                        main.showForm(new QuanLyKhachHang());
                     }
                 } else if (menuIndex == 7) {
-                    main.showForm(new KhuyenMai1());
+                    main.showForm(new ThongTinCaNhan());
+                } else if (menuIndex == 8) {
+                    if (Auth.getIsCV() != 2) {
+                        JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
+                    } else {
+                        main.showForm(new KhuyenMai1());
+                    }
                 } else {
                     int i = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn đăng xuất không");
                     if (i == JOptionPane.YES_OPTION) {
                         dispose();
+                        Auth.clear();
+                        new Login().setVisible(true);
                     } else {
                         return;
                     }
