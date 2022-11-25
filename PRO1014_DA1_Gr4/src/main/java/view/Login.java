@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.security.MessageDigest;
 import javax.swing.JOptionPane;
 import model.NhanVien;
@@ -16,7 +18,7 @@ import service.INhanVienService;
  *
  * @author HP
  */
-public class Login1 extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
 //    public static void main(String[] args) {
 //        System.out.println(doHashing("An123"));
@@ -25,10 +27,11 @@ public class Login1 extends javax.swing.JFrame {
     INhanVienService nhanVienService = new NhanVienImpl();
 
 
-    public Login1() {
+    public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/icon/vodien.png");
+        this.setIconImage(icon);
     }
 
     /**
@@ -165,12 +168,15 @@ public class Login1 extends javax.swing.JFrame {
         NhanVien nhanVien = nhanVienService.getNhanVien(maNv);
         if (nhanVien != null) {
             if (nhanVien.getPass().equalsIgnoreCase(pass)) {
-                if (nhanVien.getChucVu().getId() == 1) {
+                if (nhanVien.getChucVu().getTenCv().equalsIgnoreCase("NhanVien")) {
+                    JOptionPane.showMessageDialog(this, "Bạn là nhân viên");
+                    Auth.setIsCV(1);
                     Auth.setNv(nhanVien);
                     this.dispose();
                     new Main().setVisible(true);
                 } else {
-                  //  JOptionPane.showMessageDialog(this, "Bạn là quản lí");
+                    JOptionPane.showMessageDialog(this, "Bạn là quản lý");
+                    Auth.setIsCV(2);
                     Auth.setNv(nhanVien);
                     this.dispose();
                     new Main().setVisible(true);
@@ -203,14 +209,18 @@ public class Login1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -219,7 +229,7 @@ public class Login1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login1().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
