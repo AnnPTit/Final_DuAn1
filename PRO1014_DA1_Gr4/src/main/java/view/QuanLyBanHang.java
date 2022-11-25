@@ -490,7 +490,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnXoaSp)
                             .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -502,11 +502,11 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                 .addComponent(jLabel16)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(btnXoaSp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))
+                        .addGap(54, 54, 54))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -892,6 +892,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                 hoaDonChiTiet.setHoaDonBan(hoaDonBan);
                 hoaDonChiTiet.setChiTietSanPham(ctsp);
                 hoaDonChiTiet.setSoLuong(soLuong);
+                hoaDonChiTiet.setDonGia(ctsp.getGiaBan());
                 hoaDonChiTiet.setTrangThai(1);
                 hoaDonBanService.addHoaDonChiTiet(hoaDonChiTiet);
                 JOptionPane.showMessageDialog(this, "Thành công !");
@@ -979,29 +980,48 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
     private void btnXoaSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSpActionPerformed
         // TODO add your handling code here:
+
         if (cbxTrangThaiHoaDon.getSelectedIndex() == 1 || cbxTrangThaiHoaDon.getSelectedIndex() == 2) {
             JOptionPane.showMessageDialog(this, "Hành động không được cho phép !", "ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this, "Tính năng đang được bảo trì ");
-        return;
-//        if (Auth.getKh() == null) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng !");
-//            return;
-//        }
-//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-//        int row = tblGioHang.getSelectedRow();
-//        if (row == -1) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa !");
-//            return;
-//        }
-//        GioHangChiTiet ghct = listGioHangChiTiet.get(row);
-//        int idCTSP = ghct.getChiTietSanPham().getId();
-//        String result = gioHangService.deleteGhct(ghct);
-//        hoaDonBanService.deleteHoaDonCT(idCTSP);
-//        JOptionPane.showMessageDialog(this, result);
-//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+        int rowHD = tblHoaDon.getSelectedRow();
+        if (rowHD == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn ");
+            return;
+        }
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
+        HoaDonBan hdb = listHoaDonBan.get(rowHD);
+        int row = tblGioHang.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa");
+            return;
+        }
+        listHoaDonChiTiet = hDCTService.getById(hdb.getId());
+        HoaDonChiTiet hdct = listHoaDonChiTiet.get(row);
+        String m = null;
+        int sl = 0;
+        try {
+            m = JOptionPane.showInputDialog("Số sản phẩm muốn xóa :");
+            sl = Integer.valueOf(m);
+            // System.out.println(soLuong);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sai định dạng số");
+            return;
+        } //get số lượng
+        int soLuongMua = (int) tblGioHang.getValueAt(row, 2);
+        if (sl > soLuongMua) {
+            JOptionPane.showMessageDialog(this, "Số lượng vượt quá");
+            return;
+        }
+        if (soLuongMua == 1) {
+            hoaDonBanService.deleteHoaDonCT(hdct.getChiTietSanPham().getId());
+        }
+        hoaDonBanService.updateSoLuongHDCT(hdct.getChiTietSanPham().getId(), soLuongMua - sl);
+        JOptionPane.showMessageDialog(this, "Xóa thành công");
+        loadGioHangByChiTietHoaDon(hDCTService.getById(hdct.getHoaDonBan().getId()));
+
+
     }//GEN-LAST:event_btnXoaSpActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1010,22 +1030,31 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             JOptionPane.showMessageDialog(this, "Hành động không được cho phép !", "ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this, "Chức năng đang được bảo trì ");
-        return;
-//        if (Auth.getKh() == null) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
+        int rowHD = tblHoaDon.getSelectedRow();
+        if (rowHD == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn ");
+            return;
+        }
+        listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
+        HoaDonBan hdb = listHoaDonBan.get(rowHD);
+//        int row = tblGioHang.getSelectedRow();
+//        if (row == -1) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa");
 //            return;
 //        }
-//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-//
-//        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
-//            gioHangService.deleteGhct(gioHangChiTiet);
-//            int id = gioHangChiTiet.getChiTietSanPham().getId();
-//            hoaDonBanService.deleteHoaDonCT(id);
-//        }
-//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
-//        JOptionPane.showMessageDialog(this, "Thành công !");
+        listHoaDonChiTiet = hDCTService.getById(hdb.getId());
+        //HoaDonChiTiet hdct = listHoaDonChiTiet.get(row);
+        if (listHoaDonChiTiet.size() == 0) {
+            JOptionPane.showMessageDialog(this, "Giỏ hàng trống");
+            return;
+        }
+
+        for (HoaDonChiTiet hdct1 : listHoaDonChiTiet) {
+            hoaDonBanService.deleteHoaDonCT(hdct1.getChiTietSanPham().getId());
+        }
+        JOptionPane.showMessageDialog(this, "Xóa thành công");
+        loadGioHangByChiTietHoaDon(hDCTService.getById(hdb.getId()));
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void btnThayDoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThayDoiActionPerformed
