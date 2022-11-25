@@ -163,6 +163,7 @@ ID INT identity (1,1) not null  ,
 IdHD int ,  
 IdCTSP int , 
 SoLuong int , 
+DonGia Decimal , 
 TrangThai int , 
 CONSTRAINT PK_HDCT PRIMARY KEY(ID)
 )

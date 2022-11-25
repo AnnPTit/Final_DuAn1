@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,12 +35,15 @@ public class HoaDonChiTiet implements Serializable {
     @ManyToOne
     @JoinColumn(name = "IdCTSP")
     private ChiTietSanPham chiTietSanPham;
-    
+
     @Column(name = "SoLuong")
-    private Integer soLuong ; 
-    
-     @Column(name = "TrangThai")
-    private Integer trangThai ; 
+    private Integer soLuong;
+
+    @Column(name = "DonGia")
+    private BigDecimal donGia;
+
+    @Column(name = "TrangThai")
+    private Integer trangThai;
 
     public Integer getId() {
         return id;
@@ -81,6 +85,16 @@ public class HoaDonChiTiet implements Serializable {
         this.trangThai = trangThai;
     }
 
+    public BigDecimal getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(BigDecimal donGia) {
+        this.donGia = donGia;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "HoaDonChiTiet{" + "id=" + id + ", hoaDonBan=" + hoaDonBan + ", chiTietSanPham=" + chiTietSanPham + ", soLuong=" + soLuong + ", trangThai=" + trangThai + '}';
@@ -89,20 +103,19 @@ public class HoaDonChiTiet implements Serializable {
     public HoaDonChiTiet() {
     }
 
-    public HoaDonChiTiet(Integer id, HoaDonBan hoaDonBan, ChiTietSanPham chiTietSanPham, Integer soLuong, Integer trangThai) {
+    public HoaDonChiTiet(Integer id, HoaDonBan hoaDonBan, ChiTietSanPham chiTietSanPham, Integer soLuong, BigDecimal donGia, Integer trangThai) {
         this.id = id;
         this.hoaDonBan = hoaDonBan;
         this.chiTietSanPham = chiTietSanPham;
         this.soLuong = soLuong;
+        this.donGia = donGia;
         this.trangThai = trangThai;
     }
-    
+
+  
+
     public Object[] toDoanhSo() {
-        return new Object[] {chiTietSanPham.getMa(),chiTietSanPham.getSanPham().getTenSP(),soLuong};
+        return new Object[]{chiTietSanPham.getMa(), chiTietSanPham.getSanPham().getTenSP(), soLuong};
     }
-     
-     
-    
-    
 
 }
