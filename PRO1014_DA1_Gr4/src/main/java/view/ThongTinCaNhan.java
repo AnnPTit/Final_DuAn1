@@ -33,6 +33,8 @@ public class ThongTinCaNhan extends javax.swing.JPanel {
         lbEmail.setText(nv.getEmail());
         lbChucVu.setText(nv.getChucVu().getTenCv());
     }
+    
+    // ABC
 
     /**
      * This method is called from within the constructor to initialize the form.
