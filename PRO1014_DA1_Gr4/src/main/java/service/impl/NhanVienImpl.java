@@ -58,4 +58,13 @@ public class NhanVienImpl implements INhanVienService {
         }
     }
 
+    @Override
+    public String updatePass(NhanVien nv) {
+        if(nvRepo.updatePass(nv)) {
+            return "Đổi mật khẩu thành công";
+        } else {
+            return "Thất bại";
+        }
+    }
+
 }

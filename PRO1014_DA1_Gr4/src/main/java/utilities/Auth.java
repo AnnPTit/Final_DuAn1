@@ -10,7 +10,16 @@ import model.NhanVien;
 public class Auth {
 
     public static NhanVien nv = null;
+    public static int isCV = 0;
 
+    public static int getIsCV() {
+        return isCV;
+    }
+
+    public static void setIsCV(int isCV) {
+        Auth.isCV = isCV;
+    }    
+    
     public static void clear() {
         Auth.nv = null;
     }

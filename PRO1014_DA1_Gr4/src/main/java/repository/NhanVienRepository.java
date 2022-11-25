@@ -111,7 +111,23 @@ public class NhanVienRepository {
             return false;
         }
     }
-
+    
+    public boolean updatePass(NhanVien nv) {
+        Transaction tran = null;
+        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE NhanVien nv SET nv.pass =: pass WHERE nv.maNV=:ma");
+            q.setParameter("pass", nv.getPass());
+            q.setParameter("ma", nv.getMaNV());
+            q.executeUpdate();
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public static void main(String[] args) {
         List<NhanVien> list = new NhanVienRepository().getAll();
         System.out.println(list);
