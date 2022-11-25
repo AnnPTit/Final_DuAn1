@@ -18,8 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import model.ChatLieu;
 import model.ChiTietSanPham;
 import model.DanhMuc;
-import model.GioHang;
-import model.GioHangChiTiet;
+
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import model.KhachHang;
@@ -27,12 +26,12 @@ import model.KhuyenMai;
 import model.Mau;
 import model.NSX;
 import model.NhanVien;
-import service.IGioHangService;
+
 import service.IHoaDonService;
 import service.impl.CTSPImpl;
 import service.impl.ChatLieuImpl;
 import service.impl.DanhMucImpl;
-import service.impl.GioHangImpl;
+
 import service.impl.HoaDonBanImpl;
 import service.impl.KhuyenMaiImpl;
 import service.impl.MauSacImpl;
@@ -50,13 +49,13 @@ public class BanHang extends javax.swing.JFrame {
      */
     DefaultTableModel hoaDonModel = new DefaultTableModel();
     DefaultTableModel chiTietSpModel = new DefaultTableModel();
-    DefaultTableModel gioHangModel = new DefaultTableModel();
+  //  DefaultTableModel gioHangModel = new DefaultTableModel();
     ICTSPService cTSPService = new CTSPImpl();
     List<ChiTietSanPham> listCtSp = new ArrayList<>();
     List<HoaDonBan> listHoaDonBan = new ArrayList<>();
-    List<GioHangChiTiet> listGioHangChiTiet = new ArrayList<>();
+   
     IHoaDonService hoaDonBanService = new HoaDonBanImpl();
-    IGioHangService gioHangService = new GioHangImpl();
+
     DefaultComboBoxModel<DanhMuc> cbDM = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<ChatLieu> cbCL = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<Mau> cbMau = new DefaultComboBoxModel<>();
@@ -68,7 +67,7 @@ public class BanHang extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         chiTietSpModel = (DefaultTableModel) tblSanPham.getModel();
         hoaDonModel = (DefaultTableModel) tblHoaDon.getModel();
-        gioHangModel = (DefaultTableModel) tblGioHang.getModel();
+      
         listCtSp = cTSPService.getAll();
         listHoaDonBan = hoaDonBanService.getListHoaDonBan();
         loadTableHoaDon(listHoaDonBan);
@@ -103,33 +102,27 @@ public class BanHang extends javax.swing.JFrame {
         }
     }
 
-    private void loadTableGioHang(List<GioHangChiTiet> list) {
-        gioHangModel.setNumRows(0);
-        double giaBan = 0;
-        double donGia = 0;
-        double tongTien = 0;
-
-        for (GioHangChiTiet ghct : list) {
-            giaBan = (ghct.getChiTietSanPham().getGiaBan()).doubleValue();
-            donGia = giaBan * ghct.getSoLuong();
-            tongTien = tongTien + donGia;
-            gioHangModel.addRow(new Object[]{
-                ghct.getChiTietSanPham().getMa(), ghct.getChiTietSanPham().getSanPham().getTenSP(), ghct.getSoLuong(), ghct.getChiTietSanPham().getGiaBan(),
-                donGia
-            }
-            );
-        }
-        lbnTongTien.setText(String.valueOf(tongTien));
-        lbnTongTien.setForeground(Color.red);
-    }
-
-//    void loadCbSanPham() {
-//        cbbSanPham.setModel((DefaultComboBoxModel) cbSP);
-//        cbSP.removeAllElements();
-//        for (SanPham sp : new SanPhamImp().getAll()) {
-//            cbSP.addElement(sp);
+//    private void loadTableGioHang(List<GioHangChiTiet> list) {
+//        gioHangModel.setNumRows(0);
+//        double giaBan = 0;
+//        double donGia = 0;
+//        double tongTien = 0;
+//
+//        for (GioHangChiTiet ghct : list) {
+//            giaBan = (ghct.getChiTietSanPham().getGiaBan()).doubleValue();
+//            donGia = giaBan * ghct.getSoLuong();
+//            tongTien = tongTien + donGia;
+//            gioHangModel.addRow(new Object[]{
+//                ghct.getChiTietSanPham().getMa(), ghct.getChiTietSanPham().getSanPham().getTenSP(), ghct.getSoLuong(), ghct.getChiTietSanPham().getGiaBan(),
+//                donGia
+//            }
+//            );
 //        }
+//        lbnTongTien.setText(String.valueOf(tongTien));
+//        lbnTongTien.setForeground(Color.red);
 //    }
+
+
     void loadCbDanhMuc() {
         cbbDanhMuc.setModel((DefaultComboBoxModel) cbDM);
         cbDM.removeAllElements();
@@ -838,8 +831,8 @@ public class BanHang extends javax.swing.JFrame {
             return;
         } // check input
 
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
         //        for (GioHangChiTiet ghct : listGioHangChiTiet) {
         //            if (ghct.getChiTietSanPham().getMa().equalsIgnoreCase(ctsp.getMa())) {
         //                ghct.setSoLuong(ghct.getSoLuong() + soLuong);
@@ -853,41 +846,41 @@ public class BanHang extends javax.swing.JFrame {
         //================================================================================
         //        GioHang gioHang = new GioHang();
         //        gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
-        gioHangChiTiet.setGioHang(gioHang);
-        gioHangChiTiet.setChiTietSanPham(ctsp);
-        gioHangChiTiet.setSoLuong(soLuong);
-        gioHangChiTiet.setTrangThai(1);
-        if (listGioHangChiTiet.size() == 0) {
-            try {
-                gioHangService.addGHCT(gioHangChiTiet);
-                JOptionPane.showMessageDialog(this, "Thành công !");
-            } catch (Exception e) {
-                System.out.println("Lỗi");
-                return;
-            }
-        }
+//        GioHangChiTiet gioHangChiTiet = new GioHangChiTiet();
+//        gioHangChiTiet.setGioHang(gioHang);
+//        gioHangChiTiet.setChiTietSanPham(ctsp);
+//        gioHangChiTiet.setSoLuong(soLuong);
+//        gioHangChiTiet.setTrangThai(1);
+//        if (listGioHangChiTiet.size() == 0) {
+//            try {
+//                gioHangService.addGHCT(gioHangChiTiet);
+//                JOptionPane.showMessageDialog(this, "Thành công !");
+//            } catch (Exception e) {
+//                System.out.println("Lỗi");
+//                return;
+//            }
+//        }
 
-        for (GioHangChiTiet gioHangChiTiet1 : listGioHangChiTiet) {
-            if (gioHangChiTiet1.getChiTietSanPham().getId() == gioHangChiTiet.getChiTietSanPham().getId()) {
-                int sl = gioHangChiTiet1.getSoLuong();
-                sl = (gioHangChiTiet1.getSoLuong() + soLuong);
-                gioHangService.updateSoLuongGioHang(gioHangChiTiet1.getId(), sl);
-                if (sl > (int) tblSanPham.getValueAt(row, 6)) {
-                    JOptionPane.showMessageDialog(this, "Vượt quá số lượng !", "ERORR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            } else {
-                try {
-                    gioHangService.addGHCT(gioHangChiTiet);
-                    JOptionPane.showMessageDialog(this, "Thành công !");
-                } catch (Exception e) {
-                    System.out.println("Lỗi");
-                    return;
-                }
-            }
-        }
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+//        for (GioHangChiTiet gioHangChiTiet1 : listGioHangChiTiet) {
+//            if (gioHangChiTiet1.getChiTietSanPham().getId() == gioHangChiTiet.getChiTietSanPham().getId()) {
+//                int sl = gioHangChiTiet1.getSoLuong();
+//                sl = (gioHangChiTiet1.getSoLuong() + soLuong);
+//                gioHangService.updateSoLuongGioHang(gioHangChiTiet1.getId(), sl);
+//                if (sl > (int) tblSanPham.getValueAt(row, 6)) {
+//                    JOptionPane.showMessageDialog(this, "Vượt quá số lượng !", "ERORR", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//            } else {
+//                try {
+//                    gioHangService.addGHCT(gioHangChiTiet);
+//                    JOptionPane.showMessageDialog(this, "Thành công !");
+//                } catch (Exception e) {
+//                    System.out.println("Lỗi");
+//                    return;
+//                }
+//            }
+//        }
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
 
     }//GEN-LAST:event_btnThemVaoGioHangActionPerformed
 
@@ -918,17 +911,17 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng !");
             return;
         }
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
         int row = tblGioHang.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa !");
             return;
         }
-        GioHangChiTiet ghct = listGioHangChiTiet.get(row);
-        String result = gioHangService.deleteGhct(ghct);
-        JOptionPane.showMessageDialog(this, result);
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+//        GioHangChiTiet ghct = listGioHangChiTiet.get(row);
+//        String result = gioHangService.deleteGhct(ghct);
+//        JOptionPane.showMessageDialog(this, result);
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -937,13 +930,13 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng");
             return;
         }
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
-            gioHangService.deleteGhct(gioHangChiTiet);
-        }
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
-        JOptionPane.showMessageDialog(this, "Thành công !");
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
+//            gioHangService.deleteGhct(gioHangChiTiet);
+//        }
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+//        JOptionPane.showMessageDialog(this, "Thành công !");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void btnThayDoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThayDoiActionPerformed
@@ -959,9 +952,9 @@ public class BanHang extends javax.swing.JFrame {
         lbnTenKh.setText(kh.getTenKH());
         lbnTenKh.setForeground(Color.red);
 
-        GioHang gioHang = gioHangService.getGioHangByKH(kh.getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
-        loadTableGioHang(listGioHangChiTiet);
+//        GioHang gioHang = gioHangService.getGioHangByKH(kh.getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        loadTableGioHang(listGioHangChiTiet);
         int row = tblHoaDon.getSelectedRow();
         if (row == -1) {
             return;
@@ -1045,23 +1038,23 @@ public class BanHang extends javax.swing.JFrame {
         }
         HoaDonBan hdb = listHoaDonBan.get(row);
 
-        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
-        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
+//        GioHang gioHang = gioHangService.getGioHangByKH(Auth.getKh().getId());
+//        listGioHangChiTiet = gioHangService.getGioHangChiTiet(gioHang.getId());
         List<HoaDonChiTiet> listHDCT = new ArrayList<>();
 
-        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
-            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-            hoaDonChiTiet.setHoaDonBan(hdb);
-            hoaDonChiTiet.setChiTietSanPham(gioHangChiTiet.getChiTietSanPham());
-            hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
-            hoaDonChiTiet.setTrangThai(2);
-            listHDCT.add(hoaDonChiTiet);
-        }
+//        for (GioHangChiTiet gioHangChiTiet : listGioHangChiTiet) {
+//            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+//            hoaDonChiTiet.setHoaDonBan(hdb);
+//            hoaDonChiTiet.setChiTietSanPham(gioHangChiTiet.getChiTietSanPham());
+//            hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
+//            hoaDonChiTiet.setTrangThai(2);
+//            listHDCT.add(hoaDonChiTiet);
+//        }
         for (HoaDonChiTiet hoaDonChiTiet : listHDCT) {
             hoaDonBanService.addHoaDonChiTiet(hoaDonChiTiet);
         }
 
-        gioHangService.updateTrangThaiGHCT(gioHang.getId(), 2);
+//        gioHangService.updateTrangThaiGHCT(gioHang.getId(), 2);
         //hoaDonBanService.updateTrangThaiHoaDon(hdb.getId(), 2);
         Date ngayThanhToan = new Date();
         hdb.setNgayThanhToan(ngayThanhToan);
@@ -1069,7 +1062,7 @@ public class BanHang extends javax.swing.JFrame {
         hdb.setKhuyenMai(km);
         hdb.setTrangThai(2);
         hoaDonBanService.update(hdb, hdb.getId());
-        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
+//        loadTableGioHang(gioHangService.getGioHangChiTiet(gioHang.getId()));
 
         JOptionPane.showMessageDialog(this, "Thành công");
 

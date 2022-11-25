@@ -77,7 +77,7 @@ CONSTRAINT PK_Ctsp PRIMARY KEY(ID)
 )
 go
 
-SELECT * FROM HoaDon
+
 
 CREATE TABLE NhanVien (
 ID INT identity (1,1) not null  , 
@@ -95,25 +95,6 @@ CONSTRAINT PK_NV PRIMARY KEY(ID)
 )
 go 
 
---SELECT MaCTSP, ChiTietSP.IdSP ,SUM(HoaDonChiTiet.SoLuong) AS SoLuongBanRa FROM ChiTietSP join HoaDonChiTiet on ChiTietSP.ID = HoaDonChiTiet.IdCTSP GROUP BY MaCTSP, ChiTietSP.IdSP ORDER BY SoLuongBanRa Desc  
-SELECT ChiTietSP.MaCTSP,ChiTietSP.IdSP, SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID  GROUP BY ChiTietSP.MaCTSP,ChiTietSP.IdSP  ORDER BY SoLuongBanRa DESC 
-
-SELECT * FROM HoaDon
-SELECT * FROM HoaDonChiTiet
-SELECT * FROM ChiTietSP
-UPDATE ChiTietSP SET TrangThai = 1 WHERE ID = 3
-
-SELECT SUM(HoaDonChiTiet.SoLuong*ChiTietSP.GiaBan) AS DoanhThu FROM HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.IdHD = HoaDon.ID
-							inner join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID WHERE HoaDon.NgayThanhToan = GETDATE()
-
-SELECT * FROM KhuyenMai
-SELECT * FROM GioHang
-SELECT * FROM GioHangChiTiet
-
-Print GETDATE()
-
-SELECT * FROM KhachHang
-SELECT COUNT(ID) TongKhachHang FROM KhachHang
 
 CREATE TABLE ChucVu  (
 ID INT identity (1,1) not null  , 
@@ -138,7 +119,7 @@ TrangThai INT ,
 CONSTRAINT PK_Kh PRIMARY KEY(ID)
 )
 go 
-CREATE TABLE GioHang (
+/*CREATE TABLE GioHang (
 ID INT identity (1,1) not null  , 
 IdKH int , 
 MaGH VARCHAR(10) , 
@@ -147,9 +128,9 @@ NgayThanhToan Date ,
 TrangThai INT , 
 CONSTRAINT PK_gh PRIMARY KEY(ID)
 )
-go
+go*/
 
-CREATE TABLE GioHangChiTiet (
+/*CREATE TABLE GioHangChiTiet (
 ID INT identity (1,1) not null  ,  
 IdGH int ,  
 IdCTSP int , 
@@ -158,7 +139,7 @@ DonGia Decimal ,
 TrangThai int , 
 CONSTRAINT PK_GHCT PRIMARY KEY(ID)
 )
-go 
+go */
 
  
 
@@ -214,16 +195,16 @@ foreign key(IdMau) references Mau(Id)
 
 go 
 alter table NhanVien add constraint fk_nvcv
-foreign key(IdCV) references chucvu(Id)
+foreign key(IdCV) references ChucVu(ID)
 
 
-alter table GioHang add constraint fk_GH_KH
-foreign key(IdKH) references KhachHang(Id)
-alter table GioHangChiTiet add constraint fk_GH_GHCT
-foreign key(IdGH) references GioHang(Id)
-alter table GioHangChiTiet add constraint fk_GH_SPCT
-foreign key(IdCTSP) references ChiTietSP(Id)
-go 
+--alter table GioHang add constraint fk_GH_KH
+--foreign key(IdKH) references KhachHang(Id)
+--alter table GioHangChiTiet add constraint fk_GH_GHCT
+-- key(IdGH) references GioHang(Id)
+--alter table GioHangChiTiet add constraint fk_GH_SPCT
+--foreign key(IdCTSP) references ChiTietSP(Id)
+--go 
 
 alter table HoaDonChiTiet add constraint fk_HD
 foreign key(IdHD) references HoaDon(Id)
@@ -238,15 +219,21 @@ go
 Alter table HoaDon add constraint FK_HD_KM 
 foreign key(IdKM) references KhuyenMai(Id)
 
-insert into NhanVien values ('NV00','NhanVienAo',null , 1,null , null , null , '123',3,1) 
+
+insert into ChucVu values('CV1','NhanVien',GETDATE(),GETDATE(),1)
+insert into NhanVien values ('NV00','NhanVienAo',null , 1,null , null , null , '123',1,1) 
 insert into KhuyenMai values('KM00','KMAo',GETDATE(),0,0,null,null , 1)
 insert into KhachHang values ('KH00','Khach Hang Ban Le',1,'Global','0123456789','Guest@gmail.com',1)
 
+
+
 -- Tự động thêm giỏ hàng khi tạo 1 khách hàng mới
-create trigger Auto_Add_Gh on khachHang after insert as 
-begin 
-insert into GioHang values((select id from inserted) ,null,GETDATE(),null,1)
-end
+--create trigger Auto_Add_Gh on khachHang after insert as 
+--begin 
+--insert into GioHang values((select id from inserted) ,null,GETDATE(),null,1)
+--end
+
+--drop trigger Auto_Add_Gh
 
 -- Tự động update số lượng tồn  khi thanh toán 
 --CREATE TRIGGER [dbo].[Update_SoLuongTon] ON [dbo].[HoaDonChiTiet] AFTER INSERT AS 

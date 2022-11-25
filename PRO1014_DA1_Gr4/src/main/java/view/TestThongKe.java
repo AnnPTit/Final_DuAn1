@@ -21,32 +21,32 @@ public class TestThongKe extends javax.swing.JFrame {
         initComponents();
         tableDoanhSo(hdct);
     }
-    
-    // Thêm TestThongKe
 
+    // Thêm TestThongKe
     void tableDoanhSo(List<HoaDonChiTiet> list) {
         DefaultTableModel model = (DefaultTableModel) tbDoanhSo.getModel();
         model.setRowCount(0);
-
+ 
         list = new HDCTImpl().getAll();
-//        for (HoaDonChiTiet x : list) {
-//            model.addRow(x.toDoanhSo());
-//        }
-        for (int i = 0; i < list.size(); i++) {
-            int soLuong = 0; // de anh suy nghi them :)) 
-            soLuong = list.get(i).getSoLuong();
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i).getChiTietSanPham().getId() == list.get(j).getChiTietSanPham().getId()) {
-                    soLuong = soLuong + list.get(j).getSoLuong();
-                    list.get(i).setSoLuong(soLuong);
-                }
-            }
-            model.addRow(new Object[]{
-                list.get(i).getChiTietSanPham().getMa(),
-                list.get(i).getChiTietSanPham().getSanPham().getTenSP(),
-                list.get(i).getSoLuong()
-            });
+        for (HoaDonChiTiet x : list) {
+            model.addRow(x.toDoanhSo());
         }
+//        for (int i = 0; i < list.size(); i++) {
+//            int soLuong = 0; // de anh suy nghi them :)) 
+//            soLuong = list.get(i).getSoLuong();
+//            for (int j = i + 1; j < list.size(); j++) {
+//                if (list.get(i).getChiTietSanPham().getId() == list.get(j).getChiTietSanPham().getId()) {
+//                    soLuong = soLuong + list.get(j).getSoLuong();
+//                    list.get(i).setSoLuong(soLuong);
+//                    model.addRow(new Object[]{
+//                        list.get(i).getChiTietSanPham().getMa(),
+//                        list.get(i).getChiTietSanPham().getSanPham().getTenSP(),
+//                        list.get(i).getSoLuong()
+//                    });
+//                }
+//            }
+//
+//        }
 //        for (HoaDonChiTiet hoaDonChiTiet : list) {
 //            String ma = hoaDonChiTiet.getChiTietSanPham().getMa();
 //            int soLuong = hoaDonChiTiet.getSoLuong();

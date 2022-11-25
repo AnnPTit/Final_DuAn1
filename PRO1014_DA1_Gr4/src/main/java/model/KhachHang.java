@@ -50,10 +50,9 @@ public class KhachHang implements Serializable {
     @Column(name = "TrangThai")
     private Integer trangThai;
 
-    @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
-    private GioHang gioHang;
-
-    public KhachHang(Integer id, String maKH, String tenKH, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai, GioHang gioHang) {
+//    @OneToOne(mappedBy = "khachHang", fetch = FetchType.EAGER)
+//    private GioHang gioHang;
+    public KhachHang(Integer id, String maKH, String tenKH, Boolean gioiTinh, String diaChi, String sdt, String email, Integer trangThai) {
         this.id = id;
         this.maKH = maKH;
         this.tenKH = tenKH;
@@ -62,7 +61,6 @@ public class KhachHang implements Serializable {
         this.sdt = sdt;
         this.email = email;
         this.trangThai = trangThai;
-        this.gioHang = gioHang;
     }
 
     public KhachHang() {
@@ -132,19 +130,10 @@ public class KhachHang implements Serializable {
         this.trangThai = trangThai;
     }
 
-    public GioHang getGioHang() {
-        return gioHang;
-    }
-
-    public void setGioHang(GioHang gioHang) {
-        this.gioHang = gioHang;
-    }
-
     @Override
     public String toString() {
-        return "KhachHang{" + "id=" + id + ", maKH=" + maKH + ", tenKH=" + tenKH + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email + ", trangThai=" + trangThai + ", gioHang=" + gioHang + '}';
+        return "KhachHang{" + "id=" + id + ", maKH=" + maKH + ", tenKH=" + tenKH + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email + ", trangThai=" + trangThai + '}';
     }
-    
 
     public Object[] toDataRow() {
         return new Object[]{id, maKH, tenKH, gioiTinh == true ? "Nam" : "Nữ",
