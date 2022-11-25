@@ -30,9 +30,10 @@ public class LayNgayFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cldNgay = new com.toedter.calendar.JCalendar();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         txtNgay = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        cldNgay = new com.toedter.calendar.JCalendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,29 +51,23 @@ public class LayNgayFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(231, 231, 231)
-                                .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(244, 244, 244)
-                                .addComponent(jButton1)))
-                        .addGap(0, 243, Short.MAX_VALUE))
+                        .addGap(231, 231, 231)
+                        .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(cldNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(244, 244, 244)
+                        .addComponent(jButton1)))
+                .addContainerGap(249, Short.MAX_VALUE))
+            .addComponent(cldNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cldNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addComponent(cldNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(0, 91, Short.MAX_VALUE))
+                .addGap(0, 77, Short.MAX_VALUE))
         );
 
         pack();
@@ -128,6 +123,7 @@ public class LayNgayFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar cldNgay;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JTextField txtNgay;
     // End of variables declaration//GEN-END:variables
 }

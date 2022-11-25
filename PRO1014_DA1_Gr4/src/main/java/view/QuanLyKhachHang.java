@@ -32,6 +32,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
         totalItem = listKH.size();
         lbTotalKhachHang.setText("Total: " + totalItem);
+       
     }
 
     private void showListTarget(List<KhachHang> list) {
@@ -55,6 +56,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         System.out.println(start + " - " + end);
         return listPaging.subList(start, end);
     }
+    
 
     void loadKhachHang() {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
@@ -64,6 +66,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             model.addRow(x.toDataRow());
         }
     }
+    
 
     KhachHang getData() {
         KhachHang kh = new KhachHang();
