@@ -38,7 +38,7 @@ public class SanPhamRepository {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            ses.saveOrUpdate(sp);
+            ses.save(sp);
             tran.commit();
             return true;
         } catch (Exception e) {

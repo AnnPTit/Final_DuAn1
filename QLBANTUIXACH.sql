@@ -5,13 +5,14 @@ GO
 CREATE TABLE SanPham (
 ID INT identity (1,1) not null  , 
 MaSP VARCHAR(10) , 
-TenSP NVARCHAR(50),
+TenSP NVARCHAR(200),
 NgayTao DATE,
 NgaySua DATE,
 TrangThai INT , 
 CONSTRAINT PK_SP PRIMARY KEY(ID)
 )
 GO 
+
 
 CREATE TABLE Mau (
 ID INT identity (1,1) not null  , 
@@ -222,8 +223,8 @@ foreign key(IdKM) references KhuyenMai(Id)
 
 
 insert into ChucVu values('CV1','NhanVien',GETDATE(),GETDATE(),1)
-insert into NhanVien values ('NV00','NhanVienAo',null , 1,null , null , null , '123',1,1) 
-insert into KhuyenMai values('KM00','KMAo',GETDATE(),0,0,null,null , 1)
+insert into NhanVien values ('NV00','NhanVienAo',null , 1,null , null , null , '123',1,2) 
+insert into KhuyenMai values('KM00','KMAo',GETDATE(),0,0,GETDATE(),null , 2)
 insert into KhachHang values ('KH00','Khach Hang Ban Le',1,'Global','0123456789','Guest@gmail.com',1)
 
 

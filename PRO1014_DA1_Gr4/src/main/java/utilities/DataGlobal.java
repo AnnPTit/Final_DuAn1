@@ -19,6 +19,17 @@ public class DataGlobal {
     public static KhuyenMai khuyenMai;
     public static List<HoaDonChiTiet> listHDCT;
     public static HoaDonBan hoaDonBan;
+    public static int idHoaDon;
+
+    public static int getIdHoaDon() {
+        return idHoaDon;
+    }
+
+    public static void setIdHoaDon(int idHoaDon) {
+        DataGlobal.idHoaDon = idHoaDon;
+    }
+    
+    
 
     public static HoaDonBan getHoaDonBan() {
         return hoaDonBan;

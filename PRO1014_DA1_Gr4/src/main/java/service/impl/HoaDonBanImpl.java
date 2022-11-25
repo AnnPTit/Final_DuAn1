@@ -102,10 +102,10 @@ public class HoaDonBanImpl implements IHoaDonService {
         }
     }
 
-    @Override
-    public List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD) {
-        return hdr.getHoaDonChiTietByIDHd(idHD);
-    }
+//    @Override
+//    public List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD) {
+//        return hdr.getHoaDonChiTietByIDHd(idHD);
+//    }
 
     @Override
     public List<HoaDonBan> getListByTrangThai(int trangThai) {

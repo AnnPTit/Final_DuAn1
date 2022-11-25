@@ -40,7 +40,7 @@ public interface IHoaDonService {
 
     void updateTrangThaiHoaDonChiTiet(int id, int trangThai);
 
-    List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
+   // List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
 
     void deleteHoaDonCT(int idCTSP);
 

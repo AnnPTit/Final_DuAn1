@@ -6,13 +6,18 @@ package service;
 
 import model.NSX;
 import java.util.List;
+
 /**
  *
  * @author HP
  */
 public interface INSXService {
+
     public List<NSX> getAll();
+
     String add(NSX nsx);
+
     String update(NSX nsx, Integer id);
+
     String updateTrangThai(Integer id);
 }

@@ -154,18 +154,18 @@ public class HoaDonBanRepo {
         return false;
     }
 
-    public List<HoaDonChiTiet> getHoaDonChiTietByIDHd(int idHD) {
-        List<HoaDonChiTiet> list = new ArrayList<>();
-        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
-            Query query = session.createQuery("From HoaDonChiTiet Where IdHD =:id");
-            query.setParameter("id", idHD);
-            list = query.getResultList();
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return list;
-        }
-    }
+//    public List<HoaDonChiTiet> getHoaDonChiTietByIDHd(int idHD) {
+//        List<HoaDonChiTiet> list = new ArrayList<>();
+//        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
+//            Query query = session.createQuery("From HoaDonChiTiet Where IdHD =:id");
+//            query.setParameter("id", idHD);
+//            list = query.getResultList();
+//            return list;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return list;
+//        }
+//    }
 
     public Boolean deleteHoaDonChitiet(int idCTSP) {
        Transaction transision = null;
@@ -183,17 +183,7 @@ public class HoaDonBanRepo {
         return false;
     }
 
-    public static void main(String[] args) {
-//        HoaDonChiTiet h = new HoaDonChiTiet();
-//        ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
-//        chiTietSanPham.setId(3);
-//        HoaDonBan hdb = new HoaDonBan();
-//        hdb.setId(1);
-//        h.setChiTietSanPham(chiTietSanPham);
-//        h.setHoaDonBan(hdb);
-//
-//        new HoaDonBanRepo().addHoaDonChiTiet(h);
-    }
+
         public Boolean updateSoLuongHDCT(int idCTSP, int soLuong) {
         Transaction transision = null;
         Integer check = 0;
