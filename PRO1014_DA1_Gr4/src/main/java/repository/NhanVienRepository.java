@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utilities.EmailSender;
+import utilities.RandomPassword;
 
 /**
  *
@@ -118,6 +120,27 @@ public class NhanVienRepository {
             q.setParameter("pass", nv.getPass());
             q.setParameter("ma", nv.getMaNV());
             q.executeUpdate();
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean forgotPass(String ma, String email) {
+        Transaction tran = null;
+        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE NhanVien nv SET nv.pass =: pass WHERE nv.maNV=:ma AND nv.email=:email");
+            String pass = new RandomPassword().randomString(6);
+            q.setParameter("pass", pass);
+            q.setParameter("ma", ma);
+            q.setParameter("email", email);
+            if(q.executeUpdate() > 0) {
+                EmailSender emailSender = new EmailSender();
+                emailSender.guiMail(email, pass);
+            }
             tran.commit();
             return true;
         } catch (Exception e) {

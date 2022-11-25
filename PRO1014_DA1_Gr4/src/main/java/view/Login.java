@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
         lbnMesMa = new javax.swing.JLabel();
         lbnMesPass = new javax.swing.JLabel();
         lbnMes = new javax.swing.JLabel();
+        btnForget = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -69,12 +70,12 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 130, 30));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 130, 30));
 
         jButton2.setBackground(new java.awt.Color(0, 204, 255));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Exit");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 110, 30));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 30));
         jPanel2.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 160, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -91,6 +92,19 @@ public class Login extends javax.swing.JFrame {
         lbnMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(lbnMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 210, 60));
 
+        btnForget.setBackground(new java.awt.Color(0, 153, 204));
+        btnForget.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnForget.setForeground(new java.awt.Color(255, 255, 255));
+        btnForget.setText("Forget Password");
+        btnForget.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForgetActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, 30));
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/vodien.png"))); // NOI18N
         jLabel1.setText("Quản lý bán túi xách");
 
@@ -101,7 +115,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(jLabel1)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,15 +131,13 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -192,6 +204,11 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgetActionPerformed
+        this.dispose();
+        new QuenMatKhau().setVisible(true);
+    }//GEN-LAST:event_btnForgetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,6 +252,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnForget;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
