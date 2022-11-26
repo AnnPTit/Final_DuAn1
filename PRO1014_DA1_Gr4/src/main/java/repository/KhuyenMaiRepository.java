@@ -23,7 +23,7 @@ public class KhuyenMaiRepository {
 
     public ArrayList<KhuyenMai> getAll() {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From KhuyenMai");
+        Query q = se.createQuery("From KhuyenMai km order by km.id desc");
         ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
         return ds;
     }
@@ -109,7 +109,7 @@ public class KhuyenMaiRepository {
 
     public ArrayList<KhuyenMai> getAllByTrangT(int tt){
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From KhuyenMai km where km.trangthai =:trangThai");
+        Query q = se.createQuery("From KhuyenMai km where km.trangthai =:trangThai order by km.id desc");
         q.setParameter("trangThai",tt);
         ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
         return ds;

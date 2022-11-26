@@ -149,18 +149,16 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         if (makm.length() == 0) {
             maKm = "KM00" + (kms.getList().size() + 1);
         } else {
-            KhuyenMai km = this.kms.getKhuyenMaiByMa(makm);
-            if (km == null) {
-                maKm = makm;
-            } else {
-                this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
-                this.lblMesMaKm.setForeground(Color.red);
-                isValid = false;
-                return null;
-            }
+            maKm=makm;
         }
         Date ngHet = (Date) this.txtNgayHetHan.getDate();
-
+        
+        int ssanh = ngHet.compareTo(ngtao);
+        if(ssanh<=0){
+            JOptionPane.showMessageDialog(this,"Mời bạn nhập ngày hết hạn lớn hơn ngày sửa");
+            return null;
+        }
+        
         if (isValid == false) {
             return null;
         } else {
@@ -171,7 +169,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     }
 
     public void clearForm() {
-
+        
         txtMaKm.setText("");
         txtTenKm.setText("");
         txtNgayTao.setDate(new Date());
@@ -184,6 +182,16 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         this.lblMesMaKm.setText("");
     }
 
+    public int checkTonTai(){
+         String ma = this.txtMaKm.getText().trim();
+         KhuyenMai km = this.kms.getKhuyenMaiByMa(ma);
+         if(km==null){
+             return 0;
+         }
+         return 1;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -583,8 +591,14 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             // JOptionPane.showMessageDialog(this, "Moi ban check lai form");
             return;
         }
+        int x = this.checkTonTai();
+        if(x==1){
+            this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
+            this.lblMesMaKm.setForeground(Color.red);
+            return;
+        }
         kms.add(km);
-        JOptionPane.showMessageDialog(this, "Them thanh cong");
+        JOptionPane.showMessageDialog(this, "Thêm thành công");
         loadTable(1);
         clearForm();
     }//GEN-LAST:event_jButton1ActionPerformed
