@@ -3,6 +3,10 @@ package service.impl;
 import model.ChiTietSanPham;
 import repository.CTSPRepository;
 import java.util.List;
+import model.ChatLieu;
+import model.DanhMuc;
+import model.Mau;
+import model.NSX;
 import service.ICTSPService;
 
 /**
@@ -59,9 +63,19 @@ public class CTSPImpl implements ICTSPService {
     public void updateSoLuongCTSP(String maCTSP, int so) {
         if (ctspRepo.updateSoLuongCTSP(maCTSP, so)) {
             System.out.println("Cap nhat so luong ton thanh cong");
-        }else{
+        } else {
             System.out.println("Cap nhat that bai");
         }
+    }
+
+    @Override
+    public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx) {
+        return ctspRepo.getChiTietSanPhamByComBoBox(isdanhMuc, isChatLieu, isMau, isNsx);
+    }
+
+    @Override
+    public ChiTietSanPham getAllByID(int id) {
+        return ctspRepo.getAllByID(id);
     }
 
 }

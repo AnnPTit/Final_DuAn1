@@ -2,6 +2,10 @@ package service;
 
 import model.ChiTietSanPham;
 import java.util.List;
+import model.ChatLieu;
+import model.DanhMuc;
+import model.Mau;
+import model.NSX;
 
 /**
  *
@@ -21,5 +25,9 @@ public interface ICTSPService {
 
     int getSoLuongSpByMaCTSP(String maCTSP);
 
-    public void updateSoLuongCTSP(String maCTSP, int so) ;
+    public void updateSoLuongCTSP(String maCTSP, int so);
+
+    public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx);
+
+    public ChiTietSanPham getAllByID(int id);
 }

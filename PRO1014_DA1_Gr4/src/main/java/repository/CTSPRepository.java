@@ -140,31 +140,58 @@ public class CTSPRepository {
 
     public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx) {
         Transaction transaction = ses.beginTransaction();
-        try {
-            String sql = "select \n"
-                    + "ChiTietSP.ID,\n"
-                    + "ChiTietSP.MaCTSP,\n"
-                    + "SanPham.TenSP,\n"
-                    + "DanhMuc.TenDM,\n"
-                    + "ChatLieu.TenCL ,\n"
-                    + "Mau.TenMau,\n"
-                    + "NSX.TenNSX,\n"
-                    + "ChiTietSP.SoluongTon,\n"
-                    + "ChiTietSP.GiaNhap,\n"
-                    + "ChiTietSP.GiaBan,\n"
-                    + "ChiTietSP.MoTa,\n"
-                    + "ChiTietSP.NgayTao,\n"
-                    + "ChiTietSP.NgaySua,\n"
-                    + "ChiTietSP.TrangThai\n"
-                    + "from ChiTietSP join SanPham on SanPham.ID = ChiTietSP.IdSP\n"
-                    + "join DanhMuc on DanhMuc.ID =ChiTietSP.IdDM\n"
-                    + "join ChatLieu on ChatLieu.ID = ChiTietSP.IdCL\n"
-                    + "join Mau on Mau.ID = ChiTietSP.IdMau\n"
-                    + "join NSX on NSX.ID = ChiTietSP.IdNSX where 1=1 ";
+        String sqlEx = null;
+        Query query = null;
+        String sql = "select \n"
+                + "ChiTietSP.ID,\n"
+                + "ChiTietSP.MaCTSP,\n"
+                + "SanPham.TenSP,\n"
+                + "DanhMuc.TenDM,\n"
+                + "ChatLieu.TenCL ,\n"
+                + "Mau.TenMau,\n"
+                + "NSX.TenNSX,\n"
+                + "ChiTietSP.SoluongTon,\n"
+                + "ChiTietSP.GiaNhap,\n"
+                + "ChiTietSP.GiaBan,\n"
+                + "ChiTietSP.MoTa,\n"
+                + "ChiTietSP.NgayTao,\n"
+                + "ChiTietSP.NgaySua,\n"
+                + "ChiTietSP.TrangThai\n"
+                + "from ChiTietSP join SanPham on SanPham.ID = ChiTietSP.IdSP\n"
+                + "join DanhMuc on DanhMuc.ID =ChiTietSP.IdDM\n"
+                + "join ChatLieu on ChatLieu.ID = ChiTietSP.IdCL\n"
+                + "join Mau on Mau.ID = ChiTietSP.IdMau\n"
+                + "join NSX on NSX.ID = ChiTietSP.IdNSX where 1=1 ";
+        // Query queryx = query;
+        if (isdanhMuc != null) {
+            sql = sql + " and DanhMuc.ID =:iddm ";
+        }
+        if (isChatLieu != null) {
+            sql = sql + " and ChatLieu.ID =:idcl";
+        }
+        if (isMau != null) {
+            sql = sql + " and Mau.ID =:idmau";
+        }
+        if (isNsx != null) {
+            sql = sql + " and NSX.ID =:idnsx";
+        }
+        
+        query = ses.createSQLQuery(sql);
+        if (isdanhMuc != null) {
+            query = query.setParameter("iddm", isdanhMuc.getId());
+        }
+        if (isChatLieu != null) {
+            query = query.setParameter("idcl", isChatLieu.getId());
+        }
+        if (isMau != null) {
+            query = query.setParameter("idmau", isMau.getId());
+        }
+        if (isNsx != null) {
+            query = query.setParameter("idnsx", isNsx.getId());
+        }
 
-            Query query = ses.createSQLQuery(sql);
-            //  query.setLong(0, 2).list();
-            List<Object[]> rows = query.setParameter("id", isdanhMuc.getId()).getResultList();
+        try {
+            List<Object[]> rows = query.getResultList();
             List<ChiTietSanPham> list = new ArrayList<>();
             for (Object[] row : rows) {
                 ChiTietSanPham ctsp = new ChiTietSanPham();
@@ -172,20 +199,47 @@ public class CTSPRepository {
                 ctsp.setMa(row[1].toString());
                 list.add(ctsp);
             }
+            transaction.commit();
             return list;
+
         } catch (Exception e) {
             System.out.println("cc");
             return null;
         }
     }
 
+    public ChiTietSanPham getAllByID(int id) {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE ID=:id and trangThai =: trangThai and SoLuongTon > 0 ORDER BY ID DESC");
+        q.setParameter("id", id);
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        ChiTietSanPham ctsp = (ChiTietSanPham) q.getSingleResult();
+        return ctsp;
+    }
+
     public static void main(String[] args) {
-        List<ChiTietSanPham> list = new CTSPRepository().getChiTietSanPhamByComBoBox(null, null, null, null);
-//        for (Object[] row : list) {
-//            System.out.println(row.toString());
-//        }
+        DanhMuc danhMuc = new DanhMuc();
+        danhMuc.setId(10);
+        ChatLieu chatLieu = new ChatLieu();
+        chatLieu.setId(4);
+        Mau m = new Mau();
+        m.setId(4);
+        NSX nsx = new NSX();
+        nsx.setId(3);
+        List<ChiTietSanPham> list = new CTSPRepository().getChiTietSanPhamByComBoBox(danhMuc, chatLieu, null, null);
+        List<ChiTietSanPham> list1 = new ArrayList<>();
         for (ChiTietSanPham chiTietSanPham : list) {
             System.out.println(chiTietSanPham.getId());
+            ChiTietSanPham ctsp = new CTSPRepository().getAllByID(chiTietSanPham.getId());
+            list1.add(ctsp);
+        }
+        for (ChiTietSanPham chiTietSanPham : list1) {
+            System.out.println(chiTietSanPham.getChatLieu().toString());
         }
     }
 

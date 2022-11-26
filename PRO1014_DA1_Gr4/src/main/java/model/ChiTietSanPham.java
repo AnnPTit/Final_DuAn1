@@ -247,5 +247,11 @@ public class ChiTietSanPham implements Serializable{
         return new Object[]{id,ma,sanPham.getTenSP(),danhMuc.getTenDM(),chatLieu.getTenCL(),
             mauSac.getTenMau(),nhaSanXuat.getTenNSX(),soLuongTon,giaNhap,giaBan,moTa,ngayTao,ngaySua,trangThai==1?"Đang kinh doanh":"Nghỉ kinh doanh"};
     }
+
+    @Override
+    public String toString() {
+        return "ChiTietSanPham{" + "id=" + id + ", ma=" + ma + ", sanPham=" + sanPham + ", nhaSanXuat=" + nhaSanXuat + ", danhMuc=" + danhMuc + ", chatLieu=" + chatLieu + ", mauSac=" + mauSac + ", hdct=" + hdct + ", moTa=" + moTa + ", soLuongTon=" + soLuongTon + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + ", trangThai=" + trangThai + ", qrCode=" + qrCode + '}';
+    }
+    
     
 }

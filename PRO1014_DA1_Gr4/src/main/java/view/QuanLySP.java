@@ -58,22 +58,28 @@ public class QuanLySP extends javax.swing.JPanel {
     DefaultComboBoxModel<ChatLieu> findChatLieuBoxModel = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<Mau> findMauBoxModel = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<NSX> findNSXBoxModel = new DefaultComboBoxModel<>();
+    DanhMuc danhMucF = null;
+    ChatLieu chatLieuF = null;
+    Mau mauF = null;
+    NSX nsxF = null;
 
     int index = 0;
 
     public QuanLySP() {
         initComponents();
         initComponents();
-        loadChiTietSanPham(ctsp);
+
         loadSanPham(sp);
+        ctsp = ctspSer.getAll();
         listCTSP = ctspSer.getAll();
+        loadChiTietSanPham(listCTSP);
         loadCbSanPham();
         loadCbDanhMuc();
         loadCbChatLieu();
         loadCbMauSac();
         loadCbNSX();
-       // loadCbxFindDanhMuc();
-       loadAllCBFind();
+        // loadCbxFindDanhMuc();
+        loadAllCBFind();
 //        txtMa.setEnabled(false);
     }
 
@@ -355,12 +361,32 @@ public class QuanLySP extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel5.text")); // NOI18N
 
         cbxFindDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFindDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFindDanhMucActionPerformed(evt);
+            }
+        });
 
         cbxFindChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFindChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFindChatLieuActionPerformed(evt);
+            }
+        });
 
         cbxFindMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFindMauSac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFindMauSacActionPerformed(evt);
+            }
+        });
 
         cbxFindNSX.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFindNSX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFindNSXActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -685,7 +711,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (validateSanPham()) {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            loadChiTietSanPham(ctsp);
+            loadChiTietSanPham(ctspSer.getAll());
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -696,7 +722,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (validateSanPham()) {
             String result = new CTSPImpl().update(getDataCTSP(), id);
             JOptionPane.showMessageDialog(this, result);
-            loadChiTietSanPham(ctsp);
+            loadChiTietSanPham(ctspSer.getAll());
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -706,7 +732,7 @@ public class QuanLySP extends javax.swing.JPanel {
 
         String result = new CTSPImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        loadChiTietSanPham(ctsp);
+        loadChiTietSanPham(ctspSer.getAll());
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
@@ -935,8 +961,85 @@ public class QuanLySP extends javax.swing.JPanel {
         txtTen.setText(tbThuocTinh.getValueAt(row, 2).toString());
     }//GEN-LAST:event_tbThuocTinhMouseClicked
 
+    private void cbxFindDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindDanhMucActionPerformed
+        // DanhMuc danhMuc = null;
+        if (cbxFindDanhMuc.getSelectedIndex() == 0) {
+            danhMucF = null;
+
+        } else {
+            danhMucF = (DanhMuc) cbxFindDanhMuc.getSelectedItem();
+        }
+        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+        List<ChiTietSanPham> listResult = new ArrayList<>();
+        for (ChiTietSanPham chiTietSanPham : list) {
+            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+            listResult.add(ctsp);
+        }
+
+        loadChiTietSanPham(listResult);
+
+
+    }//GEN-LAST:event_cbxFindDanhMucActionPerformed
+
+    private void cbxFindChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindChatLieuActionPerformed
+        if (cbxFindChatLieu.getSelectedIndex() == 0) {
+            chatLieuF = null;
+
+        } else {
+            chatLieuF = (ChatLieu) cbxFindChatLieu.getSelectedItem();
+        }
+
+        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+        List<ChiTietSanPham> listResult = new ArrayList<>();
+        for (ChiTietSanPham chiTietSanPham : list) {
+            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+            listResult.add(ctsp);
+        }
+
+        loadChiTietSanPham(listResult);
+
+    }//GEN-LAST:event_cbxFindChatLieuActionPerformed
+
+    private void cbxFindMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindMauSacActionPerformed
+        if (cbxFindMauSac.getSelectedIndex() == 0) {
+            mauF = null;
+
+        } else {
+            mauF = (Mau) cbxFindMauSac.getSelectedItem();
+        }
+
+        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+        List<ChiTietSanPham> listResult = new ArrayList<>();
+        for (ChiTietSanPham chiTietSanPham : list) {
+            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+            listResult.add(ctsp);
+        }
+
+        loadChiTietSanPham(listResult);
+
+
+    }//GEN-LAST:event_cbxFindMauSacActionPerformed
+
+    private void cbxFindNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindNSXActionPerformed
+        if (cbxFindNSX.getSelectedIndex() == 0) {
+            nsxF = null;
+
+        } else {
+            nsxF = (NSX) cbxFindNSX.getSelectedItem();
+        }
+
+        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+        List<ChiTietSanPham> listResult = new ArrayList<>();
+        for (ChiTietSanPham chiTietSanPham : list) {
+            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+            listResult.add(ctsp);
+        }
+
+        loadChiTietSanPham(listResult);
+
+    }//GEN-LAST:event_cbxFindNSXActionPerformed
+
     // Update QLSP
-    
     void loadCbSanPham() {
         cbbSanPham.setModel((DefaultComboBoxModel) cbSP);
         cbSP.removeAllElements();
@@ -976,14 +1079,15 @@ public class QuanLySP extends javax.swing.JPanel {
             cbNSX.addElement(nsx);
         }
     }
-    
-      public void loadAllCB() {
+
+    public void loadAllCB() {
         loadCbChatLieu();
         loadCbDanhMuc();
         loadCbMauSac();
         loadCbNSX();
         loadCbSanPham();
     }
+
     //==============================================================================
     void loadCbxFindDanhMuc() {
         cbxFindDanhMuc.setModel((DefaultComboBoxModel) findDanhMucBoxModel);
@@ -1028,19 +1132,20 @@ public class QuanLySP extends javax.swing.JPanel {
             findNSXBoxModel.addElement(nsx);
         }
     }
-  public void loadAllCBFind() {
+
+    public void loadAllCBFind() {
         loadCbxFindChatLieu();
         loadCbxFindDanhMuc();
         loadCbxFindMauSac();
         loadCbxFindNSX();
-       
+
     }
-  
+
 //===============================================================================
     void loadChiTietSanPham(List<ChiTietSanPham> list) {
         DefaultTableModel model = (DefaultTableModel) tbSanPham.getModel();
         model.setRowCount(0);
-        list = new CTSPImpl().getAll();
+        // list = new CTSPImpl().getAll();
         for (ChiTietSanPham ctsp : list) {
             model.addRow(ctsp.toDataRow());
         }
