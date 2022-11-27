@@ -85,12 +85,12 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 160, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Password : ");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Tên đăng nhập : ");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
