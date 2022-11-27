@@ -15,6 +15,8 @@ public interface IHDCTService {
 
     public List<HoaDonChiTiet> getById(int id);
     
+    public List<HoaDonChiTiet> getDoanhSo();
+    
 }
 
 // IHDCTService

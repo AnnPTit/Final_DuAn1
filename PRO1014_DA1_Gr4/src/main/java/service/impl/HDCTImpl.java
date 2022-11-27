@@ -29,4 +29,9 @@ public class HDCTImpl implements IHDCTService {
     }
 
     // HDCTImpl
+
+    @Override
+    public List<HoaDonChiTiet> getDoanhSo() {
+        return hdctRepo.getDoanhSo();
+    }
 }
