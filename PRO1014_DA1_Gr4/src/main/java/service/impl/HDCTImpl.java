@@ -1,5 +1,6 @@
 package service.impl;
 
+import customModel.HoaDonDoanhThu;
 import java.util.List;
 import model.HoaDonChiTiet;
 import repository.HDChiTietRepository;
@@ -29,9 +30,14 @@ public class HDCTImpl implements IHDCTService {
     }
 
     // HDCTImpl
+<<<<<<< HEAD
 
     @Override
     public List<HoaDonChiTiet> getDoanhSo() {
+=======
+    @Override
+    public List<HoaDonDoanhThu> getDoanhSo() {
+>>>>>>> 9e5540919f0d5f85cf09e56774c477468378712d
         return hdctRepo.getDoanhSo();
     }
 }

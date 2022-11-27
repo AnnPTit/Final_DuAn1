@@ -1,13 +1,21 @@
 package component;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import model.NhanVien;
+import utilities.Auth;
 
 public class Header extends javax.swing.JPanel {
 
     public Header() {
         initComponents();
-        lbUserName.setText("Bùi Thành Đạt");
-        lbRole.setText("Quản lý");
+        NhanVien nhanVien = Auth.getNv();
+        if (nhanVien == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập !");
+            return;
+        }
+        lbUserName.setText(nhanVien.getTenNV());
+        lbRole.setText(nhanVien.getChucVu().getTenCv());
     }
 
     public void addMenuEvent(ActionListener event) {
@@ -43,7 +51,7 @@ public class Header extends javax.swing.JPanel {
 
         buttonBadges2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/notification.png"))); // NOI18N
 
-        buttonBadges3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Microsoft.png"))); // NOI18N
+        buttonBadges3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fpt.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
