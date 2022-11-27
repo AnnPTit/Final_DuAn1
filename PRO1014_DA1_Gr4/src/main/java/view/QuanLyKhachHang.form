@@ -53,9 +53,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="250" max="-2" attributes="0"/>
                               <Component id="btnPrevious" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               <Component id="pageIndex" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                               <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
                               <Component id="lbTotalKhachHang" min="-2" pref="135" max="-2" attributes="0"/>

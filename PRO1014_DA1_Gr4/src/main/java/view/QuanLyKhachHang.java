@@ -22,6 +22,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private int totalItem;
     private int currentPage = 1;
     private int numPage;
+   
     private List<KhachHang> listPaging = new ArrayList<>();
 
     public QuanLyKhachHang() {
@@ -373,9 +374,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(250, 250, 250)
                         .addComponent(btnPrevious)
-                        .addGap(27, 27, 27)
+                        .addGap(106, 106, 106)
                         .addComponent(pageIndex)
-                        .addGap(27, 27, 27)
+                        .addGap(111, 111, 111)
                         .addComponent(btnNext)
                         .addGap(247, 247, 247)
                         .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
