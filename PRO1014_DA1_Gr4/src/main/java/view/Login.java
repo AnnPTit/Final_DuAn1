@@ -54,74 +54,94 @@ public class Login extends javax.swing.JFrame {
         lbnMesPass = new javax.swing.JLabel();
         lbnMes = new javax.swing.JLabel();
         btnForget = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(255, 204, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Sign in");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 130, 30));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 120, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 204, 255));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setBackground(new java.awt.Color(255, 204, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setText("Exit");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 30));
-        jPanel2.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 160, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 110, 30));
 
+        txtMa.setBackground(new java.awt.Color(153, 204, 255));
+        txtMa.setBorder(null);
+        jPanel2.add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 160, 20));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Password");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jLabel2.setText("Password : ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Tên đăng nhập");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
-        jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 160, -1));
+        jLabel3.setText("Tên đăng nhập : ");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        txtPass.setBackground(new java.awt.Color(153, 204, 255));
+        txtPass.setBorder(null);
+        jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 160, -1));
         jPanel2.add(lbnMesMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 160, -1));
         jPanel2.add(lbnMesPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 160, -1));
 
         lbnMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(lbnMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 210, 60));
 
-        btnForget.setBackground(new java.awt.Color(0, 153, 204));
+        btnForget.setBackground(new java.awt.Color(153, 204, 255));
         btnForget.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnForget.setForeground(new java.awt.Color(255, 255, 255));
-        btnForget.setText("Forget Password");
+        btnForget.setText("Forget Password ?");
+        btnForget.setBorder(null);
         btnForget.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnForgetActionPerformed(evt);
             }
         });
-        jPanel2.add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, 30));
+        jPanel2.add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 170, 30));
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 150, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/vodien.png"))); // NOI18N
-        jLabel1.setText("Quản lý bán túi xách");
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 150, -1));
+
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 150, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(94, 94, 94)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jLabel1)
+                .addGap(67, 67, 67)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -131,13 +151,13 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
         );
 
         pack();
@@ -260,6 +280,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lbnMes;
     private javax.swing.JLabel lbnMesMa;
     private javax.swing.JLabel lbnMesPass;
