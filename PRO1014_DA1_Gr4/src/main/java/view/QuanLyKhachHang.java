@@ -10,7 +10,6 @@ import model.KhachHang;
 import service.impl.KhachHangImpl;
 import service.IKhachHangService;
 
-
 public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private IKhachHangService khSer = new KhachHangImpl();
@@ -19,7 +18,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private final int itemPerpage = 5;
     private int totalItem;
-    private int currentPage = -1;
+    private int currentPage = 1;
     private int numPage;
     private List<KhachHang> listPaging = new ArrayList<>();
 
@@ -29,10 +28,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         listKH = khSer.getAll();
         listPaging = listKH;
         this.btnNext.doClick();
-
         totalItem = listKH.size();
         lbTotalKhachHang.setText("Total: " + totalItem);
-       
+        showListTarget(getListByCurrentPage());
+
     }
 
     private void showListTarget(List<KhachHang> list) {
@@ -47,16 +46,14 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
         totalItem = listPaging.size();
         numPage = (totalItem - 1) / itemPerpage + 1;
-        int start = (currentPage) * itemPerpage;
-        // = 5
+        pageIndex.setText(currentPage + "/" + numPage);
+        int start = (currentPage - 1) * itemPerpage;
         int end = start + itemPerpage;
         if (end > totalItem) {
             end = totalItem;
         }
-        System.out.println(start + " - " + end);
         return listPaging.subList(start, end);
     }
-    
 
     void loadKhachHang() {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
@@ -66,7 +63,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             model.addRow(x.toDataRow());
         }
     }
-    
 
     KhachHang getData() {
         KhachHang kh = new KhachHang();
@@ -122,6 +118,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         btnPrevious = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         lbTotalKhachHang = new javax.swing.JLabel();
+        pageIndex = new javax.swing.JLabel();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel2.border.title"))); // NOI18N
 
@@ -356,6 +353,8 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         lbTotalKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         org.openide.awt.Mnemonics.setLocalizedText(lbTotalKhachHang, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.lbTotalKhachHang.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(pageIndex, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.pageIndex.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -372,7 +371,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(250, 250, 250)
                         .addComponent(btnPrevious)
-                        .addGap(91, 91, 91)
+                        .addGap(27, 27, 27)
+                        .addComponent(pageIndex)
+                        .addGap(27, 27, 27)
                         .addComponent(btnNext)
                         .addGap(247, 247, 247)
                         .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -390,7 +391,8 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                     .addComponent(btnPrevious)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNext)
-                        .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pageIndex)))
                 .addGap(41, 41, 41)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(97, Short.MAX_VALUE))
@@ -432,8 +434,13 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new KhachHangImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            loadKhachHang();
+            listKH = khSer.getAll();
+            listPaging = listKH;
+            currentPage = 1;
+            showListTarget((getListByCurrentPage()));
+
         }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -453,27 +460,26 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
         String result = new KhachHangImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        loadKhachHang();
+        listKH = khSer.getAll();
+        listPaging = listKH;
+        currentPage = 1;
+        showListTarget(getListByCurrentPage());
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        currentPage++;
+
         if (currentPage < numPage) {
-            showListTarget(getListByCurrentPage());
-        } else {
-            currentPage = 0;
+            currentPage++;
             showListTarget(getListByCurrentPage());
         }
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        currentPage--;
-        if (currentPage < 0) {
-            currentPage = numPage - 1;
-            System.out.println(currentPage);
+        if (currentPage > 1) {
+            currentPage--;
             showListTarget(getListByCurrentPage());
-        } else {
-            showListTarget(getListByCurrentPage());
+
         }
     }//GEN-LAST:event_btnPreviousActionPerformed
 
@@ -538,6 +544,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTotalKhachHang;
+    private javax.swing.JLabel pageIndex;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
     private swing.table.Table tbKhachHang;
