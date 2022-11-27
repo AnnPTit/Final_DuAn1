@@ -12,7 +12,9 @@ import service.IKhachHangService;
 
 public class QuanLyKhachHang extends javax.swing.JPanel {
 
-    private IKhachHangService khSer = new KhachHangImpl();
+    private static final long serialVersionUID = 1L;
+
+    private final IKhachHangService khSer = new KhachHangImpl();
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
 
@@ -446,7 +448,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int row = tbKhachHang.getSelectedRow();
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-
         if (validateForm()) {
             String result = new KhachHangImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
@@ -479,7 +480,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (currentPage > 1) {
             currentPage--;
             showListTarget(getListByCurrentPage());
-
         }
     }//GEN-LAST:event_btnPreviousActionPerformed
 
@@ -490,7 +490,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
         tb.setRowCount(0);
-
         List<KhachHang> kh = khSer.getAll();
         for (KhachHang x : kh) {
             if (x.getSdt().toLowerCase().contains(txtSearch.getText().trim().toLowerCase())) {
@@ -499,22 +498,59 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         }
     }
 
+    KhachHang findKhachHangByMa(String ma) {
+        for (KhachHang a : listKH) {
+            if (a.getMaKH().equalsIgnoreCase(ma)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
     public boolean validateForm() {
         String ma = txtMa.getText();
+        KhachHang findKhachHang = findKhachHangByMa(ma);
+        if (findKhachHang != null) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!");
+            return false;
+        }
+        if (ma.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống mã");
+            return false;
+        }
+
         String ten = txtTen.getText();
+        if (ten.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống tên");
+            return false;
+        }
+
         String diaChi = txtDiaChi.getText();
+        if (diaChi.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống địa chỉ");
+            return false;
+        }
+
         String sdt = txtSDT.getText();
+        if (sdt.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống SĐT");
+            return false;
+        }
+
         String email = txtEmail.getText();
+        if (email.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống Email");
+            return false;
+        }
 
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
-        if (ma.isBlank() || ten.isBlank() || diaChi.isBlank()
-                || sdt.isBlank() || email.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống");
-            return false;
-        }
-
+//        if (ma.isBlank() || ten.isBlank() || diaChi.isBlank()
+//                || sdt.isBlank() || email.isBlank()) {
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//            return false;
+//        }
         if (!matcherFirst.matches()) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số");
             return false;
