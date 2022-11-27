@@ -12,11 +12,8 @@ import model.ChiTietSanPham;
 import model.HoaDonChiTiet;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-<<<<<<< HEAD
 import org.hibernate.query.NativeQuery;
-=======
 import org.hibernate.Transaction;
->>>>>>> 9e5540919f0d5f85cf09e56774c477468378712d
 
 /**
  *
@@ -67,26 +64,11 @@ public class HDChiTietRepository {
         list = q.getResultList();
         return list;
     }
-<<<<<<< HEAD
 
-    public List<HoaDonChiTiet> getDoanhSo() {
-        List<HoaDonChiTiet> list = new ArrayList<>();
-        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
-        em.getEntityManagerFactory().getCache().evictAll();
-        EntityTransaction entityTransaction = em.getTransaction();
-
-        NativeQuery q = ses.createNativeQuery("SELECT ChiTietSP.MaCTSP,SanPham.TenSP,SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet\n"
-                + "join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID\n"
-                + "join SanPham on ChiTietSP.IdSP = SanPham.ID\n"
-                + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP\n"
-                + "ORDER BY SoLuongBanRa DESC");
-        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
-=======
 
     public List<HoaDonDoanhThu> getDoanhSo() {
         Transaction transaction = ses.beginTransaction();
         Query query = null;
->>>>>>> 9e5540919f0d5f85cf09e56774c477468378712d
 
         try {
             String sql = "SELECT ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX,SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet\n"
@@ -122,13 +104,6 @@ public class HDChiTietRepository {
             return null;
         }
     }
-<<<<<<< HEAD
-    
-//    public List<HoaDonChiTiet> getHoaDonThanhToan() {
-//        
-//    }
-=======
->>>>>>> 9e5540919f0d5f85cf09e56774c477468378712d
 
     public static void main(String[] args) {
         List<HoaDonDoanhThu> list = new HDChiTietRepository().getDoanhSo();
