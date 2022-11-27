@@ -123,7 +123,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         lbTotalKhachHang = new javax.swing.JLabel();
         pageIndex = new javax.swing.JLabel();
 
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel2.border.title"))); // NOI18N
+        jPanel2.setForeground(new java.awt.Color(204, 255, 255));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jLabel1.text")); // NOI18N
 

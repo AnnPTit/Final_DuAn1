@@ -26,6 +26,7 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
 
     public DsKhuyenMaiOk() {
         initComponents();
+        this.dispose();
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         loadTable();
         double minHoaDon = DataGlobal.getTotalHoaDon();
@@ -34,7 +35,7 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
 
     private void loadTable() {
         model.setNumRows(0);
-        //DataGlobal dataGlobal = new DataGlobal();
+        
         double minHoaDon = DataGlobal.getTotalHoaDon();
         list = new KhuyenMaiImpl().getKhuyenMaiMap(minHoaDon);
         for (KhuyenMai khuyenMai : list) {
@@ -62,6 +63,7 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(DsKhuyenMaiOk.class, "DsKhuyenMaiOk.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,9 +73,11 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
 
         txtMoTa.setText(org.openide.util.NbBundle.getMessage(DsKhuyenMaiOk.class, "DsKhuyenMaiOk.txtMoTa.text")); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DsKhuyenMaiOk.class, "DsKhuyenMaiOk.jLabel1.text")); // NOI18N
 
+        tblKhuyenMai.setBackground(new java.awt.Color(204, 255, 204));
+        tblKhuyenMai.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         tblKhuyenMai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -103,17 +107,13 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(432, 432, 432)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(432, 432, 432)
+                .addComponent(jLabel2)
                 .addGap(33, 33, 33)
                 .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -121,13 +121,16 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1))
+                    .addComponent(jButton1))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1))
+                        .addGap(52, 52, 52))
                     .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))

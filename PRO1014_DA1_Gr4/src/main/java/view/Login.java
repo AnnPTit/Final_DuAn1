@@ -20,9 +20,7 @@ import service.INhanVienService;
  */
 public class Login extends javax.swing.JFrame {
 
-//    public static void main(String[] args) {
-//        System.out.println(doHashing("An123"));
-//    }
+
     INhanVienService nhanVienService = new NhanVienImpl();
 
     public Login() {
