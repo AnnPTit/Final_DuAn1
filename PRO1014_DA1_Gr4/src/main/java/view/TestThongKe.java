@@ -5,8 +5,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDonChiTiet;
+import model.ModelCard;
+import service.ICTSPService;
 import service.impl.HDCTImpl;
 import service.IHDCTService;
+import service.impl.CTSPImpl;
 
 /**
  *
@@ -15,11 +18,20 @@ import service.IHDCTService;
 public class TestThongKe extends javax.swing.JFrame {
 
     private IHDCTService hdctSer = new HDCTImpl();
+    private ICTSPService ctspSer = new CTSPImpl();
     private List<HoaDonChiTiet> hdct = new ArrayList<>();
 
     public TestThongKe() {
         initComponents();
         tableDoanhSo(hdct);
+        initCardData();
+    }
+    
+    private void initCardData() {
+        card1.setData(new ModelCard("Sản phẩm đang kinh doanh", ctspSer.getProduct().toString(), 20, null));
+        card2.setData(new ModelCard("Sản phẩm ngừng kinh doanh", ctspSer.getNonProduct().toString(), 0, null));
+        card3.setData(new ModelCard("Tổng số lượng sản phẩm", ctspSer.getSumProduct().toString(), 95, null));
+        card4.setData(new ModelCard("Sản phẩm sắp hết hàng", ctspSer.getOutProduct().toString(), 10, null));
     }
 
     // Thêm TestThongKe
@@ -77,37 +89,66 @@ public class TestThongKe extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDoanhSo = new com.raven.suportSwing.TableColumn();
+        card1 = new component.Card();
+        card2 = new component.Card();
+        card3 = new component.Card();
+        card4 = new component.Card();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tbDoanhSo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán ra", "Doanh thu"
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán ra"
             }
         ));
         jScrollPane1.setViewportView(tbDoanhSo);
+
+        card1.setColorGradient(new java.awt.Color(211, 28, 215));
+
+        card2.setColorGradient(new java.awt.Color(72, 111, 252));
+
+        card3.setBackground(new java.awt.Color(194, 85, 1));
+        card3.setColorGradient(new java.awt.Color(255, 212, 99));
+
+        card4.setBackground(new java.awt.Color(60, 195, 0));
+        card4.setColorGradient(new java.awt.Color(208, 255, 90));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(107, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(card3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(card3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(card4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,6 +201,10 @@ public class TestThongKe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private component.Card card1;
+    private component.Card card2;
+    private component.Card card3;
+    private component.Card card4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private com.raven.suportSwing.TableColumn tbDoanhSo;

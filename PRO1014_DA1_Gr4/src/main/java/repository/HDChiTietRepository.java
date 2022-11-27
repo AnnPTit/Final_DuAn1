@@ -62,6 +62,20 @@ public class HDChiTietRepository {
         list = q.getResultList();
         return list;
     }
+    
+    public List<HoaDonChiTiet> getDoanhSo() {
+        List<HoaDonChiTiet> list = new ArrayList<>();
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        list = q.getResultList();
+        return list;
+    }
+    
     public static void main(String[] args) {
         List<HoaDonChiTiet> list = new HDChiTietRepository().getById(98);
         System.out.println(list);

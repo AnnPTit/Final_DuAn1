@@ -221,6 +221,44 @@ public class CTSPRepository {
         ChiTietSanPham ctsp = (ChiTietSanPham) q.getSingleResult();
         return ctsp;
     }
+    
+    public List<ChiTietSanPham> getProduct() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("SELECT COUNT(Id) FROM ChiTietSanPham ctsp WHERE ctsp.trangThai =: trangThai");
+        q.setParameter("trangThai", 1);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<ChiTietSanPham> list = q.getResultList();
+        return list;
+    }
+    
+    public List<ChiTietSanPham> getNonProduct() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("SELECT COUNT(Id) FROM ChiTietSanPham ctsp WHERE ctsp.trangThai =: trangThai");
+        q.setParameter("trangThai", 0);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<ChiTietSanPham> list = q.getResultList();
+        return list;
+    }
+    
+    public List<ChiTietSanPham> getOutProduct() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("SELECT COUNT(Id) FROM ChiTietSanPham ctsp WHERE ctsp.trangThai = 1 AND ctsp.soLuongTon < 10");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<ChiTietSanPham> list = q.getResultList();
+        return list;
+    }
 
     public static void main(String[] args) {
         DanhMuc danhMuc = new DanhMuc();

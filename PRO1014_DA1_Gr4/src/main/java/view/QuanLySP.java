@@ -712,27 +712,38 @@ public class QuanLySP extends javax.swing.JPanel {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
             loadChiTietSanPham(ctspSer.getAll());
+            clearCTSP();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         int row = tbSanPham.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thông tin trong bảng");
+            return;
+        }
         Integer id = (Integer) tbSanPham.getValueAt(row, 0);
 
         if (validateSanPham()) {
             String result = new CTSPImpl().update(getDataCTSP(), id);
             JOptionPane.showMessageDialog(this, result);
             loadChiTietSanPham(ctspSer.getAll());
+            clearCTSP();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int row = tbSanPham.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thông tin trong bảng");
+            return;
+        }
         Integer id = (Integer) tbSanPham.getValueAt(row, 0);
 
         String result = new CTSPImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
         loadChiTietSanPham(ctspSer.getAll());
+        clearCTSP();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
@@ -1450,6 +1461,14 @@ public class QuanLySP extends javax.swing.JPanel {
     void clearData() {
         txtMa.setText("");
         txtTen.setText("");
+    }
+
+    void clearCTSP() {
+        txtMaSP.setText("");
+        txtMoTa.setText("");
+        txtSoLuong.setText("");
+        txtGiaBan.setText("");
+        txtGiaNhap.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
