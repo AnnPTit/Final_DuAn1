@@ -30,4 +30,10 @@ public interface ICTSPService {
     public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx);
 
     public ChiTietSanPham getAllByID(int id);
+    
+    public List<ChiTietSanPham> getProduct();
+    
+    public List<ChiTietSanPham> getNonProduct();
+    
+    public List<ChiTietSanPham> getOutProduct();
 }

@@ -336,6 +336,7 @@ QuenMatKhau.lbClose.text=X
 QuenMatKhau.lbExit.text=\ \ \ \ \u0110\u00f3ng
 QuenMatKhau.lbForgetPass.text=\ \ Qu\u00ean m\u1eadt kh\u1ea9u
 QuenMatKhau.jLabel3.text=Email
+<<<<<<< HEAD
 TraHang.jLabel1.text=Tr\u1ea3 H\u00e0ng
 TraHang.searchOnKey.text=
 TraHang.jPanel1.border.title=T\u00ecm ki\u1ebfm
@@ -362,3 +363,6 @@ TraHang.jLabel4.text=Ghi ch\u00fa:
 TraHang.jLabel5.text=Ti\u1ec1n ho\u00e0n tr\u1ea3:
 TraHang.lbTienHoanTra.text=
 TraHang.btnTraHang.text=Tr\u1ea3 h\u00e0ng
+=======
+QuanLyKhachHang.pageIndex.text=jLabel7
+>>>>>>> eca0367198a25c619a5fdedf443d858751b5fc64

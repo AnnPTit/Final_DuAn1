@@ -78,4 +78,19 @@ public class CTSPImpl implements ICTSPService {
         return ctspRepo.getAllByID(id);
     }
 
+    @Override
+    public List<ChiTietSanPham> getProduct() {
+        return ctspRepo.getProduct();
+    }
+
+    @Override
+    public List<ChiTietSanPham> getNonProduct() {
+        return ctspRepo.getNonProduct();
+    }
+
+    @Override
+    public List<ChiTietSanPham> getOutProduct() {
+        return ctspRepo.getOutProduct();
+    }
+
 }
