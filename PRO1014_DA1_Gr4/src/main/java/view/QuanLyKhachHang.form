@@ -53,7 +53,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="250" max="-2" attributes="0"/>
                               <Component id="btnPrevious" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="pageIndex" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
                               <Component id="lbTotalKhachHang" min="-2" pref="135" max="-2" attributes="0"/>
@@ -77,6 +79,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnNext" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbTotalKhachHang" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="pageIndex" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -558,6 +561,13 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="view/Bundle.properties" key="QuanLyKhachHang.lbTotalKhachHang.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="pageIndex">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="view/Bundle.properties" key="QuanLyKhachHang.pageIndex.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
