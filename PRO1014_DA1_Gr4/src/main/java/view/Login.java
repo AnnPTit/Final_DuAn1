@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import java.security.MessageDigest;
 import javax.swing.JOptionPane;
 import model.NhanVien;
-import service.impl.NhanVienImpl; 
+import service.impl.NhanVienImpl;
 import utilities.Auth;
 import service.INhanVienService;
 
@@ -23,9 +23,7 @@ public class Login extends javax.swing.JFrame {
 //    public static void main(String[] args) {
 //        System.out.println(doHashing("An123"));
 //    }
-
     INhanVienService nhanVienService = new NhanVienImpl();
-
 
     public Login() {
         initComponents();
@@ -162,7 +160,7 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-        
+
     public static String doHashing(String password) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -201,13 +199,13 @@ public class Login extends javax.swing.JFrame {
         if (nhanVien != null) {
             if (nhanVien.getPass().equalsIgnoreCase(pass)) {
                 if (nhanVien.getChucVu().getTenCv().equalsIgnoreCase("NhanVien")) {
-                    JOptionPane.showMessageDialog(this, "Bạn là nhân viên");
+                    //JOptionPane.showMessageDialog(this, "Bạn là nhân viên");
                     Auth.setIsCV(1);
                     Auth.setNv(nhanVien);
                     this.dispose();
                     new Main().setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Bạn là quản lý");
+                    // JOptionPane.showMessageDialog(this, "Bạn là quản lý");
                     Auth.setIsCV(2);
                     Auth.setNv(nhanVien);
                     this.dispose();

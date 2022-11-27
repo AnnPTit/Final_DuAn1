@@ -1,5 +1,6 @@
 package view;
 
+import customModel.HoaDonDoanhThu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,14 +20,15 @@ public class TestThongKe extends javax.swing.JFrame {
 
     private IHDCTService hdctSer = new HDCTImpl();
     private ICTSPService ctspSer = new CTSPImpl();
-    private List<HoaDonChiTiet> hdct = new ArrayList<>();
+  
 
     public TestThongKe() {
         initComponents();
-        tableDoanhSo(hdct);
+        List<HoaDonDoanhThu> list = hdctSer.getDoanhSo();
+        loadTableDoanhSo(list);
         initCardData();
     }
-    
+
     private void initCardData() {
         card1.setData(new ModelCard("Sản phẩm đang kinh doanh", ctspSer.getProduct().toString(), 20, null));
         card2.setData(new ModelCard("Sản phẩm ngừng kinh doanh", ctspSer.getNonProduct().toString(), 0, null));
@@ -35,45 +37,14 @@ public class TestThongKe extends javax.swing.JFrame {
     }
 
     // Thêm TestThongKe
-    void tableDoanhSo(List<HoaDonChiTiet> list) {
+    void loadTableDoanhSo(List<HoaDonDoanhThu> list) {
         DefaultTableModel model = (DefaultTableModel) tbDoanhSo.getModel();
         model.setRowCount(0);
- 
-        list = new HDCTImpl().getAll();
-        for (HoaDonChiTiet x : list) {
-            model.addRow(x.toDoanhSo());
+        for (HoaDonDoanhThu x : list) {
+            model.addRow(new Object[]{
+                x.getMaCTSP(), x.getTenSP(), x.getTenDm(), x.getTenCL(), x.getTenMau(), x.getTenNSX(), x.getSoLuongBanRa()
+            });
         }
-//        for (int i = 0; i < list.size(); i++) {
-//            int soLuong = 0; // de anh suy nghi them :)) 
-//            soLuong = list.get(i).getSoLuong();
-//            for (int j = i + 1; j < list.size(); j++) {
-//                if (list.get(i).getChiTietSanPham().getId() == list.get(j).getChiTietSanPham().getId()) {
-//                    soLuong = soLuong + list.get(j).getSoLuong();
-//                    list.get(i).setSoLuong(soLuong);
-//                    model.addRow(new Object[]{
-//                        list.get(i).getChiTietSanPham().getMa(),
-//                        list.get(i).getChiTietSanPham().getSanPham().getTenSP(),
-//                        list.get(i).getSoLuong()
-//                    });
-//                }
-//            }
-//
-//        }
-//        for (HoaDonChiTiet hoaDonChiTiet : list) {
-//            String ma = hoaDonChiTiet.getChiTietSanPham().getMa();
-//            int soLuong = hoaDonChiTiet.getSoLuong();
-//            for (HoaDonChiTiet hoaDonChiTiet1 : list) {
-//                if (hoaDonChiTiet1.getChiTietSanPham().getMa().equalsIgnoreCase(ma)) {
-//                    soLuong = soLuong + hoaDonChiTiet1.getSoLuong();
-//                    hoaDonChiTiet.setSoLuong(soLuong);
-//                }
-//                model.addRow(new Object[]{
-//                hoaDonChiTiet.getChiTietSanPham().getMa(),
-//                hoaDonChiTiet.getChiTietSanPham().getSanPham().getTenSP(),
-//                hoaDonChiTiet.getSoLuong()
-//            });
-//            }
-//        }
 
     }
 
@@ -98,16 +69,25 @@ public class TestThongKe extends javax.swing.JFrame {
 
         tbDoanhSo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán ra"
+                "Mã sản phẩm", "Tên sản phẩm", "Danh Mục", "Chất liệu", "Màu", "NSX", "Số lượng bán ra"
             }
         ));
         jScrollPane1.setViewportView(tbDoanhSo);
+        if (tbDoanhSo.getColumnModel().getColumnCount() > 0) {
+            tbDoanhSo.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title0")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title1")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title3")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title4")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title5")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(5).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title6")); // NOI18N
+            tbDoanhSo.getColumnModel().getColumn(6).setHeaderValue(org.openide.util.NbBundle.getMessage(TestThongKe.class, "TestThongKe.tbDoanhSo.columnModel.title2")); // NOI18N
+        }
 
         card1.setColorGradient(new java.awt.Color(211, 28, 215));
 

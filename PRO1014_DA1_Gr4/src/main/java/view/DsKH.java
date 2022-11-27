@@ -28,6 +28,7 @@ public class DsKH extends javax.swing.JFrame {
 
     public DsKH() {
         initComponents();
+        this.setLocationRelativeTo(null);
         loadTable();
         listKhachHang = khachHangService.getAllByTrangThai(1);
     }
@@ -64,6 +65,7 @@ public class DsKH extends javax.swing.JFrame {
         tblKhachHang = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(DsKH.class, "DsKH.jButton1.text")); // NOI18N

@@ -512,7 +512,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         String ma = txtMa.getText();
         KhachHang findKhachHang = findKhachHangByMa(ma);
         if (findKhachHang != null) {
-            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!");
+            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!","ERORR",JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (ma.isBlank()) {

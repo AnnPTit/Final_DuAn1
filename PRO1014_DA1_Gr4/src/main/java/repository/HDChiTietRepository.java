@@ -1,5 +1,6 @@
 package repository;
 
+import customModel.HoaDonDoanhThu;
 import hibernateConfig.HibernateConfig;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +11,7 @@ import javax.persistence.Query;
 import model.ChiTietSanPham;
 import model.HoaDonChiTiet;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -33,9 +35,7 @@ public class HDChiTietRepository {
         return list;
     }
 
-
 //    
-
     public List<HoaDonChiTiet> getDoanhThu() {
         List<HoaDonChiTiet> list = new ArrayList<>();
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
@@ -62,25 +62,49 @@ public class HDChiTietRepository {
         list = q.getResultList();
         return list;
     }
-    
-    public List<HoaDonChiTiet> getDoanhSo() {
-        List<HoaDonChiTiet> list = new ArrayList<>();
-        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
-        em.getEntityManagerFactory().getCache().evictAll();
-        EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("");
-        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+    public List<HoaDonDoanhThu> getDoanhSo() {
+        Transaction transaction = ses.beginTransaction();
+        Query query = null;
 
-        list = q.getResultList();
-        return list;
+        try {
+            String sql = "SELECT ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX,SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet\n"
+                    + "join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID\n"
+                    + "join SanPham on ChiTietSP.IdSP = SanPham.ID\n"
+                    + "join DanhMuc on ChiTietSP.IdDM = DanhMuc.ID\n"
+                    + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
+                    + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
+                    + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
+                    + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX\n"
+                    + "ORDER BY SoLuongBanRa DESC";
+            query = ses.createSQLQuery(sql);
+            List<HoaDonDoanhThu> listHdDoanhThu = new ArrayList<>();
+            List<Object[]> rows = query.getResultList();
+            for (Object[] row : rows) {
+                HoaDonDoanhThu hoaDonDoanhThu = new HoaDonDoanhThu();
+                hoaDonDoanhThu.setMaCTSP(row[0].toString());
+                hoaDonDoanhThu.setTenSP(row[1].toString());
+                hoaDonDoanhThu.setTenDm(row[2].toString());
+                hoaDonDoanhThu.setTenCL(row[3].toString());
+                hoaDonDoanhThu.setTenMau(row[4].toString());
+                hoaDonDoanhThu.setTenNSX(row[5].toString());
+                hoaDonDoanhThu.setSoLuongBanRa(Integer.valueOf(row[6].toString()));
+                listHdDoanhThu.add(hoaDonDoanhThu);
+            }
+
+            transaction.commit();
+            return listHdDoanhThu;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("cc");
+            return null;
+        }
     }
-    
+
     public static void main(String[] args) {
-        List<HoaDonChiTiet> list = new HDChiTietRepository().getById(98);
+        List<HoaDonDoanhThu> list = new HDChiTietRepository().getDoanhSo();
         System.out.println(list);
     }
 
-    // Them HDCT Repo
-    // ABc
 }
