@@ -110,7 +110,7 @@ public class KhachHangRepository {
         return khachHang;
     }
 
-    public List<KhachHang> getSumCustomer() {
+    public Long getSumCustomer() {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
@@ -119,8 +119,7 @@ public class KhachHangRepository {
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         @SuppressWarnings("unchecked")
-        List<KhachHang> list = query.getResultList();
+        Long list = (Long) query.getSingleResult();
         return list;
-
     }
 }

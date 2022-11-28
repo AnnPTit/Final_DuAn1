@@ -96,7 +96,7 @@ public class CTSPRepository {
         }
     }
 
-    public List<ChiTietSanPham> getSumProduct() {
+    public Long getSumProduct() {
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
@@ -104,7 +104,7 @@ public class CTSPRepository {
         Query q = (Query) em.createQuery("SELECT SUM(soLuongTon) FROM ChiTietSanPham");
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
-        List<ChiTietSanPham> list = q.getResultList();
+        Long list = (Long) q.getSingleResult();
         return list;
     }
 
@@ -222,7 +222,7 @@ public class CTSPRepository {
         return ctsp;
     }
     
-    public List<ChiTietSanPham> getProduct() {
+    public Long getProduct() {
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
@@ -231,11 +231,11 @@ public class CTSPRepository {
         q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
-        List<ChiTietSanPham> list = q.getResultList();
+        Long list = (Long) q.getSingleResult();
         return list;
     }
     
-    public List<ChiTietSanPham> getNonProduct() {
+    public Long getNonProduct() {
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
@@ -244,11 +244,11 @@ public class CTSPRepository {
         q.setParameter("trangThai", 0);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
-        List<ChiTietSanPham> list = q.getResultList();
+        Long list = (Long) q.getSingleResult();
         return list;
     }
     
-    public List<ChiTietSanPham> getOutProduct() {
+    public Long getOutProduct() {
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
@@ -256,7 +256,7 @@ public class CTSPRepository {
         Query q = (Query) em.createQuery("SELECT COUNT(Id) FROM ChiTietSanPham ctsp WHERE ctsp.trangThai = 1 AND ctsp.soLuongTon < 10");
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
-        List<ChiTietSanPham> list = q.getResultList();
+        Long list = (Long) q.getSingleResult();
         return list;
     }
 

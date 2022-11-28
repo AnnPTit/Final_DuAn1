@@ -1,6 +1,8 @@
 package service.impl;
 
 import customModel.HoaDonDoanhThu;
+import customModel.HoaDonThanhToan;
+import java.math.BigDecimal;
 import java.util.List;
 import model.HoaDonChiTiet;
 import repository.HDChiTietRepository;
@@ -34,5 +36,15 @@ public class HDCTImpl implements IHDCTService {
     @Override
     public List<HoaDonDoanhThu> getDoanhSo() {
         return hdctRepo.getDoanhSo();
+    }
+
+    @Override
+    public List<HoaDonThanhToan> getHoaDonThanhToan() {
+        return hdctRepo.getHoaDonThanhToan();
+    }
+
+    @Override
+    public BigDecimal doanhThuTheoNam() {
+        return hdctRepo.doanhThuTheoNam();
     }
 }

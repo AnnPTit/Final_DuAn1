@@ -1,5 +1,6 @@
 package service.impl;
 
+import java.math.BigDecimal;
 import model.ChiTietSanPham;
 import repository.CTSPRepository;
 import java.util.List;
@@ -50,7 +51,7 @@ public class CTSPImpl implements ICTSPService {
     }
 
     @Override
-    public List<ChiTietSanPham> getSumProduct() {
+    public Long getSumProduct() {
         return ctspRepo.getSumProduct();
     }
 
@@ -79,17 +80,17 @@ public class CTSPImpl implements ICTSPService {
     }
 
     @Override
-    public List<ChiTietSanPham> getProduct() {
+    public Long getProduct() {
         return ctspRepo.getProduct();
     }
 
     @Override
-    public List<ChiTietSanPham> getNonProduct() {
+    public Long getNonProduct() {
         return ctspRepo.getNonProduct();
     }
 
     @Override
-    public List<ChiTietSanPham> getOutProduct() {
+    public Long getOutProduct() {
         return ctspRepo.getOutProduct();
     }
 
