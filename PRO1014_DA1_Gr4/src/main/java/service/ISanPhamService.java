@@ -17,4 +17,5 @@ public interface ISanPhamService {
    String update(SanPham sp, Integer id);
    String updateTrangThai(Integer id);
    SanPham getByMa(String ma);
+   List<SanPham> getAllSp();
 }

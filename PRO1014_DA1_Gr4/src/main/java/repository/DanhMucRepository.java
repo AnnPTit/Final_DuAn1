@@ -33,6 +33,17 @@ public class DanhMucRepository {
         return list;
     }
 
+    public List<DanhMuc> getAllSp() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From DanhMuc ORDER BY ID DESC");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<DanhMuc> list = q.getResultList();
+        return list;
+    }
+    
     public boolean add(DanhMuc dm) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
@@ -88,5 +99,18 @@ public class DanhMucRepository {
         } catch (Exception e) {
         }
         return danhMuc;
+    }
+    
+     public DanhMuc getByMa(String ma) {
+        DanhMuc sp = null;
+        try {
+            Query q = ses.createQuery("SELECT sp FROM DanhMuc sp WHERE sp.maDM=:ma");
+            q.setParameter("ma", ma);
+            sp = (DanhMuc) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return sp;
     }
 }

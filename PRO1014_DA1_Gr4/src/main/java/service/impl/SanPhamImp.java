@@ -54,5 +54,10 @@ public class SanPhamImp implements ISanPhamService{
     public SanPham getByMa(String ma) {
         return spRepo.getByMa(ma);
     }
+
+    @Override
+    public List<SanPham> getAllSp() {
+        return spRepo.getAllSp();
+    }
     
 }

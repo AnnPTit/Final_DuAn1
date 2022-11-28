@@ -20,4 +20,6 @@ public interface INSXService {
     String update(NSX nsx, Integer id);
 
     String updateTrangThai(Integer id);
+    List<NSX> getAllSp();
+    NSX getByMa(String ma);
 }
