@@ -674,36 +674,36 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchHDKeyReleased
 
     private void cbo_trangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaiActionPerformed
-//        int index = cbo_trangthai.getSelectedIndex();
-//        System.out.println(index);
-//        int tt = 0;
-//        if (index == 0) {
-//            tt = 2;
-//        } else if (index == 1) {
-//            tt = 1;
-//        } else if (index == 2) {
-//            tt = 0;
-//        }
-//        hdb = hoaDonBanService.getListByTrangThai(tt);
-//        listPaginghd = hdb;
-//        loadHoaDon(getListByCurrentPageHD());
+        int index = cbo_trangthai.getSelectedIndex();
+        System.out.println(index);
+        int tt = 0;
+        if (index == 0) {
+            tt = 2;
+        } else if (index == 1) {
+            tt = 1;
+        } else if (index == 2) {
+            tt = 0;
+        }
+        hdb = hoaDonBanService.getListByTrangThai(tt);
+        listPaginghd = hdb;
+        loadHoaDon(getListByCurrentPageHD());
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
 
     private void btnPrevious_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_hdActionPerformed
 
-//        if (currentPage > 1) {
-//            currentPage--;
-//            loadHoaDon(getListByCurrentPageHD());
-//
-//        }
+        if (currentPage > 1) {
+            currentPage--;
+            loadHoaDon(getListByCurrentPageHD());
+
+        }
     }//GEN-LAST:event_btnPrevious_hdActionPerformed
 
     private void btnNext_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_hdActionPerformed
 
-//        if (currentPage < numPage) {
-//            currentPage++;
-//            loadHoaDon(getListByCurrentPageHD());
-//        }
+        if (currentPage < numPage) {
+            currentPage++;
+            loadHoaDon(getListByCurrentPageHD());
+        }
     }//GEN-LAST:event_btnNext_hdActionPerformed
 
     private void tbl_khachhangtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangtbl_hoadonMouseClicked
