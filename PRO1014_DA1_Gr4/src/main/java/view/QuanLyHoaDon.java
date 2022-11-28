@@ -845,6 +845,29 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             model.addRow(rowData);
         }
     }
+    
+        void searchHD() {
+        DefaultTableModel tb = (DefaultTableModel) tbl_hoadon.getModel();
+        tb.setRowCount(0);
+
+        List<HoaDonBan> ct = hoaDonBanService.getListHoaDonBan();
+        for (HoaDonBan hd : ct) {
+            if (hd.getKhachHang().getTenKH().toLowerCase().contains(txtSearchHD.getText().trim().toLowerCase())
+                    || hd.getMaHDB().toLowerCase().contains(txtSearchHD.getText().trim().toLowerCase())) {
+                tb.addRow(new Object[]{
+                    hd.getNhanVien().getTenNV(),
+                    hd.getKhachHang().getTenKH(),
+                    hd.getMaHDB(),
+                    hd.getNgayTao(),
+                    hd.getNgayThanhToan(),
+                    hd.getNguoiNhan(),
+                    hd.getSdt(),
+                    hd.getDiaChi(),
+                    hd.getTrangThai()
+                });
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
