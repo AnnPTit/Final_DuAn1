@@ -4,15 +4,39 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.HoaDonBan;
+import model.HoaDonChiTiet;
+import model.KhachHang;
+import service.IHoaDonService;
+import service.IKhachHangService;
+import service.impl.HoaDonBanImpl;
+import service.impl.KhachHangImpl;
+
 /**
  *
  * @author admin
  */
 public class QuanLyHoaDon extends javax.swing.JPanel {
 
-    /**
-     * Creates new form QuanLyHoaDon
-     */
+    private List<HoaDonBan> hdb = new ArrayList<>();
+    private List<HoaDonChiTiet> hdct = new ArrayList<>();
+    private List<KhachHang> kh = new ArrayList<>();
+    IHoaDonService hoaDonBanService = new HoaDonBanImpl();
+    IKhachHangService khachHangService = new KhachHangImpl();
+
+    private List<HoaDonBan> listPaginghd = new ArrayList<>();
+    private final int itemPerpage = 5;
+    private int totalItem;
+    private int currentPage = 1;
+    private int numPage;
+
+    private List<KhachHang> listPagingkh = new ArrayList<>();
+    private final int itemPerpagekh = 5;
+    private int totalItemkh;
+    private int currentPagekh = 1;
+    private int numPagekh;
     public QuanLyHoaDon() {
         initComponents();
     }
