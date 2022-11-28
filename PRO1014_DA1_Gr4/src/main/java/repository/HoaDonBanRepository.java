@@ -43,6 +43,15 @@ public class HoaDonBanRepository {
         return ds;
     }
 
+    public ArrayList<HoaDonBan> getAllByMa(String ma) {
+        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        Query q = se.createQuery("From HoaDonBan  where trangThai =2 and maHDB=: ma order by id desc");
+        q.setParameter("ma", ma);
+        @SuppressWarnings("unchecked")
+        ArrayList<HoaDonBan> ds = (ArrayList<HoaDonBan>) q.getResultList();
+        return ds;
+    }
+
     public Boolean add(HoaDonBan hdb) {
         try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
