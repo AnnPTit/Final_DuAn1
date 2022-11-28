@@ -107,7 +107,6 @@ public class HoaDonBanImpl implements IHoaDonService {
 //    public List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD) {
 //        return hdr.getHoaDonChiTietByIDHd(idHD);
 //    }
-
     @Override
     public List<HoaDonBan> getListByTrangThai(int trangThai) {
         return hdr.getAllByTrangThai(trangThai);
@@ -124,7 +123,7 @@ public class HoaDonBanImpl implements IHoaDonService {
 
     @Override
     public void updateSoLuongHDCT(int idCTSP, int soLuong) {
-        if (hdr.updateSoLuongHDCT(idCTSP,soLuong) == true) {
+        if (hdr.updateSoLuongHDCT(idCTSP, soLuong) == true) {
             System.out.println("Cap nhat so luong  hoa don chi tiet thanh cong ");
         } else {
             System.out.println("Thất bại");
@@ -139,5 +138,20 @@ public class HoaDonBanImpl implements IHoaDonService {
     @Override
     public List<SoLanMuaHang> getSoLanMuaHang() {
         return hdr.getSoLanMuaHang();
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getHoaDonChiTietByHD(int IdHD) {
+        return hdr.getHoaDonChiTietByHD(IdHD);
+    }
+
+    @Override
+    public List<HoaDonBan> getHoaDonByKH(int IdKH) {
+        return hdr.getHoaDonByKH(IdKH);
+    }
+
+    @Override
+    public Long countHoaDonByIdKH(int idKH) {
+        return hdr.countHoaDonByIdKH(idKH);
     }
 }
