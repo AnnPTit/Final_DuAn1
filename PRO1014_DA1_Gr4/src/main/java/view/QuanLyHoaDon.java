@@ -41,7 +41,14 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     public QuanLyHoaDon() {
         initComponents();
+        
+        hdb = hoaDonBanService.getListByTrangThai(2);
+        listPaginghd = hdb;
+        loadHoaDon(getListByCurrentPageHD());
 
+        kh = khachHangService.getAllByTrangThai(1);
+        listPagingkh = kh;
+        loadKhachHang(getListByCurrentPageKH());
     }
 
     /**
