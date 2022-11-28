@@ -759,18 +759,18 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     private void btnPrevious_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_khActionPerformed
         // TODO add your handling code here:
-//        if (currentPagekh > 1) {
-//            currentPagekh--;
-//            loadKhachHang(getListByCurrentPageKH());
-//
-//        }
+        if (currentPagekh > 1) {
+            currentPagekh--;
+            loadKhachHang(getListByCurrentPageKH());
+
+        }
     }//GEN-LAST:event_btnPrevious_khActionPerformed
 
     private void btnNext_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_khActionPerformed
-//        if (currentPagekh < numPagekh) {
-//            currentPagekh++;
-//            loadKhachHang(getListByCurrentPageKH());
-//        }
+        if (currentPagekh < numPagekh) {
+            currentPagekh++;
+            loadKhachHang(getListByCurrentPageKH());
+        }
     }//GEN-LAST:event_btnNext_khActionPerformed
 
     private void tbl_hdtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hdtbl_hoadonMouseClicked
