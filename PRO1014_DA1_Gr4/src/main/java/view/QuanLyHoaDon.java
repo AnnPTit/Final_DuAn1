@@ -670,7 +670,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     private void txtSearchHDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchHDKeyReleased
         // TODO add your handling code here:
-//        searchHD();
+        searchHD();
     }//GEN-LAST:event_txtSearchHDKeyReleased
 
     private void cbo_trangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaiActionPerformed
@@ -739,22 +739,22 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     private void txtSearchKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKHKeyReleased
         // TODO add your handling code here:
-//        searchKH();
+        searchKH();
     }//GEN-LAST:event_txtSearchKHKeyReleased
 
     private void cbo_trangthaikhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaikhActionPerformed
         // TODO add your handling code here:
-//        int index = cbo_trangthaikh.getSelectedIndex();
-//        System.out.println(index);
-//        int tt = 0;
-//        if (index == 0) {
-//            tt = 1;
-//        } else if (index == 1) {
-//            tt = 0;
-//        }
-//        kh = khachHangService.getAllByTrangThai(tt);
-//        listPagingkh = kh;
-//        loadKhachHang(getListByCurrentPageKH());
+        int index = cbo_trangthaikh.getSelectedIndex();
+        System.out.println(index);
+        int tt = 0;
+        if (index == 0) {
+            tt = 1;
+        } else if (index == 1) {
+            tt = 0;
+        }
+        kh = khachHangService.getAllByTrangThai(tt);
+        listPagingkh = kh;
+        loadKhachHang(getListByCurrentPageKH());
     }//GEN-LAST:event_cbo_trangthaikhActionPerformed
 
     private void btnPrevious_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_khActionPerformed
