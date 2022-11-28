@@ -903,6 +903,18 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         return listPaginghd.subList(start, end);
     }
 
+    List<KhachHang> getListByCurrentPageKH() {
+        totalItemkh = kh.size();
+        numPagekh = (totalItemkh - 1) / itemPerpagekh + 1;
+        pageIndex_kh.setText(currentPagekh + "/" + numPagekh);
+        int start = (currentPagekh - 1) * itemPerpagekh;
+        int end = start + itemPerpagekh;
+        if (end > totalItemkh) {
+            end = totalItemkh;
+        }
+        return listPagingkh.subList(start, end);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
     private javax.swing.JButton btnNext_kh;
