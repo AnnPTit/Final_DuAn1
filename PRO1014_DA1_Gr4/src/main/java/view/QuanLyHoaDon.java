@@ -810,6 +810,41 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             model.addRow(rowData);
         }
     }
+        void loadKhachHang(List<KhachHang> list) {
+//        kh = khachHangService.getAllByTrangThai(tt);
+        DefaultTableModel model = (DefaultTableModel) this.tbl_khachhang.getModel();
+        model.setRowCount(0);
+        for (KhachHang x : list) {
+            Object[] rowData = {
+                x.getMaKH(),
+                x.getTenKH(),
+                x.getGioiTinh() == true ? "Nam" : "Nữ",
+                x.getDiaChi(),
+                x.getSdt(),
+                x.getEmail(),
+                x.getTrangThai() == 0 ? "Dừng Hoạt Động" : "Đang Hoạt Động"
+            };
+
+            model.addRow(rowData);
+        }
+    }
+
+    private void loadHoaDonChiTiet(List<HoaDonChiTiet> list) {
+        DefaultTableModel model = (DefaultTableModel) this.tbl_hoadonchitiet.getModel();
+        model.setRowCount(0);
+        for (HoaDonChiTiet hd : list) {
+            Object[] rowData = {
+                hd.getChiTietSanPham().getSanPham().getMaSP(),
+                hd.getChiTietSanPham().getSanPham().getTenSP(),
+                hd.getChiTietSanPham().getNhaSanXuat().getTenNSX(),
+                hd.getChiTietSanPham().getDanhMuc().getTenDM(),
+                hd.getChiTietSanPham().getChatLieu().getTenCL(),
+                hd.getChiTietSanPham().getMauSac().getTenMau(),
+                hd.getSoLuong()
+            };
+            model.addRow(rowData);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
