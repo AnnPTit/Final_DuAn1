@@ -33,7 +33,7 @@ public class Card extends javax.swing.JPanel {
     public void setData(ModelCard data) {
         DecimalFormat df = new DecimalFormat("#,##0.##");
         lbTitle.setText(data.getTitle());
-            BigDecimal so = data.getValues();
+        BigDecimal so = data.getValues();
         lbValues.setText(df.format(so));
         lbIcon.setIcon(data.getIcon());
         pro.setValue(data.getPercentage());

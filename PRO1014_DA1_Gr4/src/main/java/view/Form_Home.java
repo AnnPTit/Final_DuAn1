@@ -1,5 +1,6 @@
 package view;
 
+import customModel.SoLanMuaHang;
 import dialog.Message;
 import view.Main;
 import model.ModelCard;
@@ -44,20 +45,24 @@ public class Form_Home extends javax.swing.JPanel {
     private void initData() {
         initCardData();
         initNoticeBoard();
-//        initTableData();
+        List<SoLanMuaHang> list = hdSer.getSoLanMuaHang();
+        initTableData(list);
     }
 
-//    private void initTableData() {
-//        DefaultTableModel model = (DefaultTableModel) table1.getModel();
-//        model.setRowCount(0);
-//        List<Object[]> list = sDao.getQuantityBuy();
-//        for (Object[] o : list) {
-//            model.addRow(o);
-//        }
-//    }
+    private void initTableData(List<SoLanMuaHang> list) {
+        DefaultTableModel model = (DefaultTableModel) tbDanhSach.getModel();
+        model.setRowCount(0);
+        
+        for (SoLanMuaHang x : list) {
+            model.addRow(new Object[]{
+                x.getTen(), x.isGioiTinh()==true?"Nam":"Nữ", x.getSdt(), x.getEmail(), x.getSoLanMuaHang()
+            });
+        }
+    }
+    
     private void initCardData() {
         card1.setData(new ModelCard("Tổng khách hàng", BigDecimal.valueOf(khSer.getSumCustomer()), 20, null));
-        card2.setData(new ModelCard("Doanh thu/Năm", hdctSer.doanhThuTheoNam(), 60, null));
+        card2.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
         card3.setData(new ModelCard("Số hóa đơn đã thanh toán", BigDecimal.valueOf(hdSer.getCountHoaDon()), 80, null));
         card4.setData(new ModelCard("Tồn kho", BigDecimal.valueOf(ctspSer.getSumProduct()), 95, null));
     }
@@ -94,6 +99,8 @@ public class Form_Home extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lbnText = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDanhSach = new swing.table.Table();
         card1 = new component.Card();
         card2 = new component.Card();
         card3 = new component.Card();
@@ -142,7 +149,7 @@ public class Form_Home extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(noticeBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                .addComponent(noticeBoard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -152,9 +159,23 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel5.setText("Danh sách khách hàng");
         jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
 
-        lbnText.setFont(new java.awt.Font("Segoe UI", 2, 48)); // NOI18N
+        lbnText.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         lbnText.setForeground(new java.awt.Color(255, 51, 51));
         lbnText.setText("Chúc mừng năm mới 2023 ");
+
+        tbDanhSach.setBackground(new java.awt.Color(255, 255, 255));
+        tbDanhSach.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tên khách hàng", "Giới tính", "Điện thoại", "Địa chỉ", "Số lần mua hàng"
+            }
+        ));
+        jScrollPane1.setViewportView(tbDanhSach);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,18 +187,22 @@ public class Form_Home extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel5))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(lbnText, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                            .addComponent(lbnText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(27, 27, 27)
-                .addComponent(lbnText, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbnText)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         card1.setColorGradient(new java.awt.Color(211, 28, 215));
@@ -199,7 +224,7 @@ public class Form_Home extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -226,9 +251,9 @@ public class Form_Home extends javax.swing.JPanel {
                     .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -245,7 +270,9 @@ public class Form_Home extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbnText;
     private swing.noticeboard.NoticeBoard noticeBoard;
+    private swing.table.Table tbDanhSach;
     // End of variables declaration//GEN-END:variables
 }

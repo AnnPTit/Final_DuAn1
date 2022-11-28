@@ -20,10 +20,17 @@ public interface IHDCTService {
 
     List<HoaDonDoanhThu> getDoanhSo();
     
+    List<HoaDonDoanhThu> getSoLuongDown();
+    
+    List<HoaDonDoanhThu> getSoLuongUp();
+    
     List<HoaDonThanhToan> getHoaDonThanhToan();
     
     BigDecimal doanhThuTheoNam();
 
+    BigDecimal doanhThuTheoThang();
+    
+    BigDecimal doanhThuHomNay();
 }
 
 // IHDCTService

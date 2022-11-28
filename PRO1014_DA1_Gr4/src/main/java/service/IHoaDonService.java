@@ -4,6 +4,7 @@
  */
 package service;
 
+import customModel.SoLanMuaHang;
 import java.util.ArrayList;
 import java.util.List;
 import model.HoaDonBan;
@@ -47,5 +48,7 @@ public interface IHoaDonService {
     public void updateSoLuongHDCT(int idCTSP, int soLuong) ;
     
     Long getCountHoaDon();
+    
+    public List<SoLanMuaHang> getSoLanMuaHang();
 
     }

@@ -4,6 +4,7 @@
  */
 package service.impl;
 
+import customModel.SoLanMuaHang;
 import java.util.ArrayList;
 import java.util.List;
 import model.HoaDonBan;
@@ -133,5 +134,10 @@ public class HoaDonBanImpl implements IHoaDonService {
     @Override
     public Long getCountHoaDon() {
         return hdr.getCountHoaDon();
+    }
+
+    @Override
+    public List<SoLanMuaHang> getSoLanMuaHang() {
+        return hdr.getSoLanMuaHang();
     }
 }

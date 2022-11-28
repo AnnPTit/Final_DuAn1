@@ -47,4 +47,25 @@ public class HDCTImpl implements IHDCTService {
     public BigDecimal doanhThuTheoNam() {
         return hdctRepo.doanhThuTheoNam();
     }
+
+    @Override
+    public List<HoaDonDoanhThu> getSoLuongDown() {
+        return hdctRepo.getSoLuongDown();
+    }
+
+    @Override
+    public List<HoaDonDoanhThu> getSoLuongUp() {
+        return hdctRepo.getSoLuongUp();
+    }    
+
+    @Override
+    public BigDecimal doanhThuTheoThang() {
+        return hdctRepo.doanhThuTheoThang();
+    }
+
+    @Override
+    public BigDecimal doanhThuHomNay() {
+        return hdctRepo.doanhThuHomNay();
+    }
+    
 }

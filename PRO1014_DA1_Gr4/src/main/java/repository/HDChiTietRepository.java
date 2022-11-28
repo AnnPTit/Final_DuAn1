@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import model.ChiTietSanPham;
+import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -79,8 +80,85 @@ public class HDChiTietRepository {
                     + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
                     + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
                     + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
-                    + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX\n"
-                    + "ORDER BY SoLuongBanRa DESC";
+                    + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX";
+            query = ses.createSQLQuery(sql);
+            List<HoaDonDoanhThu> listHdDoanhThu = new ArrayList<>();
+            List<Object[]> rows = query.getResultList();
+            for (Object[] row : rows) {
+                HoaDonDoanhThu hoaDonDoanhThu = new HoaDonDoanhThu();
+                hoaDonDoanhThu.setMaCTSP(row[0].toString());
+                hoaDonDoanhThu.setTenSP(row[1].toString());
+                hoaDonDoanhThu.setTenDm(row[2].toString());
+                hoaDonDoanhThu.setTenCL(row[3].toString());
+                hoaDonDoanhThu.setTenMau(row[4].toString());
+                hoaDonDoanhThu.setTenNSX(row[5].toString());
+                hoaDonDoanhThu.setSoLuongBanRa(Integer.valueOf(row[6].toString()));
+                listHdDoanhThu.add(hoaDonDoanhThu);
+            }
+
+            transaction.commit();
+            return listHdDoanhThu;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("cc");
+            return null;
+        }
+    }
+    
+    public List<HoaDonDoanhThu> getSoLuongDown() {
+        Transaction transaction = ses.beginTransaction();
+        Query query = null;
+
+        try {
+            String sql = "SELECT ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX,SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet\n"
+                    + "join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID\n"
+                    + "join SanPham on ChiTietSP.IdSP = SanPham.ID\n"
+                    + "join DanhMuc on ChiTietSP.IdDM = DanhMuc.ID\n"
+                    + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
+                    + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
+                    + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
+                    + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX"
+                    + "ORDER BY SUM(SoLuong) DESC";
+            query = ses.createSQLQuery(sql);
+            List<HoaDonDoanhThu> listHdDoanhThu = new ArrayList<>();
+            List<Object[]> rows = query.getResultList();
+            for (Object[] row : rows) {
+                HoaDonDoanhThu hoaDonDoanhThu = new HoaDonDoanhThu();
+                hoaDonDoanhThu.setMaCTSP(row[0].toString());
+                hoaDonDoanhThu.setTenSP(row[1].toString());
+                hoaDonDoanhThu.setTenDm(row[2].toString());
+                hoaDonDoanhThu.setTenCL(row[3].toString());
+                hoaDonDoanhThu.setTenMau(row[4].toString());
+                hoaDonDoanhThu.setTenNSX(row[5].toString());
+                hoaDonDoanhThu.setSoLuongBanRa(Integer.valueOf(row[6].toString()));
+                listHdDoanhThu.add(hoaDonDoanhThu);
+            }
+
+            transaction.commit();
+            return listHdDoanhThu;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("cc");
+            return null;
+        }
+    }
+    
+    public List<HoaDonDoanhThu> getSoLuongUp() {
+        Transaction transaction = ses.beginTransaction();
+        Query query = null;
+
+        try {
+            String sql = "SELECT ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX,SUM(SoLuong) AS SoLuongBanRa FROM HoaDonChiTiet\n"
+                    + "join ChiTietSP on HoaDonChiTiet.IdCTSP = ChiTietSP.ID\n"
+                    + "join SanPham on ChiTietSP.IdSP = SanPham.ID\n"
+                    + "join DanhMuc on ChiTietSP.IdDM = DanhMuc.ID\n"
+                    + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
+                    + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
+                    + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
+                    + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX"
+                    + "ORDER BY SUM(SoLuong) ASC";
             query = ses.createSQLQuery(sql);
             List<HoaDonDoanhThu> listHdDoanhThu = new ArrayList<>();
             List<Object[]> rows = query.getResultList();
@@ -139,7 +217,7 @@ public class HDChiTietRepository {
         Transaction transaction = null;
         try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct GROUP BY DATEPART(YYYY,hdct.hoaDonBan.ngayThanhToan)");
+            Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE YEAR(hdct.hoaDonBan.ngayThanhToan)= YEAR(GETDATE())");
 
             result = (BigDecimal) query.getResultList().get(0);
             transaction.commit();
@@ -147,13 +225,25 @@ public class HDChiTietRepository {
         return result;
     }
 
-    public BigDecimal doanhThuTheoTungThang() {
+    public BigDecimal doanhThuTheoThang() {
         BigDecimal result = null;
         Transaction transaction = null;
         try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct GROUP BY DATEPART(MM,hdct.hoaDonBan.ngayThanhToan)");
+            Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE MONTH(hdct.hoaDonBan.ngayThanhToan)= MONTH(GETDATE())");
 
+            result = (BigDecimal) query.getResultList().get(0);
+            transaction.commit();
+        }
+        return result;
+    }
+    
+    public BigDecimal doanhThuHomNay() {
+        BigDecimal result = null;
+        Transaction transaction = null;
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE DAY(hdct.hoaDonBan.ngayThanhToan)= DAY(GETDATE())");
             result = (BigDecimal) query.getResultList().get(0);
             transaction.commit();
         }

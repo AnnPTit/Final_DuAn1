@@ -4,6 +4,7 @@
  */
 package repository;
 
+import customModel.SoLanMuaHang;
 import hibernateConfig.HibernateConfig;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ import org.hibernate.Transaction;
  * @author T450s
  */
 public class HoaDonBanRepository {
+
+    Session ses = hibernateConfig.HibernateConfig.getFACTORY().openSession();
 
     public ArrayList<HoaDonBan> getAll() {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
@@ -211,5 +214,36 @@ public class HoaDonBanRepository {
 
         Long list = (Long) q.getSingleResult();
         return list;
+    }
+
+    public List<SoLanMuaHang> getSoLanMuaHang() {
+        Transaction transaction = ses.beginTransaction();
+        Query query = null;
+
+        try {
+            String sql = "SELECT KhachHang.TenKH,KhachHang.GioiTinh,KhachHang.SDT,KhachHang.DiaChi,COUNT(IdKH)\n"
+                    + "FROM HoaDon join KhachHang on HoaDon.IdKH = KhachHang.ID\n"
+                    + "GROUP BY KhachHang.TenKH,KhachHang.GioiTinh,KhachHang.SDT,KhachHang.DiaChi";
+            query = ses.createSQLQuery(sql);
+            List<SoLanMuaHang> list = new ArrayList<>();
+            List<Object[]> rows = query.getResultList();
+            for (Object[] row : rows) {
+                SoLanMuaHang soLan = new SoLanMuaHang();
+                soLan.setTen(row[0].toString());
+                soLan.setGioiTinh(Boolean.valueOf(row[1].toString()));
+                soLan.setSdt(row[2].toString());
+                soLan.setEmail(row[3].toString());
+                soLan.setSoLanMuaHang(Integer.valueOf(row[4].toString()));
+                list.add(soLan);
+            }
+
+            transaction.commit();
+            return list;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("cc");
+            return null;
+        }
     }
 }

@@ -85,9 +85,9 @@ public class Main extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
                     } else {
                         if (subMenuIndex == 0) {
-                            main.showForm(new ThongKeDoanhSo());
+                            main.showForm(new ThongKeDoanhThu());
                         } else if (subMenuIndex == 1) {
-                            main.showForm(new QuanLySP());
+                            main.showForm(new ThongKeDoanhSo());
                         }
                     }
                 } else if (menuIndex == 5) {
