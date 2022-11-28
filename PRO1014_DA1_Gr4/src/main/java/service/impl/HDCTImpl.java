@@ -34,8 +34,8 @@ public class HDCTImpl implements IHDCTService {
     // HDCTImpl
 
     @Override
-    public List<HoaDonDoanhThu> getDoanhSo() {
-        return hdctRepo.getDoanhSo();
+    public List<HoaDonDoanhThu> getDoanhSo(boolean  isDESC) {
+        return hdctRepo.getDoanhSo(isDESC);
     }
 
     @Override
@@ -48,15 +48,7 @@ public class HDCTImpl implements IHDCTService {
         return hdctRepo.doanhThuTheoNam();
     }
 
-    @Override
-    public List<HoaDonDoanhThu> getSoLuongDown() {
-        return hdctRepo.getSoLuongDown();
-    }
-
-    @Override
-    public List<HoaDonDoanhThu> getSoLuongUp() {
-        return hdctRepo.getSoLuongUp();
-    }    
+ 
 
     @Override
     public BigDecimal doanhThuTheoThang() {

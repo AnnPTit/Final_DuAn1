@@ -62,6 +62,7 @@ public class DsKhuyenMaiOk extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(DsKhuyenMaiOk.class, "DsKhuyenMaiOk.jButton1.text")); // NOI18N

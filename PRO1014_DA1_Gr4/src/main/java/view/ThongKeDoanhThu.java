@@ -15,17 +15,28 @@ import service.impl.HDCTImpl;
 public class ThongKeDoanhThu extends javax.swing.JPanel {
 
     private IHDCTService hdctSer = new HDCTImpl();
-    
+
     public ThongKeDoanhThu() {
         initComponents();
         List<HoaDonThanhToan> list = hdctSer.getHoaDonThanhToan();
         loadTableDoanhSo(list);
         initCardData();
     }
-    
+
     private void initCardData() {
-        card1.setData(new ModelCard("Doanh thu hôm nay", hdctSer.doanhThuHomNay(), 20, null));
-        card2.setData(new ModelCard("Doanh thu tháng này", hdctSer.doanhThuTheoThang(), 0, null));
+        if (hdctSer.doanhThuHomNay() == null) {
+            BigDecimal doanhThu = new BigDecimal(0);
+            card1.setData(new ModelCard("Doanh thu/Ngày", doanhThu, 60, null));
+        } else {
+            card1.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
+        }
+
+        if (hdctSer.doanhThuTheoThang() == null) {
+            BigDecimal doanhThu = new BigDecimal(0);
+            card2.setData(new ModelCard("Doanh thu tháng này",doanhThu, 0, null));
+        } else {
+            card2.setData(new ModelCard("Doanh thu tháng này", hdctSer.doanhThuTheoThang(), 0, null));
+        }
         card3.setData(new ModelCard("Doanh thu cả năm", hdctSer.doanhThuTheoNam(), 95, null));
     }
 
@@ -34,10 +45,11 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
         model.setRowCount(0);
         for (HoaDonThanhToan x : list) {
             model.addRow(new Object[]{
-                x.getNgayThanhToan(),x.getDoanhThu(),x.getHoaDonThanhToan()
+                x.getNgayThanhToan(), x.getDoanhThu(), x.getHoaDonThanhToan()
             });
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -22,7 +22,7 @@ public interface IHoaDonService {
 
     List<HoaDonBan> getListByTrangThai(int trangThai);
 
-    List<KhachHang> getListKhach();
+    List<KhachHang> getListKhach(int trangThai);
 
     // ArrayList<NhanVien> getListNv();
     ArrayList<KhuyenMai> getListKhuyenMai();

@@ -647,7 +647,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private void tbl_hoadontbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadontbl_hoadonMouseClicked
         int row = tbl_hoadon.getSelectedRow();
         hdb = hoaDonBanService.getListHoaDonBan();
-        HoaDonBan hoaDonBan = hdb.get(row);
+        HoaDonBan hoaDonBan = listPaginghd.get(row);
         hdct = hoaDonBanService.getHoaDonChiTietByHD(hoaDonBan.getId());
         loadHoaDonChiTiet(hdct);
 
@@ -685,6 +685,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             tt = 0;
         }
         hdb = hoaDonBanService.getListByTrangThai(tt);
+        System.out.println(hdb);
         listPaginghd = hdb;
         loadHoaDon(getListByCurrentPageHD());
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
@@ -708,8 +709,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     private void tbl_khachhangtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangtbl_hoadonMouseClicked
         int row = tbl_khachhang.getSelectedRow();
-        kh = khachHangService.getAll();
-        KhachHang khachHang = kh.get(row);
+     //   kh = khachHangService.getAllByTrangThai(WIDTH);
+        KhachHang khachHang = listPagingkh.get(row);
         hdb = hoaDonBanService.getHoaDonByKH(khachHang.getId());
         loadHD(hdb);
 
@@ -881,7 +882,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) tbl_khachhang.getModel();
         tb.setRowCount(0);
 
-        List<KhachHang> list = hoaDonBanService.getListKhach();
+        List<KhachHang> list = hoaDonBanService.getListKhach(1);
         for (KhachHang kh : list) {
             if (kh.getTenKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())
                     || kh.getMaKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())) {

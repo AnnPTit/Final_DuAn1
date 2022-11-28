@@ -7,6 +7,7 @@ import model.ModelCard;
 import swing.noticeboard.ModelNoticeBoard;
 import java.awt.Color;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import service.impl.CTSPImpl;
@@ -45,18 +46,28 @@ public class Form_Home extends javax.swing.JPanel {
     private void initTableData(List<SoLanMuaHang> list) {
         DefaultTableModel model = (DefaultTableModel) tbDanhSach.getModel();
         model.setRowCount(0);
-        
+
         for (SoLanMuaHang x : list) {
             model.addRow(new Object[]{
-                x.getTen(), x.isGioiTinh()==true?"Nam":"Nữ", x.getSdt(), x.getEmail(), x.getSoLanMuaHang()
+                x.getTen(), x.isGioiTinh() == true ? "Nam" : "Nữ", x.getSdt(), x.getEmail(), x.getSoLanMuaHang()
             });
         }
     }
-    
+
     private void initCardData() {
+      
         card1.setData(new ModelCard("Tổng khách hàng", BigDecimal.valueOf(khSer.getSumCustomer()), 20, null));
-        card2.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
-        card3.setData(new ModelCard("Số hóa đơn đã thanh toán", BigDecimal.valueOf(hdSer.getCountHoaDon()), 80, null));
+        
+        
+        if (hdctSer.doanhThuHomNay() == null) {
+            BigDecimal doanhThu = new BigDecimal(0);
+            card2.setData(new ModelCard("Doanh thu/Ngày", doanhThu, 60, null));
+        } else {
+            card2.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
+        }
+        
+        card3.setData(new ModelCard("Số hóa đơn đã thanh toán", BigDecimal.valueOf(hdSer.getCountHoaDon()), 80, null));        
+
         card4.setData(new ModelCard("Tồn kho", BigDecimal.valueOf(ctspSer.getSumProduct()), 95, null));
     }
 

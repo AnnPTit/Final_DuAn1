@@ -35,7 +35,6 @@ public class Card extends javax.swing.JPanel {
         DecimalFormat df = new DecimalFormat("#,##0.##");
         lbTitle.setText(data.getTitle());
         BigDecimal so = data.getValues();
-        double sodou = so.doubleValue();
         lbValues.setText(df.format(so));
         lbIcon.setIcon(data.getIcon());
         pro.setValue(data.getPercentage());

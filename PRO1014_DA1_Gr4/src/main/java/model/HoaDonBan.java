@@ -184,7 +184,7 @@ public class HoaDonBan implements Serializable {
 
     @Override
     public String toString() {
-        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", khuyenMai=" + khuyenMai + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
+        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", khuyenMai=" + khuyenMai + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '\n';
     }
 
 //    @Override

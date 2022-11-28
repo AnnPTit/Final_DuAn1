@@ -21,13 +21,13 @@ public class KhachHangRepository {
 
     Session session = HibernateConfig.getFACTORY().openSession();
 
-    public List<KhachHang> getAll() {
+    public List<KhachHang> getAll(int trangThai) {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
         Query query = (Query) em.createQuery("From KhachHang where TrangThai =: trangthai order by ID desc");
-        query.setParameter("trangthai", 1);
+        query.setParameter("trangthai", trangThai);
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         @SuppressWarnings("unchecked")
@@ -55,7 +55,7 @@ public class KhachHangRepository {
         EntityTransaction entityTransaction = em.getTransaction();
 
         Query q = (Query) em.createQuery("From KhachHang where trangThai =: trangthai");
-        q.setParameter("trangthai", 1);
+        q.setParameter("trangthai", trangThai);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         List<KhachHang> list = q.getResultList();
         return list;

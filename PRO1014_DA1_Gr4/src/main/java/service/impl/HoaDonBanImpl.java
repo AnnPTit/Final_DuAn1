@@ -34,8 +34,8 @@ public class HoaDonBanImpl implements IHoaDonService {
     }
 
     @Override
-    public List<KhachHang> getListKhach() {
-        return kh.getAll();
+    public List<KhachHang> getListKhach(int trangThai) {
+        return kh.getAll(trangThai);
     }
 
 //    @Override
