@@ -645,27 +645,27 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbl_hoadontbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadontbl_hoadonMouseClicked
-//        int row = tbl_hoadon.getSelectedRow();
-//        hdb = hoaDonBanService.getListHoaDonBan();
-//        HoaDonBan hoaDonBan = hdb.get(row);
-//        hdct = hoaDonBanService.getHoaDonChiTietByHD(hoaDonBan.getId());
-//        loadHoaDonChiTiet(hdct);
-//
-//        lbl_tennv.setText(hoaDonBan.getNhanVien().getTenNV());
-//        lbl_tenkh.setText(hoaDonBan.getKhachHang().getTenKH());
-//        lbl_mahd.setText(hoaDonBan.getMaHDB());
-//        lbl_ngaytao.setText(String.valueOf(hoaDonBan.getNgayTao()));
-//        lbl_ngaythanhtoan.setText(String.valueOf(hoaDonBan.getNgayThanhToan()));
-//        lbl_nguoinhan.setText(hoaDonBan.getNguoiNhan());
-//        lbl_sodt.setText(hoaDonBan.getSdt());
-//        lbl_diachi.setText(hoaDonBan.getDiaChi());
-//        if (hoaDonBan.getTrangThai() == 0) {
-//            lbl_trangthai.setText("Đã Hủy");
-//        } else if (hoaDonBan.getTrangThai() == 1) {
-//            lbl_trangthai.setText("Chưa Thanh Toán");
-//        } else if (hoaDonBan.getTrangThai() == 2) {
-//            lbl_trangthai.setText("Đã Thanh Toán");
-//        }
+        int row = tbl_hoadon.getSelectedRow();
+        hdb = hoaDonBanService.getListHoaDonBan();
+        HoaDonBan hoaDonBan = hdb.get(row);
+        hdct = hoaDonBanService.getHoaDonChiTietByHD(hoaDonBan.getId());
+        loadHoaDonChiTiet(hdct);
+
+        lbl_tennv.setText(hoaDonBan.getNhanVien().getTenNV());
+        lbl_tenkh.setText(hoaDonBan.getKhachHang().getTenKH());
+        lbl_mahd.setText(hoaDonBan.getMaHDB());
+        lbl_ngaytao.setText(String.valueOf(hoaDonBan.getNgayTao()));
+        lbl_ngaythanhtoan.setText(String.valueOf(hoaDonBan.getNgayThanhToan()));
+        lbl_nguoinhan.setText(hoaDonBan.getNguoiNhan());
+        lbl_sodt.setText(hoaDonBan.getSdt());
+        lbl_diachi.setText(hoaDonBan.getDiaChi());
+        if (hoaDonBan.getTrangThai() == 0) {
+            lbl_trangthai.setText("Đã Hủy");
+        } else if (hoaDonBan.getTrangThai() == 1) {
+            lbl_trangthai.setText("Chưa Thanh Toán");
+        } else if (hoaDonBan.getTrangThai() == 2) {
+            lbl_trangthai.setText("Đã Thanh Toán");
+        }
     }//GEN-LAST:event_tbl_hoadontbl_hoadonMouseClicked
 
     private void txtSearchHDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchHDKeyReleased
@@ -707,30 +707,30 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNext_hdActionPerformed
 
     private void tbl_khachhangtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangtbl_hoadonMouseClicked
-//        int row = tbl_khachhang.getSelectedRow();
-//        kh = khachHangService.getAll();
-//        KhachHang khachHang = kh.get(row);
-//        hdb = hoaDonBanService.getHoaDonByKH(khachHang.getId());
-//        loadHD(hdb);
-//
-//        Long hd = hoaDonBanService.countHoaDonByIdKH(khachHang.getId());
-//        lbl_sohoadon.setText("Số hóa đơn: " + hd);
-//
-//        lbl_makh.setText(khachHang.getMaKH());
-//        lbl_tenkh2.setText(khachHang.getTenKH());
-//        if (khachHang.getGioiTinh() == true) {
-//            lbl_gioitinh.setText("Nam");
-//        } else {
-//            lbl_gioitinh.setText("Nữ");
-//        }
-//        lbl_diachikh.setText(khachHang.getDiaChi());
-//        lbl_sodienthoaikh.setText(khachHang.getSdt());
-//        lbl_email.setText(khachHang.getEmail());
-//        if (khachHang.getTrangThai() == 0) {
-//            lbl_trangthaikh.setText("Dừng hoạt động");
-//        } else if (khachHang.getTrangThai() == 1) {
-//            lbl_trangthaikh.setText("Đang hoạt động");
-//        }
+        int row = tbl_khachhang.getSelectedRow();
+        kh = khachHangService.getAll();
+        KhachHang khachHang = kh.get(row);
+        hdb = hoaDonBanService.getHoaDonByKH(khachHang.getId());
+        loadHD(hdb);
+
+        Long hd = hoaDonBanService.countHoaDonByIdKH(khachHang.getId());
+        lbl_sohoadon.setText("Số hóa đơn: " + hd);
+
+        lbl_makh.setText(khachHang.getMaKH());
+        lbl_tenkh2.setText(khachHang.getTenKH());
+        if (khachHang.getGioiTinh() == true) {
+            lbl_gioitinh.setText("Nam");
+        } else {
+            lbl_gioitinh.setText("Nữ");
+        }
+        lbl_diachikh.setText(khachHang.getDiaChi());
+        lbl_sodienthoaikh.setText(khachHang.getSdt());
+        lbl_email.setText(khachHang.getEmail());
+        if (khachHang.getTrangThai() == 0) {
+            lbl_trangthaikh.setText("Dừng hoạt động");
+        } else if (khachHang.getTrangThai() == 1) {
+            lbl_trangthaikh.setText("Đang hoạt động");
+        }
     }//GEN-LAST:event_tbl_khachhangtbl_hoadonMouseClicked
 
     private void txtSearchKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchKHActionPerformed
