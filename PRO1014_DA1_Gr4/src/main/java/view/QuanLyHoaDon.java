@@ -41,7 +41,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     public QuanLyHoaDon() {
         initComponents();
-        
+
         hdb = hoaDonBanService.getListByTrangThai(2);
         listPaginghd = hdb;
         loadHoaDon(getListByCurrentPageHD());
@@ -690,7 +690,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
 
     private void btnPrevious_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_hdActionPerformed
-
         if (currentPage > 1) {
             currentPage--;
             loadHoaDon(getListByCurrentPageHD());
@@ -699,7 +698,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPrevious_hdActionPerformed
 
     private void btnNext_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_hdActionPerformed
-
         if (currentPage < numPage) {
             currentPage++;
             loadHoaDon(getListByCurrentPageHD());
@@ -832,7 +830,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 x.getEmail(),
                 x.getTrangThai() == 0 ? "Dừng Hoạt Động" : "Đang Hoạt Động"
             };
-
             model.addRow(rowData);
         }
     }
