@@ -3,6 +3,7 @@ package view;
 import customModel.HoaDonDoanhThu;
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -27,10 +28,11 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
      */
     private IHDCTService hdctSer = new HDCTImpl();
     private ICTSPService ctspSer = new CTSPImpl();
+    List<HoaDonDoanhThu> list = new ArrayList<>();
 
     public ThongKeDoanhSo() {
         initComponents();
-        List<HoaDonDoanhThu> list = hdctSer.getDoanhSo();
+        list = hdctSer.getDoanhSo(true);
         loadTableDoanhSo(list);
         initCardData();
     }
@@ -43,26 +45,6 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
     }
 
     void loadTableDoanhSo(List<HoaDonDoanhThu> list) {
-        DefaultTableModel model = (DefaultTableModel) tbDoanhSo.getModel();
-        model.setRowCount(0);
-        for (HoaDonDoanhThu x : list) {
-            model.addRow(new Object[]{
-                x.getMaCTSP(), x.getTenSP(), x.getTenDm(), x.getTenCL(), x.getTenMau(), x.getTenNSX(), x.getSoLuongBanRa()
-            });
-        }
-    }
-
-    void loadTableSoLuongUp(List<HoaDonDoanhThu> list) {
-        DefaultTableModel model = (DefaultTableModel) tbDoanhSo.getModel();
-        model.setRowCount(0);
-        for (HoaDonDoanhThu x : list) {
-            model.addRow(new Object[]{
-                x.getMaCTSP(), x.getTenSP(), x.getTenDm(), x.getTenCL(), x.getTenMau(), x.getTenNSX(), x.getSoLuongBanRa()
-            });
-        }
-    }
-
-    void loadTableSoLuongDown(List<HoaDonDoanhThu> list) {
         DefaultTableModel model = (DefaultTableModel) tbDoanhSo.getModel();
         model.setRowCount(0);
         for (HoaDonDoanhThu x : list) {
@@ -231,15 +213,12 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbHinhThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbHinhThucActionPerformed
-//        List<HoaDonDoanhThu> up = hdctSer.getSoLuongUp();
-//        List<HoaDonDoanhThu> down = hdctSer.getSoLuongDown();
-//
-//        int index = cbbHinhThuc.getSelectedIndex();
-//        if (index == 0) {
-//            loadTableSoLuongDown(down);
-//        } else if (index == 1) {
-//            loadTableSoLuongUp(up);
-//        }
+        if (cbbHinhThuc.getSelectedIndex() == 0) {
+            list = hdctSer.getDoanhSo(true);
+        } else {
+            list = hdctSer.getDoanhSo(false);
+        }
+        loadTableDoanhSo(list);
     }//GEN-LAST:event_cbbHinhThucActionPerformed
 
     private void btnExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelActionPerformed
@@ -253,7 +232,12 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
             try {
                 int xn = JOptionPane.showConfirmDialog(this, "Export file ?");
                 if (xn == JOptionPane.YES_OPTION) {
-                    ExportDoanhSo.writeExcel(hdctSer.getDoanhSo(), fileToSave.getAbsolutePath() + filter.getDescription());
+                    if (cbbHinhThuc.getSelectedIndex() == 0) {
+                        ExportDoanhSo.writeExcel(hdctSer.getDoanhSo(true), fileToSave.getAbsolutePath() + filter.getDescription());
+                    } else {
+                        ExportDoanhSo.writeExcel(hdctSer.getDoanhSo(false), fileToSave.getAbsolutePath() + filter.getDescription());
+                    }
+
                     JOptionPane.showMessageDialog(this, "Export success");
                 }
             } catch (Exception e) {

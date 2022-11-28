@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.math.BigDecimal;
+
 import java.text.DecimalFormat;
 
 public class Card extends javax.swing.JPanel {
@@ -38,6 +39,10 @@ public class Card extends javax.swing.JPanel {
         lbIcon.setIcon(data.getIcon());
         pro.setValue(data.getPercentage());
         lbPer.setText(df.format(data.getPercentage()) + "%");
+    }
+
+    public static void main(String[] args) {
+
     }
 
     @SuppressWarnings("unchecked")

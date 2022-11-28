@@ -23,7 +23,7 @@ public class KhachHangImpl implements IKhachHangService {
 
     @Override
     public List<KhachHang> getAll() {
-        return khRepo.getAll();
+        return khRepo.getAll(1);
     }
 
     @Override

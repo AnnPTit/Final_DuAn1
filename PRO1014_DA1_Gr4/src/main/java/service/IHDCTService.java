@@ -18,12 +18,8 @@ public interface IHDCTService {
 
     public List<HoaDonChiTiet> getById(int id);
 
-    List<HoaDonDoanhThu> getDoanhSo();
-    
-    List<HoaDonDoanhThu> getSoLuongDown();
-    
-    List<HoaDonDoanhThu> getSoLuongUp();
-    
+    List<HoaDonDoanhThu> getDoanhSo(boolean  isDESC);
+
     List<HoaDonThanhToan> getHoaDonThanhToan();
     
     BigDecimal doanhThuTheoNam();
