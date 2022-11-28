@@ -44,7 +44,7 @@ public class HoaDonBanRepository {
     }
 
     public Boolean add(HoaDonBan hdb) {
-        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
             se.save(hdb);
             tran.commit();
@@ -56,7 +56,7 @@ public class HoaDonBanRepository {
     }
 
     public void sua(HoaDonBan hdb, Integer id) {
-        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
             String hql = "Update HoaDonBan hd set hd.nhanVien.id= :idNv,hd.khachHang.id= :idKh,hd.maHDB =:mahdb, hd.khuyenMai.id =:idkm ,"
                     + "hd.nguoiNhan =:nguoiNhan,hd.ngayThanhToan= :ngayThanhToan,hd.sdt =:sdt, hd.diaChi =:diaChi, hd.trangThai =:trangThai"
@@ -80,7 +80,7 @@ public class HoaDonBanRepository {
     }
 
     public Boolean suaKH(HoaDonBan hdb) {
-        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
             String hql = "Update HoaDonBan hd set hd.khachHang.id= :idKh"
                     + " where hd.id = :id";
@@ -97,7 +97,7 @@ public class HoaDonBanRepository {
     }
 
     public void dele(int id) {
-        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
             String hql = "Update HoaDonBan hd set hd.trangThai =:trangThai"
                     + " where hd.id = :id";
@@ -110,10 +110,52 @@ public class HoaDonBanRepository {
             e.printStackTrace();
         }
     }
+
+    public List<HoaDonChiTiet> getHoaDonChiTietByHD(int idHD) {
+        Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        try {
+            Query query = session.createQuery("From HoaDonChiTiet where IdHD =: id");
+            query.setParameter("id", idHD);
+            List<HoaDonChiTiet> hdct = query.getResultList();
+            // NhanVien results = (NhanVien) query.list();
+
+            return hdct;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<HoaDonBan> getHoaDonByKH(int idKH) {
+        Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        try {
+            Query query = session.createQuery("From HoaDonBan where IdKH =: id");
+            query.setParameter("id", idKH);
+            List<HoaDonBan> hd = query.getResultList();
+
+            return hd;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Long countHoaDonByIdKH(int idKH) {
+        Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        try {
+            Query query = session.createQuery("SELECT COUNT(ID) FROM HoaDonBan WHERE IdKH =: IdKH");
+            query.setParameter("IdKH", idKH);
+            Long so = (Long) query.getResultList().get(0);
+            return so;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     // ========================================================================================================================================
 
     public Boolean addHoaDonChiTiet(HoaDonChiTiet hdct) {
-        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
             se.save(hdct);
             tran.commit();
@@ -127,7 +169,7 @@ public class HoaDonBanRepository {
     public Boolean updateTrangThaiHoaDon(int id, int trangThai) {
         Transaction transision = null;
         Integer check = 0;
-        try (Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             transision = session.beginTransaction();
             Query query = session.createQuery("UPDATE HoaDonBan SET  TrangThai = :trangthai where Id = :id");
             query.setParameter("trangthai", trangThai);
@@ -144,7 +186,7 @@ public class HoaDonBanRepository {
     public Boolean updateTrangThaiHoaDonChiTiet(int id, int trangThai) {
         Transaction transision = null;
         Integer check = 0;
-        try (Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             transision = session.beginTransaction();
             Query query = session.createQuery("UPDATE HoaDonChiTiet SET  TrangThai = :trangthai where IdHD = :id");
             query.setParameter("trangthai", trangThai);
@@ -173,7 +215,7 @@ public class HoaDonBanRepository {
     public Boolean deleteHoaDonChitiet(int idCTSP) {
         Transaction transision = null;
         Integer check = 0;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transision = session.beginTransaction();
             org.hibernate.query.Query query = session.createQuery("DELETE HoaDonChiTiet WHERE IdCTSP =: id");
             query.setParameter("id", idCTSP);
@@ -189,7 +231,7 @@ public class HoaDonBanRepository {
     public Boolean updateSoLuongHDCT(int idCTSP, int soLuong) {
         Transaction transision = null;
         Integer check = 0;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transision = session.beginTransaction();
             org.hibernate.query.Query query = session.createQuery("UPDATE HoaDonChiTiet set SoLuong =:soLuong WHERE IdCTSP =:id ");
             query.setParameter("id", idCTSP);

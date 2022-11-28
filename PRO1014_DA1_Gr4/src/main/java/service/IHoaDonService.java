@@ -41,14 +41,19 @@ public interface IHoaDonService {
 
     void updateTrangThaiHoaDonChiTiet(int id, int trangThai);
 
-   // List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
-
+    // List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
     void deleteHoaDonCT(int idCTSP);
 
-    public void updateSoLuongHDCT(int idCTSP, int soLuong) ;
-    
+    public void updateSoLuongHDCT(int idCTSP, int soLuong);
+
     Long getCountHoaDon();
-    
+
     public List<SoLanMuaHang> getSoLanMuaHang();
 
-    }
+    Long countHoaDonByIdKH(int idKH);
+
+    List<HoaDonChiTiet> getHoaDonChiTietByHD(int IdHD);
+
+    List<HoaDonBan> getHoaDonByKH(int IdKH);
+
+}
