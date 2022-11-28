@@ -72,7 +72,7 @@ public class Main extends javax.swing.JFrame {
                     if (subMenuIndex == 0) {
                         main.showForm(new QuanLyBanHang());
                     } else if (subMenuIndex == 1) {
-                        main.showForm(new QuanLySP());
+                        main.showForm(new TraHang1());
                     }
                 } else if (menuIndex == 3) {
                     main.showForm(new QuanLyHoaDon());
