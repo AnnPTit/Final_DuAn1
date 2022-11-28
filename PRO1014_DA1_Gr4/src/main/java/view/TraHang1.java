@@ -4,6 +4,17 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.ChiTietSanPham;
+import model.HoaDonBan;
+import model.HoaDonChiTiet;
+import service.IHDCTService;
+import service.IHoaDonService;
+import service.impl.HDCTImpl;
+import service.impl.HoaDonBanImpl;
+
 /**
  *
  * @author Laptop
@@ -13,8 +24,44 @@ public class TraHang1 extends javax.swing.JPanel {
     /**
      * Creates new form TraHang1
      */
+    private static final long serialVersionUID = 1L;
+
+    private IHDCTService hoaDonChiTietService;
+    private List<HoaDonChiTiet> lstHdct = new ArrayList<>();
+    private final List<ChiTietSanPham> listCTSP = new ArrayList<>();
+    private final IHoaDonService hoaDonService;
+    private List<HoaDonBan> listHoaDonBan = new ArrayList<>();
+
+    private DefaultTableModel modelCtsp = new DefaultTableModel();
+
     public TraHang1() {
         initComponents();
+
+        hoaDonChiTietService = new HDCTImpl();
+        hoaDonService = new HoaDonBanImpl();
+    }
+
+    private void loadTableDanhSachSp(List<HoaDonChiTiet> listHdct) {
+        modelCtsp = (DefaultTableModel) tblDanhSachSanPham.getModel();
+        modelCtsp.setRowCount(0);
+        for (HoaDonChiTiet hd : listHdct) {
+            modelCtsp.addRow(new Object[]{
+                hd.getChiTietSanPham().getSanPham().getMaSP(), hd.getChiTietSanPham().getSanPham().getTenSP(),
+                hd.getSoLuong(), hd.getChiTietSanPham().getMauSac().getTenMau(), hd.getChiTietSanPham().getChatLieu().getTenCL(),
+                hd.getDonGia()
+            });
+        }
+    }
+
+    private void loadTableHoaDon(List<HoaDonBan> list) {
+        DefaultTableModel model = (DefaultTableModel) tblThongTinHoaDon.getModel();
+        model.setRowCount(0);
+        for (HoaDonBan a : list) {
+            model.addRow(new Object[]{
+                a.getMaHDB(), a.getKhachHang().getTenKH(), a.getNhanVien().getTenNV(),
+                a.getNgayTao(), a.getNgayThanhToan(), a.getKhuyenMai().getTenkm(), a.getKhachHang().getSdt()
+            });
+        }
     }
 
     /**
