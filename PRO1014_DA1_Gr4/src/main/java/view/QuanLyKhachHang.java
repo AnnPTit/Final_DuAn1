@@ -11,20 +11,20 @@ import service.impl.KhachHangImpl;
 import service.IKhachHangService;
 
 public class QuanLyKhachHang extends javax.swing.JPanel {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     private final IKhachHangService khSer = new KhachHangImpl();
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
-
+    
     private final int itemPerpage = 5;
     private int totalItem;
     private int currentPage = 1;
     private int numPage;
-   
+    
     private List<KhachHang> listPaging = new ArrayList<>();
-
+    
     public QuanLyKhachHang() {
         initComponents();
         loadKhachHang();
@@ -34,9 +34,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         totalItem = listKH.size();
         lbTotalKhachHang.setText("Total: " + totalItem);
         showListTarget(getListByCurrentPage());
-
+        
     }
-
+    
     private void showListTarget(List<KhachHang> list) {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
@@ -44,9 +44,9 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             model.addRow(x.toDataRow());
         }
     }
-
+    
     List<KhachHang> getListByCurrentPage() {
-
+        
         totalItem = listPaging.size();
         numPage = (totalItem - 1) / itemPerpage + 1;
         pageIndex.setText(currentPage + "/" + numPage);
@@ -57,7 +57,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         }
         return listPaging.subList(start, end);
     }
-
+    
     void loadKhachHang() {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
@@ -66,10 +66,15 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             model.addRow(x.toDataRow());
         }
     }
-
+    
     KhachHang getData() {
         KhachHang kh = new KhachHang();
-        kh.setMaKH(txtMa.getText());
+        String ma = txtMa.getText();
+        String maKh = "";
+        if (ma.isBlank()) {
+            maKh = "KH0" + (khSer.getAllKhachHang().size() + 1);
+        }
+        kh.setMaKH(maKh);
         kh.setTenKH(txtTen.getText());
         kh.setTrangThai(1);
         if (rdoNam.isSelected()) {
@@ -191,6 +196,11 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         org.openide.awt.Mnemonics.setLocalizedText(btnClear, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.btnClear.text")); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -427,7 +437,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         txtDiaChi.setText(kh.getDiaChi());
         txtSDT.setText(kh.getSdt());
         txtEmail.setText(kh.getEmail());
-
+        
         Boolean gioiTinh = kh.getGioiTinh();
         if (gioiTinh == true) {
             rdoNam.setSelected(true);
@@ -444,7 +454,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             listPaging = listKH;
             currentPage = 1;
             showListTarget((getListByCurrentPage()));
-
+            
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -462,7 +472,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tbKhachHang.getSelectedRow();
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-
+        
         String result = new KhachHangImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
         listKH = khSer.getAll();
@@ -473,7 +483,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-
+        
         if (currentPage < numPage) {
             currentPage++;
             showListTarget(getListByCurrentPage());
@@ -490,7 +500,20 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         searchByPhone();
     }//GEN-LAST:event_txtSearchKeyReleased
+    
+    private void reset() {
+        txtMa.setText("");
+        txtTen.setText("");
+        txtSDT.setText("");
+        txtEmail.setText("");
+        txtDiaChi.setText("");
+        buttonGroup1.clearSelection();
+    }
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        reset();
+    }//GEN-LAST:event_btnClearActionPerformed
+    
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
         tb.setRowCount(0);
@@ -501,7 +524,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             }
         }
     }
-
+    
     KhachHang findKhachHangByMa(String ma) {
         for (KhachHang a : listKH) {
             if (a.getMaKH().equalsIgnoreCase(ma)) {
@@ -510,43 +533,43 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         }
         return null;
     }
-
+    
     public boolean validateForm() {
         String ma = txtMa.getText();
         KhachHang findKhachHang = findKhachHangByMa(ma);
         if (findKhachHang != null) {
-            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!","ERORR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!", "ERORR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (ma.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Không được bỏ trống mã");
-            return false;
-        }
+//        if (ma.isBlank()) {
+//            JOptionPane.showMessageDialog(this, "Không được bỏ trống mã");
+//            return false;
+//        }
 
         String ten = txtTen.getText();
         if (ten.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống tên");
             return false;
         }
-
+        
         String diaChi = txtDiaChi.getText();
         if (diaChi.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống địa chỉ");
             return false;
         }
-
+        
         String sdt = txtSDT.getText();
         if (sdt.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống SĐT");
             return false;
         }
-
+        
         String email = txtEmail.getText();
         if (email.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống Email");
             return false;
         }
-
+        
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
@@ -559,7 +582,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số");
             return false;
         }
-
+        
         return true;
     }
 

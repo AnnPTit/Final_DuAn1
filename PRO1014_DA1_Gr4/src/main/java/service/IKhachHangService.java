@@ -14,6 +14,8 @@ import model.KhachHang;
 public interface IKhachHangService {
 
     public List<KhachHang> getAll();
+    
+    public List<KhachHang> getAllKhachHang();
 
     String add(KhachHang kh);
 
