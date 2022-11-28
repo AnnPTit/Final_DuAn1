@@ -48,5 +48,15 @@ public class MauSacImpl implements IMauSacService{
             return "Xóa thất bại";
         }
     }
+
+    @Override
+    public List<Mau> getAllSp() {
+        return msRepo.getAllSp();
+    }
+
+    @Override
+    public Mau getByMa(String ma) {
+        return msRepo.getByMa(ma);
+    }
     
 }

@@ -34,6 +34,17 @@ public class NSXRepository {
         return list;
     }
 
+    public List<NSX> getAllSp() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From NSX ORDER BY ID DESC");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<NSX> list = q.getResultList();
+        return list;
+    }
+    
     public boolean add(NSX nsx) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
@@ -87,6 +98,18 @@ public class NSXRepository {
             q.setParameter("id", id);
             nsx = (NSX) q.getSingleResult();
         } catch (Exception e) {
+        }
+        return nsx;
+    }
+    
+     public NSX getByMa(String ma) {
+        NSX nsx = null;
+        try {
+            Query q = ses.createQuery("SELECT sp FROM NSX sp WHERE sp.maNSX=:ma");
+            q.setParameter("ma", ma);
+            nsx = (NSX) q.setMaxResults(1).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return nsx;
     }

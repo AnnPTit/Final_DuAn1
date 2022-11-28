@@ -844,6 +844,11 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbAllActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        String ma = txtMa.getText().trim();
+        boolean check  = checkMaSP(ma);
+        if(check==false){
+            return;
+        }
         if (index == 0) {
             if (validateThuocTinh()) {
                 String result = new SanPhamImp().add(getSanPham());
@@ -898,6 +903,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 loadSanPham(sp);
                 loadAllCB();
                 loadChiTietSanPham(ctsp);
+                clearData();
             }
         } else if (index == 1) {
             if (validateThuocTinh()) {
@@ -906,6 +912,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 loadDanhMuc(dm);
                 loadAllCB();
                 loadChiTietSanPham(ctsp);
+                clearData();
             }
         } else if (index == 2) {
             if (validateThuocTinh()) {
@@ -914,6 +921,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 loadNSX(nsx);
                 loadAllCB();
                 loadChiTietSanPham(ctsp);
+                clearData();
             }
         } else if (index == 3) {
             if (validateThuocTinh()) {
@@ -922,6 +930,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 loadChatLieu(cl);
                 loadAllCB();
                 loadChiTietSanPham(ctsp);
+                clearData();
             }
         } else if (index == 4) {
             if (validateThuocTinh()) {
@@ -930,6 +939,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 loadMauSac(mau);
                 loadAllCB();
                 loadChiTietSanPham(ctsp);
+                clearData();
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -937,32 +947,36 @@ public class QuanLySP extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tbThuocTinh.getSelectedRow();
         Integer id = (Integer) tbThuocTinh.getValueAt(row, 0);
-
         if (index == 0) {
             String result = new SanPhamImp().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadSanPham(sp);
             loadAllCB();
+            clearData();
         } else if (index == 1) {
             String result = new DanhMucImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadDanhMuc(dm);
             loadAllCB();
+            clearData();
         } else if (index == 2) {
             String result = new NSXImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadNSX(nsx);
             loadAllCB();
+            clearData();
         } else if (index == 3) {
             String result = new ChatLieuImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadChatLieu(cl);
             loadAllCB();
+            clearData();
         } else if (index == 4) {
             String result = new MauSacImpl().updateTrangThai(id);
             JOptionPane.showMessageDialog(this, result);
             loadMauSac(mau);
             loadAllCB();
+            clearData();
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -1278,7 +1292,14 @@ public class QuanLySP extends javax.swing.JPanel {
 //                continue;
 //            }
 //        }
-        sp.setMaSP(txtMa.getText());
+        String maM = "";
+        if (txtMa.getText().isBlank() == true) {
+            maM = "SP0" + (new SanPhamImp().getAllSp().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        sp.setMaSP(maM);
+//        sp.setMaSP(txtMa.getText());
         sp.setTenSP(txtTen.getText());
         sp.setNgayTao(new Date());
         sp.setNgaySua(new Date());
@@ -1297,7 +1318,14 @@ public class QuanLySP extends javax.swing.JPanel {
 
     ChatLieu getChatLieu() {
         ChatLieu cl = new ChatLieu();
-        cl.setMaCL(txtMa.getText());
+        String maM = "";
+        if (txtMa.getText().isBlank() == true) {
+            maM = "CL0" + (new ChatLieuImpl().getAllSp().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        cl.setMaCL(maM);
+//        cl.setMaCL(txtMa.getText());
         cl.setTenCL(txtTen.getText());
         cl.setNgayTao(new Date());
         cl.setNgaySua(new Date());
@@ -1315,7 +1343,14 @@ public class QuanLySP extends javax.swing.JPanel {
 
     Mau getMauSac() {
         Mau ms = new Mau();
-        ms.setMaMau(txtMa.getText());
+        String maM = "";
+        if (txtMa.getText().isBlank() == true) {
+            maM = "M0" + (new MauSacImpl().getAllSp().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        ms.setMaMau(maM);
+//      ms.setMaMau(txtMa.getText());
         ms.setTenMau(txtTen.getText());
         ms.setNgayTao(new Date());
         ms.setNgaySua(new Date());
@@ -1334,7 +1369,14 @@ public class QuanLySP extends javax.swing.JPanel {
 
     DanhMuc getDanhMuc() {
         DanhMuc dm = new DanhMuc();
-        dm.setMaDM(txtMa.getText());
+        String maM = "";
+        if (txtMa.getText().isBlank() == true) {
+            maM = "DM0" + (new DanhMucImpl().getAllSp().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        dm.setMaDM(maM);
+//        dm.setMaDM(txtMa.getText());
         dm.setTenDM(txtTen.getText());
         dm.setNgayTao(new Date());
         dm.setNgaySua(new Date());
@@ -1353,7 +1395,14 @@ public class QuanLySP extends javax.swing.JPanel {
 
     NSX getNSX() {
         NSX nsx = new NSX();
-        nsx.setMaNSX(txtMa.getText());
+//        nsx.setMaNSX(txtMa.getText());
+        String maM = "";
+        if (txtMa.getText().isBlank() == true) {
+            maM = "NSX0" + (new NSXImpl().getAllSp().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        nsx.setMaNSX(maM);
         nsx.setTenNSX(txtTen.getText());
         nsx.setNgayTao(new Date());
         nsx.setNgaySua(new Date());
@@ -1458,6 +1507,42 @@ public class QuanLySP extends javax.swing.JPanel {
         return true;
     }
 
+    public boolean checkMaSP(String ma){
+        if(index==0)
+        {
+            SanPham sp = new SanPhamImp().getByMa(ma);
+            if(sp!=null){
+                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+                return false;
+            }
+        }else if(index==1){
+            DanhMuc sp = new DanhMucImpl().getByMa(ma);
+            if(sp!=null){
+                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+                return false;
+            }
+        }else if(index==2){
+             NSX sp = new NSXImpl().getByMa(ma);
+            if(sp!=null){
+                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+                return false;
+            }
+        }else if(index==3){
+            ChatLieu sp = new ChatLieuImpl().getByMa(ma);
+            if(sp!=null){
+                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+                return false;
+            }
+        }else if(index==4){
+            Mau sp = new  MauSacImpl().getByMa(ma);
+            if(sp!=null){
+                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+                return false;
+            }
+        }
+        return true;
+    }
+    
     void clearData() {
         txtMa.setText("");
         txtTen.setText("");

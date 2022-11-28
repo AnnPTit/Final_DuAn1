@@ -49,5 +49,15 @@ public class NSXImpl implements INSXService{
             return "Xóa thất bại";
         }
     }
+
+    @Override
+    public List<NSX> getAllSp() {
+        return nsxRepo.getAllSp();
+    }
+
+    @Override
+    public NSX getByMa(String ma) {
+        return nsxRepo.getByMa(ma);
+    }
     
 }

@@ -33,6 +33,17 @@ public class ChatLieuRepository {
         List<ChatLieu> list = q.getResultList();
         return list;
     }
+    
+    public List<ChatLieu> getAllSp() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From ChatLieu ORDER BY ID DESC");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<ChatLieu> list = q.getResultList();
+        return list;
+    }
 
     public boolean add(ChatLieu cl) {
         Transaction tran = null;
@@ -89,5 +100,17 @@ public class ChatLieuRepository {
         } catch (Exception e) {
         }
         return chatLieu;
+    }
+    
+     public ChatLieu getByMa(String ma) {
+        ChatLieu sp = null;
+        try {
+            Query q = ses.createQuery("SELECT cl FROM ChatLieu sp WHERE sp.maCL=:ma");
+            q.setParameter("ma", ma);
+            sp = (ChatLieu) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sp;
     }
 }

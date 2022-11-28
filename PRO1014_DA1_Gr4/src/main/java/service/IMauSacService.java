@@ -16,4 +16,6 @@ public interface IMauSacService {
     String add(Mau ms);
     String update(Mau ms, Integer id);
     String updateTrangThai(Integer id);
+    List<Mau> getAllSp();
+    Mau getByMa(String ma);
 }

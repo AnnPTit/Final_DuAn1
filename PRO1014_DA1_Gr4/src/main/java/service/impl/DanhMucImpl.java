@@ -48,5 +48,15 @@ public class DanhMucImpl implements IDanhMucService{
             return "Xóa thất bại";
         }
     }
+
+    @Override
+    public List<DanhMuc> getAllSp() {
+        return dmRepo.getAllSp();
+    }
+
+    @Override
+    public DanhMuc getByMa(String ma) {
+        return dmRepo.getByMa(ma);
+    }
     
 }

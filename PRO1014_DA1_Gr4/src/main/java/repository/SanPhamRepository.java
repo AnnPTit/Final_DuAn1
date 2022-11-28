@@ -34,6 +34,17 @@ public class SanPhamRepository {
         return list;
     }
 
+    public List<SanPham> getAllSp() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From SanPham ORDER BY ID DESC");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<SanPham> list = q.getResultList();
+        return list;
+    }
+    
     public boolean add(SanPham sp) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {

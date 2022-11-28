@@ -12,8 +12,10 @@ import java.util.List;
  * @author HP
  */
 public interface IChatLieuService {
-    public List<ChatLieu> getAll();
+    List<ChatLieu> getAll();
     String add(ChatLieu cl);
     String update(ChatLieu cl, Integer id);
     String updateTrangThai(Integer id);
+    List<ChatLieu> getAllSp();
+    ChatLieu getByMa(String ma);
 }

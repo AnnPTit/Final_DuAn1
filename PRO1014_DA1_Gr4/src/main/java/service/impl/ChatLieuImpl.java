@@ -49,5 +49,15 @@ public class ChatLieuImpl implements IChatLieuService{
             return "Xóa thất bại";
         }
     }
+
+    @Override
+    public List<ChatLieu> getAllSp() {
+        return clRepo.getAllSp();
+    }
+
+    @Override
+    public ChatLieu getByMa(String ma) {
+        return clRepo.getByMa(ma);
+    }
     
 }

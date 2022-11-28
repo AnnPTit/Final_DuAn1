@@ -34,6 +34,20 @@ public class KhachHangRepository {
         List<KhachHang> list = query.getResultList();
         return list;
     }
+    
+    public List<KhachHang> getAllKhachHang() {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = (Query) em.createQuery("From KhachHang ");
+        
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        @SuppressWarnings("unchecked")
+        List<KhachHang> list = query.getResultList();
+        return list;
+    }
 
     public List<KhachHang> getAllByTrangThai(int trangThai) {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();

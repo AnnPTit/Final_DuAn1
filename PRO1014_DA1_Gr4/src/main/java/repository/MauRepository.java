@@ -33,6 +33,17 @@ public class MauRepository {
         return list;
     }
 
+    public List<Mau> getAllSp() {
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From Mau ORDER BY ID DESC");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<Mau> list = q.getResultList();
+        return list;
+    }
+    
     public boolean add(Mau ms) {
         Transaction tran = null;
         try (Session ses = HibernateConfig.getFACTORY().openSession()) {
@@ -88,5 +99,17 @@ public class MauRepository {
         } catch (Exception e) {
         }
         return mau;
+    }
+    
+     public Mau getByMa(String ma) {
+        Mau sp = null;
+        try {
+            Query q = ses.createQuery("SELECT sp FROM Mau sp WHERE sp.maMau=:ma");
+            q.setParameter("ma", ma);
+            sp = (Mau) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sp;
     }
 }
