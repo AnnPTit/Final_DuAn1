@@ -6,6 +6,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import model.KhachHang;
@@ -769,7 +770,46 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_hdtbl_hoadonMouseClicked
 
-    
+        void loadHoaDon(List<HoaDonBan> list) {
+        // hdb = hoaDonBanService.getListByTrangThai(tt);
+        DefaultTableModel model = (DefaultTableModel) this.tbl_hoadon.getModel();
+        model.setRowCount(0);
+        for (HoaDonBan hd : list) {
+            Object[] rowData = {
+                hd.getNhanVien().getTenNV(),
+                hd.getKhachHang().getTenKH(),
+                hd.getMaHDB(),
+                hd.getNgayTao(),
+                hd.getNgayThanhToan(),
+                hd.getNguoiNhan(),
+                hd.getSdt(),
+                hd.getDiaChi(),
+                hd.trangthai()
+            };
+
+            model.addRow(rowData);
+        }
+    }
+
+    void loadHD(List<HoaDonBan> list) {
+        DefaultTableModel model = (DefaultTableModel) this.tbl_hd.getModel();
+        model.setRowCount(0);
+        for (HoaDonBan hd : list) {
+            Object[] rowData = {
+                hd.getNhanVien().getTenNV(),
+                hd.getKhachHang().getTenKH(),
+                hd.getMaHDB(),
+                hd.getNgayTao(),
+                hd.getNgayThanhToan(),
+                hd.getNguoiNhan(),
+                hd.getSdt(),
+                hd.getDiaChi(),
+                hd.trangthai()
+            };
+
+            model.addRow(rowData);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
