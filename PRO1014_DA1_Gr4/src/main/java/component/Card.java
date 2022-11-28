@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.math.BigDecimal;
+
 import java.text.DecimalFormat;
 
 public class Card extends javax.swing.JPanel {
@@ -34,10 +35,15 @@ public class Card extends javax.swing.JPanel {
         DecimalFormat df = new DecimalFormat("#,##0.##");
         lbTitle.setText(data.getTitle());
         BigDecimal so = data.getValues();
+        double sodou = so.doubleValue();
         lbValues.setText(df.format(so));
         lbIcon.setIcon(data.getIcon());
         pro.setValue(data.getPercentage());
         lbPer.setText(df.format(data.getPercentage()) + "%");
+    }
+
+    public static void main(String[] args) {
+
     }
 
     @SuppressWarnings("unchecked")
