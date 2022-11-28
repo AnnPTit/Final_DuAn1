@@ -408,6 +408,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int row = tbNhanVien.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thông tin trong bảng");
+            return;
+        }
+        
         Integer id = (Integer) tbNhanVien.getValueAt(row, 0);
 
         if (validateForm()) {
@@ -444,6 +449,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tbNhanVien.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thông tin trong bảng");
+            return;
+        }
+        
         Integer id = (Integer) tbNhanVien.getValueAt(row, 0);
 
         String result = new NhanVienImpl().updateTrangThai(id);

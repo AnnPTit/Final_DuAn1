@@ -189,7 +189,7 @@ public class HDChiTietRepository {
         Query query = null;
 
         try {
-            String sql = "SELECT HoaDon.NgayThanhToan,SUM(SoLuong*DonGia) AS DoanhThu,COUNT(HoaDonChiTiet.Id) AS SoHoaDonDaThanhToan\n"
+            String sql = "SELECT HoaDon.NgayThanhToan,SUM(SoLuong*DonGia) AS DoanhThu,COUNT(DISTINCT HoaDon.ID) AS SoHoaDonDaThanhToan\n"
                     + "FROM HoaDonChiTiet  join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id GROUP BY HoaDon.NgayThanhToan";
             query = ses.createSQLQuery(sql);
             List<HoaDonThanhToan> listHdThanhToan = new ArrayList<>();
