@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigDecimal;
 import model.ChiTietSanPham;
 import java.util.List;
 import model.ChatLieu;
@@ -21,7 +22,7 @@ public interface ICTSPService {
 
     String updateTrangThai(Integer id);
 
-    List<ChiTietSanPham> getSumProduct();
+    Long getSumProduct();
 
     int getSoLuongSpByMaCTSP(String maCTSP);
 
@@ -31,9 +32,9 @@ public interface ICTSPService {
 
     public ChiTietSanPham getAllByID(int id);
     
-    public List<ChiTietSanPham> getProduct();
+    Long getProduct();
     
-    public List<ChiTietSanPham> getNonProduct();
+    Long getNonProduct();
     
-    public List<ChiTietSanPham> getOutProduct();
+    Long getOutProduct();
 }

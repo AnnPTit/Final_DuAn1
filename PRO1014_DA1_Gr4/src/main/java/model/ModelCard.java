@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import javax.swing.Icon;
 
 public class ModelCard {
@@ -13,11 +14,11 @@ public class ModelCard {
         this.title = title;
     }
 
-    public String getValues() {
+    public BigDecimal getValues() {
         return values;
     }
 
-    public void setValues(String values) {
+    public void setValues(BigDecimal values) {
         this.values = values;
     }
 
@@ -37,7 +38,7 @@ public class ModelCard {
         this.icon = icon;
     }
 
-    public ModelCard(String title, String values, int percentage, Icon icon) {
+    public ModelCard(String title, BigDecimal values, int percentage, Icon icon) {
         this.title = title;
         this.values = values;
         this.percentage = percentage;
@@ -48,7 +49,7 @@ public class ModelCard {
     }
 
     private String title;
-    private String values;
+    private BigDecimal values;
     private int percentage;
     private Icon icon;
 }

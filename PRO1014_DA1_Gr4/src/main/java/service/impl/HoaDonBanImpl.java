@@ -129,4 +129,9 @@ public class HoaDonBanImpl implements IHoaDonService {
             System.out.println("Thất bại");
         }
     }
+
+    @Override
+    public Long getCountHoaDon() {
+        return hdr.getCountHoaDon();
+    }
 }

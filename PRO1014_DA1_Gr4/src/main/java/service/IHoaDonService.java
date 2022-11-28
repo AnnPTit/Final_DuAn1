@@ -45,5 +45,7 @@ public interface IHoaDonService {
     void deleteHoaDonCT(int idCTSP);
 
     public void updateSoLuongHDCT(int idCTSP, int soLuong) ;
+    
+    Long getCountHoaDon();
 
     }

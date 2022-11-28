@@ -27,5 +27,5 @@ public interface IKhachHangService {
     
     KhachHang getKhachHangByMa(String ma);
     
-    public List<KhachHang> getSumCustomer();
+    Long getSumCustomer();
 }

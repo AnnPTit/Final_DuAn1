@@ -1,6 +1,7 @@
 package view;
 
 import customModel.HoaDonDoanhThu;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.ModelCard;
@@ -29,10 +30,10 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
     }
 
     private void initCardData() {
-        card1.setData(new ModelCard("Sản phẩm đang kinh doanh", ctspSer.getProduct().toString(), 20, null));
-        card2.setData(new ModelCard("Sản phẩm ngừng kinh doanh", ctspSer.getNonProduct().toString(), 0, null));
-        card3.setData(new ModelCard("Tổng số lượng sản phẩm", ctspSer.getSumProduct().toString(), 95, null));
-        card4.setData(new ModelCard("Sản phẩm sắp hết hàng", ctspSer.getOutProduct().toString(), 10, null));
+        card1.setData(new ModelCard("Sản phẩm đang kinh doanh", BigDecimal.valueOf(ctspSer.getProduct()), 20, null));
+        card2.setData(new ModelCard("Sản phẩm ngừng kinh doanh", BigDecimal.valueOf(ctspSer.getNonProduct()), 0, null));
+        card3.setData(new ModelCard("Tổng số lượng sản phẩm", BigDecimal.valueOf(ctspSer.getSumProduct()), 95, null));
+        card4.setData(new ModelCard("Sản phẩm sắp hết hàng", BigDecimal.valueOf(ctspSer.getOutProduct()), 10, null));
     }
 
     void loadTableDoanhSo(List<HoaDonDoanhThu> list) {
@@ -43,7 +44,6 @@ public class ThongKeDoanhSo extends javax.swing.JPanel {
                 x.getMaCTSP(), x.getTenSP(), x.getTenDm(), x.getTenCL(), x.getTenMau(), x.getTenNSX(), x.getSoLuongBanRa()
             });
         }
-
     }
 
     // ThongKeDoanhSo
