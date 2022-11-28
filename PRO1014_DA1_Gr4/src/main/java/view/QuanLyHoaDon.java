@@ -38,9 +38,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private int totalItemkh;
     private int currentPagekh = 1;
     private int numPagekh;
-    public QuanLyHoaDon() {
-       initComponents();
 
+    public QuanLyHoaDon() {
+        initComponents();
 
     }
 
@@ -770,7 +770,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_hdtbl_hoadonMouseClicked
 
-        void loadHoaDon(List<HoaDonBan> list) {
+    void loadHoaDon(List<HoaDonBan> list) {
         // hdb = hoaDonBanService.getListByTrangThai(tt);
         DefaultTableModel model = (DefaultTableModel) this.tbl_hoadon.getModel();
         model.setRowCount(0);
@@ -810,7 +810,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             model.addRow(rowData);
         }
     }
-        void loadKhachHang(List<KhachHang> list) {
+
+    void loadKhachHang(List<KhachHang> list) {
 //        kh = khachHangService.getAllByTrangThai(tt);
         DefaultTableModel model = (DefaultTableModel) this.tbl_khachhang.getModel();
         model.setRowCount(0);
@@ -845,8 +846,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             model.addRow(rowData);
         }
     }
-    
-        void searchHD() {
+
+    void searchHD() {
         DefaultTableModel tb = (DefaultTableModel) tbl_hoadon.getModel();
         tb.setRowCount(0);
 
@@ -864,6 +865,27 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                     hd.getSdt(),
                     hd.getDiaChi(),
                     hd.getTrangThai()
+                });
+            }
+        }
+    }
+
+    void searchKH() {
+        DefaultTableModel tb = (DefaultTableModel) tbl_khachhang.getModel();
+        tb.setRowCount(0);
+
+        List<KhachHang> list = hoaDonBanService.getListKhach();
+        for (KhachHang kh : list) {
+            if (kh.getTenKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())
+                    || kh.getMaKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())) {
+                tb.addRow(new Object[]{
+                    kh.getMaKH(),
+                    kh.getTenKH(),
+                    kh.getGioiTinh() == true ? "Nam" : "Nữ",
+                    kh.getDiaChi(),
+                    kh.getSdt(),
+                    kh.getEmail(),
+                    kh.getTrangThai() == 0 ? "Dừng Hoạt Động" : "Đang Hoạt Động"
                 });
             }
         }
