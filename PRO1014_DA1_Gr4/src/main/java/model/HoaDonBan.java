@@ -29,6 +29,7 @@ import org.bridj.ann.Template;
 @Entity
 @Table(name = "HoaDon")
 public class HoaDonBan implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -51,7 +52,7 @@ public class HoaDonBan implements Serializable {
     @ManyToOne
     @JoinColumn(name = "IdKM")
     private KhuyenMai khuyenMai;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "NgayTao")
     private Date ngayTao;
@@ -80,7 +81,6 @@ public class HoaDonBan implements Serializable {
         this.khuyenMai = khuyenMai;
     }
 
-    
     public Integer getId() {
         return id;
     }
@@ -137,8 +137,6 @@ public class HoaDonBan implements Serializable {
         this.ngayThanhToan = ngayThanhToan;
     }
 
-   
-
     public String getNguoiNhan() {
         return nguoiNhan;
     }
@@ -171,18 +169,28 @@ public class HoaDonBan implements Serializable {
         this.trangThai = trangThai;
     }
 
+    public String trangthai() {
+        String trangThai = null;
+        if (this.trangThai == 0) {
+            return trangThai = "Đã Hủy";
+        } else if (this.trangThai == 1) {
+            return trangThai = "Chưa Thanh Toán";
+        } else if (this.trangThai == 2) {
+            return trangThai = "Đã Thanh Toán";
+        }
+        return trangThai;
+
+    }
+
     @Override
     public String toString() {
         return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", khuyenMai=" + khuyenMai + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
     }
-    
-    
 
 //    @Override
 //    public String toString() {
 //        return "HoaDonBan{" + "id=" + id + ", nhanVien=" + nhanVien + ", listHdCt=" + listHdCt + ", khachHang=" + khachHang + ", maHDB=" + maHDB + ", ngayTao=" + ngayTao + ", ngayThanhToan=" + ngayThanhToan + ", nguoiNhan=" + nguoiNhan + ", sdt=" + sdt + ", diaChi=" + diaChi + ", trangThai=" + trangThai + '}';
 //    }
-
     public HoaDonBan() {
     }
 
@@ -199,7 +207,6 @@ public class HoaDonBan implements Serializable {
 //        this.diaChi = diaChi;
 //        this.trangThai = trangThai;
 //    }
-
     public HoaDonBan(Integer id, NhanVien nhanVien, KhachHang khachHang, String maHDB, KhuyenMai khuyenMai, Date ngayTao, Date ngayThanhToan, String nguoiNhan, String sdt, String diaChi, Integer trangThai) {
         this.id = id;
         this.nhanVien = nhanVien;

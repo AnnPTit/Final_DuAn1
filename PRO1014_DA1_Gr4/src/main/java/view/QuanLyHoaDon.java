@@ -38,7 +38,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private int currentPagekh = 1;
     private int numPagekh;
     public QuanLyHoaDon() {
-        initComponents();
+       initComponents();
+
+
     }
 
     /**
@@ -767,6 +769,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_hdtbl_hoadonMouseClicked
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
