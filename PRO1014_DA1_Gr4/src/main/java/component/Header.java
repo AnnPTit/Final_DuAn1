@@ -4,11 +4,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.NhanVien;
 import utilities.Auth;
+import utilities.RunText;
 
 public class Header extends javax.swing.JPanel {
 
     public Header() {
         initComponents();
+        RunText rt = new RunText(lbntext);
+        rt.start();
         NhanVien nhanVien = Auth.getNv();
         if (nhanVien == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập !");
@@ -16,6 +19,7 @@ public class Header extends javax.swing.JPanel {
         }
         lbUserName.setText(nhanVien.getTenNV());
         lbRole.setText(nhanVien.getChucVu().getTenCv());
+
     }
 
     public void addMenuEvent(ActionListener event) {
@@ -33,6 +37,7 @@ public class Header extends javax.swing.JPanel {
         buttonBadges1 = new swing.ButtonBadges();
         buttonBadges2 = new swing.ButtonBadges();
         buttonBadges3 = new swing.ButtonBadges();
+        lbntext = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -53,6 +58,10 @@ public class Header extends javax.swing.JPanel {
 
         buttonBadges3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fpt.png"))); // NOI18N
 
+        lbntext.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lbntext.setForeground(new java.awt.Color(255, 51, 51));
+        lbntext.setText("Chúc bạn có một ngày làm việc hiệu quả ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,7 +69,9 @@ public class Header extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
+                .addGap(114, 114, 114)
+                .addComponent(lbntext)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonBadges2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -89,8 +100,10 @@ public class Header extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buttonBadges3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonBadges2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbntext)
+                                .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -103,5 +116,6 @@ public class Header extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbRole;
     private javax.swing.JLabel lbUserName;
+    private javax.swing.JLabel lbntext;
     // End of variables declaration//GEN-END:variables
 }

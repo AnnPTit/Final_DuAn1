@@ -23,6 +23,7 @@ import service.IHDCTService;
 import service.IHoaDonService;
 import service.impl.HDCTImpl;
 import service.impl.HoaDonBanImpl;
+import utilities.RunText;
 
 public class Form_Home extends javax.swing.JPanel {
 
@@ -36,6 +37,8 @@ public class Form_Home extends javax.swing.JPanel {
 //        table1.fixTable(jScrollPane1);
         setOpaque(false);
         initData();
+        RunText rt = new RunText(lbnText);
+        rt.start();
     }
 
     private void initData() {
@@ -90,6 +93,7 @@ public class Form_Home extends javax.swing.JPanel {
         noticeBoard = new swing.noticeboard.NoticeBoard();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        lbnText = new javax.swing.JLabel();
         card1 = new component.Card();
         card2 = new component.Card();
         card3 = new component.Card();
@@ -148,13 +152,22 @@ public class Form_Home extends javax.swing.JPanel {
         jLabel5.setText("Danh sách khách hàng");
         jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
 
+        lbnText.setFont(new java.awt.Font("Segoe UI", 2, 48)); // NOI18N
+        lbnText.setForeground(new java.awt.Color(255, 51, 51));
+        lbnText.setText("Chúc mừng năm mới 2023 ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(lbnText, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,7 +175,9 @@ public class Form_Home extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(lbnText, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(323, Short.MAX_VALUE))
         );
 
         card1.setColorGradient(new java.awt.Color(211, 28, 215));
@@ -230,6 +245,7 @@ public class Form_Home extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbnText;
     private swing.noticeboard.NoticeBoard noticeBoard;
     // End of variables declaration//GEN-END:variables
 }
