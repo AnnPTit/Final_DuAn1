@@ -75,11 +75,7 @@ public class Main extends javax.swing.JFrame {
                         main.showForm(new QuanLySP());
                     }
                 } else if (menuIndex == 3) {
-                    if (subMenuIndex == 0) {
-                        main.showForm(new QuanLySP());
-                    } else if (subMenuIndex == 1) {
-                        main.showForm(new QuanLySP());
-                    }
+                    main.showForm(new QuanLyHoaDon());
                 } else if (menuIndex == 4) {
                     if (Auth.getIsCV() != 2) {
                         JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
