@@ -891,6 +891,18 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         }
     }
 
+    List<HoaDonBan> getListByCurrentPageHD() {
+        totalItem = hdb.size();
+        numPage = (totalItem - 1) / itemPerpage + 1;
+        pageIndex_hd.setText(currentPage + "/" + numPage);
+        int start = (currentPage - 1) * itemPerpage;
+        int end = start + itemPerpage;
+        if (end > totalItem) {
+            end = totalItem;
+        }
+        return listPaginghd.subList(start, end);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext_hd;
     private javax.swing.JButton btnNext_kh;
