@@ -165,7 +165,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         lbnText.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         lbnText.setForeground(new java.awt.Color(255, 51, 51));
-        lbnText.setText("Chúc mừng năm mới 2023 ");
+        lbnText.setText("Chào mừng đến với cửa hàng !!!");
 
         tbDanhSach.setBackground(new java.awt.Color(255, 255, 255));
         tbDanhSach.setModel(new javax.swing.table.DefaultTableModel(

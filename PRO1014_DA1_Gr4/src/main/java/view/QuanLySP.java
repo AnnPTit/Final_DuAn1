@@ -122,6 +122,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbbChatLieu = new javax.swing.JComboBox<>();
         cbbMauSac = new javax.swing.JComboBox<>();
         cbbNSX = new javax.swing.JComboBox<>();
+        btnClear = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
@@ -230,6 +231,16 @@ public class QuanLySP extends javax.swing.JPanel {
             }
         });
 
+        btnClear.setBackground(new java.awt.Color(0, 153, 204));
+        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        org.openide.awt.Mnemonics.setLocalizedText(btnClear, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.btnClear.text")); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -283,10 +294,12 @@ public class QuanLySP extends javax.swing.JPanel {
                                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnExport, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                            .addComponent(btnImportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 44, Short.MAX_VALUE))))
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnExport, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                .addComponent(btnImportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +307,9 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel17Layout.createSequentialGroup()
@@ -719,7 +734,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (check == false) {
             return;
         }
-        
+
         if (validateSanPham()) {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
@@ -1068,10 +1083,17 @@ public class QuanLySP extends javax.swing.JPanel {
             ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
             listResult.add(ctsp);
         }
-
+        
         loadChiTietSanPham(listResult);
-
     }//GEN-LAST:event_cbxFindNSXActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtMaSP.setText("");
+        txtSoLuong.setText("");
+        txtGiaBan.setText("");
+        txtGiaNhap.setText("");
+        txtMoTa.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     // Update QLSP
     void loadCbSanPham() {
@@ -1581,6 +1603,7 @@ public class QuanLySP extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImportExcel;
