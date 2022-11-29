@@ -578,11 +578,17 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Không được để trống");
 //            return false;
 //        }
+
+        Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
+        Matcher matcherEmail = maiL.matcher(email);
         if (!matcherFirst.matches()) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số");
             return false;
         }
-        
+        if(!matcherEmail.matches()){
+            JOptionPane.showMessageDialog(this, "Sai định dạng email");
+            return false;
+        }
         return true;
     }
 
