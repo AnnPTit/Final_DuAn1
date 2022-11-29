@@ -41,6 +41,15 @@ public class HDChiTietRepository {
     }
 
 //    
+    public List<HoaDonChiTiet> getAllById(String id) {
+        Session session = HibernateConfig.getFACTORY().openSession();
+        Query query = session.createQuery("From HoaDonChiTiet where id =: id ");
+        query.setParameter("id", id);
+        @SuppressWarnings("unchecked")
+        List<HoaDonChiTiet> ds = query.getResultList();
+        return ds;
+    }
+
     public List<HoaDonChiTiet> getDoanhThu() {
         List<HoaDonChiTiet> list = new ArrayList<>();
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();

@@ -22,6 +22,8 @@ public interface IHoaDonService {
 
     List<HoaDonBan> getListByTrangThai(int trangThai);
 
+    List<HoaDonBan> getAllByByMa(String ma);
+
     List<KhachHang> getListKhach(int trangThai);
 
     // ArrayList<NhanVien> getListNv();

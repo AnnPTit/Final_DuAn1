@@ -4,6 +4,17 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.ChiTietSanPham;
+import model.HoaDonBan;
+import model.HoaDonChiTiet;
+import service.IHDCTService;
+import service.IHoaDonService;
+import service.impl.HDCTImpl;
+import service.impl.HoaDonBanImpl;
+
 /**
  *
  * @author Laptop
@@ -13,8 +24,44 @@ public class TraHang1 extends javax.swing.JPanel {
     /**
      * Creates new form TraHang1
      */
+    private static final long serialVersionUID = 1L;
+
+    private IHDCTService hoaDonChiTietService;
+    private List<HoaDonChiTiet> lstHdct = new ArrayList<>();
+    private final List<ChiTietSanPham> listCTSP = new ArrayList<>();
+    private final IHoaDonService hoaDonService;
+    private List<HoaDonBan> listHoaDonBan = new ArrayList<>();
+
+    private DefaultTableModel modelCtsp = new DefaultTableModel();
+
     public TraHang1() {
         initComponents();
+
+        hoaDonChiTietService = new HDCTImpl();
+        hoaDonService = new HoaDonBanImpl();
+    }
+
+    private void loadTableDanhSachSp(List<HoaDonChiTiet> listHdct) {
+        modelCtsp = (DefaultTableModel) tblDanhSachSanPham.getModel();
+        modelCtsp.setRowCount(0);
+        for (HoaDonChiTiet hd : listHdct) {
+            modelCtsp.addRow(new Object[]{
+                hd.getChiTietSanPham().getSanPham().getMaSP(), hd.getChiTietSanPham().getSanPham().getTenSP(),
+                hd.getSoLuong(), hd.getChiTietSanPham().getMauSac().getTenMau(), hd.getChiTietSanPham().getChatLieu().getTenCL(),
+                hd.getDonGia()
+            });
+        }
+    }
+
+    private void loadTableHoaDon(List<HoaDonBan> list) {
+        DefaultTableModel model = (DefaultTableModel) tblThongTinHoaDon.getModel();
+        model.setRowCount(0);
+        for (HoaDonBan a : list) {
+            model.addRow(new Object[]{
+                a.getMaHDB(), a.getKhachHang().getTenKH(), a.getNhanVien().getTenNV(),
+                a.getNgayTao(), a.getNgayThanhToan(), a.getKhuyenMai().getTenkm(), a.getKhachHang().getSdt()
+            });
+        }
     }
 
     /**
@@ -45,7 +92,7 @@ public class TraHang1 extends javax.swing.JPanel {
         btnTraHang = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        searchOnKey = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.jPanel2.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
@@ -77,6 +124,11 @@ public class TraHang1 extends javax.swing.JPanel {
             }
         });
         tblThongTinHoaDon.setRowHeight(30);
+        tblThongTinHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblThongTinHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblThongTinHoaDon);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -227,7 +279,12 @@ public class TraHang1 extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
-        searchOnKey.setText(org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.searchOnKey.text")); // NOI18N
+        txtTimKiem.setText(org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.txtTimKiem.text")); // NOI18N
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,14 +292,14 @@ public class TraHang1 extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(searchOnKey, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(searchOnKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -288,6 +345,21 @@ public class TraHang1 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        String ma = txtTimKiem.getText();
+        listHoaDonBan = hoaDonService.getAllByByMa(ma);
+        loadTableHoaDon(listHoaDonBan);
+    }//GEN-LAST:event_txtTimKiemKeyReleased
+
+    private void tblThongTinHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThongTinHoaDonMouseClicked
+
+        int rowSelected = tblThongTinHoaDon.getSelectedRow();
+        lstHdct = hoaDonChiTietService.getById(rowSelected);
+        if (rowSelected != -1) {
+            loadTableDanhSachSp(lstHdct);
+        }
+    }//GEN-LAST:event_tblThongTinHoaDonMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTraHang;
@@ -306,9 +378,9 @@ public class TraHang1 extends javax.swing.JPanel {
     private javax.swing.JLabel lbKhachHang;
     private javax.swing.JLabel lbMaHoaDon;
     private javax.swing.JLabel lbTienHoanTra;
-    private javax.swing.JTextField searchOnKey;
     private javax.swing.JTable tblDanhSachSanPham;
     private javax.swing.JTable tblThongTinHoaDon;
     private javax.swing.JTextArea txtGhiChu;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

@@ -154,4 +154,9 @@ public class HoaDonBanImpl implements IHoaDonService {
     public Long countHoaDonByIdKH(int idKH) {
         return hdr.countHoaDonByIdKH(idKH);
     }
+
+    @Override
+    public List<HoaDonBan> getAllByByMa(String ma) {
+        return hdr.getAllByMa(ma);
+    }
 }
