@@ -5,7 +5,13 @@ import customModel.HoaDonThanhToan;
 import customModel.ThongKeThang;
 import hibernateConfig.HibernateConfig;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -124,6 +130,7 @@ public class HDChiTietRepository {
         try {
             String sql = "SELECT HoaDon.NgayThanhToan,SUM(SoLuong*DonGia) AS DoanhThu,COUNT(DISTINCT HoaDon.ID) AS SoHoaDonDaThanhToan\n"
                     + "FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id\n"
+                    + "where HoaDon.TrangThai = 2 "
                     + "GROUP BY HoaDon.NgayThanhToan";
             query = ses.createSQLQuery(sql);
             List<HoaDonThanhToan> listHdThanhToan = new ArrayList<>();
@@ -151,6 +158,7 @@ public class HDChiTietRepository {
         try {
             String sql = "SELECT MONTH(HoaDon.NgayThanhToan),SUM(SoLuong) AS SoLuongBanRa,SUM(SoLuong*DonGia) AS DoanhThu\n"
                     + "FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id \n"
+                    + "where HoaDon.TrangThai = 2 "
                     + "GROUP BY MONTH(HoaDon.NgayThanhToan)";
             q = ses.createSQLQuery(sql);
             List<ThongKeThang> listThongKe = new ArrayList<>();
@@ -173,14 +181,14 @@ public class HDChiTietRepository {
         }
     }
 
-    public List<HoaDonThanhToan> filterDate(Date start, Date end) {
+    public List<HoaDonThanhToan> filterDate(String start, String end) {
         Transaction transaction = ses.beginTransaction();
         Query query = null;
 
         try {
             String sql = "SELECT HoaDon.NgayThanhToan,SUM(SoLuong*DonGia) AS DoanhThu,COUNT(DISTINCT HoaDon.ID) AS SoHoaDonDaThanhToan\n"
-                    + "FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id\n"
-                    + "WHERE NgayThanhToan BETWEEN NgayThanhToan = start AND NgayThanhToan = end GROUP BY HoaDon.NgayThanhToan";
+                    + "                    FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id\n"
+                    + "                    WHERE NgayThanhToan BETWEEN  :start  AND  :end and HoaDon.TrangThai =2 GROUP BY HoaDon.NgayThanhToan ";
             query = ses.createSQLQuery(sql);
             query = query.setParameter("start", start);
             query = query.setParameter("end", end);
@@ -204,10 +212,18 @@ public class HDChiTietRepository {
         }
     }
 
+    public static void main(String[] args) {
+        String pattern = "MM/dd/yyyy ";
+        DateFormat df = new SimpleDateFormat(pattern);
+        List<HoaDonThanhToan> tt = new HDChiTietRepository().filterDate("2022-11-28", "2022-11-29");
+        System.out.println(tt);
+
+    }
+
     public BigDecimal doanhThuTheoNam() {
         BigDecimal result = null;
         Transaction transaction = null;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE YEAR(hdct.hoaDonBan.ngayThanhToan)= YEAR(GETDATE())");
 
@@ -220,7 +236,7 @@ public class HDChiTietRepository {
     public BigDecimal doanhThuTheoThang() {
         BigDecimal result = null;
         Transaction transaction = null;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE MONTH(hdct.hoaDonBan.ngayThanhToan)= MONTH(GETDATE())");
             result = (BigDecimal) query.getResultList().get(0);
@@ -233,18 +249,13 @@ public class HDChiTietRepository {
     public BigDecimal doanhThuHomNay() {
         BigDecimal result = null;
         Transaction transaction = null;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createQuery("SELECT SUM(hdct.soLuong * hdct.donGia) FROM HoaDonChiTiet hdct WHERE DAY(hdct.hoaDonBan.ngayThanhToan)= DAY(GETDATE())");
             result = (BigDecimal) query.getResultList().get(0);
             transaction.commit();
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        List<ThongKeThang> list = new HDChiTietRepository().getThongKeThang();
-        System.out.println(list);
     }
 
 }

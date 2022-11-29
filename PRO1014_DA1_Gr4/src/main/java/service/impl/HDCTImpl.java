@@ -63,7 +63,7 @@ public class HDCTImpl implements IHDCTService {
     }
 
     @Override
-    public List<HoaDonThanhToan> filterDate(Date start, Date end) {
+    public List<HoaDonThanhToan> filterDate(String start, String end) {
         return hdctRepo.filterDate(start, end);
     }
 

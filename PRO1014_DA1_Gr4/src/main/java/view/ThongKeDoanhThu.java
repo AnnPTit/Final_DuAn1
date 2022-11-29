@@ -4,6 +4,8 @@ import customModel.HoaDonThanhToan;
 import customModel.ThongKeThang;
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -21,9 +23,9 @@ import utilities.ExportThongKeThang;
  * @author fallinluv2003
  */
 public class ThongKeDoanhThu extends javax.swing.JPanel {
-
+    
     private IHDCTService hdctSer = new HDCTImpl();
-
+    
     public ThongKeDoanhThu() {
         initComponents();
         initCardData();
@@ -32,7 +34,7 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
         loadTableThongKeThang(thongKe);
         loadTableDoanhSo(hoaDon);
     }
-
+    
     private void initCardData() {
         if (hdctSer.doanhThuHomNay() == null) {
             BigDecimal doanhThu = new BigDecimal(0);
@@ -40,7 +42,7 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
         } else {
             card1.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
         }
-
+        
         if (hdctSer.doanhThuTheoThang() == null) {
             BigDecimal doanhThu = new BigDecimal(0);
             card2.setData(new ModelCard("Doanh thu tháng này", doanhThu, 0, null));
@@ -49,7 +51,7 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
         }
         card3.setData(new ModelCard("Doanh thu cả năm", hdctSer.doanhThuTheoNam(), 95, null));
     }
-
+    
     void loadTableDoanhSo(List<HoaDonThanhToan> list) {
         DefaultTableModel model = (DefaultTableModel) tbHoaDonThanhToan.getModel();
         model.setRowCount(0);
@@ -59,7 +61,7 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
             });
         }
     }
-
+    
     void loadTableThongKeThang(List<ThongKeThang> list) {
         DefaultTableModel model = (DefaultTableModel) tbThongKeThang.getModel();
         model.setRowCount(0);
@@ -255,13 +257,19 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-//        List<HoaDonThanhToan> list = hdctSer.getHoaDonThanhToan();
-//
-//        Date start = txtDateStart.getDate();
-//        Date end = txtDateEnd.getDate();
-//
+        //     List<HoaDonThanhToan> list = hdctSer.getHoaDonThanhToan();
+
+        Date start = txtDateStart.getDate();
+        Date end = txtDateEnd.getDate();
+        String pattern = "yyyy-MM-dd ";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String st = df.format(start);
+        String en = df.format(end);
+        List<HoaDonThanhToan> tt = hdctSer.filterDate(st, en);
+        loadTableDoanhSo(tt);
+
 //        hdctSer.filterDate(start, end);
-        JOptionPane.showMessageDialog(this, "Hmm");
+        //  JOptionPane.showMessageDialog(this, "Hmm");
 //        loadTableDoanhSo(list);
     }//GEN-LAST:event_btnLocActionPerformed
 

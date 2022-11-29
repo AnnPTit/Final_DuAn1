@@ -30,7 +30,7 @@ public interface IHDCTService {
     
     BigDecimal doanhThuHomNay();
     
-    List<HoaDonThanhToan> filterDate(Date start, Date end);
+    List<HoaDonThanhToan> filterDate(String start, String end);
     
     List<ThongKeThang> getThongKeThang();
 }
