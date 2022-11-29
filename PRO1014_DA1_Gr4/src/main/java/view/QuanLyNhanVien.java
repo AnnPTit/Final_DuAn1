@@ -409,7 +409,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSDTActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-//        checkDuplicateMa();
+        checkDuplicateMa();
         if (validateForm()) {
             String result = new NhanVienImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
@@ -522,14 +522,14 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         return true;
     }
     
-//    public boolean checkDuplicateMa(){
-////        String ma = this.txtMa.getText().trim();
-////        NhanVien nv = nvSer.getNhanVien(ma);
-////        if(nv!=null){
-////            return false;
-////        }
-////        return true;
-//    }
+    public boolean checkDuplicateMa(){
+        String ma = this.txtMa.getText().trim();
+        NhanVien nv = nvSer.getNhanVien(ma);
+        if(nv!=null){
+            return false;
+        }
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
