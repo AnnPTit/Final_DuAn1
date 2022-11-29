@@ -3,6 +3,7 @@ package service.impl;
 import customModel.HoaDonDoanhThu;
 import customModel.HoaDonThanhToan;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import model.HoaDonChiTiet;
 import repository.HDChiTietRepository;
@@ -58,6 +59,11 @@ public class HDCTImpl implements IHDCTService {
     @Override
     public BigDecimal doanhThuHomNay() {
         return hdctRepo.doanhThuHomNay();
+    }
+
+    @Override
+    public List<HoaDonThanhToan> filterDate(Date start, Date end) {
+        return hdctRepo.filterDate(start, end);
     }
     
 }

@@ -1396,7 +1396,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         webPanel.setFPSDisplayed(true);
         webPanel.setMirrored(true);
 
-        panelWebcam.add(webPanel, new AbsoluteConstraints(0, 0, panelWebcam.getWidth(), panelWebcam.getHeight()));
+        panelWebcam.add(webPanel, new AbsoluteConstraints(0, 0, 300, 300));
 
         executor.execute(this);
 
@@ -1406,7 +1406,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     public void run() {
         do {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
 
             }

@@ -259,6 +259,17 @@ public class CTSPRepository {
         Long list = (Long) q.getSingleResult();
         return list;
     }
+    
+    public ChiTietSanPham getByMa(String ma) {
+        ChiTietSanPham ctsp = null;
+        try {
+            Query q = ses.createQuery("SELECT ctsp FROM ChiTietSanPham ctsp WHERE ctsp.ma=:ma");
+            q.setParameter("ma", ma);
+            ctsp = (ChiTietSanPham) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return ctsp;
+    }
 
     public static void main(String[] args) {
         DanhMuc danhMuc = new DanhMuc();

@@ -252,6 +252,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtMaSP">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel50">
                       <Properties>
@@ -769,11 +772,16 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
+                                  <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="180" max="32767" attributes="0"/>
                       </Group>
@@ -782,9 +790,8 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                           <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -912,6 +919,9 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtMa">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtTen">
                         </Component>

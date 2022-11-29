@@ -3,6 +3,7 @@ package service;
 import customModel.HoaDonDoanhThu;
 import customModel.HoaDonThanhToan;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import model.HoaDonChiTiet;
 
@@ -27,6 +28,8 @@ public interface IHDCTService {
     BigDecimal doanhThuTheoThang();
     
     BigDecimal doanhThuHomNay();
+    
+    List<HoaDonThanhToan> filterDate(Date start, Date end);
 }
 
 // IHDCTService

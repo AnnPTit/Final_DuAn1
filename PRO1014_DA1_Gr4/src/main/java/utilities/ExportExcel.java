@@ -142,7 +142,7 @@ public class ExportExcel {
 
     private static void writeBook(ChiTietSanPham ctsp, Row row) {
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         Cell cell = row.createCell(COLUMN_MA);
         cell.setCellValue(ctsp.getMa());

@@ -94,4 +94,9 @@ public class CTSPImpl implements ICTSPService {
         return ctspRepo.getOutProduct();
     }
 
+    @Override
+    public ChiTietSanPham getByMa(String ma) {
+        return ctspRepo.getByMa(ma);
+    }
+
 }

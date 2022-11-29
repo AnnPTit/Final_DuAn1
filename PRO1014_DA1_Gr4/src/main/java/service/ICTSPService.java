@@ -37,4 +37,6 @@ public interface ICTSPService {
     Long getNonProduct();
     
     Long getOutProduct();
+    
+    ChiTietSanPham getByMa(String ma);
 }

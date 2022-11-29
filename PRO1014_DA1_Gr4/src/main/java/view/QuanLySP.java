@@ -158,6 +158,8 @@ public class QuanLySP extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel49, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel49.text")); // NOI18N
 
+        txtMaSP.setEditable(false);
+
         org.openide.awt.Mnemonics.setLocalizedText(jLabel50, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel50.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel51, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel51.text")); // NOI18N
@@ -524,6 +526,8 @@ public class QuanLySP extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel36, org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jLabel36.text")); // NOI18N
 
+        txtMa.setEditable(false);
+
         cbbAll.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sản phẩm", "Danh mục", "Nhà sản xuất", "Chất liệu", "Màu sắc" }));
         cbbAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -674,18 +678,20 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 180, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -708,6 +714,12 @@ public class QuanLySP extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String ma = txtMaSP.getText().trim();
+        boolean check = checkMaCTSP(ma);
+        if (check == false) {
+            return;
+        }
+        
         if (validateSanPham()) {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
@@ -845,8 +857,8 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String ma = txtMa.getText().trim();
-        boolean check  = checkMaSP(ma);
-        if(check==false){
+        boolean check = checkMaSP(ma);
+        if (check == false) {
             return;
         }
         if (index == 0) {
@@ -1167,7 +1179,7 @@ public class QuanLySP extends javax.swing.JPanel {
     void loadChiTietSanPham(List<ChiTietSanPham> list) {
         DefaultTableModel model = (DefaultTableModel) tbSanPham.getModel();
         model.setRowCount(0);
-        // list = new CTSPImpl().getAll();
+//        list = ctspSer.getAll();
         for (ChiTietSanPham ctsp : list) {
             model.addRow(ctsp.toDataRow());
         }
@@ -1220,8 +1232,14 @@ public class QuanLySP extends javax.swing.JPanel {
 
     ChiTietSanPham getData() {
         ChiTietSanPham ct = new ChiTietSanPham();
-        String text = "QRCODE" + txtMaSP.getText().toUpperCase();
-        ct.setMa(txtMaSP.getText());
+        String maM = "";
+        if (txtMaSP.getText().isBlank() == true) {
+            maM = "CTSP" + (new CTSPImpl().getAll().size() + 1);
+        } else {
+            maM = txtMa.getText();
+        }
+        ct.setMa(maM);
+        String text = "QRCODE" + maM.toUpperCase();
         ct.setMoTa(txtMoTa.getText());
         ct.setSoLuongTon(Integer.parseInt(txtSoLuong.getText()));
         ct.setGiaNhap(BigDecimal.valueOf(Double.valueOf(txtGiaNhap.getText())));
@@ -1239,9 +1257,9 @@ public class QuanLySP extends javax.swing.JPanel {
         ct.setMauSac(mau);
         NSX nsx = (NSX) cbbNSX.getSelectedItem();
         ct.setNhaSanXuat(nsx);
-        ct.setQrCode(txtMaSP.getText().toUpperCase() + ".png");
+        ct.setQrCode(maM.toUpperCase() + ".png");
         try {
-            String path = "D:\\" + txtMaSP.getText().toUpperCase() + ".png";
+            String path = "D:\\" + maM.toUpperCase() + ".png";
             String charset = "UTF-8";
             Map<EncodeHintType, ErrorCorrectionLevel> map = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
             map.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -1291,7 +1309,7 @@ public class QuanLySP extends javax.swing.JPanel {
 //        }
         String maM = "";
         if (txtMa.getText().isBlank() == true) {
-            maM = "SP0" + (new SanPhamImp().getAllSp().size() + 1);
+            maM = "SP" + (new SanPhamImp().getAllSp().size() + 1);
         } else {
             maM = txtMa.getText();
         }
@@ -1317,7 +1335,7 @@ public class QuanLySP extends javax.swing.JPanel {
         ChatLieu cl = new ChatLieu();
         String maM = "";
         if (txtMa.getText().isBlank() == true) {
-            maM = "CL0" + (new ChatLieuImpl().getAllSp().size() + 1);
+            maM = "CL" + (new ChatLieuImpl().getAllSp().size() + 1);
         } else {
             maM = txtMa.getText();
         }
@@ -1342,7 +1360,7 @@ public class QuanLySP extends javax.swing.JPanel {
         Mau ms = new Mau();
         String maM = "";
         if (txtMa.getText().isBlank() == true) {
-            maM = "M0" + (new MauSacImpl().getAllSp().size() + 1);
+            maM = "M" + (new MauSacImpl().getAllSp().size() + 1);
         } else {
             maM = txtMa.getText();
         }
@@ -1368,7 +1386,7 @@ public class QuanLySP extends javax.swing.JPanel {
         DanhMuc dm = new DanhMuc();
         String maM = "";
         if (txtMa.getText().isBlank() == true) {
-            maM = "DM0" + (new DanhMucImpl().getAllSp().size() + 1);
+            maM = "DM" + (new DanhMucImpl().getAllSp().size() + 1);
         } else {
             maM = txtMa.getText();
         }
@@ -1395,7 +1413,7 @@ public class QuanLySP extends javax.swing.JPanel {
 //        nsx.setMaNSX(txtMa.getText());
         String maM = "";
         if (txtMa.getText().isBlank() == true) {
-            maM = "NSX0" + (new NSXImpl().getAllSp().size() + 1);
+            maM = "NSX" + (new NSXImpl().getAllSp().size() + 1);
         } else {
             maM = txtMa.getText();
         }
@@ -1504,42 +1522,50 @@ public class QuanLySP extends javax.swing.JPanel {
         return true;
     }
 
-    public boolean checkMaSP(String ma){
-        if(index==0)
-        {
+    public boolean checkMaCTSP(String ma) {
+        ChiTietSanPham ctsp = new CTSPImpl().getByMa(ma);
+        if (ctsp != null) {
+            JOptionPane.showMessageDialog(this, "Mã CTSP đã tồn tại");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkMaSP(String ma) {
+        if (index == 0) {
             SanPham sp = new SanPhamImp().getByMa(ma);
-            if(sp!=null){
-                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+            if (sp != null) {
+                JOptionPane.showMessageDialog(this, "Mã bạn nhập đã tồn tại");
                 return false;
             }
-        }else if(index==1){
+        } else if (index == 1) {
             DanhMuc sp = new DanhMucImpl().getByMa(ma);
-            if(sp!=null){
-                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+            if (sp != null) {
+                JOptionPane.showMessageDialog(this, "Mã bạn nhập đã tồn tại");
                 return false;
             }
-        }else if(index==2){
-             NSX sp = new NSXImpl().getByMa(ma);
-            if(sp!=null){
-                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+        } else if (index == 2) {
+            NSX sp = new NSXImpl().getByMa(ma);
+            if (sp != null) {
+                JOptionPane.showMessageDialog(this, "Mã bạn nhập đã tồn tại");
                 return false;
             }
-        }else if(index==3){
+        } else if (index == 3) {
             ChatLieu sp = new ChatLieuImpl().getByMa(ma);
-            if(sp!=null){
-                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+            if (sp != null) {
+                JOptionPane.showMessageDialog(this, "Mã bạn nhập đã tồn tại");
                 return false;
             }
-        }else if(index==4){
-            Mau sp = new  MauSacImpl().getByMa(ma);
-            if(sp!=null){
-                JOptionPane.showMessageDialog(this,"Mã bạn nhập đã tồn tại");
+        } else if (index == 4) {
+            Mau sp = new MauSacImpl().getByMa(ma);
+            if (sp != null) {
+                JOptionPane.showMessageDialog(this, "Mã bạn nhập đã tồn tại");
                 return false;
             }
         }
         return true;
     }
-    
+
     void clearData() {
         txtMa.setText("");
         txtTen.setText("");

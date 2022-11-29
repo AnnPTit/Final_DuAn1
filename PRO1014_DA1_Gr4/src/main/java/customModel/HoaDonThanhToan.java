@@ -50,6 +50,5 @@ public class HoaDonThanhToan {
     public String toString() {
         return "HoaDonThanhToan{" + "ngayThanhToan=" + ngayThanhToan + ", doanhThu=" + doanhThu + ", hoaDonThanhToan=" + hoaDonThanhToan + '}';
     }
-    
-    
+
 }
