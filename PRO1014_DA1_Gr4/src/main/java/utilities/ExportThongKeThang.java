@@ -1,6 +1,6 @@
 package utilities;
 
-import customModel.HoaDonThanhToan;
+import customModel.ThongKeThang;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,26 +17,26 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExportSoHDTT {
-    public static final int COLUMN_NgayThanhToan = 0;
-    public static final int COLUMN_DoanhThu = 1;
-    public static final int COLUMN_SoHoaDonTT = 2;
+public class ExportThongKeThang {
+    public static final int COLUMN_Thang = 0;
+    public static final int COLUMN_SoLuongBanRa = 1;
+    public static final int COLUMN_DoanhThu = 2;
 
-    public static void writeExcel(List<HoaDonThanhToan> list, String excelFilePath) throws IOException {
+    public static void writeExcel(List<ThongKeThang> list, String excelFilePath) throws IOException {
         // Create Workbook
         Workbook workbook = getWorkbook(excelFilePath);
         // Create sheet
-        Sheet sheet = workbook.createSheet("Thống kê");
+        Sheet sheet = workbook.createSheet("Thống kế doanh thu tháng");
         int rowIndex = 0;
         // Write header
         writeHeader(sheet, rowIndex);
         // Write data
         rowIndex++;
-        for (HoaDonThanhToan hoaDon : list) {
+        for (ThongKeThang thongKe : list) {
             // Create row
             Row row = sheet.createRow(rowIndex);
             // Write data on row
-            writeBook(hoaDon, row);
+            writeBook(thongKe, row);
             rowIndex++;
         }
         // Auto resize column witdth
@@ -69,31 +69,31 @@ public class ExportSoHDTT {
 
         Row row = sheet.createRow(rowIndex);
 
-        Cell cell = row.createCell(COLUMN_NgayThanhToan);
+        Cell cell = row.createCell(COLUMN_Thang);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Ngày thanh toán");
+        cell.setCellValue("Tháng");
 
-        Cell cel = row.createCell(COLUMN_DoanhThu);
+        Cell cel = row.createCell(COLUMN_SoLuongBanRa);
         cel.setCellStyle(cellStyle);
-        cel.setCellValue("Doanh thu");
+        cel.setCellValue("Số lượng bán ra");
 
-        cell = row.createCell(COLUMN_SoHoaDonTT);
+        cell = row.createCell(COLUMN_DoanhThu);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Số hóa đơn đã thanh toán");
+        cell.setCellValue("Doanh thu");
     }
 
-    private static void writeBook(HoaDonThanhToan hoaDon, Row row) {
+    private static void writeBook(ThongKeThang thongKe, Row row) {
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        Cell cell = row.createCell(COLUMN_NgayThanhToan);
-        cell.setCellValue(sdf.format(hoaDon.getNgayThanhToan()));
+        Cell cell = row.createCell(COLUMN_Thang);
+        cell.setCellValue(sdf.format(thongKe.getThang()));
 
-        Cell cel = row.createCell(COLUMN_DoanhThu);
-        cel.setCellValue(hoaDon.getDoanhThu().doubleValue());
+        Cell cel = row.createCell(COLUMN_SoLuongBanRa);
+        cel.setCellValue(thongKe.getSoLuongBanRa());
 
-        cell = row.createCell(COLUMN_SoHoaDonTT);
-        cell.setCellValue(hoaDon.getHoaDonThanhToan());
+        cell = row.createCell(COLUMN_DoanhThu);
+        cell.setCellValue(thongKe.getDoanhThu().doubleValue());
 
     }
 

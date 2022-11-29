@@ -2,21 +2,17 @@ package repository;
 
 import customModel.HoaDonDoanhThu;
 import customModel.HoaDonThanhToan;
+import customModel.ThongKeThang;
 import hibernateConfig.HibernateConfig;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import model.ChiTietSanPham;
-import model.HoaDonBan;
 import model.HoaDonChiTiet;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.Transaction;
 
 /**
@@ -125,23 +121,50 @@ public class HDChiTietRepository {
     public List<HoaDonThanhToan> getHoaDonThanhToan() {
         Transaction transaction = ses.beginTransaction();
         Query query = null;
-
         try {
             String sql = "SELECT HoaDon.NgayThanhToan,SUM(SoLuong*DonGia) AS DoanhThu,COUNT(DISTINCT HoaDon.ID) AS SoHoaDonDaThanhToan\n"
-                    + "FROM HoaDonChiTiet  join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id GROUP BY HoaDon.NgayThanhToan";
+                    + "FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id\n"
+                    + "GROUP BY HoaDon.NgayThanhToan";
             query = ses.createSQLQuery(sql);
             List<HoaDonThanhToan> listHdThanhToan = new ArrayList<>();
             List<Object[]> rows = query.getResultList();
             for (Object[] row : rows) {
-                HoaDonThanhToan hoaDonThanhToan = new HoaDonThanhToan();
-                hoaDonThanhToan.setNgayThanhToan((Date) row[0]);
-                hoaDonThanhToan.setDoanhThu(BigDecimal.valueOf(Double.valueOf(row[1].toString())));
-                hoaDonThanhToan.setHoaDonThanhToan(Integer.valueOf(row[2].toString()));
-                listHdThanhToan.add(hoaDonThanhToan);
+                HoaDonThanhToan hoaDonTT = new HoaDonThanhToan();
+                hoaDonTT.setNgayThanhToan((Date) row[0]);
+                hoaDonTT.setDoanhThu(BigDecimal.valueOf(Double.valueOf(row[1].toString())));
+                hoaDonTT.setHoaDonThanhToan(Integer.valueOf(row[2].toString()));
+                listHdThanhToan.add(hoaDonTT);
+            }
+            transaction.commit();
+            return listHdThanhToan;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("cc");
+            return null;
+        }
+    }
+
+    public List<ThongKeThang> getThongKeThang() {
+        Transaction transaction = ses.beginTransaction();
+        Query q = null;
+        try {
+            String sql = "SELECT MONTH(HoaDon.NgayThanhToan),SUM(SoLuong) AS SoLuongBanRa,SUM(SoLuong*DonGia) AS DoanhThu\n"
+                    + "FROM HoaDonChiTiet join HoaDon on HoaDonChiTiet.IdHD = HoaDon.Id \n"
+                    + "GROUP BY MONTH(HoaDon.NgayThanhToan)";
+            q = ses.createSQLQuery(sql);
+            List<ThongKeThang> listThongKe = new ArrayList<>();
+            List<Object[]> abc = q.getResultList();
+            for (Object[] row : abc) {
+                ThongKeThang thongKe = new ThongKeThang();
+                thongKe.setThang(Integer.valueOf(row[0].toString()));
+                thongKe.setSoLuongBanRa(Integer.valueOf(row[1].toString()));
+                thongKe.setDoanhThu(BigDecimal.valueOf(Double.valueOf(row[2].toString())));
+                listThongKe.add(thongKe);
             }
 
             transaction.commit();
-            return listHdThanhToan;
+            return listThongKe;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,9 +242,9 @@ public class HDChiTietRepository {
         return result;
     }
 
-//    public static void main(String[] args) {
-//        List<HoaDonDoanhThu> list = new HDChiTietRepository().filterDate();
-//        System.out.println();
-//    }
+    public static void main(String[] args) {
+        List<ThongKeThang> list = new HDChiTietRepository().getThongKeThang();
+        System.out.println(list);
+    }
 
 }
