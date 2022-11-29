@@ -76,4 +76,9 @@ public class NhanVienImpl implements INhanVienService {
         }
     }
 
+    @Override
+    public List<NhanVien> getAllNhanVien() {
+        return nvRepo.getAllNhanVien();
+    }
+
 }

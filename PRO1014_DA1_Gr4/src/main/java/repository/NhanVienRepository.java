@@ -39,6 +39,18 @@ public class NhanVienRepository {
         return list;
     }
 
+    public List<NhanVien> getAllNhanVien() {
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("From NhanVien");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        List<NhanVien> ds = q.getResultList();
+        return ds;
+    }
+
     public NhanVien getNhanVien(String maNv) {
         try {
             String sql = "SELECT * FROM NhanVien WHERE maNV = :ma";
@@ -47,7 +59,7 @@ public class NhanVienRepository {
             query.setParameter("ma", maNv);
             NhanVien results = (NhanVien) query.getSingleResult();
             // NhanVien results = (NhanVien) query.list();
-           
+
             return results;
 
         } catch (Exception e) {
@@ -60,7 +72,7 @@ public class NhanVienRepository {
 
     public boolean add(NhanVien nv) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             ses.saveOrUpdate(nv);
             tran.commit();
@@ -73,7 +85,7 @@ public class NhanVienRepository {
 
     public boolean update(NhanVien nv, Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE NhanVien nv SET nv.maNV=:ma,nv.tenNV=:ten,"
                     + "nv.chucVu.id=:idCV,nv.ngaySinh=:ngaySinh,nv.gioiTinh=:gioiTinh,"
@@ -99,7 +111,7 @@ public class NhanVienRepository {
 
     public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE NhanVien nv SET nv.trangThai = 0  WHERE nv.id=:id");
             q.setParameter("id", id);
@@ -111,10 +123,10 @@ public class NhanVienRepository {
             return false;
         }
     }
-    
+
     public boolean updatePass(NhanVien nv) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE NhanVien nv SET nv.pass =: pass WHERE nv.maNV=:ma");
             q.setParameter("pass", nv.getPass());
@@ -127,17 +139,17 @@ public class NhanVienRepository {
             return false;
         }
     }
-    
+
     public boolean forgotPass(String ma, String email) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE NhanVien nv SET nv.pass =: pass WHERE nv.maNV=:ma AND nv.email=:email");
             String pass = new RandomPassword().randomString(6);
             q.setParameter("pass", pass);
             q.setParameter("ma", ma);
             q.setParameter("email", email);
-            if(q.executeUpdate() > 0) {
+            if (q.executeUpdate() > 0) {
                 EmailSender emailSender = new EmailSender();
                 emailSender.guiMail(email, pass);
             }
@@ -148,7 +160,7 @@ public class NhanVienRepository {
             return false;
         }
     }
-    
+
     public static void main(String[] args) {
         List<NhanVien> list = new NhanVienRepository().getAll();
         System.out.println(list);
