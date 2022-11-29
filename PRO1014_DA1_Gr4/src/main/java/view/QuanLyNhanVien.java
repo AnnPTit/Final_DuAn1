@@ -48,6 +48,16 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         }
     }
 
+    public void clear(){
+        txtMa.setText("");
+        txtDiaChi.setText("");
+        txtEmail.setText("");
+        txtPass.setText("");
+        txtSDT.setText("");
+        txtTen.setText("");
+        this.cbbChucVu.setSelectedIndex(0);
+    }
+    
     NhanVien getData() {
         NhanVien nv = new NhanVien();
         String ma = txtMa.getText().trim();
@@ -198,6 +208,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         org.openide.awt.Mnemonics.setLocalizedText(btnClear, org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.btnClear.text")); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnXoa.setBackground(new java.awt.Color(0, 153, 204));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -409,11 +424,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSDTActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        checkDuplicateMa();
-        if (validateForm()) {
+
+        if (validateForm()&&checkDuplicateMa()) {
             String result = new NhanVienImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
             loadNhanVien(nv);
+            clear();
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -430,6 +446,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             String result = new NhanVienImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
             loadNhanVien(nv);
+            clear();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -470,11 +487,16 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         String result = new NhanVienImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
         loadNhanVien(nv);
+        clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         searchByPhone();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbNhanVien.getModel();
@@ -500,7 +522,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
-        Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
+        Pattern maiL = Pattern.compile("^[A-Za-z0-9]+[A-Za-z0-9]*@");
         Matcher matcherEmail = maiL.matcher(email);
         
         if (ten.isBlank() || pass.isBlank() || diaChi.isBlank()
@@ -526,6 +548,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         String ma = this.txtMa.getText().trim();
         NhanVien nv = nvSer.getNhanVien(ma);
         if(nv!=null){
+            JOptionPane.showMessageDialog(this, "Mã đã tồn tại mời bạn nhập lại");
             return false;
         }
         return true;
