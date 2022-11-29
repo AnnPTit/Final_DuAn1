@@ -522,7 +522,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
-        Pattern maiL = Pattern.compile("^[A-Za-z0-9]+[A-Za-z0-9]*@");
+        Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
         Matcher matcherEmail = maiL.matcher(email);
         
         if (ten.isBlank() || pass.isBlank() || diaChi.isBlank()

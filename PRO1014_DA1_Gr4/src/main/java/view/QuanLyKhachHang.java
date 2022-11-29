@@ -70,11 +70,11 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     KhachHang getData() {
         KhachHang kh = new KhachHang();
         String ma = txtMa.getText();
-        String maKh = "";
+        
         if (ma.isBlank()) {
-            maKh = "KH0" + (khSer.getAllKhachHang().size() + 1);
+            ma = "KH" + (khSer.getAllKhachHang().size() + 1);
         }
-        kh.setMaKH(maKh);
+        kh.setMaKH(ma);
         kh.setTenKH(txtTen.getText());
         kh.setTrangThai(1);
         if (rdoNam.isSelected()) {
