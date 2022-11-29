@@ -50,7 +50,15 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
     NhanVien getData() {
         NhanVien nv = new NhanVien();
-        nv.setMaNV(txtMa.getText());
+        String ma = txtMa.getText().trim();
+        String maNv="";
+        if(ma.length()==0){
+            maNv = "NV0"+(nvSer.getAllNhanVien().size()+1);
+        }else{
+            maNv = ma;
+        }
+        nv.setMaNV(maNv);
+        //nv.setMaNV(txtMa.getText());
         nv.setTenNV(txtTen.getText());
         ChucVu cv = (ChucVu) cbbChucVu.getSelectedItem();
         nv.setChucVu(cv);
@@ -401,6 +409,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSDTActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        checkDuplicateMa();
         if (validateForm()) {
             String result = new NhanVienImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
@@ -480,7 +489,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }
     
     public boolean validateForm() {
-        String ma = txtMa.getText();
+//        String ma = txtMa.getText().trim();
         String ten = txtTen.getText();
         String pass = String.valueOf(txtPass.getPassword());
         String diaChi = txtDiaChi.getText();
@@ -494,7 +503,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
         Matcher matcherEmail = maiL.matcher(email);
         
-        if (ma.isBlank() || ten.isBlank() || pass.isBlank() || diaChi.isBlank()
+        if (ten.isBlank() || pass.isBlank() || diaChi.isBlank()
                 || sdt.isBlank() || ngaySinh.isBlank() || email.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
             return false;
@@ -510,6 +519,15 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             return false;
         }
         
+        return true;
+    }
+    
+    public boolean checkDuplicateMa(){
+        String ma = this.txtMa.getText().trim();
+        NhanVien nv = nvSer.getNhanVien(ma);
+        if(nv!=null){
+            return false;
+        }
         return true;
     }
 
