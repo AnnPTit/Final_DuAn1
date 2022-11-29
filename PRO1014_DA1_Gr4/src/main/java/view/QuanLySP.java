@@ -1041,14 +1041,11 @@ public class QuanLySP extends javax.swing.JPanel {
         }
 
         loadChiTietSanPham(listResult);
-
-
     }//GEN-LAST:event_cbxFindMauSacActionPerformed
 
     private void cbxFindNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindNSXActionPerformed
         if (cbxFindNSX.getSelectedIndex() == 0) {
             nsxF = null;
-
         } else {
             nsxF = (NSX) cbxFindNSX.getSelectedItem();
         }
