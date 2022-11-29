@@ -489,6 +489,9 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
+        Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
+        Matcher matcherEmail = maiL.matcher(email);
+        
         if (ma.isBlank() || ten.isBlank() || pass.isBlank() || diaChi.isBlank()
                 || sdt.isBlank() || ngaySinh.isBlank() || email.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
@@ -500,6 +503,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             return false;
         }
 
+        if(!matcherEmail.matches()){
+            JOptionPane.showMessageDialog(this, "Sai định dạng email");
+            return false;
+        }
+        
         return true;
     }
 
