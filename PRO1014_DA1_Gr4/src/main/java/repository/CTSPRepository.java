@@ -31,7 +31,7 @@ public class CTSPRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE trangThai =: trangThai and SoLuongTon > 0 ORDER BY ID DESC");
+        Query q = (Query) em.createQuery("From ChiTietSanPham WHERE trangThai =: trangThai and SoLuongTon > 0 ORDER BY ID ");
         q.setParameter("trangThai", 1);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
