@@ -93,8 +93,8 @@ public class Login extends javax.swing.JFrame {
         txtPass.setBackground(new java.awt.Color(153, 204, 255));
         txtPass.setBorder(null);
         jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 160, -1));
-        jPanel2.add(lbnMesMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 160, -1));
-        jPanel2.add(lbnMesPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 160, -1));
+        jPanel2.add(lbnMesMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 160, 20));
+        jPanel2.add(lbnMesPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, 20));
 
         lbnMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(lbnMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 210, 60));

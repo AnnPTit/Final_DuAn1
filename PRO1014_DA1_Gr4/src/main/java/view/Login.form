@@ -149,14 +149,14 @@
         <Component class="javax.swing.JLabel" name="lbnMesMa">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="80" width="160" height="-1"/>
+              <AbsoluteConstraints x="160" y="120" width="160" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="lbnMesPass">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="140" width="160" height="-1"/>
+              <AbsoluteConstraints x="150" y="180" width="160" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
