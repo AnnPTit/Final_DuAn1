@@ -1058,7 +1058,6 @@ public class QuanLySP extends javax.swing.JPanel {
             ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
             listResult.add(ctsp);
         }
-        
         loadChiTietSanPham(listResult);
     }//GEN-LAST:event_cbxFindNSXActionPerformed
 
