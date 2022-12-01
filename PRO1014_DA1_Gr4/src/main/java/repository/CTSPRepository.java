@@ -137,6 +137,22 @@ public class CTSPRepository {
             return false;
         }
     }
+     public Boolean updateSoLuongCTSPTraHang(String maCTSP, int so) {
+
+        Transaction tran = null;
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
+            tran = ses.beginTransaction();
+            Query q = ses.createQuery("UPDATE ChiTietSanPham  SET soLuongTon  = soLuongTon + :so  WHERE MaCTSP =:ma");
+            q.setParameter("ma", maCTSP);
+            q.setParameter("so", so);
+            q.executeUpdate();
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx) {
         Transaction transaction = ses.beginTransaction();

@@ -99,4 +99,13 @@ public class CTSPImpl implements ICTSPService {
         return ctspRepo.getByMa(ma);
     }
 
+    @Override
+    public void updateSoLuongCTSPTraHang(String maCTSP, int so) {
+        if (ctspRepo.updateSoLuongCTSPTraHang(maCTSP, so)) {
+            System.out.println("Cap nhat so luong ton thanh cong");
+        } else {
+            System.out.println("Cap nhat that bai");
+        }
+    }
+
 }

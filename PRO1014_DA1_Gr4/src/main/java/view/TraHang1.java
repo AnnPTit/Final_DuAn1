@@ -10,8 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
+import service.ICTSPService;
 import service.IHDCTService;
 import service.IHoaDonService;
+import service.impl.CTSPImpl;
 import service.impl.HDCTImpl;
 import service.impl.HoaDonBanImpl;
 
@@ -28,6 +30,7 @@ public class TraHang1 extends javax.swing.JPanel {
     DefaultTableModel modelSP = new DefaultTableModel();
     IHoaDonService hoaDonService = new HoaDonBanImpl();
     IHDCTService hDCTService = new HDCTImpl();
+    ICTSPService cTSPService = new CTSPImpl();
     List<HoaDonBan> listHoaDon = new ArrayList<>();
     List<HoaDonChiTiet> listHDCT = new ArrayList<>();
     List<HoaDonChiTiet> listTra = new ArrayList<>();
@@ -247,12 +250,14 @@ public class TraHang1 extends javax.swing.JPanel {
                             .addComponent(lbKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(lbTienHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lbTienHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -280,7 +285,7 @@ public class TraHang1 extends javax.swing.JPanel {
                     .addComponent(lbTienHoanTra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(26, 26, 26))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -573,7 +578,8 @@ public class TraHang1 extends javax.swing.JPanel {
             soLuongMua = hDCTService.getSoluongByCTSPandMaHD(hoaDonChiTiet.getChiTietSanPham().getId(), hoaDonChiTiet.getHoaDonBan().getId());
 
             hoaDonChiTiet.setTrangThai(3);
-            hoaDonService.updateSoLuongHDCTbyIDHDCT(hoaDonChiTiet.getId(), soLuongMua - hoaDonChiTiet.getSoLuong());
+            hoaDonService.updateSoLuongHDCTbyIDHDCT(hoaDonChiTiet.getId(), soLuongMua - hoaDonChiTiet.getSoLuong()); // cập nhật hóa đơn ch tiết 
+            cTSPService.updateSoLuongCTSPTraHang(hoaDonChiTiet.getChiTietSanPham().getMa(), hoaDonChiTiet.getSoLuong());
             System.out.println(hoaDonChiTiet.getId());
             hoaDonService.addHoaDonChiTiet(hoaDonChiTiet); // insert cái mới
             if (hDCTService.getByIdByTrangThai(hoaDonChiTiet.getHoaDonBan().getId(), 2).size() == 0) {

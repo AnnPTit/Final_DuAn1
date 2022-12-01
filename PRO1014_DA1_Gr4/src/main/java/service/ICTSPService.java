@@ -26,17 +26,19 @@ public interface ICTSPService {
 
     int getSoLuongSpByMaCTSP(String maCTSP);
 
-    public void updateSoLuongCTSP(String maCTSP, int so);
+    void updateSoLuongCTSP(String maCTSP, int so);
+
+    void updateSoLuongCTSPTraHang(String maCTSP, int so);
 
     public List<ChiTietSanPham> getChiTietSanPhamByComBoBox(DanhMuc isdanhMuc, ChatLieu isChatLieu, Mau isMau, NSX isNsx);
 
     public ChiTietSanPham getAllByID(int id);
-    
+
     Long getProduct();
-    
+
     Long getNonProduct();
-    
+
     Long getOutProduct();
-    
+
     ChiTietSanPham getByMa(String ma);
 }
