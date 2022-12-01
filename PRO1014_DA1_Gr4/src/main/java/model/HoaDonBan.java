@@ -177,6 +177,8 @@ public class HoaDonBan implements Serializable {
             return trangThai = "Chưa Thanh Toán";
         } else if (this.trangThai == 2) {
             return trangThai = "Đã Thanh Toán";
+        } else if (this.trangThai == 3) {
+            return trangThai = "Đã trả hàng";
         }
         return trangThai;
 
