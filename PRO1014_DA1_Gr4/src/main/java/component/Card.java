@@ -38,7 +38,7 @@ public class Card extends javax.swing.JPanel {
         lbValues.setText(df.format(so));
         lbIcon.setIcon(data.getIcon());
         pro.setValue(data.getPercentage());
-        lbPer.setText(df.format(data.getPercentage()) + "%");
+        lbPer.setText(df.format(data.getPercentage()) + "");
     }
 
     public static void main(String[] args) {

@@ -159,4 +159,23 @@ public class HoaDonBanImpl implements IHoaDonService {
     public List<HoaDonBan> getAllByByMa(String ma) {
         return hdr.getAllByMa(ma);
     }
+
+    @Override
+    public void updateTrangThaiHoaDonChiTietbyIDHDCT(int id, int trangThai) {
+        if (hdr.updateTrangThaiHoaDonChiTietbyIDHDCT(id, trangThai) == true) {
+            System.out.println("Cập nhật trạng thái hóa đơn chi tiet thành công : " + id);
+        } else {
+            System.out.println("Cập nhật Thất bại" + id);
+        }
+    }
+
+    @Override
+    public void updateSoLuongHDCTbyIDHDCT(int idHDCT, int soLuong) {
+        if (hdr.updateSoLuongHDCTbyIDHDCT(idHDCT, soLuong) == true) {
+            System.out.println("Cap nhat so luong  hoa don chi tiet thanh cong ");
+        } else {
+            System.out.println("Thất bại");
+        }
+    }
+
 }

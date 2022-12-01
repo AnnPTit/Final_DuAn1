@@ -43,10 +43,13 @@ public interface IHoaDonService {
 
     void updateTrangThaiHoaDonChiTiet(int id, int trangThai);
 
-    // List<HoaDonChiTiet> getHoaDonChiTietByIdHD(int idHD);
+    void updateTrangThaiHoaDonChiTietbyIDHDCT(int id, int trangThai);
+
     void deleteHoaDonCT(int idCTSP);
 
     public void updateSoLuongHDCT(int idCTSP, int soLuong);
+
+    void updateSoLuongHDCTbyIDHDCT(int idHDCT, int soLuong);
 
     Long getCountHoaDon();
 

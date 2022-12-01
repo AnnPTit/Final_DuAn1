@@ -12,6 +12,7 @@ import model.HoaDonChiTiet;
 import model.KhachHang;
 import service.IHoaDonService;
 import service.IKhachHangService;
+import service.impl.HDCTImpl;
 import service.impl.HoaDonBanImpl;
 import service.impl.KhachHangImpl;
 
@@ -133,6 +134,10 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -316,7 +321,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(150, 150, 150)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel30)
                             .addComponent(jLabel29)
@@ -324,7 +329,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                             .addComponent(jLabel25)
                             .addComponent(jLabel26)
                             .addComponent(jLabel27)
-                            .addComponent(jLabel28))
+                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbl_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,7 +342,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                                 .addComponent(lbl_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,9 +351,12 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lbl_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbl_tenkh2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -373,8 +381,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                             .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
@@ -422,7 +431,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             }
         });
 
-        cbo_trangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã thanh toán", "Chưa thanh toán", "Đã hủy" }));
+        cbo_trangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã thanh toán", "Chưa thanh toán", "Đã hủy", "Hóa đơn trả" }));
         cbo_trangthai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbo_trangthaiActionPerformed(evt);
@@ -487,9 +496,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)))
+                            .addComponent(jLabel12)
+                            .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -516,6 +525,11 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 "Mã Sản Phẩm", "Tên sản phẩm", "Nhà sản xuất", "Danh mục", "Chất liệu", "Màu sắc", "Số lượng"
             }
         ));
+        tbl_hoadonchitiet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_hoadonchitietMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_hoadonchitiet);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -579,7 +593,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_diachi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -622,10 +636,10 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_trangthai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
@@ -701,7 +715,13 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             tt = 1;
         } else if (index == 2) {
             tt = 0;
+        } else {
+            hdct = new HDCTImpl().getAllByTrangThai(3);
+            loadHoaDonChiTiet(hdct);
+            loadHoaDon(new ArrayList<>());
+            return;
         }
+
         hdb = hoaDonBanService.getListByTrangThai(tt);
         System.out.println(hdb);
         listPaginghd = hdb;
@@ -795,6 +815,30 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private void tbl_hdtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hdtbl_hoadonMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_hdtbl_hoadonMouseClicked
+
+    private void tbl_hoadonchitietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadonchitietMouseClicked
+        int row = tbl_hoadonchitiet.getSelectedRow();
+//        hdb = hoaDonBanService.getListHoaDonBan();
+//        HoaDonBan hoaDonBan = listPaginghd.get(row);
+        hdct = new HDCTImpl().getAllByTrangThai(3);
+        HoaDonChiTiet hoaDonBan = hdct.get(row);
+
+        lbl_tennv.setText(hoaDonBan.getHoaDonBan().getNhanVien().getTenNV());
+        lbl_tenkh.setText(hoaDonBan.getHoaDonBan().getKhachHang().getTenKH());
+        lbl_mahd.setText(hoaDonBan.getHoaDonBan().getMaHDB());
+        lbl_ngaytao.setText(String.valueOf(hoaDonBan.getHoaDonBan().getNgayTao()));
+        lbl_ngaythanhtoan.setText(String.valueOf(hoaDonBan.getHoaDonBan().getNgayThanhToan()));
+        lbl_nguoinhan.setText(hoaDonBan.getHoaDonBan().getNguoiNhan());
+        lbl_sodt.setText(hoaDonBan.getHoaDonBan().getSdt());
+        lbl_diachi.setText(hoaDonBan.getHoaDonBan().getDiaChi());
+        if (hoaDonBan.getHoaDonBan().getTrangThai() == 0) {
+            lbl_trangthai.setText("Đã Hủy");
+        } else if (hoaDonBan.getTrangThai() == 1) {
+            lbl_trangthai.setText("Chưa Thanh Toán");
+        } else if (hoaDonBan.getTrangThai() == 2) {
+            lbl_trangthai.setText("Đã Thanh Toán");
+        }
+    }//GEN-LAST:event_tbl_hoadonchitietMouseClicked
 
     void loadHoaDon(List<HoaDonBan> list) {
         // hdb = hoaDonBanService.getListByTrangThai(tt);

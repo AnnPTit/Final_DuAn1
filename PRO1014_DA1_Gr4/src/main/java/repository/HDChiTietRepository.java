@@ -42,6 +42,19 @@ public class HDChiTietRepository {
         list = q.getResultList();
         return list;
     }
+    public List<HoaDonChiTiet> getAllByTrangThai(int TrangThai) {
+        List<HoaDonChiTiet> list = new ArrayList<>();
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE trangThai =: trangThai ORDER BY soLuong DESC");
+        q.setParameter("trangThai", TrangThai);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        list = q.getResultList();
+        return list;
+    }
 
 //    
     public List<HoaDonChiTiet> getAllById(String id) {
@@ -73,8 +86,22 @@ public class HDChiTietRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE IdHD =: id");
+        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE IdHD =: id and SoLuong >0");
         q.setParameter("id", id);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        list = q.getResultList();
+        return list;
+    }
+
+    public List<HoaDonChiTiet> getByIdByTrangThai(int id, int trangThai) {
+        List<HoaDonChiTiet> list = new ArrayList<>();
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE IdHD =: id and TrangThai =: trangThai and SoLuong > 0");
+        q.setParameter("id", id);
+        q.setParameter("trangThai", trangThai);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         list = q.getResultList();
         return list;
@@ -212,14 +239,6 @@ public class HDChiTietRepository {
         }
     }
 
-    public static void main(String[] args) {
-        String pattern = "MM/dd/yyyy ";
-        DateFormat df = new SimpleDateFormat(pattern);
-        List<HoaDonThanhToan> tt = new HDChiTietRepository().filterDate("2022-11-28", "2022-11-29");
-        System.out.println(tt);
-
-    }
-
     public BigDecimal doanhThuTheoNam() {
         BigDecimal result = null;
         Transaction transaction = null;
@@ -257,5 +276,24 @@ public class HDChiTietRepository {
         }
         return result;
     }
+
+    public int getSoluongByCTSPandMaHD(int maCTSP, int maHD) {
+        int soLuong = 0;
+        Transaction transaction = null;
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("select soLuong from HoaDonChiTiet where IdCTSP =:idctsp and IdHD = :idhoadon");
+            query.setParameter("idctsp", maCTSP);
+            query.setParameter("idhoadon", maHD);
+            soLuong = (int) query.getResultList().get(0);
+            transaction.commit();
+        }
+        return soLuong;
+    }
+
+//    public static void main(String[] args) {
+//        int sol = new HDChiTietRepository().getSoluongByCTSPandMaHD(8, 24);
+//        System.out.println(sol);
+//    }
 
 }

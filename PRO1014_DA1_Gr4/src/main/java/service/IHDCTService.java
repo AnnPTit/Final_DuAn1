@@ -20,19 +20,25 @@ public interface IHDCTService {
 
     public List<HoaDonChiTiet> getById(int id);
 
-    List<HoaDonDoanhThu> getDoanhSo(boolean  isDESC);
+    public List<HoaDonChiTiet> getByIdByTrangThai(int id, int trangThai);
+
+    List<HoaDonDoanhThu> getDoanhSo(boolean isDESC);
 
     List<HoaDonThanhToan> getHoaDonThanhToan();
-    
+
     BigDecimal doanhThuTheoNam();
 
     BigDecimal doanhThuTheoThang();
-    
+
     BigDecimal doanhThuHomNay();
-    
+
     List<HoaDonThanhToan> filterDate(String start, String end);
-    
+
     List<ThongKeThang> getThongKeThang();
+
+    int getSoluongByCTSPandMaHD(int maCTSP, int maHD);
+
+    List<HoaDonChiTiet> getAllByTrangThai(int TrangThai);
 }
 
 // IHDCTService

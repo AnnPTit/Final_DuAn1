@@ -34,9 +34,8 @@ public class HDCTImpl implements IHDCTService {
     }
 
     // HDCTImpl
-
     @Override
-    public List<HoaDonDoanhThu> getDoanhSo(boolean  isDESC) {
+    public List<HoaDonDoanhThu> getDoanhSo(boolean isDESC) {
         return hdctRepo.getDoanhSo(isDESC);
     }
 
@@ -49,8 +48,6 @@ public class HDCTImpl implements IHDCTService {
     public BigDecimal doanhThuTheoNam() {
         return hdctRepo.doanhThuTheoNam();
     }
-
- 
 
     @Override
     public BigDecimal doanhThuTheoThang() {
@@ -71,5 +68,20 @@ public class HDCTImpl implements IHDCTService {
     public List<ThongKeThang> getThongKeThang() {
         return hdctRepo.getThongKeThang();
     }
-    
+
+    @Override
+    public List<HoaDonChiTiet> getByIdByTrangThai(int id, int trangThai) {
+        return hdctRepo.getByIdByTrangThai(id, trangThai);
+    }
+
+    @Override
+    public int getSoluongByCTSPandMaHD(int maCTSP, int maHD) {
+        return hdctRepo.getSoluongByCTSPandMaHD(maCTSP, maHD);
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getAllByTrangThai(int TrangThai) {
+        return hdctRepo.getAllByTrangThai(TrangThai);
+    }
+
 }

@@ -37,7 +37,7 @@ public class HoaDonBanRepository {
 
     public ArrayList<HoaDonBan> getAllByTrangThai(int trangThai) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From HoaDonBan c where c.trangThai =: trangthai order by c.id desc");
+        Query q = se.createQuery("From HoaDonBan c where c.trangThai =: trangthai  order by c.id desc");
         q.setParameter("trangthai", trangThai);
         ArrayList<HoaDonBan> ds = (ArrayList<HoaDonBan>) q.getResultList();
         return ds;
@@ -208,6 +208,22 @@ public class HoaDonBanRepository {
         }
         return false;
     }
+     public Boolean updateTrangThaiHoaDonChiTietbyIDHDCT(int id, int trangThai) {
+        Transaction transision = null;
+        Integer check = 0;
+        try ( Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+            transision = session.beginTransaction();
+            Query query = session.createQuery("UPDATE HoaDonChiTiet SET  TrangThai = :trangthai where Id = :id");
+            query.setParameter("trangthai", trangThai);
+            query.setParameter("id", id);
+            check = query.executeUpdate();
+            transision.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
 //    public List<HoaDonChiTiet> getHoaDonChiTietByIDHd(int idHD) {
 //        List<HoaDonChiTiet> list = new ArrayList<>();
@@ -244,6 +260,22 @@ public class HoaDonBanRepository {
             transision = session.beginTransaction();
             org.hibernate.query.Query query = session.createQuery("UPDATE HoaDonChiTiet set SoLuong =:soLuong WHERE IdCTSP =:id ");
             query.setParameter("id", idCTSP);
+            query.setParameter("soLuong", soLuong);
+            check = query.executeUpdate();
+            transision.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+     public Boolean updateSoLuongHDCTbyIDHDCT(int idHDCT, int soLuong) {
+        Transaction transision = null;
+        Integer check = 0;
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
+            transision = session.beginTransaction();
+            org.hibernate.query.Query query = session.createQuery("UPDATE HoaDonChiTiet set SoLuong =:soLuong WHERE ID =:id ");
+            query.setParameter("id", idHDCT);
             query.setParameter("soLuong", soLuong);
             check = query.executeUpdate();
             transision.commit();

@@ -1309,7 +1309,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         } //get số lượng
 
         soLuongTon = (int) tblSanPham.getValueAt(row, 6);
-        if (soLuong > soLuongTon || soLuong < 0) {
+        if (soLuong > soLuongTon || soLuong <= 0) {
             JOptionPane.showMessageDialog(this, "Số lượng > 0 & Số lượng < Số lượng tồn ");
             return;
         } // check input

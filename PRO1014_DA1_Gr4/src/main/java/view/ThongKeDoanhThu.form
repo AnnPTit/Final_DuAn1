@@ -61,6 +61,8 @@
                           <Component id="txtDateEnd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnLoc" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="btnBieuDo" min="-2" pref="109" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnExportExcel" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
@@ -76,12 +78,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="btnBieuDo" min="-2" pref="109" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnExportDoanhThu" min="-2" pref="113" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnExportDoanhThu" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="23" max="32767" attributes="0"/>
               </Group>
@@ -96,16 +93,8 @@
                       <Component id="card2" min="-2" max="-2" attributes="0"/>
                       <Component id="card1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="btnExportDoanhThu" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnBieuDo" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btnExportDoanhThu" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="233" max="-2" attributes="0"/>
                   <EmptySpace pref="23" max="32767" attributes="0"/>
@@ -123,6 +112,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnLoc" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="btnExportExcel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="btnBieuDo" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>

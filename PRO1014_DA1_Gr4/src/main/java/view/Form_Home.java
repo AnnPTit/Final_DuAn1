@@ -56,19 +56,19 @@ public class Form_Home extends javax.swing.JPanel {
 
     private void initCardData() {
       
-        card1.setData(new ModelCard("Tổng khách hàng", BigDecimal.valueOf(khSer.getSumCustomer()), 20, null));
+        card1.setData(new ModelCard("Tổng khách hàng", BigDecimal.valueOf(khSer.getSumCustomer()), 100, null));
         
         
         if (hdctSer.doanhThuHomNay() == null) {
             BigDecimal doanhThu = new BigDecimal(0);
-            card2.setData(new ModelCard("Doanh thu/Ngày", doanhThu, 60, null));
+            card2.setData(new ModelCard("Doanh thu/Ngày", doanhThu, 100, null));
         } else {
-            card2.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 60, null));
+            card2.setData(new ModelCard("Doanh thu/Ngày", hdctSer.doanhThuHomNay(), 100, null));
         }
         
-        card3.setData(new ModelCard("Số hóa đơn đã thanh toán", BigDecimal.valueOf(hdSer.getCountHoaDon()), 80, null));        
+        card3.setData(new ModelCard("Số hóa đơn đã thanh toán", BigDecimal.valueOf(hdSer.getCountHoaDon()), 100, null));        
 
-        card4.setData(new ModelCard("Tồn kho", BigDecimal.valueOf(ctspSer.getSumProduct()), 95, null));
+        card4.setData(new ModelCard("Tồn kho", BigDecimal.valueOf(ctspSer.getSumProduct()), 100, null));
     }
 
     private void initNoticeBoard() {
