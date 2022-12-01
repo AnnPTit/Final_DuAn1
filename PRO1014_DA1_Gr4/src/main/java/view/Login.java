@@ -20,7 +20,6 @@ import service.INhanVienService;
  */
 public class Login extends javax.swing.JFrame {
 
-
     INhanVienService nhanVienService = new NhanVienImpl();
 
     public Login() {
@@ -199,6 +198,10 @@ public class Login extends javax.swing.JFrame {
         }
 
         NhanVien nhanVien = nhanVienService.getNhanVien(maNv);
+        if (nhanVien.getTrangThai() == 0) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không còn khả dụng");
+            return;
+        }
         if (nhanVien != null) {
             if (nhanVien.getPass().equalsIgnoreCase(pass)) {
                 if (nhanVien.getChucVu().getTenCv().equalsIgnoreCase("NhanVien")) {
@@ -231,7 +234,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnForgetActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -117,6 +117,7 @@ public class HDChiTietRepository {
                 + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
                 + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
                 + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
+
                 + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX ORDER BY SoLuongBanRa ";
         if (isDESC == true) {
             sql = sql + " DESC";
