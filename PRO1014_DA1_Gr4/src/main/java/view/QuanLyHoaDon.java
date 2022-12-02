@@ -45,11 +45,11 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
         hdb = hoaDonBanService.getListByTrangThai(2);
         listPaginghd = hdb;
-        loadHoaDon(getListByCurrentPageHD());
+        loadHoaDon(hdb);
 
         kh = khachHangService.getAllByTrangThai(1);
         listPagingkh = kh;
-        loadKhachHang(getListByCurrentPageKH());
+        loadKhachHang(kh);
     }
 
     /**
@@ -74,9 +74,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         lbl_sohoadon = new javax.swing.JLabel();
         cbo_trangthaikh = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        pageIndex_kh = new javax.swing.JLabel();
-        btnPrevious_kh = new javax.swing.JButton();
-        btnNext_kh = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -115,9 +112,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         txtSearchHD = new javax.swing.JTextField();
         cbo_trangthai = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        pageIndex_hd = new javax.swing.JLabel();
-        btnPrevious_hd = new javax.swing.JButton();
-        btnNext_hd = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         lbl_sodt = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -186,22 +180,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel13.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(pageIndex_kh, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.pageIndex_kh.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(btnPrevious_kh, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.btnPrevious_kh.text")); // NOI18N
-        btnPrevious_kh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrevious_khActionPerformed(evt);
-            }
-        });
-
-        org.openide.awt.Mnemonics.setLocalizedText(btnNext_kh, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.btnNext_kh.text")); // NOI18N
-        btnNext_kh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNext_khActionPerformed(evt);
-            }
-        });
-
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -212,30 +190,21 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE))
+                        .addComponent(jScrollPane7))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(txtSearchKH, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(cbo_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(104, 104, 104)
                         .addComponent(lbl_sohoadon))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(283, 283, 283)
-                                .addComponent(btnPrevious_kh, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(pageIndex_kh, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnNext_kh, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(170, 170, 170)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(170, 170, 170)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -255,13 +224,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPrevious_kh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNext_kh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pageIndex_kh)))
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -288,7 +251,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE)
+                .addComponent(jScrollPane8)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -318,30 +281,29 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel30)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_tenkh2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbl_gioitinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl_diachikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbl_sodienthoaikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_tenkh2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl_gioitinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_diachikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl_sodienthoaikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -440,22 +402,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel12.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(pageIndex_hd, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.pageIndex_hd.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(btnPrevious_hd, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.btnPrevious_hd.text")); // NOI18N
-        btnPrevious_hd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrevious_hdActionPerformed(evt);
-            }
-        });
-
-        org.openide.awt.Mnemonics.setLocalizedText(btnNext_hd, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.btnNext_hd.text")); // NOI18N
-        btnNext_hd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNext_hdActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -464,20 +410,12 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane6)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrevious_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(pageIndex_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(btnNext_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(282, 282, 282))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addComponent(jLabel1)
                 .addGap(35, 35, 35)
                 .addComponent(txtSearchHD, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
                 .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -494,18 +432,13 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(7, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrevious_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNext_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pageIndex_hd))
-                .addGap(19, 19, 19))
+                .addGap(61, 61, 61))
         );
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel8.text")); // NOI18N
@@ -558,7 +491,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -593,14 +526,15 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_diachi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addGap(114, 114, 114))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(45, 45, 45)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_tennv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,11 +569,10 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_trangthai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
@@ -725,25 +658,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         hdb = hoaDonBanService.getListByTrangThai(tt);
         System.out.println(hdb);
         listPaginghd = hdb;
-        loadHoaDon(getListByCurrentPageHD());
+        loadHoaDon(hdb);
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
-
-    private void btnPrevious_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_hdActionPerformed
-        if (currentPage > 1) {
-            currentPage--;
-            listPaginghd = hoaDonBanService.getListByTrangThai(2);
-            loadHoaDon(getListByCurrentPageHD());
-
-        }
-    }//GEN-LAST:event_btnPrevious_hdActionPerformed
-
-    private void btnNext_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_hdActionPerformed
-        if (currentPage < numPage) {
-            currentPage++;
-            listPaginghd = hoaDonBanService.getListByTrangThai(2);
-            loadHoaDon(getListByCurrentPageHD());
-        }
-    }//GEN-LAST:event_btnNext_hdActionPerformed
 
     private void tbl_khachhangtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangtbl_hoadonMouseClicked
         int row = tbl_khachhang.getSelectedRow();
@@ -793,24 +709,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         }
         kh = khachHangService.getAllByTrangThai(tt);
         listPagingkh = kh;
-        loadKhachHang(getListByCurrentPageKH());
+        loadKhachHang(kh);
     }//GEN-LAST:event_cbo_trangthaikhActionPerformed
-
-    private void btnPrevious_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevious_khActionPerformed
-        // TODO add your handling code here:
-        if (currentPagekh > 1) {
-            currentPagekh--;
-            loadKhachHang(getListByCurrentPageKH());
-
-        }
-    }//GEN-LAST:event_btnPrevious_khActionPerformed
-
-    private void btnNext_khActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_khActionPerformed
-        if (currentPagekh < numPagekh) {
-            currentPagekh++;
-            loadKhachHang(getListByCurrentPageKH());
-        }
-    }//GEN-LAST:event_btnNext_khActionPerformed
 
     private void tbl_hdtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hdtbl_hoadonMouseClicked
         // TODO add your handling code here:
@@ -960,35 +860,31 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         }
     }
 
-    List<HoaDonBan> getListByCurrentPageHD() {
-        totalItem = hdb.size();
-        numPage = (totalItem - 1) / itemPerpage + 1;
-        pageIndex_hd.setText(currentPage + "/" + numPage);
-        int start = (currentPage - 1) * itemPerpage;
-        int end = start + itemPerpage;
-        if (end > totalItem) {
-            end = totalItem;
-        }
-        return listPaginghd.subList(start, end);
-    }
+//    List<HoaDonBan> getListByCurrentPageHD() {
+//        totalItem = hdb.size();
+//        numPage = (totalItem - 1) / itemPerpage + 1;
+//        pageIndex_hd.setText(currentPage + "/" + numPage);
+//        int start = (currentPage - 1) * itemPerpage;
+//        int end = start + itemPerpage;
+//        if (end > totalItem) {
+//            end = totalItem;
+//        }
+//        return listPaginghd.subList(start, end);
+//    }
 
-    List<KhachHang> getListByCurrentPageKH() {
-        totalItemkh = kh.size();
-        numPagekh = (totalItemkh - 1) / itemPerpagekh + 1;
-        pageIndex_kh.setText(currentPagekh + "/" + numPagekh);
-        int start = (currentPagekh - 1) * itemPerpagekh;
-        int end = start + itemPerpagekh;
-        if (end > totalItemkh) {
-            end = totalItemkh;
-        }
-        return listPagingkh.subList(start, end);
-    }
+//    List<KhachHang> getListByCurrentPageKH() {
+//        totalItemkh = kh.size();
+//        numPagekh = (totalItemkh - 1) / itemPerpagekh + 1;
+//    //    pageIndex_kh.setText(currentPagekh + "/" + numPagekh);
+//        int start = (currentPagekh - 1) * itemPerpagekh;
+//        int end = start + itemPerpagekh;
+//        if (end > totalItemkh) {
+//            end = totalItemkh;
+//        }
+//        return listPagingkh.subList(start, end);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNext_hd;
-    private javax.swing.JButton btnNext_kh;
-    private javax.swing.JButton btnPrevious_hd;
-    private javax.swing.JButton btnPrevious_kh;
     private javax.swing.JComboBox<String> cbo_trangthai;
     private javax.swing.JComboBox<String> cbo_trangthaikh;
     private javax.swing.JLabel jLabel1;
@@ -1043,8 +939,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_tennv;
     private javax.swing.JLabel lbl_trangthai;
     private javax.swing.JLabel lbl_trangthaikh;
-    private javax.swing.JLabel pageIndex_hd;
-    private javax.swing.JLabel pageIndex_kh;
     private javax.swing.JTable tbl_hd;
     private javax.swing.JTable tbl_hoadon;
     private javax.swing.JTable tbl_hoadonchitiet;

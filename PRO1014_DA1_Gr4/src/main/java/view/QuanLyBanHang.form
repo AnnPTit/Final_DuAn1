@@ -787,7 +787,7 @@
                                                   </Group>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jButton3" min="-2" pref="104" max="-2" attributes="0"/>
+                                                      <Component id="btnOk" min="-2" pref="104" max="-2" attributes="0"/>
                                                       <Component id="jButton4" min="-2" pref="104" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -845,7 +845,7 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <Component id="btnOk" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                           <Component id="jButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1021,7 +1021,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton3">
+                            <Component class="javax.swing.JButton" name="btnOk">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -1030,11 +1030,11 @@
                                   <Font name="Segoe UI" size="12" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="view/Bundle.properties" key="QuanLyBanHang.jButton3.text_1" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                                  <ResourceString bundle="view/Bundle.properties" key="QuanLyBanHang.btnOk.text_1" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOkActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel17">

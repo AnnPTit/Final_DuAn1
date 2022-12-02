@@ -98,6 +98,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         loadTableHoaDon(listHoaDonBan);
         loadTableCTSP(listCtSp);
         btnThanhToan.setEnabled(false);
+
         Clock cl = new Clock(lbnClock);
         cl.start();
 
@@ -168,12 +169,15 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         lbnTongTien.setForeground(Color.red);
     }
 
-    void searchByName() {
+    void searchByName(String name) {
         DefaultTableModel tb = (DefaultTableModel) tblSanPham.getModel();
         tb.setRowCount(0);
 
-        List<ChiTietSanPham> ct = cTSPService.getAll();
-        for (ChiTietSanPham ctsp : ct) {
+        listCtSp = cTSPService.searchByName(name);
+        if (listCtSp.size() == 0) {
+            return;
+        }
+        for (ChiTietSanPham ctsp : listCtSp) {
             if (ctsp.getSanPham().getTenSP().toLowerCase().contains(txtSearch.getText().trim().toLowerCase())) {
                 tb.addRow(new Object[]{
                     ctsp.getMa(),
@@ -260,7 +264,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         btnTaoHoaDonw = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         lbnKhuyenMai = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         lbnClock = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -666,12 +670,12 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         org.openide.awt.Mnemonics.setLocalizedText(lbnKhuyenMai, org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.lbnKhuyenMai.text_1")); // NOI18N
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 204));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButton3, org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.jButton3.text_1")); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setBackground(new java.awt.Color(204, 204, 204));
+        btnOk.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(btnOk, org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.btnOk.text_1")); // NOI18N
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
@@ -725,7 +729,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                             .addComponent(jLabel17)
@@ -770,7 +774,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -856,8 +860,12 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         // TODO add your handling code here:
+        if (lbnTongTien.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng thử lại");
+            return;
+        }
         if (DataGlobal.getKhuyenMai() == null) {
             return;
         }
@@ -871,7 +879,8 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         double tongTienSauKM = tongTien - (tongTien * phamTramGiam) / 100;
         lbnTongTien.setText(String.valueOf(tongTienSauKM));
         lbnTienThua.setText(String.valueOf(Double.valueOf(txtTienKhachDua.getText()) - tongTienSauKM));
-    }//GEN-LAST:event_jButton3ActionPerformed
+        btnOk.setEnabled(false);
+    }//GEN-LAST:event_btnOkActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -980,6 +989,10 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        if (lbnTongTien.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng thử lại");
+            return;
+        }
         if (cbxTrangThaiHoaDon.getSelectedIndex() == 0) {
             listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
         } else if (cbxTrangThaiHoaDon.getSelectedIndex() == 1) {
@@ -1049,6 +1062,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        btnOk.setEnabled(true);
         clear();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1274,7 +1288,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     }//GEN-LAST:event_btnThemVaoGioHangActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByName();
+        searchByName(txtSearch.getText());
     }//GEN-LAST:event_txtSearchKeyReleased
 
     void addGH() {
@@ -1585,6 +1599,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     private javax.swing.JButton btnCameraOff;
     private javax.swing.JButton btnCameraOn;
     private javax.swing.JButton btnChon;
+    private javax.swing.JButton btnOk;
     private javax.swing.JButton btnTaoHoaDonw;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThayDoi;
@@ -1593,7 +1608,6 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     private javax.swing.JComboBox<String> cbxTrangThaiHoaDon;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
