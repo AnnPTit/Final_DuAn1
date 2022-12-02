@@ -42,7 +42,7 @@ public class CTSPRepository {
 
     public boolean add(ChiTietSanPham ctsp) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             ses.save(ctsp);
             tran.commit();
@@ -55,7 +55,7 @@ public class CTSPRepository {
 
     public boolean update(ChiTietSanPham ctsp, Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.ma=:ma,ctsp.sanPham.id=:idSP,"
                     + "ctsp.nhaSanXuat.id=:idNSX,ctsp.danhMuc.id=:idDM,ctsp.chatLieu.id=:idCL,"
@@ -84,7 +84,7 @@ public class CTSPRepository {
 
     public boolean updateTrangThai(Integer id) {
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham ctsp SET ctsp.trangThai = 0  WHERE ctsp.id=:id");
             q.setParameter("id", id);
@@ -125,7 +125,7 @@ public class CTSPRepository {
     public Boolean updateSoLuongCTSP(String maCTSP, int so) {
 
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham  SET soLuongTon  = soLuongTon - :so  WHERE MaCTSP =:ma");
             q.setParameter("ma", maCTSP);
@@ -142,7 +142,7 @@ public class CTSPRepository {
     public Boolean updateSoLuongCTSPTraHang(String maCTSP, int so) {
 
         Transaction tran = null;
-        try (Session ses = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
             Query q = ses.createQuery("UPDATE ChiTietSanPham  SET soLuongTon  = soLuongTon + :so  WHERE MaCTSP =:ma");
             q.setParameter("ma", maCTSP);
@@ -291,7 +291,7 @@ public class CTSPRepository {
 
     public long totalCount() {
         long total = 0;
-        try (Session session = HibernateConfig.getFACTORY().openSession()) {
+        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
             String statement = "SELECT COUNT(ctsp.id) FROM ChiTietSanPham ctsp";
             TypedQuery<Long> query = session.createQuery(statement, Long.class);
             total = query.getSingleResult();
@@ -312,7 +312,7 @@ public class CTSPRepository {
                 + "AND (ctsp.mauSac.tenMau=:mau or :mau is null or :mau = 'All')"
                 + "AND (ctsp.nhaSanXuat.tenNSX=:nsx or :nsx is null or :nsx = 'All')"
                 + "ORDER BY ctsp.id DESC");
-        query.setParameter("sp","%" + tenSP + "%");
+        query.setParameter("sp", "%" + tenSP + "%");
         query.setParameter("dm", tenDM);
         query.setParameter("cl", tenCL);
         query.setParameter("mau", tenMau);
@@ -340,23 +340,31 @@ public class CTSPRepository {
                 + "AND (ctsp.mauSac.tenMau=:mau or :mau is null or :mau = 'All')"
                 + "AND (ctsp.nhaSanXuat.tenNSX=:nsx or :nsx is null or :nsx = 'All')"
                 + "ORDER BY ctsp.id DESC");
-        query.setParameter("sp","%" + tenSP + "%");
+        query.setParameter("sp", "%" + tenSP + "%");
         query.setParameter("dm", tenDM);
         query.setParameter("cl", tenCL);
         query.setParameter("mau", tenMau);
         query.setParameter("nsx", tenNSX);
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
-        
+
         ctsp = query.getResultList();
 
         return ctsp;
     }
 
+    public List<ChiTietSanPham> searchByName(String name) {
+       
+        Query q = ses.createQuery("SELECT e From ChiTietSanPham e join SanPham a on a.id = e.sanPham.id \n"
+                + "where a.tenSP like  :ten and e.soLuongTon > 0 and e.trangThai =1 and a.trangThai =1  ");
+        q.setParameter("ten", "%"+name+"%");
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        List<ChiTietSanPham> list = q.getResultList();
+        return list;
+    }
+
     public static void main(String[] args) {
-        List<ChiTietSanPham> list = new CTSPRepository().pageList(1, 5, null, null, null, null, null);
-        for (ChiTietSanPham x : list) {
-            System.out.println(x.getMa());
-        }
+        List<ChiTietSanPham> list = new CTSPRepository().searchByName("Túi ");
+        System.out.println(list.get(0).getSanPham().getTenSP());
     }
 
 }

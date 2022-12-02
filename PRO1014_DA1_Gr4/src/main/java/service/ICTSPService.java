@@ -47,4 +47,6 @@ public interface ICTSPService {
     List<ChiTietSanPham> pageList(int position, int pageSize, String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX);
 
     List<ChiTietSanPham> filterProduct(String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX);
+    
+    public List<ChiTietSanPham> searchByName(String name);
 }

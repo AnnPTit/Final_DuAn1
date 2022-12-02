@@ -179,6 +179,11 @@ public class HDChiTietRepository {
             return null;
         }
     }
+    
+    public static void main(String[] args) {
+        List<HoaDonThanhToan> list = new HDChiTietRepository().getHoaDonThanhToan();
+        System.out.println(list);
+    }
 
     public List<ThongKeThang> getThongKeThang() {
         Transaction transaction = ses.beginTransaction();

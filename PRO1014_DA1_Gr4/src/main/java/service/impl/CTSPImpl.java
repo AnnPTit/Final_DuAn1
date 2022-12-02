@@ -123,4 +123,9 @@ public class CTSPImpl implements ICTSPService {
         return ctspRepo.filterProduct(tenSP, tenDM, tenCL, tenMau, tenNSX);
     }
 
+    @Override
+    public List<ChiTietSanPham> searchByName(String name) {
+        return ctspRepo.searchByName(name);
+    }
+
 }
