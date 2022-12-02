@@ -45,10 +45,8 @@ import model.KhuyenMai;
 import model.Mau;
 import model.NSX;
 import model.NhanVien;
-
 import service.IHoaDonService;
 import service.impl.CTSPImpl;
-
 import service.impl.HoaDonBanImpl;
 import service.impl.KhuyenMaiImpl;
 import service.impl.NhanVienImpl;
@@ -62,6 +60,9 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.openide.util.Exceptions;
+import pagination.EventPagination;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import service.impl.HDCTImpl;
 import service.ICTSPService;
 import service.IHDCTService;
@@ -87,6 +88,9 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     //  RunText rt = new RunText(Name);
 
     List<HoaDonChiTiet> list;
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
 
     public QuanLyBanHang() {
         initComponents();
@@ -96,31 +100,74 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         listCtSp = cTSPService.getAll();
         listHoaDonBan = hoaDonBanService.getListByTrangThai(1);
         loadTableHoaDon(listHoaDonBan);
-        loadTableCTSP(listCtSp);
+        // loadTableCTSP(listCtSp);
+        loadPagination();
+        pagination.setPaginationItemRender(new PaginationItemRenderStyle1());
+        pagination.setPagegination(1, paging.getTotalPage());
         btnThanhToan.setEnabled(false);
-
         Clock cl = new Clock(lbnClock);
         cl.start();
 
     }
 
-    private void loadTableCTSP(List<ChiTietSanPham> list) {
-        chiTietSpModel.setNumRows(0);
-        for (ChiTietSanPham ctsp : list) {
-            chiTietSpModel.addRow(new Object[]{
-                ctsp.getMa(),
-                ctsp.getSanPham().getTenSP(),
-                ctsp.getNhaSanXuat().getTenNSX(),
-                ctsp.getDanhMuc().getTenDM(),
-                ctsp.getChatLieu().getTenCL(),
-                ctsp.getMauSac().getTenMau(),
-                ctsp.getSoLuongTon(),
-                ctsp.getGiaBan(),
-                ctsp.getMoTa()
-            });
+    public void loadPagination() {
+        String search = txtSearch.getText();
+
+        totalProducts = cTSPService.filterProductBanHang(search).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        pagination.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            pagination.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(cTSPService.pageListBanHang(paging.getTotalPage(), pageSize, search));
+        } else {
+            pagination.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(cTSPService.pageListBanHang(paging.getCurrent(), pageSize, search));
+        }
+
+        pagination.addEventPagination(new EventPagination() {
+            @Override
+            public void pageChanged(int page) {
+                loadTable(cTSPService.pageListBanHang(page, pageSize, search));
+                paging.setCurrent(page);
+            }
+        });
+    }
+
+    public void loadTable(List<ChiTietSanPham> ctsp) {
+        DefaultTableModel dtm = (DefaultTableModel) tblSanPham.getModel();
+        dtm.setRowCount(0);
+
+        for (ChiTietSanPham x : ctsp) {
+            Object[] rowData = {
+                x.getMa(), x.getSanPham().getTenSP(),
+                x.getDanhMuc().getTenDM(), x.getChatLieu().getTenCL(),
+                x.getMauSac().getTenMau(), x.getNhaSanXuat().getTenNSX(),
+                x.getSoLuongTon(), x.getGiaBan(),
+                x.getMoTa()
+            };
+            dtm.addRow(rowData);
         }
     }
 
+//    private void loadTableCTSP(List<ChiTietSanPham> list) {
+//        chiTietSpModel.setNumRows(0);
+//        for (ChiTietSanPham ctsp : list) {
+//            chiTietSpModel.addRow(new Object[]{
+//                ctsp.getMa(),
+//                ctsp.getSanPham().getTenSP(),
+//                ctsp.getNhaSanXuat().getTenNSX(),
+//                ctsp.getDanhMuc().getTenDM(),
+//                ctsp.getChatLieu().getTenCL(),
+//                ctsp.getMauSac().getTenMau(),
+//                ctsp.getSoLuongTon(),
+//                ctsp.getGiaBan(),
+//                ctsp.getMoTa()
+//            });
+//        }
+//    }
     private void loadTableHoaDon(List<HoaDonBan> list) {
         hoaDonModel.setNumRows(0);
         for (HoaDonBan hd : list) {
@@ -225,6 +272,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         btnThemVaoGioHang = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
+        pagination = new pagination.Pagination();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
@@ -310,13 +358,26 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Mã SP", "Tên SP", "Nsx", "Danh Mục", "Chất liệu", "Màu", "Số Lượng Tồn", "Đơn Giá", "Mô Tả"
             }
         ));
+        tblSanPham.setRowHeight(30);
         jScrollPane2.setViewportView(tblSanPham);
+        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
+            tblSanPham.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title0")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title1")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title2")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title3")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title4")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(5).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title5")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(6).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title6")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(7).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title7")); // NOI18N
+            tblSanPham.getColumnModel().getColumn(8).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyBanHang.class, "QuanLyBanHang.tblSanPham.columnModel.title8")); // NOI18N
+        }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -331,18 +392,26 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(381, 381, 381)
+                .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addComponent(btnThemVaoGioHang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -455,7 +524,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
                             .addComponent(btnCameraOff, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCameraOn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
@@ -1055,7 +1124,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
 
         loadTableHoaDon(hoaDonBanService.getListByTrangThai(1)); // load lại hóa đơn
         loadGioHangByChiTietHoaDon(new ArrayList<>());
-        loadTableCTSP(cTSPService.getAll());
+        loadPagination();
 
         clear();
     }//GEN-LAST:event_btnThanhToanActionPerformed
@@ -1288,7 +1357,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     }//GEN-LAST:event_btnThemVaoGioHangActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByName(txtSearch.getText());
+        loadPagination();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     void addGH() {
@@ -1309,8 +1378,10 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần thêm !", "ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        ChiTietSanPham ctsp = new ChiTietSanPham();
-        ctsp = listCtSp.get(row);
+//        ChiTietSanPham ctsp = new ChiTietSanPham();
+//        ctsp = listCtSp.get(row);
+        listCtSp = cTSPService.pageListBanHang(paging.getCurrent(), pageSize, txtSearch.getText());
+        ChiTietSanPham ctsp = listCtSp.get(row);
         int soLuong, soLuongTon = 0;
 
         String m = JOptionPane.showInputDialog("Số sản phẩm muốn mua :");
@@ -1646,6 +1717,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
     private javax.swing.JLabel lbnTenKh;
     private javax.swing.JLabel lbnTienThua;
     private javax.swing.JLabel lbnTongTien;
+    private pagination.Pagination pagination;
     private javax.swing.JPanel panelWebcam;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblHoaDon;

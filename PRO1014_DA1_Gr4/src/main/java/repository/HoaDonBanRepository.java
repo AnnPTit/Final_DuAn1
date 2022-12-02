@@ -14,15 +14,10 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import model.ChiTietSanPham;
 import model.HoaDonBan;
-
 import model.HoaDonChiTiet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-/**
- *
- * @author T450s
- */
 public class HoaDonBanRepository {
 
     Session ses = hibernateConfig.HibernateConfig.getFACTORY().openSession();
@@ -226,18 +221,6 @@ public class HoaDonBanRepository {
         return false;
     }
 
-//    public List<HoaDonChiTiet> getHoaDonChiTietByIDHd(int idHD) {
-//        List<HoaDonChiTiet> list = new ArrayList<>();
-//        try ( Session session = HibernateConfig.getFACTORY().openSession()) {
-//            Query query = session.createQuery("From HoaDonChiTiet Where IdHD =:id");
-//            query.setParameter("id", idHD);
-//            list = query.getResultList();
-//            return list;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return list;
-//        }
-//    }
     public Boolean deleteHoaDonChitiet(int idCTSP) {
         Transaction transision = null;
         Integer check = 0;
@@ -329,5 +312,33 @@ public class HoaDonBanRepository {
             System.out.println("cc");
             return null;
         }
+    }
+    
+        public List<ChiTietSanPham> pageList(int position, int pageSize, String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX) {
+        List<ChiTietSanPham> ctsp;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT ctsp FROM ChiTietSanPham ctsp"
+                + " WHERE (ctsp.sanPham.tenSP LIKE :sp or :sp is null or :sp = '')"
+                + "AND (ctsp.danhMuc.tenDM=:dm or :dm is null or :dm = 'All')"
+                + "AND (ctsp.chatLieu.tenCL=:cl or :cl is null or :cl = 'All')"
+                + "AND (ctsp.mauSac.tenMau=:mau or :mau is null or :mau = 'All')"
+                + "AND (ctsp.nhaSanXuat.tenNSX=:nsx or :nsx is null or :nsx = 'All')"
+                + "ORDER BY ctsp.id DESC");
+        query.setParameter("sp", "%" + tenSP + "%");
+        query.setParameter("dm", tenDM);
+        query.setParameter("cl", tenCL);
+        query.setParameter("mau", tenMau);
+        query.setParameter("nsx", tenNSX);
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        ctsp = query.getResultList();
+
+        return ctsp;
     }
 }

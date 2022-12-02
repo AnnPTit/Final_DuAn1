@@ -353,18 +353,55 @@ public class CTSPRepository {
     }
 
     public List<ChiTietSanPham> searchByName(String name) {
-       
         Query q = ses.createQuery("SELECT e From ChiTietSanPham e join SanPham a on a.id = e.sanPham.id \n"
                 + "where a.tenSP like  :ten and e.soLuongTon > 0 and e.trangThai =1 and a.trangThai =1  ");
-        q.setParameter("ten", "%"+name+"%");
+        q.setParameter("ten", "%" + name + "%");
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         List<ChiTietSanPham> list = q.getResultList();
         return list;
     }
 
+    public List<ChiTietSanPham> pageListBanHang(int position, int pageSize, String tenSP) {
+        List<ChiTietSanPham> ctsp;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT ctsp FROM ChiTietSanPham ctsp "
+                + "WHERE ctsp.sanPham.tenSP LIKE :sp or :sp is null or :sp = '' "
+                + "ORDER BY ctsp.id DESC");
+        query.setParameter("sp", "%" + tenSP + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        ctsp = query.getResultList();
+        return ctsp;
+    }
+
     public static void main(String[] args) {
-        List<ChiTietSanPham> list = new CTSPRepository().searchByName("Túi ");
-        System.out.println(list.get(0).getSanPham().getTenSP());
+        List<ChiTietSanPham> list = new CTSPRepository().pageListBanHang(2, 5, null);
+        for (ChiTietSanPham chiTietSanPham : list) {
+            System.out.println(chiTietSanPham.getMa());
+        }
+    }
+
+    public List<ChiTietSanPham> filterProductBanHang(String tenSP) {
+        List<ChiTietSanPham> ctsp;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT ctsp FROM ChiTietSanPham ctsp "
+                + " WHERE (ctsp.sanPham.tenSP LIKE :sp or :sp is null or :sp = '')"
+                + "ORDER BY ctsp.id DESC");
+        query.setParameter("sp", "%" + tenSP + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        ctsp = query.getResultList();
+
+        return ctsp;
     }
 
 }

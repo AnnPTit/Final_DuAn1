@@ -128,4 +128,14 @@ public class CTSPImpl implements ICTSPService {
         return ctspRepo.searchByName(name);
     }
 
+    @Override
+    public List<ChiTietSanPham> pageListBanHang(int position, int pageSize, String tenSP) {
+        return ctspRepo.pageListBanHang(position, pageSize, tenSP);
+    }
+
+    @Override
+    public List<ChiTietSanPham> filterProductBanHang(String tenSP) {
+        return ctspRepo.filterProductBanHang(tenSP);
+    }
+
 }
