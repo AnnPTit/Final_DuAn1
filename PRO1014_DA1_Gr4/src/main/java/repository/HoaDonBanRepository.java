@@ -43,6 +43,7 @@ public class HoaDonBanRepository {
         return ds;
     }
 
+ 
     public ArrayList<HoaDonBan> getAllByMa(String ma) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
         Query q = se.createQuery("From HoaDonBan  where trangThai =2 and maHDB=: ma order by id desc");
