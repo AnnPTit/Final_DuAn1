@@ -135,7 +135,6 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.jPanel2.border.title"))); // NOI18N
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel2MouseClicked(evt);
@@ -261,7 +260,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 677, Short.MAX_VALUE)
                                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +332,6 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -346,8 +344,21 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tbNhanVien);
+        if (tbNhanVien.getColumnModel().getColumnCount() > 0) {
+            tbNhanVien.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title0")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title1")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title2")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title3")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title4")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(5).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title5")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(6).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title6")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(7).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title7")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(8).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title8")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(9).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title9")); // NOI18N
+            tbNhanVien.getColumnModel().getColumn(10).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.tbNhanVien.columnModel.title10")); // NOI18N
+        }
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.jPanel5.border.title"))); // NOI18N
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         txtSearch.setText(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.txtSearch.text")); // NOI18N
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -362,44 +373,41 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addComponent(txtSearch)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE))
-                .addGap(77, 77, 77)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
+
+        jPanel2.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.jPanel2.AccessibleContext.accessibleName")); // NOI18N
+        jPanel5.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(QuanLyNhanVien.class, "QuanLyNhanVien.jPanel5.AccessibleContext.accessibleName")); // NOI18N
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -409,12 +417,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1535, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
