@@ -6,10 +6,13 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
 import model.KhachHang;
+import pagination.EventPagination;
+import pagination.Page;
 import service.IHoaDonService;
 import service.IKhachHangService;
 import service.impl.HDCTImpl;
@@ -29,27 +32,20 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     IKhachHangService khachHangService = new KhachHangImpl();
 
     private List<HoaDonBan> listPaginghd = new ArrayList<>();
-    private final int itemPerpage = 5;
-    private int totalItem;
-    private int currentPage = 1;
-    private int numPage;
 
     private List<KhachHang> listPagingkh = new ArrayList<>();
-    private final int itemPerpagekh = 5;
-    private int totalItemkh;
-    private int currentPagekh = 1;
-    private int numPagekh;
+
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
 
     public QuanLyHoaDon() {
         initComponents();
 
-        hdb = hoaDonBanService.getListByTrangThai(2);
-        listPaginghd = hdb;
-        loadHoaDon(hdb);
+        loadPageKhachHang();
+        loadPagination();
 
-        kh = khachHangService.getAllByTrangThai(1);
-        listPagingkh = kh;
-        loadKhachHang(kh);
+        
     }
 
     /**
@@ -72,9 +68,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         txtSearchKH = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         lbl_sohoadon = new javax.swing.JLabel();
-        cbo_trangthaikh = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        paginationKH = new pagination.Pagination();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tbl_hd = new javax.swing.JTable();
@@ -112,6 +107,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         txtSearchHD = new javax.swing.JTextField();
         cbo_trangthai = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
+        paginationHD = new pagination.Pagination();
         jLabel8 = new javax.swing.JLabel();
         lbl_sodt = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -156,11 +152,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
         txtSearchKH.setText(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.txtSearchKH.text")); // NOI18N
         txtSearchKH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txtSearchKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchKHActionPerformed(evt);
-            }
-        });
         txtSearchKH.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKHKeyReleased(evt);
@@ -170,15 +161,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel11.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(lbl_sohoadon, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.lbl_sohoadon.text")); // NOI18N
-
-        cbo_trangthaikh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Dừng hoạt dộng" }));
-        cbo_trangthaikh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbo_trangthaikhActionPerformed(evt);
-            }
-        });
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel13.text")); // NOI18N
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -194,19 +176,19 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearchKH, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbo_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbl_sohoadon))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 429, Short.MAX_VALUE)
+                .addComponent(paginationKH, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(422, 422, 422))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,15 +198,15 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbo_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)
                             .addComponent(txtSearchKH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(18, 18, 18)
+                .addComponent(paginationKH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -420,6 +402,10 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(89, 89, 89))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(420, 420, 420)
+                .addComponent(paginationHD, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +424,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                             .addComponent(cbo_trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(18, 18, 18)
+                .addComponent(paginationHD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel8.text")); // NOI18N
@@ -491,7 +479,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -572,7 +560,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
@@ -610,8 +598,10 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbl_hoadontbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadontbl_hoadonMouseClicked
+        int tt = cbo_trangthai.getSelectedIndex();
+        
         int row = tbl_hoadon.getSelectedRow();
-        hdb = hoaDonBanService.getListHoaDonBan();
+        hdb = hoaDonBanService.pageListHoaDon(paging.getCurrent(), pageSize, txtSearchHD.getText(), tt);
         HoaDonBan hoaDonBan = listPaginghd.get(row);
         hdct = hoaDonBanService.getHoaDonChiTietByHD(hoaDonBan.getId());
         loadHoaDonChiTiet(hdct);
@@ -634,36 +624,16 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_hoadontbl_hoadonMouseClicked
 
     private void txtSearchHDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchHDKeyReleased
-        // TODO add your handling code here:
-        searchHD();
+        loadPagination();
     }//GEN-LAST:event_txtSearchHDKeyReleased
 
     private void cbo_trangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaiActionPerformed
-        int index = cbo_trangthai.getSelectedIndex();
-        System.out.println(index);
-        int tt = 0;
-        if (index == 0) {
-            tt = 2;
-        } else if (index == 1) {
-            tt = 1;
-        } else if (index == 2) {
-            tt = 0;
-        } else {
-            hdct = new HDCTImpl().getAllByTrangThai(3);
-            loadHoaDonChiTiet(hdct);
-            loadHoaDon(new ArrayList<>());
-            return;
-        }
-
-        hdb = hoaDonBanService.getListByTrangThai(tt);
-        System.out.println(hdb);
-        listPaginghd = hdb;
-        loadHoaDon(hdb);
+        loadPagination();
     }//GEN-LAST:event_cbo_trangthaiActionPerformed
 
     private void tbl_khachhangtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangtbl_hoadonMouseClicked
         int row = tbl_khachhang.getSelectedRow();
-        //   kh = khachHangService.getAllByTrangThai(WIDTH);
+        listPagingkh = khachHangService.pageListKhachHang(paging.getCurrent(), pageSize, txtSearchKH.getText());
         KhachHang khachHang = listPagingkh.get(row);
         hdb = hoaDonBanService.getHoaDonByKH(khachHang.getId());
         loadHD(hdb);
@@ -688,29 +658,9 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tbl_khachhangtbl_hoadonMouseClicked
 
-    private void txtSearchKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchKHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchKHActionPerformed
-
     private void txtSearchKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKHKeyReleased
-        // TODO add your handling code here:
-        searchKH();
+        loadPageKhachHang();
     }//GEN-LAST:event_txtSearchKHKeyReleased
-
-    private void cbo_trangthaikhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_trangthaikhActionPerformed
-        // TODO add your handling code here:
-        int index = cbo_trangthaikh.getSelectedIndex();
-        System.out.println(index);
-        int tt = 0;
-        if (index == 0) {
-            tt = 1;
-        } else if (index == 1) {
-            tt = 0;
-        }
-        kh = khachHangService.getAllByTrangThai(tt);
-        listPagingkh = kh;
-        loadKhachHang(kh);
-    }//GEN-LAST:event_cbo_trangthaikhActionPerformed
 
     private void tbl_hdtbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hdtbl_hoadonMouseClicked
         // TODO add your handling code here:
@@ -758,6 +708,80 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             };
 
             model.addRow(rowData);
+        }
+    }
+    public void loadPagination() {
+        String search = txtSearchHD.getText();
+        int tt = cbo_trangthai.getSelectedIndex();
+        totalProducts = hoaDonBanService.filterProductHoaDon(search, tt).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        paginationHD.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            paginationHD.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(hoaDonBanService.pageListHoaDon(paging.getTotalPage(), pageSize, search, tt));
+        } else {
+            paginationHD.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(hoaDonBanService.pageListHoaDon(paging.getCurrent(), pageSize, search, tt));
+        }
+
+        paginationHD.addEventPagination(new EventPagination() {
+            @Override
+            public void pageChanged(int page) {
+                loadTable(hoaDonBanService.pageListHoaDon(page, pageSize, search, tt));
+                paging.setCurrent(page);
+            }
+        });
+    }
+
+    public void loadTable(List<HoaDonBan> ctsp) {
+        DefaultTableModel dtm = (DefaultTableModel) tbl_hoadon.getModel();
+        dtm.setRowCount(0);
+
+        for (HoaDonBan x : ctsp) {
+            Object[] rowData = {
+                x.getNhanVien().getTenNV(),x.getKhachHang().getTenKH(),x.getMaHDB(),
+                x.getNgayTao(),x.getNgayThanhToan(),x.getNguoiNhan(),x.getSdt(),
+                x.getDiaChi(),x.trangthai()
+            };
+            dtm.addRow(rowData);
+        }
+    }
+    
+    public void loadPageKhachHang() {
+        String search = txtSearchKH.getText();
+        totalProducts = khachHangService.filterProductKhachHang(search).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        paginationKH.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            paginationKH.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTableKH(khachHangService.pageListKhachHang(paging.getTotalPage(), pageSize, search));
+        } else {
+            paginationKH.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTableKH(khachHangService.pageListKhachHang(paging.getCurrent(), pageSize, search));
+        }
+
+        paginationKH.addEventPagination((int page) -> {
+            loadTableKH(khachHangService.pageListKhachHang(page, pageSize, search));
+            paging.setCurrent(page);
+        });
+    }
+
+    public void loadTableKH(List<KhachHang> kh) {
+        DefaultTableModel dtm = (DefaultTableModel) tbl_khachhang.getModel();
+        dtm.setRowCount(0);
+
+        for (KhachHang x : kh) {
+            Object[] rowData = {
+                x.getMaKH(), x.getTenKH(), x.getGioiTinh() == true ? "Nam":"Nữ", x.getDiaChi(),
+                x.getSdt(), x.getEmail(), x.getTrangThai()
+            };
+            dtm.addRow(rowData);
         }
     }
 
@@ -816,82 +840,17 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         }
     }
 
-    void searchHD() {
-        DefaultTableModel tb = (DefaultTableModel) tbl_hoadon.getModel();
-        tb.setRowCount(0);
 
-        List<HoaDonBan> ct = hoaDonBanService.getListHoaDonBan();
-        for (HoaDonBan hd : ct) {
-            if (hd.getKhachHang().getTenKH().toLowerCase().contains(txtSearchHD.getText().trim().toLowerCase())
-                    || hd.getMaHDB().toLowerCase().contains(txtSearchHD.getText().trim().toLowerCase())) {
-                tb.addRow(new Object[]{
-                    hd.getNhanVien().getTenNV(),
-                    hd.getKhachHang().getTenKH(),
-                    hd.getMaHDB(),
-                    hd.getNgayTao(),
-                    hd.getNgayThanhToan(),
-                    hd.getNguoiNhan(),
-                    hd.getSdt(),
-                    hd.getDiaChi(),
-                    hd.getTrangThai()
-                });
-            }
-        }
-    }
 
-    void searchKH() {
-        DefaultTableModel tb = (DefaultTableModel) tbl_khachhang.getModel();
-        tb.setRowCount(0);
 
-        List<KhachHang> list = hoaDonBanService.getListKhach(1);
-        for (KhachHang kh : list) {
-            if (kh.getTenKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())
-                    || kh.getMaKH().toLowerCase().contains(txtSearchKH.getText().trim().toLowerCase())) {
-                tb.addRow(new Object[]{
-                    kh.getMaKH(),
-                    kh.getTenKH(),
-                    kh.getGioiTinh() == true ? "Nam" : "Nữ",
-                    kh.getDiaChi(),
-                    kh.getSdt(),
-                    kh.getEmail(),
-                    kh.getTrangThai() == 0 ? "Dừng Hoạt Động" : "Đang Hoạt Động"
-                });
-            }
-        }
-    }
 
-//    List<HoaDonBan> getListByCurrentPageHD() {
-//        totalItem = hdb.size();
-//        numPage = (totalItem - 1) / itemPerpage + 1;
-//        pageIndex_hd.setText(currentPage + "/" + numPage);
-//        int start = (currentPage - 1) * itemPerpage;
-//        int end = start + itemPerpage;
-//        if (end > totalItem) {
-//            end = totalItem;
-//        }
-//        return listPaginghd.subList(start, end);
-//    }
-
-//    List<KhachHang> getListByCurrentPageKH() {
-//        totalItemkh = kh.size();
-//        numPagekh = (totalItemkh - 1) / itemPerpagekh + 1;
-//    //    pageIndex_kh.setText(currentPagekh + "/" + numPagekh);
-//        int start = (currentPagekh - 1) * itemPerpagekh;
-//        int end = start + itemPerpagekh;
-//        if (end > totalItemkh) {
-//            end = totalItemkh;
-//        }
-//        return listPagingkh.subList(start, end);
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbo_trangthai;
-    private javax.swing.JComboBox<String> cbo_trangthaikh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
@@ -939,6 +898,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_tennv;
     private javax.swing.JLabel lbl_trangthai;
     private javax.swing.JLabel lbl_trangthaikh;
+    private pagination.Pagination paginationHD;
+    private pagination.Pagination paginationKH;
     private javax.swing.JTable tbl_hd;
     private javax.swing.JTable tbl_hoadon;
     private javax.swing.JTable tbl_hoadonchitiet;

@@ -353,8 +353,48 @@ public class HoaDonBanRepository {
         return hdbs;
     }
 
+    
+        public List<HoaDonBan> pageListHoaDon(int position, int pageSize, String maHD, int tt) {
+        List<HoaDonBan> hdbs;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb"
+                + " WHERE (hdb.maHDB LIKE :hdb or :hdb is null or :hdb = '')"
+                + "AND (hdb.trangThai =: tt or :tt is null or :tt = 0)"
+                + "ORDER BY hdb.id DESC");
+        query.setParameter("hdb", "%" + maHD + "%");
+        query.setParameter("tt",  tt);
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        hdbs = query.getResultList();
+        return hdbs;
+    }
+
+    public List<HoaDonBan> filterProductHoaDon(String maHD, int tt) {
+        List<HoaDonBan> hdbs;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb "
+                + " WHERE (hdb.maHDB LIKE :hdb or :hdb is null or :hdb = '')"
+                + "AND (hdb.trangThai =: tt or :tt is null or :tt = 0)"
+                + "ORDER BY hdb.id DESC");
+        query.setParameter("hdb", "%" + maHD + "%");
+        query.setParameter("tt", tt );
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        hdbs = query.getResultList();
+
+        return hdbs;
+    }
     public static void main(String[] args) {
-        List<HoaDonBan> list = new HoaDonBanRepository().pageListTraHang(2, 5, null);
+        List<HoaDonBan> list = new HoaDonBanRepository().pageListHoaDon(2, 5, null, 0);
         for (HoaDonBan chiTietSanPham : list) {
             System.out.println(chiTietSanPham.getMaHDB());
         }

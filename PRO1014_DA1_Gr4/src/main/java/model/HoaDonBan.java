@@ -172,7 +172,7 @@ public class HoaDonBan implements Serializable {
     public String trangthai() {
         String trangThai = null;
         if (this.trangThai == 0) {
-            return trangThai = "Đã Hủy";
+            return trangThai = "Đã h?y";
         } else if (this.trangThai == 1) {
             return trangThai = "Chưa Thanh Toán";
         } else if (this.trangThai == 2) {

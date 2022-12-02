@@ -64,5 +64,9 @@ public interface IHoaDonService {
     List<HoaDonBan> pageListTraHang(int position, int pageSize, String maHD);
 
     List<HoaDonBan> filterProductTraHang(String maHD);
+    
+    List<HoaDonBan> pageListHoaDon(int position, int pageSize, String maHD, int tt);
+    
+    List<HoaDonBan> filterProductHoaDon(String maHD, int tt);
 
 }
