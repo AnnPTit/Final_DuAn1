@@ -50,10 +50,10 @@ public class Login extends javax.swing.JFrame {
         lbnMesMa = new javax.swing.JLabel();
         lbnMesPass = new javax.swing.JLabel();
         lbnMes = new javax.swing.JLabel();
-        btnForget = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        btnForget = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -105,18 +105,6 @@ public class Login extends javax.swing.JFrame {
         lbnMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel2.add(lbnMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 210, 60));
 
-        btnForget.setBackground(new java.awt.Color(153, 204, 255));
-        btnForget.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnForget.setForeground(new java.awt.Color(255, 255, 255));
-        btnForget.setText("Forget Password ?");
-        btnForget.setBorder(null);
-        btnForget.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForgetActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 170, 30));
-
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 150, -1));
 
@@ -125,6 +113,15 @@ public class Login extends javax.swing.JFrame {
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 150, -1));
+
+        btnForget.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnForget.setText("Forget Password ?");
+        btnForget.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnForgetMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 246, 130, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -230,14 +227,14 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgetActionPerformed
-        this.dispose();
-        new QuenMatKhau().setVisible(true);
-    }//GEN-LAST:event_btnForgetActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnForgetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgetMouseClicked
+        this.dispose();
+        new QuenMatKhau().setVisible(true);
+    }//GEN-LAST:event_btnForgetMouseClicked
 
     /**
      * @param args the command line arguments
@@ -282,7 +279,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnForget;
+    private javax.swing.JLabel btnForget;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
