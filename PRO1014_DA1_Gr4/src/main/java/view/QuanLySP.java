@@ -32,6 +32,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import pagination.EventPagination;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import utilities.ExportExcel;
 import utilities.ImportExcel;
 import service.ICTSPService;
@@ -62,25 +65,77 @@ public class QuanLySP extends javax.swing.JPanel {
     ChatLieu chatLieuF = null;
     Mau mauF = null;
     NSX nsxF = null;
+    private ICTSPService ctspService;
 
     int index = 0;
 
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
+
     public QuanLySP() {
         initComponents();
-        initComponents();
-
+        ctspService = new CTSPImpl();
         loadSanPham(sp);
         ctsp = ctspSer.getAll();
         listCTSP = ctspSer.getAll();
-        loadChiTietSanPham(listCTSP);
+//        loadChiTietSanPham(listCTSP);
         loadCbSanPham();
         loadCbDanhMuc();
         loadCbChatLieu();
         loadCbMauSac();
         loadCbNSX();
-        // loadCbxFindDanhMuc();
         loadAllCBFind();
-//        txtMa.setEnabled(false);
+        loadPagination();
+        pagination.setPaginationItemRender(new PaginationItemRenderStyle1());
+        pagination.setPagegination(1, paging.getTotalPage());
+    }
+
+    public void loadPagination() {
+        String search = txtSearch.getText();
+        String tenDM = cbxFindDanhMuc.getSelectedItem().toString();
+        String tenCL = cbxFindChatLieu.getSelectedItem().toString();
+        String tenMau = cbxFindMauSac.getSelectedItem().toString();
+        String tenNSX = cbxFindNSX.getSelectedItem().toString();
+
+        totalProducts = ctspService.filterProduct(search, tenDM, tenCL, tenMau, tenNSX).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        pagination.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            pagination.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(ctspService.pageList(paging.getTotalPage(), pageSize, search, tenDM, tenCL, tenMau, tenNSX));
+        } else {
+            pagination.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(ctspService.pageList(paging.getCurrent(), pageSize, search, tenDM, tenCL, tenMau, tenNSX));
+        }
+
+//        System.out.println(totalProducts);
+        pagination.addEventPagination(new EventPagination() {
+            @Override
+            public void pageChanged(int page) {
+                loadTable(ctspService.pageList(page, pageSize, search, tenDM, tenCL, tenMau, tenNSX));
+                paging.setCurrent(page);
+            }
+        });
+    }
+
+    public void loadTable(List<ChiTietSanPham> ctsp) {
+        DefaultTableModel dtm = (DefaultTableModel) tbSanPham.getModel();
+        dtm.setRowCount(0);
+
+        for (ChiTietSanPham x : ctsp) {
+            Object[] rowData = {
+                x.getId(), x.getMa(), x.getSanPham().getTenSP(),
+                x.getDanhMuc().getTenDM(), x.getChatLieu().getTenCL(),
+                x.getMauSac().getTenMau(), x.getNhaSanXuat().getTenNSX(),
+                x.getSoLuongTon(), x.getGiaNhap(), x.getGiaBan(),
+                x.getMoTa(), x.getNgayTao(), x.getNgaySua(), x.getTrangThai() == 1 ? "Dang kinh doanh" : "Ngung kinh doanh"
+            };
+            dtm.addRow(rowData);
+        }
     }
 
     /**
@@ -135,6 +190,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbxFindMauSac = new javax.swing.JComboBox<>();
         cbxFindNSX = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
+        pagination = new pagination.Pagination();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -348,6 +404,11 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jPanel7.border.title"))); // NOI18N
 
         txtSearch.setBorder(null);
+        txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtSearchCaretUpdate(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -473,14 +534,6 @@ public class QuanLySP extends javax.swing.JPanel {
                 tbSanPhamMouseClicked(evt);
             }
         });
-        tbSanPham.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbSanPhamKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbSanPhamKeyReleased(evt);
-            }
-        });
         jScrollPane5.setViewportView(tbSanPham);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -513,6 +566,10 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42))
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(563, 563, 563)
+                .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,7 +580,9 @@ public class QuanLySP extends javax.swing.JPanel {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(50, 50, 50)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(698, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(650, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab(org.openide.util.NbBundle.getMessage(QuanLySP.class, "QuanLySP.jPanel16.TabConstraints.tabTitle"), jPanel16); // NOI18N
@@ -725,7 +784,7 @@ public class QuanLySP extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -739,7 +798,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (validateSanPham()) {
             String result = new CTSPImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            loadChiTietSanPham(ctspSer.getAll());
+            loadPagination();
             clearCTSP();
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -755,7 +814,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (validateSanPham()) {
             String result = new CTSPImpl().update(getDataCTSP(), id);
             JOptionPane.showMessageDialog(this, result);
-            loadChiTietSanPham(ctspSer.getAll());
+            loadPagination();
             clearCTSP();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -770,7 +829,7 @@ public class QuanLySP extends javax.swing.JPanel {
 
         String result = new CTSPImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        loadChiTietSanPham(ctspSer.getAll());
+        loadPagination();
         clearCTSP();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -797,12 +856,18 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByName();
+        loadPagination();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void tbSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSanPhamMouseClicked
+        String search = txtSearch.getText();
+        String tenDM = cbxFindDanhMuc.getSelectedItem().toString();
+        String tenCL = cbxFindChatLieu.getSelectedItem().toString();
+        String tenMau = cbxFindMauSac.getSelectedItem().toString();
+        String tenNSX = cbxFindNSX.getSelectedItem().toString();
+
         int row = tbSanPham.getSelectedRow();
-        listCTSP = ctspSer.getAll();
+        listCTSP = ctspSer.pageList(paging.getCurrent(), pageSize, search, tenDM, tenCL, tenMau, tenNSX);
         ChiTietSanPham ct = listCTSP.get(row);
         txtMaSP.setText(ct.getMa());
         cbSP.setSelectedItem(ct.getSanPham());
@@ -815,14 +880,6 @@ public class QuanLySP extends javax.swing.JPanel {
         txtGiaBan.setText(String.valueOf(ct.getGiaBan()));
         txtMoTa.setText(String.valueOf(ct.getMoTa()));
     }//GEN-LAST:event_tbSanPhamMouseClicked
-
-    private void tbSanPhamKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSanPhamKeyPressed
-
-    }//GEN-LAST:event_tbSanPhamKeyPressed
-
-    private void tbSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSanPhamKeyReleased
-
-    }//GEN-LAST:event_tbSanPhamKeyReleased
 
     private void cbbAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbAllActionPerformed
         String text = cbbAll.getSelectedItem().toString();
@@ -989,76 +1046,79 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_tbThuocTinhMouseClicked
 
     private void cbxFindDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindDanhMucActionPerformed
-        // DanhMuc danhMuc = null;
-        if (cbxFindDanhMuc.getSelectedIndex() == 0) {
-            danhMucF = null;
-
-        } else {
-            danhMucF = (DanhMuc) cbxFindDanhMuc.getSelectedItem();
-        }
-        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
-        List<ChiTietSanPham> listResult = new ArrayList<>();
-        for (ChiTietSanPham chiTietSanPham : list) {
-            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
-            listResult.add(ctsp);
-        }
-
-        loadChiTietSanPham(listResult);
-
-
+//        // DanhMuc danhMuc = null;
+//        if (cbxFindDanhMuc.getSelectedIndex() == 0) {
+//            danhMucF = null;
+//
+//        } else {
+//            danhMucF = (DanhMuc) cbxFindDanhMuc.getSelectedItem();
+//        }
+//        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+//        List<ChiTietSanPham> listResult = new ArrayList<>();
+//        for (ChiTietSanPham chiTietSanPham : list) {
+//            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+//            listResult.add(ctsp);
+//        }
+//
+//        loadChiTietSanPham(listResult);
+        loadPagination();
     }//GEN-LAST:event_cbxFindDanhMucActionPerformed
 
     private void cbxFindChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindChatLieuActionPerformed
-        if (cbxFindChatLieu.getSelectedIndex() == 0) {
-            chatLieuF = null;
-
-        } else {
-            chatLieuF = (ChatLieu) cbxFindChatLieu.getSelectedItem();
-        }
-
-        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
-        List<ChiTietSanPham> listResult = new ArrayList<>();
-        for (ChiTietSanPham chiTietSanPham : list) {
-            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
-            listResult.add(ctsp);
-        }
-
-        loadChiTietSanPham(listResult);
-
+//        if (cbxFindChatLieu.getSelectedIndex() == 0) {
+//            chatLieuF = null;
+//
+//        } else {
+//            chatLieuF = (ChatLieu) cbxFindChatLieu.getSelectedItem();
+//        }
+//
+//        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+//        List<ChiTietSanPham> listResult = new ArrayList<>();
+//        for (ChiTietSanPham chiTietSanPham : list) {
+//            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+//            listResult.add(ctsp);
+//        }
+//
+//        loadChiTietSanPham(listResult);
+        loadPagination();
     }//GEN-LAST:event_cbxFindChatLieuActionPerformed
 
     private void cbxFindMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindMauSacActionPerformed
-        if (cbxFindMauSac.getSelectedIndex() == 0) {
-            mauF = null;
+//        if (cbxFindMauSac.getSelectedIndex() == 0) {
+//            mauF = null;
+//
+//        } else {
+//            mauF = (Mau) cbxFindMauSac.getSelectedItem();
+//        }
+//
+//        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+//        List<ChiTietSanPham> listResult = new ArrayList<>();
+//        for (ChiTietSanPham chiTietSanPham : list) {
+//            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+//            listResult.add(ctsp);
+//        }
+//
+//        loadChiTietSanPham(listResult);
 
-        } else {
-            mauF = (Mau) cbxFindMauSac.getSelectedItem();
-        }
-
-        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
-        List<ChiTietSanPham> listResult = new ArrayList<>();
-        for (ChiTietSanPham chiTietSanPham : list) {
-            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
-            listResult.add(ctsp);
-        }
-
-        loadChiTietSanPham(listResult);
+        loadPagination();
     }//GEN-LAST:event_cbxFindMauSacActionPerformed
 
     private void cbxFindNSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFindNSXActionPerformed
-        if (cbxFindNSX.getSelectedIndex() == 0) {
-            nsxF = null;
-        } else {
-            nsxF = (NSX) cbxFindNSX.getSelectedItem();
-        }
+//        if (cbxFindNSX.getSelectedIndex() == 0) {
+//            nsxF = null;
+//        } else {
+//            nsxF = (NSX) cbxFindNSX.getSelectedItem();
+//        }
+//
+//        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
+//        List<ChiTietSanPham> listResult = new ArrayList<>();
+//        for (ChiTietSanPham chiTietSanPham : list) {
+//            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
+//            listResult.add(ctsp);
+//        }
+//        loadChiTietSanPham(listResult);
 
-        List<ChiTietSanPham> list = ctspSer.getChiTietSanPhamByComBoBox(danhMucF, chatLieuF, mauF, nsxF);
-        List<ChiTietSanPham> listResult = new ArrayList<>();
-        for (ChiTietSanPham chiTietSanPham : list) {
-            ChiTietSanPham ctsp = ctspSer.getAllByID(chiTietSanPham.getId());
-            listResult.add(ctsp);
-        }
-        loadChiTietSanPham(listResult);
+        loadPagination();
     }//GEN-LAST:event_cbxFindNSXActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -1068,6 +1128,10 @@ public class QuanLySP extends javax.swing.JPanel {
         txtGiaNhap.setText("");
         txtMoTa.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
+        searchByName();
+    }//GEN-LAST:event_txtSearchCaretUpdate
 
     // Update QLSP
     void loadCbSanPham() {
@@ -1123,7 +1187,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbxFindDanhMuc.setModel((DefaultComboBoxModel) findDanhMucBoxModel);
         findDanhMucBoxModel.removeAllElements();
         DanhMuc danhMuc = new DanhMuc();
-        danhMuc.setTenDM("Tất Cả Danh Mục");
+        danhMuc.setTenDM("All");
         findDanhMucBoxModel.addElement(danhMuc);
         for (DanhMuc dm : new DanhMucImpl().getAll()) {
             findDanhMucBoxModel.addElement(dm);
@@ -1134,7 +1198,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbxFindChatLieu.setModel((DefaultComboBoxModel) findChatLieuBoxModel);
         findChatLieuBoxModel.removeAllElements();
         ChatLieu chatLieu = new ChatLieu();
-        chatLieu.setTenCL("Tất cả chất liệu");
+        chatLieu.setTenCL("All");
         findChatLieuBoxModel.addElement(chatLieu);
         for (ChatLieu cl : new ChatLieuImpl().getAll()) {
             findChatLieuBoxModel.addElement(cl);
@@ -1145,7 +1209,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbxFindMauSac.setModel((DefaultComboBoxModel) findMauBoxModel);
         findMauBoxModel.removeAllElements();
         Mau mau1 = new Mau();
-        mau1.setTenMau("Tất Cả Màu");
+        mau1.setTenMau("All");
         findMauBoxModel.addElement(mau1);
         for (Mau mau : new MauSacImpl().getAll()) {
             findMauBoxModel.addElement(mau);
@@ -1156,7 +1220,7 @@ public class QuanLySP extends javax.swing.JPanel {
         cbxFindNSX.setModel((DefaultComboBoxModel) findNSXBoxModel);
         findNSXBoxModel.removeAllElements();
         NSX nsx1 = new NSX();
-        nsx1.setTenNSX("Tất Cả NSX");
+        nsx1.setTenNSX("All");
         findNSXBoxModel.addElement(nsx1);
         for (NSX nsx : new NSXImpl().getAll()) {
             findNSXBoxModel.addElement(nsx);
@@ -1168,7 +1232,6 @@ public class QuanLySP extends javax.swing.JPanel {
         loadCbxFindDanhMuc();
         loadCbxFindMauSac();
         loadCbxFindNSX();
-
     }
 
 //===============================================================================
@@ -1445,10 +1508,18 @@ public class QuanLySP extends javax.swing.JPanel {
     }
 
     void searchByName() {
+        String search = txtSearch.getText();
+        String tenDM = cbxFindDanhMuc.getSelectedItem().toString();
+        String tenCL = cbxFindChatLieu.getSelectedItem().toString();
+        String tenMau = cbxFindMauSac.getSelectedItem().toString();
+        String tenNSX = cbxFindNSX.getSelectedItem().toString();
+
+        listCTSP = ctspSer.pageList(paging.getCurrent(), pageSize, search, tenDM, tenCL, tenMau, tenNSX);
+
         DefaultTableModel tb = (DefaultTableModel) tbSanPham.getModel();
         tb.setRowCount(0);
 
-        List<ChiTietSanPham> ct = ctspSer.getAll();
+        List<ChiTietSanPham> ct = ctspSer.pageList(paging.getCurrent(), pageSize, search, tenDM, tenCL, tenMau, tenNSX);
         for (ChiTietSanPham x : ct) {
             if (x.getSanPham().getTenSP().toLowerCase().contains(txtSearch.getText().trim().toLowerCase())) {
                 tb.addRow(x.toDataRow());
@@ -1626,6 +1697,7 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane5;
+    private pagination.Pagination pagination;
     private javax.swing.JTable tbSanPham;
     private javax.swing.JTable tbThuocTinh;
     private javax.swing.JTextField txtGiaBan;

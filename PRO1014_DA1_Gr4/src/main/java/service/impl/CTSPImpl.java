@@ -108,4 +108,19 @@ public class CTSPImpl implements ICTSPService {
         }
     }
 
+    @Override
+    public long countAllProducts() {
+        return ctspRepo.totalCount();
+    }
+
+    @Override
+    public List<ChiTietSanPham> pageList(int position, int pageSize, String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX) {
+        return ctspRepo.pageList(position, pageSize, tenSP, tenDM, tenCL, tenMau, tenNSX);
+    }
+
+    @Override
+    public List<ChiTietSanPham> filterProduct(String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX) {
+        return ctspRepo.filterProduct(tenSP, tenDM, tenCL, tenMau, tenNSX);
+    }
+
 }
