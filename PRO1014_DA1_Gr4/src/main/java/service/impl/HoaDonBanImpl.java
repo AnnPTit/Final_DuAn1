@@ -178,4 +178,14 @@ public class HoaDonBanImpl implements IHoaDonService {
         }
     }
 
+    @Override
+    public List<HoaDonBan> pageListTraHang(int position, int pageSize, String maHD) {
+        return hdr.pageListTraHang(position, pageSize, maHD);
+    }
+
+    @Override
+    public List<HoaDonBan> filterProductTraHang(String maHD) {
+        return hdr.filterProductTraHang(maHD);
+    }
+
 }

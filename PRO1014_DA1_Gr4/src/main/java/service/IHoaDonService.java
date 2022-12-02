@@ -61,4 +61,8 @@ public interface IHoaDonService {
 
     List<HoaDonBan> getHoaDonByKH(int IdKH);
 
+    List<HoaDonBan> pageListTraHang(int position, int pageSize, String maHD);
+
+    List<HoaDonBan> filterProductTraHang(String maHD);
+
 }

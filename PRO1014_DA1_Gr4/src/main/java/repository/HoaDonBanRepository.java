@@ -38,7 +38,6 @@ public class HoaDonBanRepository {
         return ds;
     }
 
- 
     public ArrayList<HoaDonBan> getAllByMa(String ma) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
         Query q = se.createQuery("From HoaDonBan  where trangThai =2 and maHDB=: ma order by id desc");
@@ -204,7 +203,8 @@ public class HoaDonBanRepository {
         }
         return false;
     }
-     public Boolean updateTrangThaiHoaDonChiTietbyIDHDCT(int id, int trangThai) {
+
+    public Boolean updateTrangThaiHoaDonChiTietbyIDHDCT(int id, int trangThai) {
         Transaction transision = null;
         Integer check = 0;
         try ( Session session = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
@@ -253,7 +253,8 @@ public class HoaDonBanRepository {
         }
         return false;
     }
-     public Boolean updateSoLuongHDCTbyIDHDCT(int idHDCT, int soLuong) {
+
+    public Boolean updateSoLuongHDCTbyIDHDCT(int idHDCT, int soLuong) {
         Transaction transision = null;
         Integer check = 0;
         try ( Session session = HibernateConfig.getFACTORY().openSession()) {
@@ -313,32 +314,50 @@ public class HoaDonBanRepository {
             return null;
         }
     }
-    
-        public List<ChiTietSanPham> pageList(int position, int pageSize, String tenSP, String tenDM, String tenCL, String tenMau, String tenNSX) {
-        List<ChiTietSanPham> ctsp;
+
+    public List<HoaDonBan> pageListTraHang(int position, int pageSize, String maHD) {
+        List<HoaDonBan> hdbs;
         EntityManager em = ses.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query query = em.createQuery("SELECT ctsp FROM ChiTietSanPham ctsp"
-                + " WHERE (ctsp.sanPham.tenSP LIKE :sp or :sp is null or :sp = '')"
-                + "AND (ctsp.danhMuc.tenDM=:dm or :dm is null or :dm = 'All')"
-                + "AND (ctsp.chatLieu.tenCL=:cl or :cl is null or :cl = 'All')"
-                + "AND (ctsp.mauSac.tenMau=:mau or :mau is null or :mau = 'All')"
-                + "AND (ctsp.nhaSanXuat.tenNSX=:nsx or :nsx is null or :nsx = 'All')"
-                + "ORDER BY ctsp.id DESC");
-        query.setParameter("sp", "%" + tenSP + "%");
-        query.setParameter("dm", tenDM);
-        query.setParameter("cl", tenCL);
-        query.setParameter("mau", tenMau);
-        query.setParameter("nsx", tenNSX);
+        Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb"
+                + " WHERE (hdb.maHDB LIKE :sp or :sp is null or :sp = '')"
+                + "AND hdb.trangThai =2"
+                + "ORDER BY hdb.id DESC");
+        query.setParameter("sp", "%" + maHD + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         int pageIndex = position - 1 < 0 ? 0 : position - 1;
         int fromRecordIndex = pageIndex * pageSize;
         query.setFirstResult(fromRecordIndex);
         query.setMaxResults(pageSize);
-        ctsp = query.getResultList();
-
-        return ctsp;
+        hdbs = query.getResultList();
+        return hdbs;
     }
+
+    public List<HoaDonBan> filterProductTraHang(String maHD) {
+        List<HoaDonBan> hdbs;
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb "
+                + " WHERE (hdb.maHDB LIKE :sp or :sp is null or :sp = '')"
+                + "AND hdb.trangThai =2"
+                + "ORDER BY hdb.id DESC");
+        query.setParameter("sp", "%" + maHD + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        hdbs = query.getResultList();
+
+        return hdbs;
+    }
+
+    public static void main(String[] args) {
+        List<HoaDonBan> list = new HoaDonBanRepository().pageListTraHang(2, 5, null);
+        for (HoaDonBan chiTietSanPham : list) {
+            System.out.println(chiTietSanPham.getMaHDB());
+        }
+    }
+
 }

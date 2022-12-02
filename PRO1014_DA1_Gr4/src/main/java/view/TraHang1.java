@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
+import pagination.EventPagination;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import service.ICTSPService;
 import service.IHDCTService;
 import service.IHoaDonService;
@@ -35,15 +38,58 @@ public class TraHang1 extends javax.swing.JPanel {
     List<HoaDonChiTiet> listHDCT = new ArrayList<>();
     List<HoaDonChiTiet> listTra = new ArrayList<>();
     int click = 0;
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
 
     public TraHang1() {
         initComponents();
         modelHD = (DefaultTableModel) tblHoaDon.getModel();
         modelSP = (DefaultTableModel) tblSanPham.getModel();
         listHoaDon = hoaDonService.getListByTrangThai(2);
-        loadTableHoaDon(listHoaDon);
+        loadPagination();
         if (lbTienHoanTra.getText().trim().isBlank()) {
             btnTraHang.setEnabled(false);
+        }
+        pagination.setPaginationItemRender(new PaginationItemRenderStyle1());
+        pagination.setPagegination(1, paging.getTotalPage());
+    }
+
+    public void loadPagination() {
+        String search = searchOnKey.getText();
+
+        totalProducts = hoaDonService.filterProductTraHang(search).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        pagination.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            pagination.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(hoaDonService.pageListTraHang(paging.getTotalPage(), pageSize, search));
+        } else {
+            pagination.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(hoaDonService.pageListTraHang(paging.getCurrent(), pageSize, search));
+        }
+
+        pagination.addEventPagination(new EventPagination() {
+            @Override
+            public void pageChanged(int page) {
+                loadTable(hoaDonService.pageListTraHang(page, pageSize, search));
+                paging.setCurrent(page);
+            }
+        });
+    }
+
+    public void loadTable(List<HoaDonBan> ctsp) {
+        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
+        dtm.setRowCount(0);
+
+        for (HoaDonBan x : ctsp) {
+            Object[] rowData = {
+                x.getId(), x.getMaHDB(), x.getKhachHang().getTenKH(), x.getNhanVien().getTenNV(), x.getNgayTao(), x.getNgayThanhToan(), x.getTrangThai()
+            };
+            dtm.addRow(rowData);
         }
     }
 
@@ -67,17 +113,6 @@ public class TraHang1 extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 hd.getId(),
                 hd.getChiTietSanPham().getSanPham().getTenSP(), hd.getSoLuong(),});
-        }
-    }
-
-    private void loadTableHoaDon(List<HoaDonBan> list) {
-        //   DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        modelHD.setRowCount(0);
-        for (HoaDonBan a : list) {
-            modelHD.addRow(new Object[]{a.getId(),
-                a.getMaHDB(), a.getKhachHang().getTenKH(), a.getNhanVien().getTenNV(),
-                a.getNgayTao(), a.getNgayThanhToan(), a.trangthai()
-            });
         }
     }
 
@@ -108,6 +143,7 @@ public class TraHang1 extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
+        pagination = new pagination.Pagination();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblSpTra = new javax.swing.JTable();
@@ -210,6 +246,11 @@ public class TraHang1 extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.jPanel1.border.title_1"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         searchOnKey.setText(org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.searchOnKey.text")); // NOI18N
+        searchOnKey.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchOnKeyKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -271,13 +312,18 @@ public class TraHang1 extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -458,7 +504,7 @@ public class TraHang1 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -589,7 +635,8 @@ public class TraHang1 extends javax.swing.JPanel {
         loadTableDanhSachSp(listHDCT);
         clear();
         loadTableDanhSachTra(new ArrayList<>());
-        loadTableHoaDon(hoaDonService.getListByTrangThai(2));
+        // loadTableHoaDon(hoaDonService.getListByTrangThai(2));
+        loadPagination();
     }//GEN-LAST:event_btnTraHangActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -616,6 +663,10 @@ public class TraHang1 extends javax.swing.JPanel {
         loadTableDanhSachSp(listHDCT);
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
+    private void searchOnKeyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchOnKeyKeyReleased
+        loadPagination();
+    }//GEN-LAST:event_searchOnKeyKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTra;
@@ -639,6 +690,7 @@ public class TraHang1 extends javax.swing.JPanel {
     private javax.swing.JLabel lbKhachHang;
     private javax.swing.JLabel lbMaHoaDon;
     private javax.swing.JLabel lbTienHoanTra;
+    private pagination.Pagination pagination;
     private javax.swing.JTextField searchOnKey;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblSanPham;
