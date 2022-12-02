@@ -14,7 +14,7 @@ import model.KhachHang;
 public interface IKhachHangService {
 
     public List<KhachHang> getAll();
-    
+
     public List<KhachHang> getAllKhachHang();
 
     String add(KhachHang kh);
@@ -24,8 +24,12 @@ public interface IKhachHangService {
     String updateTrangThai(Integer id);
 
     List<KhachHang> getAllByTrangThai(int trangThai);
-    
+
     KhachHang getKhachHangByMa(String ma);
-    
+
     Long getSumCustomer();
+
+    List<KhachHang> pageListKhachHang(int position, int pageSize, String tenKh);
+
+    List<KhachHang> filterProductKhachHang(String tenKh);
 }

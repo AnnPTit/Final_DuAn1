@@ -6,58 +6,75 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ChiTietSanPham;
 import model.KhachHang;
+import pagination.EventPagination;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import service.impl.KhachHangImpl;
 import service.IKhachHangService;
 
-public class QuanLyKhachHang extends javax.swing.JPanel {
-    
+public final class QuanLyKhachHang extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
-    
+
     private final IKhachHangService khSer = new KhachHangImpl();
     private List<KhachHang> kh = new ArrayList<>();
     private List<KhachHang> listKH;
-    
-    private final int itemPerpage = 5;
-    private int totalItem;
-    private int currentPage = 1;
-    private int numPage;
-    
+
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
+
     private List<KhachHang> listPaging = new ArrayList<>();
-    
+
     public QuanLyKhachHang() {
         initComponents();
-        loadKhachHang();
+//        loadKhachHang();
         listKH = khSer.getAll();
         listPaging = listKH;
-        this.btnNext.doClick();
-        totalItem = listKH.size();
-        lbTotalKhachHang.setText("Total: " + totalItem);
-        showListTarget(getListByCurrentPage());
-        
+
+        loadPagination();
+        pagination11.setPaginationItemRender(new PaginationItemRenderStyle1());
+        pagination11.setPagegination(1, paging.getTotalPage());
     }
-    
-    private void showListTarget(List<KhachHang> list) {
-        DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
-        model.setRowCount(0);
-        for (KhachHang x : list) {
-            model.addRow(x.toDataRow());
+
+    public void loadPagination() {
+        String search = txtSearch.getText();
+
+        totalProducts = khSer.filterProductKhachHang(search).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        pagination11.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            pagination11.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(khSer.pageListKhachHang(paging.getTotalPage(), pageSize, search));
+        } else {
+            pagination11.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(khSer.pageListKhachHang(paging.getCurrent(), pageSize, search));
+        }
+
+        pagination11.addEventPagination((int page) -> {
+            loadTable(khSer.pageListKhachHang(page, pageSize, search));
+            paging.setCurrent(page);
+        });
+    }
+
+    public void loadTable(List<KhachHang> kh) {
+        DefaultTableModel dtm = (DefaultTableModel) tbKhachHang.getModel();
+        dtm.setRowCount(0);
+
+        for (KhachHang x : kh) {
+            Object[] rowData = {
+                x.getId(), x.getMaKH(), x.getTenKH(), x.getGioiTinh() == true ? "Nam":"Nữ", x.getDiaChi(),
+                x.getSdt(), x.getEmail(), x.getTrangThai()
+            };
+            dtm.addRow(rowData);
         }
     }
-    
-    List<KhachHang> getListByCurrentPage() {
-        
-        totalItem = listPaging.size();
-        numPage = (totalItem - 1) / itemPerpage + 1;
-        pageIndex.setText(currentPage + "/" + numPage);
-        int start = (currentPage - 1) * itemPerpage;
-        int end = start + itemPerpage;
-        if (end > totalItem) {
-            end = totalItem;
-        }
-        return listPaging.subList(start, end);
-    }
-    
+
     void loadKhachHang() {
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
@@ -66,11 +83,11 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             model.addRow(x.toDataRow());
         }
     }
-    
+
     KhachHang getData() {
         KhachHang kh = new KhachHang();
         String ma = txtMa.getText();
-        
+
         if (ma.isBlank()) {
             ma = "KH" + (khSer.getAllKhachHang().size() + 1);
         }
@@ -120,12 +137,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
-        btnPrevious = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
         lbTotalKhachHang = new javax.swing.JLabel();
-        pageIndex = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbKhachHang = new swing.table.Table();
+        pagination11 = new pagination.Pagination();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -295,36 +310,19 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1570, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(62, 62, 62))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
-
-        btnPrevious.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(btnPrevious, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.btnPrevious.text")); // NOI18N
-        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPreviousActionPerformed(evt);
-            }
-        });
-
-        btnNext.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(btnNext, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.btnNext.text")); // NOI18N
-        btnNext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextActionPerformed(evt);
-            }
-        });
 
         lbTotalKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbTotalKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         org.openide.awt.Mnemonics.setLocalizedText(lbTotalKhachHang, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.lbTotalKhachHang.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(pageIndex, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.pageIndex.text")); // NOI18N
 
         tbKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -364,16 +362,12 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(513, 513, 513)
-                        .addComponent(btnPrevious)
-                        .addGap(106, 106, 106)
-                        .addComponent(pageIndex)
-                        .addGap(111, 111, 111)
-                        .addComponent(btnNext)
-                        .addGap(531, 531, 531)
+                        .addGap(868, 868, 868)
+                        .addComponent(pagination11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(405, 405, 405)
                         .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1586, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -385,18 +379,16 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnPrevious)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNext)
-                            .addComponent(pageIndex)))
-                    .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pagination11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(99, Short.MAX_VALUE))
         );
+
+        pagination11.getAccessibleContext().setAccessibleDescription(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.pagination11.AccessibleContext.accessibleDescription")); // NOI18N
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -418,14 +410,14 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private void tbKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMouseClicked
         int row = tbKhachHang.getSelectedRow();
-        listKH = khSer.getAll();
+        listKH = khSer.pageListKhachHang(paging.getCurrent(), pageSize, txtSearch.getText());
         KhachHang kh = listKH.get(row);
         txtMa.setText(kh.getMaKH());
         txtTen.setText(kh.getTenKH());
         txtDiaChi.setText(kh.getDiaChi());
         txtSDT.setText(kh.getSdt());
         txtEmail.setText(kh.getEmail());
-        
+
         Boolean gioiTinh = kh.getGioiTinh();
         if (gioiTinh == true) {
             rdoNam.setSelected(true);
@@ -438,11 +430,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new KhachHangImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            listKH = khSer.getAll();
-            listPaging = listKH;
-            currentPage = 1;
-            showListTarget((getListByCurrentPage()));
-            
+//            listKH = khSer.getAll();
+//            listPaging = listKH;
+
+            loadPagination();
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -453,42 +444,26 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new KhachHangImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
-            loadKhachHang();
+            loadPagination();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tbKhachHang.getSelectedRow();
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-        
+
         String result = new KhachHangImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        listKH = khSer.getAll();
-        listPaging = listKH;
-        currentPage = 1;
-        showListTarget(getListByCurrentPage());
+//        listKH = khSer.getAll();
+//        listPaging = listKH;
+        loadPagination();
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        
-        if (currentPage < numPage) {
-            currentPage++;
-            showListTarget(getListByCurrentPage());
-        }
-    }//GEN-LAST:event_btnNextActionPerformed
-
-    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        if (currentPage > 1) {
-            currentPage--;
-            showListTarget(getListByCurrentPage());
-        }
-    }//GEN-LAST:event_btnPreviousActionPerformed
-
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByPhone();
+        loadPagination();
     }//GEN-LAST:event_txtSearchKeyReleased
-    
+
     private void reset() {
         txtMa.setText("");
         txtTen.setText("");
@@ -501,7 +476,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         reset();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
         tb.setRowCount(0);
@@ -512,7 +487,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             }
         }
     }
-    
+
     KhachHang findKhachHangByMa(String ma) {
         for (KhachHang a : listKH) {
             if (a.getMaKH().equalsIgnoreCase(ma)) {
@@ -521,7 +496,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         }
         return null;
     }
-    
+
     public boolean validateForm() {
         String ma = txtMa.getText();
         KhachHang findKhachHang = findKhachHangByMa(ma);
@@ -539,25 +514,25 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống tên");
             return false;
         }
-        
+
         String diaChi = txtDiaChi.getText();
         if (diaChi.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống địa chỉ");
             return false;
         }
-        
+
         String sdt = txtSDT.getText();
         if (sdt.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống SĐT");
             return false;
         }
-        
+
         String email = txtEmail.getText();
         if (email.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống Email");
             return false;
         }
-        
+
         Pattern sodienthoai = Pattern.compile("^0+[1-9]{9}$");
         Matcher matcherFirst = sodienthoai.matcher(sdt);
 
@@ -566,14 +541,13 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Không được để trống");
 //            return false;
 //        }
-
         Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
         Matcher matcherEmail = maiL.matcher(email);
         if (!matcherFirst.matches()) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số");
             return false;
         }
-        if(!matcherEmail.matches()){
+        if (!matcherEmail.matches()) {
             JOptionPane.showMessageDialog(this, "Sai định dạng email");
             return false;
         }
@@ -583,8 +557,6 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnPrevious;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -600,7 +572,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTotalKhachHang;
-    private javax.swing.JLabel pageIndex;
+    private pagination.Pagination pagination11;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
     private swing.table.Table tbKhachHang;

@@ -9,6 +9,7 @@ import hibernateConfig.HibernateConfig;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import model.ChiTietSanPham;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -34,14 +35,14 @@ public class KhachHangRepository {
         List<KhachHang> list = query.getResultList();
         return list;
     }
-    
+
     public List<KhachHang> getAllKhachHang() {
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
         Query query = (Query) em.createQuery("From KhachHang ");
-        
+
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         @SuppressWarnings("unchecked")
@@ -135,5 +136,43 @@ public class KhachHangRepository {
         @SuppressWarnings("unchecked")
         Long list = (Long) query.getSingleResult();
         return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<KhachHang> pageListKhachHang(int position, int pageSize, String tenKh) {
+        List<KhachHang> kh;
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        javax.persistence.Query query = em.createQuery("SELECT kh FROM KhachHang kh "
+                + "WHERE kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '' "
+                + "ORDER BY kh.id DESC");
+        query.setParameter("tenKH", "%" + tenKh + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        kh = query.getResultList();
+        return kh;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<KhachHang> filterProductKhachHang(String tenKh) {
+        List<KhachHang> kh;
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        javax.persistence.Query query = em.createQuery("SELECT kh FROM KhachHang kh "
+                + "WHERE kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '' "
+                + "ORDER BY kh.id DESC");
+        query.setParameter("tenKH", "%" + tenKh + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        kh = query.getResultList();
+
+        return kh;
     }
 }

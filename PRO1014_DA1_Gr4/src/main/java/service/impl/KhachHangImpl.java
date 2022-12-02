@@ -73,4 +73,14 @@ public class KhachHangImpl implements IKhachHangService {
         return khRepo.getAllKhachHang();
     }
 
+    @Override
+    public List<KhachHang> pageListKhachHang(int position, int pageSize, String tenKh) {
+        return khRepo.pageListKhachHang(position, pageSize, tenKh);
+    }
+
+    @Override
+    public List<KhachHang> filterProductKhachHang(String tenKh) {
+        return khRepo.filterProductKhachHang(tenKh);
+    }
+
 }
