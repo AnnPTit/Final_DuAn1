@@ -5,6 +5,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.KhuyenMai;
 
@@ -27,4 +28,6 @@ public interface IKhuyenMaiService {
     KhuyenMai getKhuyenMaiByMa(String maKM);
 
     ArrayList<KhuyenMai> getAllByTrangT(int tt);
+    
+    ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet,int trangThai);
 }

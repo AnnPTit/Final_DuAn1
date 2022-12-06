@@ -5,8 +5,10 @@
 package repository;
 
 import hibernateConfig.HibernateConfig;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -14,6 +16,7 @@ import model.KhuyenMai;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.openide.util.Exceptions;
 
 /**
  *
@@ -115,8 +118,42 @@ public class KhuyenMaiRepository {
         return ds;
     }
     
+    
+    public ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet,int trangThai){
+        ArrayList<KhuyenMai> ds = new ArrayList<>();
+        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        Transaction trann = se.beginTransaction();
+        try {
+            String hql = " From KhuyenMai km where (km.ngayTao>=:ngayTao or :ngayTao is null or :ngayTao='')"
+                    + " and (km.ngayhethan<=:ngayhethan or :ngayhethan is null or :ngayhethan='')"
+                    + "and(km.trangthai =:trangThai) order by km.id desc";
+            Query q= se.createQuery(hql);
+            Date a = Date.valueOf(ngTao);
+            Date b = Date.valueOf(ngHet);
+            q.setParameter("ngayTao",a );
+            q.setParameter("ngayhethan", b);
+            q.setParameter("trangThai", trangThai);
+//            q.executeUpdate();
+            ds= (ArrayList<KhuyenMai>) q.getResultList();
+            trann.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return ds;
+    }
+    
     public static void main(String[] args) {
-        List<KhuyenMai> list = new KhuyenMaiRepository().getAllKhuyenMaiMap(1000);
+//        SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
+//        Date n1 = null;
+//        Date n2 = null;
+//        try {
+//            n1 = sdm.parse("2023-01-01");
+//            n2 = sdm.parse("2023-03-03");
+//        } catch (ParseException ex) {
+//            Exceptions.printStackTrace(ex);
+//        }
+        List<KhuyenMai> list = new KhuyenMaiRepository().searchByDate("2022-12-01","2022-12-30", 1);
         System.out.println(list);
     }
 
