@@ -224,7 +224,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane7" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane7" pref="1008" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
@@ -243,9 +243,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="429" max="32767" attributes="0"/>
-                              <Component id="paginationKH" min="-2" pref="169" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="422" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="paginationKH" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="423" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -267,7 +267,7 @@
                               <EmptySpace pref="28" max="32767" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="196" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="paginationKH" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="paginationKH" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -610,7 +610,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <EmptySpace pref="45" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -705,7 +705,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="420" max="-2" attributes="0"/>
-                              <Component id="paginationHD" min="-2" pref="169" max="-2" attributes="0"/>
+                              <Component id="paginationHD" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -733,7 +733,7 @@
                               </Group>
                               <Component id="jScrollPane6" min="-2" pref="214" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="paginationHD" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="paginationHD" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -799,9 +799,9 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
-                            <StringItem index="0" value="&#x110;&#xe3; thanh to&#xe1;n"/>
+                            <StringItem index="0" value="&#x110;&#xe3; h&#x1ee7;y"/>
                             <StringItem index="1" value="Ch&#x1b0;a thanh to&#xe1;n"/>
-                            <StringItem index="2" value="&#x110;&#xe3; h&#x1ee7;y"/>
+                            <StringItem index="2" value="&#x110;&#xe3; thanh to&#xe1;n"/>
                             <StringItem index="3" value="H&#xf3;a &#x111;&#x1a1;n tr&#x1ea3;"/>
                           </StringArray>
                         </Property>

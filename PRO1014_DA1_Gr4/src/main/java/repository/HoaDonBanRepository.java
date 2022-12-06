@@ -362,7 +362,7 @@ public class HoaDonBanRepository {
 
         Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb"
                 + " WHERE (hdb.maHDB LIKE :hdb or :hdb is null or :hdb = '')"
-                + "AND (hdb.trangThai =: tt or :tt is null or :tt = 0)"
+                + "AND (hdb.trangThai =: tt )"
                 + "ORDER BY hdb.id DESC");
         query.setParameter("hdb", "%" + maHD + "%");
         query.setParameter("tt",  tt);
@@ -383,7 +383,7 @@ public class HoaDonBanRepository {
 
         Query query = em.createQuery("SELECT hdb FROM HoaDonBan hdb "
                 + " WHERE (hdb.maHDB LIKE :hdb or :hdb is null or :hdb = '')"
-                + "AND (hdb.trangThai =: tt or :tt is null or :tt = 0)"
+                + "AND (hdb.trangThai =: tt)"
                 + "ORDER BY hdb.id DESC");
         query.setParameter("hdb", "%" + maHD + "%");
         query.setParameter("tt", tt );
