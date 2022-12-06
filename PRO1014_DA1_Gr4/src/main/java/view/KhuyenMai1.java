@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 import service.IKhuyenMaiService;
 import service.impl.KhuyenMaiImpl;
 
-
 /**
  *
  * @author T450s
@@ -28,13 +27,17 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     private final LayNgayFrame lnf = new LayNgayFrame();
     private List<KhuyenMai> listKM;
 
+    int tt = 1;
+
     /**
      * Creates new form KhuyenMai1
      */
     public KhuyenMai1() {
         initComponents();
         this.cbbTrangThai.setSelectedIndex(0);
-
+        loadTable(tt);
+        
+        
 //        listKM = new ArrayList<>();
     }
 
@@ -44,6 +47,27 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         for (KhuyenMai km : kms.getAllByTrangT(tt)) {
+            Object rowData[] = {
+                km.getId(),
+                km.getMakm(),
+                km.getTenkm(),
+                sdf.format(km.getNgayTao()),
+                km.getPhantramgiam(),
+                km.getMinhoadon(),
+                sdf.format(km.getNgayhethan()),
+                km.getGhichu(),
+                km.getTrangthai() == 1 ? "Đang áp dụng" : "Ngừng áp dụng"
+            };
+            dtm.addRow(rowData);
+        }
+    }
+
+    public void loadTableByArr(ArrayList<KhuyenMai> listKMloa) {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblKhuyenMai.getModel();
+        dtm.setRowCount(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (KhuyenMai km : listKMloa) {
             Object rowData[] = {
                 km.getId(),
                 km.getMakm(),
@@ -138,14 +162,12 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
 
-            }
-            else if(phtramGiam>=100){
+            } else if (phtramGiam >= 100) {
                 lblMesPTram.setText("Phần trăm số không thể quá 100%");
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
-            }
-            else {
+            } else {
                 lblMesPTram.setText("");
             }
 
@@ -157,27 +179,28 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         if (makm.length() == 0) {
             maKm = "KM00" + (kms.getList().size() + 1);
         } else {
-            maKm=makm;
+            maKm = makm;
         }
         Date ngHet = (Date) this.txtNgayHetHan.getDate();
-        
+
         int ssanh = ngHet.compareTo(ngtao);
-        if(ssanh<=0){
-            JOptionPane.showMessageDialog(this,"Mời bạn nhập ngày hết hạn lớn hơn ngày sửa");
+        if (ssanh <= 0) {
+            JOptionPane.showMessageDialog(this, "Mời bạn nhập ngày hết hạn lớn hơn ngày sửa");
             return null;
         }
-        
+
         if (isValid == false) {
             return null;
         } else {
             KhuyenMai km = new KhuyenMai(0, maKm, tenKm, ngtao, phtramGiam, DkapDung, ngHet, moTa, tthai);
+            System.out.println(ngtao + "" + ngHet);
             return km;
         }
 
     }
 
     public void clearForm() {
-        
+
         txtMaKm.setText("");
         txtTenKm.setText("");
         txtNgayTao.setDate(new Date());
@@ -190,16 +213,15 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         this.lblMesMaKm.setText("");
     }
 
-    public int checkTonTai(){
-         String ma = this.txtMaKm.getText().trim();
-         KhuyenMai km = this.kms.getKhuyenMaiByMa(ma);
-         if(km==null){
-             return 0;
-         }
-         return 1;
+    public int checkTonTai() {
+        String ma = this.txtMaKm.getText().trim();
+        KhuyenMai km = this.kms.getKhuyenMaiByMa(ma);
+        if (km == null) {
+            return 0;
+        }
+        return 1;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,6 +259,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         lblMesNgayHet = new javax.swing.JLabel();
         txtNgayTao = new com.toedter.calendar.JDateChooser();
         txtNgayHetHan = new com.toedter.calendar.JDateChooser();
+        btnTimKiem = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -384,6 +407,15 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 
         txtNgayHetHan.setDateFormatString(org.openide.util.NbBundle.getMessage(KhuyenMai1.class, "KhuyenMai1.txtNgayHetHan.dateFormatString")); // NOI18N
 
+        btnTimKiem.setBackground(new java.awt.Color(204, 204, 204));
+        btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(btnTimKiem, org.openide.util.NbBundle.getMessage(KhuyenMai1.class, "KhuyenMai1.btnTimKiem.text")); // NOI18N
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -410,7 +442,11 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                                     .addComponent(lblMesNgayHet, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNgayTao, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                                     .addComponent(txtNgayHetHan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 400, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,7 +460,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7))
                     .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                .addGap(4, 4, 4)
+                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(txtNgayHetHan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -580,13 +618,12 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
         int index = cbbTrangThai.getSelectedIndex();
         System.out.println(index);
-        int tt = 0;
         if (index == 0) {
             tt = 1;
         } else {
             tt = 0;
         }
-        loadTable(tt);
+//        loadTable(tt);
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -596,7 +633,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             return;
         }
         int x = this.checkTonTai();
-        if(x==1){
+        if (x == 1) {
             this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
             this.lblMesMaKm.setForeground(Color.red);
             return;
@@ -692,9 +729,32 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        Date ngTao = this.txtNgayTao.getDate();
+        Date ngHet = this.txtNgayHetHan.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String x = sdf.format(ngTao);
+        String y = sdf.format(ngHet);
+//        Date ng1 = null;
+//        Date ng2 =null;
+//        try {
+//            ng1 = sdf.parse(x);
+//            ng2=sdf.parse(y);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
+//        System.out.println(ng1+""+ng2);
+//        listKM = kms.searchByDate(x, y, tt);
+        loadTableByArr(kms.searchByDate(x, y, tt));
+        System.out.println(kms.searchByDate(x, y, tt));
+        clearForm();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JComboBox<String> cbbTrangThai;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
