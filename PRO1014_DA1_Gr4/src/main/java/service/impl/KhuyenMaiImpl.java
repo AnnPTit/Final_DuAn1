@@ -5,6 +5,7 @@
 package service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.KhuyenMai;
 import repository.KhuyenMaiRepository;
@@ -51,6 +52,11 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
     @Override
     public ArrayList<KhuyenMai> getAllByTrangT(int tt) {
         return kmr.getAllByTrangT(tt);
+    }
+
+    @Override
+    public ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet, int trangThai) {
+        return kmr.searchByDate(ngTao, ngHet, trangThai);
     }
 
 }
