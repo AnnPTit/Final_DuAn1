@@ -73,7 +73,7 @@ public class HDChiTietRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query q = (Query) em.createQuery("SELECT SUM(hdct.soLuong * hdct.chiTietSanPham.giaBan) FROM HoaDonChiTiet hdct WHERE");
+        Query q = (Query) em.createQuery("SELECT SUM(hdct.soLuong * hdct.chiTietSanPham.giaBan) FROM HoaDonChiTiet hdct WHERE hdct.trangThai =:trangThai ");
         q.setParameter("trangThai", 2);
         q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
@@ -117,7 +117,8 @@ public class HDChiTietRepository {
                 + "join DanhMuc on ChiTietSP.IdDM = DanhMuc.ID\n"
                 + "join ChatLieu on ChiTietSP.IdCL = ChatLieu.ID\n"
                 + "join Mau on ChiTietSP.IdMau = Mau.ID\n"
-                + "join NSX on ChiTietSP.IdNSX = NSX.Id\n"
+                + "join NSX on ChiTietSP.IdNSX = NSX.Id\n "
+                + " where HoaDonChiTiet.TrangThai = 2 "
                 + "GROUP BY ChiTietSP.MaCTSP,SanPham.TenSP,DanhMuc.TenDM,ChatLieu.TenCL,Mau.TenMau,NSX.TenNSX ORDER BY SoLuongBanRa ";
         if (isDESC == true) {
             sql = sql + " DESC";
