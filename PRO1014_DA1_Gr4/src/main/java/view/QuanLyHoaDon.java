@@ -88,9 +88,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         jLabel28 = new javax.swing.JLabel();
         lbl_email = new javax.swing.JLabel();
         lbl_makh = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        lbl_trangthaikh = new javax.swing.JLabel();
         lbl_tenkh2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -144,7 +142,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Khách Hàng", "Tên Khách Hàng", "Giới Tính", "Địa Chỉ", "Số ĐT", "Email", "Trạng Thái"
+                "Mã Khách Hàng", "Tên Khách Hàng", "Giới Tính", "Địa Chỉ", "Số ĐT", "Email"
             }
         ));
         tbl_khachhang.setRowHeight(30);
@@ -154,6 +152,14 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
             }
         });
         jScrollPane7.setViewportView(tbl_khachhang);
+        if (tbl_khachhang.getColumnModel().getColumnCount() > 0) {
+            tbl_khachhang.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title0")); // NOI18N
+            tbl_khachhang.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title1")); // NOI18N
+            tbl_khachhang.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title2")); // NOI18N
+            tbl_khachhang.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title3")); // NOI18N
+            tbl_khachhang.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title4")); // NOI18N
+            tbl_khachhang.getColumnModel().getColumn(5).setHeaderValue(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.tbl_khachhang.columnModel.title5")); // NOI18N
+        }
 
         txtSearchKH.setText(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.txtSearchKH.text")); // NOI18N
         txtSearchKH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -259,8 +265,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel28, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel28.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel29, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel29.text")); // NOI18N
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel30, org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jLabel30.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -274,7 +278,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel30)
-                    .addComponent(jLabel29)
                     .addComponent(jLabel23)
                     .addComponent(jLabel25)
                     .addComponent(jLabel26)
@@ -289,9 +292,8 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addComponent(lbl_diachikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lbl_sodienthoaikh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                        .addComponent(lbl_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,14 +327,11 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbl_email, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_trangthaikh, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(QuanLyHoaDon.class, "QuanLyHoaDon.jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
@@ -658,11 +657,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         lbl_diachikh.setText(khachHang.getDiaChi());
         lbl_sodienthoaikh.setText(khachHang.getSdt());
         lbl_email.setText(khachHang.getEmail());
-        if (khachHang.getTrangThai() == 0) {
-            lbl_trangthaikh.setText("Dừng hoạt động");
-        } else if (khachHang.getTrangThai() == 1) {
-            lbl_trangthaikh.setText("Đang hoạt động");
-        }
+     
     }//GEN-LAST:event_tbl_khachhangtbl_hoadonMouseClicked
 
     private void txtSearchKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKHKeyReleased
@@ -861,7 +856,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
@@ -901,7 +895,6 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_tenkh2;
     private javax.swing.JLabel lbl_tennv;
     private javax.swing.JLabel lbl_trangthai;
-    private javax.swing.JLabel lbl_trangthaikh;
     private pagination.Pagination paginationHD;
     private pagination.Pagination paginationKH;
     private javax.swing.JTable tbl_hd;

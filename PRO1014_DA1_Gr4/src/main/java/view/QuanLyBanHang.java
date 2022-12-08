@@ -1155,6 +1155,7 @@ public class QuanLyBanHang extends javax.swing.JPanel implements Runnable, Threa
         //        gioHangService.updateTrangThaiGHCT(gioHang.getId(), 0); // cập nhật trạng thái giỏ hàng chi tiết
         JOptionPane.showMessageDialog(this, "Thành công " + hoaDonBan.getMaHDB());
         loadTableHoaDon(hoaDonBanService.getListByTrangThai(1));
+        loadGioHangByChiTietHoaDon(new ArrayList<>());
         clear();
     }//GEN-LAST:event_jButton1ActionPerformed
 

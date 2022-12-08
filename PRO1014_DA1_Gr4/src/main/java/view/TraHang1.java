@@ -87,7 +87,7 @@ public class TraHang1 extends javax.swing.JPanel {
 
         for (HoaDonBan x : ctsp) {
             Object[] rowData = {
-                x.getId(), x.getMaHDB(), x.getKhachHang().getTenKH(), x.getNhanVien().getTenNV(), x.getNgayTao(), x.getNgayThanhToan(), x.getTrangThai()
+                x.getId(), x.getMaHDB(), x.getKhachHang().getTenKH(), x.getNhanVien().getTenNV(), x.getNgayTao(), x.getNgayThanhToan(),x.trangthai()
             };
             dtm.addRow(rowData);
         }

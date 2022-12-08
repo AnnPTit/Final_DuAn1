@@ -197,11 +197,13 @@ public class Login extends javax.swing.JFrame {
         }
 
         NhanVien nhanVien = nhanVienService.getNhanVien(maNv);
-        if (nhanVien.getTrangThai() == 0) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không còn khả dụng");
+       
+       
+        if (nhanVien != null) {
+             if (nhanVien.getTrangThai() == 0) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không còn khả dụng","ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (nhanVien != null) {
             if (nhanVien.getPass().equalsIgnoreCase(pass)) {
                 if (nhanVien.getChucVu().getTenCv().equalsIgnoreCase("NhanVien")) {
                     //JOptionPane.showMessageDialog(this, "Bạn là nhân viên");
@@ -217,11 +219,11 @@ public class Login extends javax.swing.JFrame {
                     new Main().setVisible(true);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không khớp");
+                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không khớp","ERORR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại");
+            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại","ERORR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

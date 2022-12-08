@@ -126,7 +126,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 //phtramGiam = Integer.valueOf(phanGiam);
                 DkapDung = Integer.valueOf(dieuKien);
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+               
                 lblMesDK.setText("Sai định dạng số");
                 lblMesDK.setForeground(Color.red);
                 txtDieuKien.requestFocus();

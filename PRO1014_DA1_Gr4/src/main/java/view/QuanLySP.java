@@ -516,8 +516,10 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204)));
 
+        tbSanPham.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -529,6 +531,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 "Id", "Mã", "Tên sản phẩm", "Danh mục", "Chất liệu", "Màu sắc", "Nhà sản xuất", "Số lượng", "Giá nhập", "Giá bán", "Mô tả", "Ngày tạo", "Ngày sửa", "Trạng thái"
             }
         ));
+        tbSanPham.setRowHeight(30);
         tbSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbSanPhamMouseClicked(evt);
@@ -549,8 +552,8 @@ public class QuanLySP extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
