@@ -5,6 +5,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,7 @@ import service.IHoaDonService;
 import service.impl.CTSPImpl;
 import service.impl.HDCTImpl;
 import service.impl.HoaDonBanImpl;
+import utilities.Auth;
 
 /**
  *
@@ -87,7 +89,7 @@ public class TraHang1 extends javax.swing.JPanel {
 
         for (HoaDonBan x : ctsp) {
             Object[] rowData = {
-                x.getId(), x.getMaHDB(), x.getKhachHang().getTenKH(), x.getNhanVien().getTenNV(), x.getNgayTao(), x.getNgayThanhToan(),x.trangthai()
+                x.getId(), x.getMaHDB(), x.getKhachHang().getTenKH(), x.getNhanVien().getTenNV(), x.getNgayTao(), x.getNgayThanhToan(), x.trangthai()
             };
             dtm.addRow(rowData);
         }
@@ -514,7 +516,7 @@ public class TraHang1 extends javax.swing.JPanel {
         HoaDonBan hdb = listHoaDon.get(rowHD);
         int row = tblSanPham.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần trả");
             return;
         }
         listHDCT = hDCTService.getById(hdb.getId());
@@ -522,7 +524,7 @@ public class TraHang1 extends javax.swing.JPanel {
         String m = null;
         int sl = 0;
         try {
-            m = JOptionPane.showInputDialog("Số sản phẩm muốn xóa :");
+            m = JOptionPane.showInputDialog("Số sản phẩm muốn trả :");
             sl = Integer.valueOf(m);
             // System.out.println(soLuong);
         } catch (Exception e) {
@@ -534,23 +536,18 @@ public class TraHang1 extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Số lượng vượt quá");
             return;
         }
-        //        if (soLuongMua == sl) {
-        //            hoaDonService.updateTrangThaiHoaDonChiTietbyIDHDCT(hdct.getId(), 3);
-        //        } else {
-        //            hoaDonService.updateSoLuongHDCT(hdct.getChiTietSanPham().getId(), soLuongMua - sl);
-        //        }
-        //
-        //        JOptionPane.showMessageDialog(this, "Xóa thành công");
-        //        loadTableDanhSachSp(hDCTService.getById(hdct.getHoaDonBan().getId()));
+
         boolean isDup = true;
 
         for (HoaDonChiTiet hdct1 : listTra) {
-            if (hdct1.getId() == hdct.getId()) {
+            System.out.println(hdct1.getId() + "," + hdct.getId());
+            if (hdct1.getChiTietSanPham().getMa().equalsIgnoreCase(hdct.getChiTietSanPham().getMa())) {
                 // int sl = hdct1.getSoLuong();
                 if (hdct1.getSoLuong() == hdct.getSoLuong()) {
                     JOptionPane.showMessageDialog(this, "Vượt quá số lượng");
                     return;
                 }
+
                 hdct1.setSoLuong(sl + hdct1.getSoLuong());
                 loadTableDanhSachTra(listTra);
                 isDup = false;
@@ -576,32 +573,55 @@ public class TraHang1 extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         listTra = new ArrayList<>();
         loadTableDanhSachTra(listTra);
-        btnTraAll.setEnabled(true);
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
 
-        //int id = (int) tblSanPham.getValueAt(rowSP, 0);
+        int row = tblHoaDon.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn");
+            return;
+        }
+        List<HoaDonBan> list = hoaDonService.getListByTrangThai(3);
+        if (list == null) {
+            return;
+        }
+        HoaDonBan hoaDonBan = listHoaDon.get(row);
+        HoaDonBan hoaDonBan1 = new HoaDonBan();
+        // tạo hóa đơn trả 
+        hoaDonBan1.setId(null);
+        hoaDonBan1.setMaHDB("HDT" + (list.size() + 1));
+        hoaDonBan1.setNhanVien(Auth.getNv());
+        hoaDonBan1.setKhachHang(hoaDonBan.getKhachHang());
+        hoaDonBan1.setNguoiNhan(hoaDonBan.getNguoiNhan());
+        hoaDonBan1.setSdt(hoaDonBan.getSdt());
+        hoaDonBan1.setDiaChi(hoaDonBan.getDiaChi());
+        hoaDonBan1.setNgayTao(new Date());
+        hoaDonBan1.setNgayThanhToan(new Date());
+        hoaDonBan1.setKhuyenMai(null);
+        hoaDonBan1.setTrangThai(3);
+        hoaDonService.insert(hoaDonBan1);
         int soLuongMua = 0;
         for (HoaDonChiTiet hoaDonChiTiet : listTra) {
             soLuongMua = hDCTService.getSoluongByCTSPandMaHD(hoaDonChiTiet.getChiTietSanPham().getId(), hoaDonChiTiet.getHoaDonBan().getId());
-
             hoaDonChiTiet.setTrangThai(3);
+            hoaDonChiTiet.setHoaDonBan(hoaDonBan1);
             hoaDonService.updateSoLuongHDCTbyIDHDCT(hoaDonChiTiet.getId(), soLuongMua - hoaDonChiTiet.getSoLuong()); // cập nhật hóa đơn ch tiết 
             cTSPService.updateSoLuongCTSPTraHang(hoaDonChiTiet.getChiTietSanPham().getMa(), hoaDonChiTiet.getSoLuong());
             System.out.println(hoaDonChiTiet.getId());
             hoaDonService.addHoaDonChiTiet(hoaDonChiTiet); // insert cái mới
-            if (hDCTService.getByIdByTrangThai(hoaDonChiTiet.getHoaDonBan().getId(), 2).size() == 0) {
-                hoaDonService.updateTrangThaiHoaDon(hoaDonChiTiet.getHoaDonBan().getId(), 3);
+
+            int idHdTra = (int) tblHoaDon.getValueAt(row, 0);
+            if (hDCTService.getByIdByTrangThai(idHdTra, 2).size() == 0) {
+                hoaDonService.updateTrangThaiHoaDon(idHdTra, 4);
             }
 
         }
         JOptionPane.showMessageDialog(this, "Thành công");
-        int row = tblHoaDon.getSelectedRow();
         int id = (int) tblHoaDon.getValueAt(row, 0);
         listHDCT = hDCTService.getByIdByTrangThai(id, 2);
-
         loadTableDanhSachSp(listHDCT);
         clear();
         loadTableDanhSachTra(new ArrayList<>());
@@ -617,9 +637,7 @@ public class TraHang1 extends javax.swing.JPanel {
         }
         listTra.remove(row);
         loadTableDanhSachTra(listTra);
-        if(listTra.size() ==0 ){
-            btnTraAll.setEnabled(true);
-        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
@@ -634,6 +652,8 @@ public class TraHang1 extends javax.swing.JPanel {
             return;
         }
         loadTableDanhSachSp(listHDCT);
+        listTra = new ArrayList<>();
+        loadTableDanhSachTra(new ArrayList<>());
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void searchOnKeyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchOnKeyKeyReleased
