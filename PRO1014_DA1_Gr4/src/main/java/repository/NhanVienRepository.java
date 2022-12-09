@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import model.KhachHang;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -159,6 +160,42 @@ public class NhanVienRepository {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<NhanVien> pageListNhanVien(int position, int pageSize, String tenNv) {
+        List<NhanVien> nv;
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
+                + "WHERE ( nv.tenNV LIKE :tenNV or :tenNV is null or :tenNV = '')  "
+                + "ORDER BY nv.id DESC");
+        query.setParameter("tenNV", "%" + tenNv + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        nv = query.getResultList();
+        return nv;
+    }
+
+    public List<NhanVien> filterProductKhachHang(String sdt) {
+        List<NhanVien> nv;
+        EntityManager em = session.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
+                + "WHERE (nv.sdt LIKE :sdt or :sdt is null or :sdt = '')  "
+                + "ORDER BY nv.id DESC");
+        query.setParameter("sdt", "%" + sdt + "%");
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        nv = query.getResultList();
+
+        return nv;
     }
 
     public static void main(String[] args) {

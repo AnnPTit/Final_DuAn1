@@ -19,8 +19,7 @@ public class NhanVienImpl implements INhanVienService {
 
     public NhanVienImpl() {
     }
-    
-    
+
     @Override
     public List<NhanVien> getAll() {
         return nvRepo.getAll();
@@ -33,7 +32,7 @@ public class NhanVienImpl implements INhanVienService {
 
     @Override
     public String add(NhanVien nv) {
-        if(nvRepo.add(nv)) {
+        if (nvRepo.add(nv)) {
             return "Thêm thành công";
         } else {
             return "Thêm thất bại";
@@ -42,7 +41,7 @@ public class NhanVienImpl implements INhanVienService {
 
     @Override
     public String update(NhanVien nv, Integer id) {
-        if(nvRepo.update(nv, id)) {
+        if (nvRepo.update(nv, id)) {
             return "Sửa thành công";
         } else {
             return "Sửa thất bại";
@@ -51,7 +50,7 @@ public class NhanVienImpl implements INhanVienService {
 
     @Override
     public String updateTrangThai(Integer id) {
-        if(nvRepo.updateTrangThai(id)) {
+        if (nvRepo.updateTrangThai(id)) {
             return "Xóa thành công";
         } else {
             return "Xóa thất bại";
@@ -60,7 +59,7 @@ public class NhanVienImpl implements INhanVienService {
 
     @Override
     public String updatePass(NhanVien nv) {
-        if(nvRepo.updatePass(nv)) {
+        if (nvRepo.updatePass(nv)) {
             return "Đổi mật khẩu thành công";
         } else {
             return "Thất bại";
@@ -69,7 +68,7 @@ public class NhanVienImpl implements INhanVienService {
 
     @Override
     public String forgotPass(String ma, String email) {
-        if(nvRepo.forgotPass(ma, email)) {
+        if (nvRepo.forgotPass(ma, email)) {
             return "Mật khẩu mới đã được gửi đến mail của bạn";
         } else {
             return "Thất bại";
