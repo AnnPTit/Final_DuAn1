@@ -488,7 +488,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         if (validateForm() && checkDuplicateMa()) {
             String result = new NhanVienImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-            loadNhanVien(nv);
+            loadPagination();
             clear();
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -505,14 +505,14 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         if (validateForm()) {
             String result = new NhanVienImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
-            loadNhanVien(nv);
+            loadPagination();
             clear();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tbNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMouseClicked
         int row = tbNhanVien.getSelectedRow();
-        listNV = nvSer.getAll();
+        listNV = nvSer.pageListNhanVien(paging.getCurrent(), pageSize, txtSearch.getText());
         NhanVien nv = listNV.get(row);
         txtMa.setText(nv.getMaNV());
         txtPass.setText(nv.getPass());
@@ -546,12 +546,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
         String result = new NhanVienImpl().updateTrangThai(id);
         JOptionPane.showMessageDialog(this, result);
-        loadNhanVien(nv);
+        loadPagination();
         clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        searchByPhone();
+        loadPagination();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
