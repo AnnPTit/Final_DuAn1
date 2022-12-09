@@ -169,7 +169,7 @@ public class NhanVienRepository {
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
-                + "WHERE ( nv.tenNV LIKE :tenNV or :tenNV is null or :tenNV = '')  "
+                + "WHERE ( nv.tenNV LIKE :tenNV or :tenNV is null or :tenNV = '') and (nv.trangThai = '1') "
                 + "ORDER BY nv.id DESC");
         query.setParameter("tenNV", "%" + tenNv + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
@@ -181,16 +181,17 @@ public class NhanVienRepository {
         return nv;
     }
 
-    public List<NhanVien> filterProductKhachHang(String sdt) {
+    @SuppressWarnings("unchecked")
+    public List<NhanVien> filterProductNhanVien(String maNv) {
         List<NhanVien> nv;
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
-                + "WHERE (nv.sdt LIKE :sdt or :sdt is null or :sdt = '')  "
+                + "WHERE (nv.maNV LIKE :maNV or :maNV is null or :maNV = '') and (nv.trangThai = '1') "
                 + "ORDER BY nv.id DESC");
-        query.setParameter("sdt", "%" + sdt + "%");
+        query.setParameter("maNV", "%" + maNv + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         nv = query.getResultList();
