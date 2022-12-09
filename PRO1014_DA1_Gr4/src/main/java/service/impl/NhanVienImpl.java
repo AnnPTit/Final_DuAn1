@@ -80,4 +80,14 @@ public class NhanVienImpl implements INhanVienService {
         return nvRepo.getAllNhanVien();
     }
 
+    @Override
+    public List<NhanVien> pageListNhanVien(int position, int pageSize, String tenNv) {
+        return nvRepo.pageListNhanVien(position, pageSize, tenNv);
+    }
+
+    @Override
+    public List<NhanVien> filterProductNhanVien(String sdt) {
+        return nvRepo.filterProductKhachHang(sdt);
+    }
+
 }

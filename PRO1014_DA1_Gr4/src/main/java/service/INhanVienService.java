@@ -30,4 +30,8 @@ public interface INhanVienService {
 
     List<NhanVien> getAllNhanVien();
 
+    List<NhanVien> pageListNhanVien(int position, int pageSize, String tenNv);
+
+    List<NhanVien> filterProductNhanVien(String sdt);
+
 }
