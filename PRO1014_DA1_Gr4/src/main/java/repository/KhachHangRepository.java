@@ -146,7 +146,7 @@ public class KhachHangRepository {
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT kh FROM KhachHang kh "
-                + "WHERE kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '' "
+                + "WHERE ( kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '') and (kh.trangThai = '1') "
                 + "ORDER BY kh.id DESC");
         query.setParameter("tenKH", "%" + tenKh + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
@@ -166,7 +166,7 @@ public class KhachHangRepository {
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT kh FROM KhachHang kh "
-                + "WHERE kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '' "
+                + "WHERE (kh.tenKH LIKE :tenKH or :tenKH is null or :tenKH = '') and (kh.trangThai = '1') "
                 + "ORDER BY kh.id DESC");
         query.setParameter("tenKH", "%" + tenKh + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
@@ -174,5 +174,10 @@ public class KhachHangRepository {
         kh = query.getResultList();
 
         return kh;
+    }
+
+    public static void main(String[] args) {
+        List<KhachHang> ds = new KhachHangRepository().pageListKhachHang(0, 5, null);
+        System.out.println(ds);
     }
 }

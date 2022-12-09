@@ -31,8 +31,6 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     public QuanLyKhachHang() {
         initComponents();
 //        loadKhachHang();
-        listKH = khSer.getAll();
-        listPaging = listKH;
 
         loadPagination();
         pagination11.setPaginationItemRender(new PaginationItemRenderStyle1());
@@ -68,8 +66,8 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
         for (KhachHang x : kh) {
             Object[] rowData = {
-                x.getId(), x.getMaKH(), x.getTenKH(), x.getGioiTinh() == true ? "Nam":"Nữ", x.getDiaChi(),
-                x.getSdt(), x.getEmail(), x.getTrangThai()
+                x.getId(), x.getMaKH(), x.getTenKH(), x.getGioiTinh() == true ? "Nam" : "Nữ", x.getDiaChi(),
+                x.getSdt(), x.getEmail(), x.getTrangThai() == 1 ? "Đang hoạt động" : "Dừng hoạt động"
             };
             dtm.addRow(rowData);
         }
@@ -358,19 +356,19 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(868, 868, 868)
                         .addComponent(pagination11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(405, 405, 405)
                         .addComponent(lbTotalKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
