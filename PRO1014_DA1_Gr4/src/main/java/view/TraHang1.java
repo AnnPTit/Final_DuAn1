@@ -136,7 +136,6 @@ public class TraHang1 extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
         btnTra = new javax.swing.JButton();
-        btnTraAll = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         searchOnKey = new javax.swing.JTextField();
@@ -208,24 +207,14 @@ public class TraHang1 extends javax.swing.JPanel {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(btnTraAll, org.openide.util.NbBundle.getMessage(TraHang1.class, "TraHang1.btnTraAll.text")); // NOI18N
-        btnTraAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTraAllActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1229, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTra)
-                .addGap(30, 30, 30)
-                .addComponent(btnTraAll)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnTra, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,9 +222,7 @@ public class TraHang1 extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTra)
-                    .addComponent(btnTraAll))
+                .addComponent(btnTra)
                 .addContainerGap())
         );
 
@@ -418,22 +405,24 @@ public class TraHang1 extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbTienHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(32, 32, 32)
                         .addComponent(lbKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(55, 55, 55)
-                        .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbTienHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -584,30 +573,11 @@ public class TraHang1 extends javax.swing.JPanel {
         btnTraHang.setEnabled(true);
     }//GEN-LAST:event_btnTraActionPerformed
 
-    private void btnTraAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraAllActionPerformed
-        int row = tblHoaDon.getSelectedRow();
-        if (row == -1) {
-            return;
-        }
-        int id = (int) tblHoaDon.getValueAt(row, 0);
-        listHDCT = hDCTService.getByIdByTrangThai(id, 2);
-        for (HoaDonChiTiet hoaDonChiTiet : listHDCT) {
-            listTra.add(hoaDonChiTiet);
-        }
-        loadTableDanhSachTra(listTra);
-        int sum = 0;
-        double sumGia = 0;
-        for (HoaDonChiTiet hoaDonChiTiet : listTra) {
-            sum = sum + hoaDonChiTiet.getSoLuong();
-            sumGia = sumGia + (hoaDonChiTiet.getSoLuong() * hoaDonChiTiet.getDonGia().doubleValue());
-        }
-        lbTienHoanTra.setText(String.valueOf(sumGia));
-        btnTraHang.setEnabled(true);
-    }//GEN-LAST:event_btnTraAllActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         listTra = new ArrayList<>();
         loadTableDanhSachTra(listTra);
+        btnTraAll.setEnabled(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
@@ -647,6 +617,9 @@ public class TraHang1 extends javax.swing.JPanel {
         }
         listTra.remove(row);
         loadTableDanhSachTra(listTra);
+        if(listTra.size() ==0 ){
+            btnTraAll.setEnabled(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
@@ -670,7 +643,6 @@ public class TraHang1 extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTra;
-    private javax.swing.JButton btnTraAll;
     private javax.swing.JButton btnTraHang;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
