@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
 import model.NhanVien;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import service.impl.ChucVuImpl;
 import service.impl.NhanVienImpl;
 import service.INhanVienService;
@@ -24,11 +26,54 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     private DefaultComboBoxModel<ChucVu> cbCV = new DefaultComboBoxModel<>();
     private List<NhanVien> listNV;
 
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
+
     public QuanLyNhanVien() {
         initComponents();
-        loadNhanVien(nv);
+
         loadCbbChucVu();
-        listNV = nvSer.getAll();
+        loadPagination();
+        pagination11.setPaginationItemRender(new PaginationItemRenderStyle1());
+        pagination11.setPagegination(1, paging.getTotalPage());
+    }
+
+    public void loadPagination() {
+        String search = txtSearch.getText();
+
+        totalProducts = nvSer.filterProductNhanVien(search).size();
+
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        pagination11.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            pagination11.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTable(nvSer.pageListNhanVien(paging.getTotalPage(), pageSize, search));
+        } else {
+            pagination11.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTable(nvSer.pageListNhanVien(paging.getCurrent(), pageSize, search));
+        }
+
+        pagination11.addEventPagination((int page) -> {
+            loadTable(nvSer.pageListNhanVien(page, pageSize, search));
+            paging.setCurrent(page);
+        });
+    }
+
+    public void loadTable(List<NhanVien> nv) {
+        DefaultTableModel dtm = (DefaultTableModel) tbNhanVien.getModel();
+        dtm.setRowCount(0);
+
+        for (NhanVien x : nv) {
+            Object[] rowData = {
+                x.getId(), x.getMaNV(), x.getPass(), x.getTenNV(), x.getChucVu(),
+                x.getNgaySinh(), x.getGioiTinh() == true ? "Nam" : "Nữ", x.getDiaChi(),
+                x.getSdt(), x.getEmail(), x.getTrangThai() == 1 ? "Đang làm việc" : "Nghỉ việc"
+            };
+            dtm.addRow(rowData);
+        }
     }
 
     void loadNhanVien(List<NhanVien> list) {
@@ -407,7 +452,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(97, Short.MAX_VALUE))
