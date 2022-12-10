@@ -4,13 +4,33 @@
  */
 package view;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.color.DeviceRgb;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.text.BadElementException;
+import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDonBan;
 import model.HoaDonChiTiet;
+import model.KhachHang;
+import model.KhuyenMai;
+import org.openide.util.Exceptions;
 import pagination.EventPagination;
 import pagination.Page;
 import pagination.style.PaginationItemRenderStyle1;
@@ -20,7 +40,9 @@ import service.IHoaDonService;
 import service.impl.CTSPImpl;
 import service.impl.HDCTImpl;
 import service.impl.HoaDonBanImpl;
+import service.impl.KhuyenMaiImpl;
 import utilities.Auth;
+import utilities.DataGlobal;
 
 /**
  *
@@ -619,6 +641,17 @@ public class TraHang1 extends javax.swing.JPanel {
             }
 
         }
+        int oup = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn ?");
+        if (oup == JOptionPane.YES_OPTION) {
+            try {
+                outputPDF();
+                JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            } catch (BadElementException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        }
         JOptionPane.showMessageDialog(this, "Thành công");
         int id = (int) tblHoaDon.getValueAt(row, 0);
         listHDCT = hDCTService.getByIdByTrangThai(id, 2);
@@ -660,6 +693,115 @@ public class TraHang1 extends javax.swing.JPanel {
         loadPagination();
     }//GEN-LAST:event_searchOnKeyKeyReleased
 
+    public void outputPDF() throws IOException, BadElementException {
+        int row = tblHoaDon.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn");
+            return;
+        }
+
+        KhachHang khachHang = Auth.getKh();
+        String pathh = (lbMaHoaDon.getText());
+        System.out.println(pathh);
+        String path = "D:\\HoaDonTraHang\\" + pathh + ".pdf";
+        PdfWriter pdfWriter = new PdfWriter(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        Document document = new Document(pdfDocument);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        float col = 280f;
+        float columnWidth[] = {col, col};
+        com.itextpdf.layout.element.Table table = new com.itextpdf.layout.element.Table(columnWidth);
+        String file = "src/main/resources/icon/vodien.png";
+        ImageData date = ImageDataFactory.create(file);
+        Image image = new Image(date);
+
+        table.addCell(new Cell().add(image).setBorder(Border.NO_BORDER));
+        table.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+        table.addCell(new Cell().add("Shop tui xach Authentication").setFontSize(30f).setBorder(Border.NO_BORDER));
+
+        table.addCell(new Cell().add("Ha Noi \n SĐT: 0922505266 - 0389718892")
+                .setTextAlignment(TextAlignment.RIGHT).setMarginTop(30f).setMarginBottom(30f).setBorder(Border.NO_BORDER).setMarginRight(10f)
+        );
+
+        float colWidth[] = {80, 250, 80, 150};
+
+        Table customerInfor = new Table(colWidth);
+        customerInfor.addCell(new Cell(0, 4).add("Hoa don tra hang").setBold().setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER));
+
+        customerInfor.addCell(new Cell(0, 4).add("Thong tin").setBold().setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add("Khach hang: ").setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add((lbKhachHang.getText())).setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add("SDT : ").setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add(khachHang.getSdt()).setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add("Ma hoa don: ").setBorder(Border.NO_BORDER));
+        customerInfor.addCell(new Cell().add(lbMaHoaDon.getText()).setBorder(Border.NO_BORDER));
+
+        float iteamInforColWidth[] = {140, 140, 140, 140};
+        Table itemInforTable = new Table(iteamInforColWidth);
+        itemInforTable.addCell(new Cell().add("San pham"));
+        itemInforTable.addCell(new Cell().add("So luong"));
+        itemInforTable.addCell(new Cell().add("Don gia").setTextAlignment(TextAlignment.RIGHT));
+        itemInforTable.addCell(new Cell().add("Thanh tien").setTextAlignment(TextAlignment.RIGHT));
+
+        int total = 0;
+        int quantitySum = 0;
+        // Xuất pdf
+
+//        listHoaDonBan = hoaDonBanService.getListByTrangThai(2);
+//        HoaDonBan hoaDonBan = listHoaDonBan.get(row);
+        int idHD = DataGlobal.getIdHoaDon();
+        List<HoaDonChiTiet> hdct = new HDCTImpl().getById(idHD);
+        for (HoaDonChiTiet x : hdct) {
+            String nameProduct = x.getChiTietSanPham().getSanPham().getTenSP();
+            int quantity = (int) x.getSoLuong();
+            double price = x.getChiTietSanPham().getGiaBan().doubleValue();
+            itemInforTable.addCell(new Cell().add((nameProduct)));
+            itemInforTable.addCell(new Cell().add(quantity + ""));
+            itemInforTable.addCell(new Cell().add(nf.format(price) + " VND").setTextAlignment(TextAlignment.RIGHT));
+            itemInforTable.addCell(new Cell().add(nf.format(price * quantity) + " VND").setTextAlignment(TextAlignment.RIGHT));
+
+            total += ((price * quantity));
+            quantitySum += quantity;
+        }
+
+        itemInforTable.addCell(
+                new Cell().add("Tong So Luong").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+        itemInforTable.addCell(
+                new Cell().add(quantitySum + "").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+
+        itemInforTable.addCell(
+                new Cell().add("Tong Tien").setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+        itemInforTable.addCell(
+                new Cell().add((total + " VND")).setBackgroundColor(new DeviceRgb(63, 169, 219)).setBorder(Border.NO_BORDER));
+
+        float colWidthNote[] = {560};
+        com.itextpdf.layout.element.Table customerInforNote = new com.itextpdf.layout.element.Table(colWidthNote);
+
+        customerInforNote.addCell(
+                new Cell().add("Tien Tra Lai: " + ((lbTienHoanTra.getText())) + " VND").
+                        setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER).setBold().setFontSize(20).setFontColor(new DeviceRgb(0, 0, 0)));
+        customerInforNote.addCell(
+                new Cell().add("Xin cam on quy khach !!!").
+                        setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER).setItalic());
+        document.add(table);
+
+        document.add(
+                new Paragraph("\n"));
+        document.add(customerInfor);
+
+        document.add(
+                new Paragraph("\n"));
+        document.add(itemInforTable);
+
+        document.add(
+                new Paragraph("\n"));
+        document.add(customerInforNote);
+
+        document.close();
+    }
+
+    Locale lc = new Locale("nv", "VN");
+    NumberFormat nf = NumberFormat.getInstance(lc);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTra;
