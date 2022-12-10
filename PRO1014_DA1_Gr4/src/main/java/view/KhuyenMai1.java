@@ -6,6 +6,7 @@ package view;
 
 import model.KhuyenMai;
 import java.awt.Color;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
+import pagination.EventPagination;
+import pagination.Page;
+import pagination.style.PaginationItemRenderStyle1;
 import service.IKhuyenMaiService;
 import service.impl.KhuyenMaiImpl;
 
@@ -27,7 +32,10 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     private final LayNgayFrame lnf = new LayNgayFrame();
     private List<KhuyenMai> listKM;
 
-    int tt = 1;
+    Integer pageSize = 5;
+    Integer totalProducts = 0;
+    private Page paging = new Page();
+    List<KhuyenMai> pageKm = new ArrayList<>();
 
     /**
      * Creates new form KhuyenMai1
@@ -35,34 +43,13 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     public KhuyenMai1() {
         initComponents();
         this.cbbTrangThai.setSelectedIndex(0);
-        loadTable(tt);
-        
-        
-//        listKM = new ArrayList<>();
-    }
-
-    public void loadTable(int tt) {
-        DefaultTableModel dtm = (DefaultTableModel) this.tblKhuyenMai.getModel();
-        dtm.setRowCount(0);
+        paginationKM.setPaginationItemRender(new PaginationItemRenderStyle1());
+        paginationKM.setPagegination(1, paging.getTotalPage());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        for (KhuyenMai km : kms.getAllByTrangT(tt)) {
-            Object rowData[] = {
-                km.getId(),
-                km.getMakm(),
-                km.getTenkm(),
-                sdf.format(km.getNgayTao()),
-                km.getPhantramgiam(),
-                km.getMinhoadon(),
-                sdf.format(km.getNgayhethan()),
-                km.getGhichu(),
-                km.getTrangthai() == 1 ? "Đang áp dụng" : "Ngừng áp dụng"
-            };
-            dtm.addRow(rowData);
-        }
+        loadPagination();
     }
 
-    public void loadTableByArr(ArrayList<KhuyenMai> listKMloa) {
+    public void loadTableByArr(List<KhuyenMai> listKMloa) {
         DefaultTableModel dtm = (DefaultTableModel) this.tblKhuyenMai.getModel();
         dtm.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,6 +70,26 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
     }
 
+//    public void loadTableByArr2(List<KhuyenMai> listKMloa) {
+//        DefaultTableModel dtm = (DefaultTableModel) this.tblKhuyenMai.getModel();
+//        dtm.setRowCount(0);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        for (KhuyenMai km : listKMloa) {
+//            Object rowData[] = {
+//                km.getId(),
+//                km.getMakm(),
+//                km.getTenkm(),
+//                sdf.format(km.getNgayTao()),
+//                km.getPhantramgiam(),
+//                km.getMinhoadon(),
+//                sdf.format(km.getNgayhethan()),
+//                km.getGhichu(),
+//                km.getTrangthai() == 1 ? "Đang áp dụng" : "Ngừng áp dụng"
+//            };
+//            dtm.addRow(rowData);
+//        }
+//    }
     public KhuyenMai getForm() {
 
         boolean isValid = true;
@@ -126,7 +133,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 //phtramGiam = Integer.valueOf(phanGiam);
                 DkapDung = Integer.valueOf(dieuKien);
             } catch (NumberFormatException e) {
-               
+
                 lblMesDK.setText("Sai định dạng số");
                 lblMesDK.setForeground(Color.red);
                 txtDieuKien.requestFocus();
@@ -148,7 +155,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 phtramGiam = Integer.valueOf(phanGiam);
 
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
                 lblMesPTram.setText("Sai định dạng số");
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
@@ -268,6 +275,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         tblKhuyenMai = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
+        paginationKM = new pagination.Pagination();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(KhuyenMai1.class, "KhuyenMai1.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -566,6 +574,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addContainerGap(1078, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(428, 428, 428)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
@@ -574,14 +585,15 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
                         .addComponent(jButton3)
-                        .addGap(0, 155, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 155, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(520, 520, 520)
+                .addComponent(paginationKM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -599,7 +611,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(73, 73, 73)
+                .addComponent(paginationKM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -616,14 +630,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
-        int index = cbbTrangThai.getSelectedIndex();
-        System.out.println(index);
-        if (index == 0) {
-            tt = 1;
-        } else {
-            tt = 0;
-        }
-//        loadTable(tt);
+
+        loadPagination();
+
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -640,7 +649,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
         kms.add(km);
         JOptionPane.showMessageDialog(this, "Thêm thành công");
-        loadTable(1);
+        loadPagination();
         clearForm();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -662,7 +671,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         if (chooser == 0) {
             kms.update(km, idm);
             JOptionPane.showMessageDialog(this, "Sửa thành công");
-            loadTable(1);
+            loadPagination();
             clearForm();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -680,35 +689,44 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         if (chooser == 0) {
             this.kms.remove(idm);
             JOptionPane.showMessageDialog(this, "Ngừng áp dụng thanh cong");
-            loadTable(1);
+            loadPagination();
             clearForm();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
+        int row = this.tblKhuyenMai.getSelectedRow();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ngTao = txtNgayTao.getDate();
+        Date ngHet = txtNgayHetHan.getDate();
+        String c = null;
+        String d = null;
+
+//        if (!sdf.format(ngTao).equals(sdf.format(ngHet))) {
+//            c = sdf.format(ngTao);
+//            d = sdf.format(ngHet);
+//        }
+
         int vt = cbbTrangThai.getSelectedIndex();
-        int tt = 0;
+        int tt1 = 0;
         if (vt == 0) {
-            tt = 1;
+            tt1 = 1;
         } else {
-            tt = 0;
+            tt1 = 0;
         }
 
-        listKM = kms.getAllByTrangT(tt);
-        int row = this.tblKhuyenMai.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Moi ban chon lai dong");
-            return;
-        } else {
-            KhuyenMai a = listKM.get(row);
-            txtMaKm.setText(a.getMakm());
-            txtTenKm.setText(a.getTenkm());
-            txtNgayTao.setDate(a.getNgayTao());
-            txtNgayHetHan.setDate(a.getNgayhethan());
-            txtPhanTramGiam.setText(a.getPhantramgiam() + "");
-            txtDieuKien.setText(a.getMinhoadon() + "");
-            txtGhiChu.setText(a.getGhichu());
-        }
+        pageKm = kms.pageListKhuyenMai(paging.getCurrent(), pageSize, c, d, tt1);
+
+        KhuyenMai a = pageKm.get(row);
+        txtMaKm.setText(a.getMakm());
+        txtTenKm.setText(a.getTenkm());
+        txtNgayTao.setDate(a.getNgayTao());
+        txtNgayHetHan.setDate(a.getNgayhethan());
+        txtPhanTramGiam.setText(a.getPhantramgiam() + "");
+        txtDieuKien.setText(a.getMinhoadon() + "");
+        txtGhiChu.setText(a.getGhichu());
+
 //        txtMaKm.setText(this.tblKhuyenMai.getValueAt(row, 1).toString());
 //        txtTenKm.setText(this.tblKhuyenMai.getValueAt(row, 2).toString());
 //
@@ -730,27 +748,70 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+//
+//        Date ngTao = this.txtNgayTao.getDate();
+//        Date ngHet = this.txtNgayHetHan.getDate();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String x = sdf.format(ngTao);
+//        String y = sdf.format(ngHet);
+//
+//        ArrayList<KhuyenMai> lm = new ArrayList<>();
+//        lm = kms.searchByDate(x, y, tt);
+//        System.out.println(lm.size());
+//        loadTableByArr(lm);
+////        System.out.println(kms.searchByDate(x, y, tt));
+//        clearForm();
+
+        loadPagination();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    public void loadPagination() {
         Date ngTao = this.txtNgayTao.getDate();
         Date ngHet = this.txtNgayHetHan.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String x = sdf.format(ngTao);
-        String y = sdf.format(ngHet);
-//        Date ng1 = null;
-//        Date ng2 =null;
-//        try {
-//            ng1 = sdf.parse(x);
-//            ng2=sdf.parse(y);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        
-//        System.out.println(ng1+""+ng2);
-//        listKM = kms.searchByDate(x, y, tt);
-        loadTableByArr(kms.searchByDate(x, y, tt));
-        System.out.println(kms.searchByDate(x, y, tt));
-        clearForm();
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+        String a = "";
+        String b = "";
+        if (sdf.format(ngTao).equals(sdf.format(ngHet))) {
+            a = null;
+            b = null;
+        } else {
+            a = sdf.format(ngTao);
+            b = sdf.format(ngHet);
+        }
 
+        String x = a;
+        String y = b;
+
+        int vt = cbbTrangThai.getSelectedIndex();
+        int tt = 0;
+        if (vt == 0) {
+            tt = 1;
+        } else {
+            tt = 0;
+        }
+        int tt1 = tt;
+        totalProducts = this.kms.filterProductKhuyenMai(x, y, tt1).size();
+        int total = (int) Math.ceil(totalProducts / pageSize) + 1;
+        paging.setTotalPage(total);
+        paginationKM.setPagegination(1, paging.getTotalPage());
+
+        if (paging.getTotalPage() < paging.getCurrent()) {
+            paginationKM.setPagegination(paging.getTotalPage(), paging.getTotalPage());
+            loadTableByArr(kms.pageListKhuyenMai(paging.getTotalPage(), pageSize, x, y, tt1));
+        } else {
+            paginationKM.setPagegination(paging.getCurrent(), paging.getTotalPage());
+            loadTableByArr(kms.pageListKhuyenMai(paging.getCurrent(), pageSize, x, y, tt1));
+        }
+
+        paginationKM.addEventPagination(new EventPagination() {
+            @Override
+            public void pageChanged(int page) {
+                loadTableByArr(kms.pageListKhuyenMai(page, pageSize, x, y, tt1));
+                paging.setCurrent(page);
+            }
+        });
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -782,6 +843,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     private javax.swing.JLabel lblMesNgayHet;
     private javax.swing.JLabel lblMesPTram;
     private javax.swing.JLabel lbnMesTenKM;
+    private pagination.Pagination paginationKM;
     private javax.swing.JTable tblKhuyenMai;
     private javax.swing.JTextField txtDieuKien;
     private javax.swing.JTextArea txtGhiChu;

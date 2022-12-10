@@ -27,8 +27,8 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/icon/vodien.png");
         this.setIconImage(icon);
-        txtMa.setText("NV02");
-        txtPass.setText("1234");
+        txtMa.setText("NV001");
+        txtPass.setText("123");
     }
 
     /**
