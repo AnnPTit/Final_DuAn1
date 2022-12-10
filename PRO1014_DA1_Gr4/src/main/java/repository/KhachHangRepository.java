@@ -159,7 +159,7 @@ public class KhachHangRepository {
     }
 
     @SuppressWarnings("unchecked")
-    public List<KhachHang> filterProductKhachHang(String tenKh) {
+    public List<KhachHang> filterKhachHang(String tenKh) {
         List<KhachHang> kh;
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();

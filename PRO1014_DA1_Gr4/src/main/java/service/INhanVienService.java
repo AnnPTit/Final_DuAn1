@@ -32,6 +32,6 @@ public interface INhanVienService {
 
     List<NhanVien> pageListNhanVien(int position, int pageSize, String tenNv);
 
-    List<NhanVien> filterProductNhanVien(String ma);
+    List<NhanVien> filterNhanVien(String ma);
 
 }

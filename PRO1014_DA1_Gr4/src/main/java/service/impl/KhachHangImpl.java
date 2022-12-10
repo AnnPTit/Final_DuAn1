@@ -79,8 +79,8 @@ public class KhachHangImpl implements IKhachHangService {
     }
 
     @Override
-    public List<KhachHang> filterProductKhachHang(String tenKh) {
-        return khRepo.filterProductKhachHang(tenKh);
+    public List<KhachHang> filterKhachHang(String tenKh) {
+        return khRepo.filterKhachHang(tenKh);
     }
 
 }

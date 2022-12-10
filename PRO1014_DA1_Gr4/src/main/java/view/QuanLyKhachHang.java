@@ -40,7 +40,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     public void loadPagination() {
         String search = txtSearch.getText();
 
-        totalProducts = khSer.filterProductKhachHang(search).size();
+        totalProducts = khSer.filterKhachHang(search).size();
 
         int total = (int) Math.ceil(totalProducts / pageSize) + 1;
         paging.setTotalPage(total);

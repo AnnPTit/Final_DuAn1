@@ -162,16 +162,16 @@ public class NhanVienRepository {
         }
     }
 
-    public List<NhanVien> pageListNhanVien(int position, int pageSize, String tenNv) {
+    public List<NhanVien> pageListNhanVien(int position, int pageSize, String maNv) {
         List<NhanVien> nv;
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
-                + "WHERE ( nv.tenNV LIKE :tenNV or :tenNV is null or :tenNV = '') and (nv.trangThai = '1') "
+                + "WHERE ( nv.maNV LIKE :maNV or :maNV is null or :maNV = '') and (nv.trangThai = 1) "
                 + "ORDER BY nv.id DESC");
-        query.setParameter("tenNV", "%" + tenNv + "%");
+        query.setParameter("maNV", "%" + maNv + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
         int pageIndex = position - 1 < 0 ? 0 : position - 1;
         int fromRecordIndex = pageIndex * pageSize;
@@ -182,14 +182,14 @@ public class NhanVienRepository {
     }
 
     @SuppressWarnings("unchecked")
-    public List<NhanVien> filterProductNhanVien(String maNv) {
+    public List<NhanVien> filterNhanVien(String maNv) {
         List<NhanVien> nv;
         EntityManager em = session.getEntityManagerFactory().createEntityManager();
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
         javax.persistence.Query query = em.createQuery("SELECT nv FROM NhanVien nv "
-                + "WHERE (nv.maNV LIKE :maNV or :maNV is null or :maNV = '') and (nv.trangThai = '1') "
+                + "WHERE (nv.maNV LIKE :maNV or :maNV is null or :maNV = '') and (nv.trangThai = 1) "
                 + "ORDER BY nv.id DESC");
         query.setParameter("maNV", "%" + maNv + "%");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
@@ -200,7 +200,7 @@ public class NhanVienRepository {
     }
 
     public static void main(String[] args) {
-        List<NhanVien> list = new NhanVienRepository().getAll();
+        List<NhanVien> list = new NhanVienRepository().filterNhanVien("NV02");
         System.out.println(list);
     }
 }
