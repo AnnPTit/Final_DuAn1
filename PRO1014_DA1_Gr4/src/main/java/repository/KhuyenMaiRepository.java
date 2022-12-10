@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import model.KhuyenMai;
@@ -110,39 +112,92 @@ public class KhuyenMaiRepository {
 
     }
 
-    public ArrayList<KhuyenMai> getAllByTrangT(int tt){
+    public ArrayList<KhuyenMai> getAllByTrangT(int tt) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
         Query q = se.createQuery("From KhuyenMai km where km.trangthai =:trangThai order by km.id desc");
-        q.setParameter("trangThai",tt);
+        q.setParameter("trangThai", tt);
         ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
         return ds;
     }
-    
-    
-    public ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet,int trangThai){
+
+    public ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet, int trangThai) {
         ArrayList<KhuyenMai> ds = new ArrayList<>();
-        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Transaction trann = se.beginTransaction();
-        try {
+
+        try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
+            Transaction trann = se.beginTransaction();
             String hql = " From KhuyenMai km where (km.ngayTao>=:ngayTao or :ngayTao is null or :ngayTao='')"
                     + " and (km.ngayhethan<=:ngayhethan or :ngayhethan is null or :ngayhethan='')"
                     + "and(km.trangthai =:trangThai) order by km.id desc";
-            Query q= se.createQuery(hql);
+            Query q = se.createQuery(hql);
             Date a = Date.valueOf(ngTao);
             Date b = Date.valueOf(ngHet);
-            q.setParameter("ngayTao",a );
+            q.setParameter("ngayTao", a);
             q.setParameter("ngayhethan", b);
             q.setParameter("trangThai", trangThai);
 //            q.executeUpdate();
-            ds= (ArrayList<KhuyenMai>) q.getResultList();
+            ds = (ArrayList<KhuyenMai>) q.getResultList();
             trann.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return ds;
     }
-    
+
+    public List<KhuyenMai> pageListKhuyenMai(int position, int pageSize, String ngTao, String ngHet, int tt) {
+        List<KhuyenMai> km;
+        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        EntityManager em = se.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+        String hql = "Select km From KhuyenMai km where (km.ngayTao>=:ngayTao or :ngayTao is null or :ngayTao='')"
+                + " and (km.ngayhethan<=:ngayhethan or :ngayhethan is null or :ngayhethan='')"
+                + "and(km.trangthai =:trangThai) order by km.id desc";
+        Query query = em.createQuery(hql);
+        Date a = null;
+        Date b = null;
+        if (ngTao != null && ngHet != null) {
+            a = Date.valueOf(ngTao);
+            b = Date.valueOf(ngHet);
+        }
+        query.setParameter("ngayTao", a);
+        query.setParameter("ngayhethan", b);
+        query.setParameter("trangThai", tt);
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        int pageIndex = position - 1 < 0 ? 0 : position - 1;
+        int fromRecordIndex = pageIndex * pageSize;
+        query.setFirstResult(fromRecordIndex);
+        query.setMaxResults(pageSize);
+        km = query.getResultList();
+        return km;
+    }
+
+    public List<KhuyenMai> filterProductKhuyenMai(String ngTao, String ngHet, int tt) {
+        List<KhuyenMai> hdbs;
+        Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
+        EntityManager em = se.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+        String hql = "Select km From KhuyenMai km where (km.ngayTao>=:ngayTao or :ngayTao is null or :ngayTao='')"
+                + " and (km.ngayhethan<=:ngayhethan or :ngayhethan is null or :ngayhethan='')"
+                + "and(km.trangthai =:trangThai) order by km.id desc";
+        Query query = em.createQuery(hql);
+        Date a = null;
+        Date b = null;
+        if (ngTao != null && ngHet != null) {
+            a = Date.valueOf(ngTao);
+            b = Date.valueOf(ngHet);
+        }
+        query.setParameter("ngayTao", a);
+        query.setParameter("ngayhethan", b);
+        query.setParameter("trangThai", tt);
+        query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+
+        hdbs = query.getResultList();
+
+        return hdbs;
+    }
+
     public static void main(String[] args) {
 //        SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
 //        Date n1 = null;
@@ -153,8 +208,10 @@ public class KhuyenMaiRepository {
 //        } catch (ParseException ex) {
 //            Exceptions.printStackTrace(ex);
 //        }
-        List<KhuyenMai> list = new KhuyenMaiRepository().searchByDate("2022-12-01","2022-12-30", 1);
-        System.out.println(list);
+        List<KhuyenMai> list = new KhuyenMaiRepository().pageListKhuyenMai(2, 5, "2022-12-01", "2022-12-30", 1);
+        for (KhuyenMai khuyenMai : list) {
+            System.out.println(khuyenMai);
+        }
     }
 
 }
