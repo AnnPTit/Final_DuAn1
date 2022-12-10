@@ -30,4 +30,8 @@ public interface IKhuyenMaiService {
     ArrayList<KhuyenMai> getAllByTrangT(int tt);
     
     ArrayList<KhuyenMai> searchByDate(String ngTao, String ngHet,int trangThai);
+    
+    List<KhuyenMai> pageListKhuyenMai(int position, int pageSize, String ngTao, String ngHet, int tt);
+    
+    List<KhuyenMai> filterProductKhuyenMai(String ngTao, String ngHet, int tt);
 }

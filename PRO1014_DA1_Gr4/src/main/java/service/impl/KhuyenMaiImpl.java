@@ -59,4 +59,14 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
         return kmr.searchByDate(ngTao, ngHet, trangThai);
     }
 
+    @Override
+    public List<KhuyenMai> pageListKhuyenMai(int position, int pageSize, String ngTao, String ngHet, int tt) {
+        return kmr.pageListKhuyenMai(position, pageSize, ngTao, ngHet, tt);
+    }
+
+    @Override
+    public List<KhuyenMai> filterProductKhuyenMai(String ngTao, String ngHet, int tt) {
+        return kmr.filterProductKhuyenMai(ngTao, ngHet, tt);
+    }
+
 }
