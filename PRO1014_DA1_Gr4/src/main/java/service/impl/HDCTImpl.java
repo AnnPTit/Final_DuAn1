@@ -84,4 +84,9 @@ public class HDCTImpl implements IHDCTService {
         return hdctRepo.getAllByTrangThai(TrangThai);
     }
 
+    @Override
+    public List<HoaDonChiTiet> getByIdTraHang(int id) {
+        return hdctRepo.getByIdTraHang(id);
+    }
+
 }

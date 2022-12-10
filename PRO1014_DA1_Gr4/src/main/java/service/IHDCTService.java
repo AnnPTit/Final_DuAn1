@@ -39,6 +39,8 @@ public interface IHDCTService {
     int getSoluongByCTSPandMaHD(int maCTSP, int maHD);
 
     List<HoaDonChiTiet> getAllByTrangThai(int TrangThai);
+    
+    List<HoaDonChiTiet> getByIdTraHang(int id);
 }
 
 // IHDCTService

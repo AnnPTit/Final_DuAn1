@@ -93,6 +93,20 @@ public class HDChiTietRepository {
         list = q.getResultList();
         return list;
     }
+    
+    public List<HoaDonChiTiet> getByIdTraHang(int id) {
+        List<HoaDonChiTiet> list = new ArrayList<>();
+        EntityManager em = ses.getEntityManagerFactory().createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
+        EntityTransaction entityTransaction = em.getTransaction();
+
+        Query q = (Query) em.createQuery("FROM HoaDonChiTiet WHERE IdHD =: id and SoLuong > 0 and trangThai =: trangThai");
+        q.setParameter("id", id);
+        q.setParameter("trangThai", 3);
+        q.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
+        list = q.getResultList();
+        return list;
+    }
 
     public List<HoaDonChiTiet> getByIdByTrangThai(int id, int trangThai) {
         List<HoaDonChiTiet> list = new ArrayList<>();
