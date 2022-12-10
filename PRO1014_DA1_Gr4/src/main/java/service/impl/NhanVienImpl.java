@@ -86,8 +86,8 @@ public class NhanVienImpl implements INhanVienService {
     }
 
     @Override
-    public List<NhanVien> filterProductNhanVien(String ma) {
-        return nvRepo.filterProductNhanVien(ma);
+    public List<NhanVien> filterNhanVien(String ma) {
+        return nvRepo.filterNhanVien(ma);
     }
 
 }

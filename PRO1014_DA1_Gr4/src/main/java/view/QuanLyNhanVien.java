@@ -42,7 +42,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     public void loadPagination() {
         String search = txtSearch.getText();
 
-        totalProducts = nvSer.filterProductNhanVien(search).size();
+        totalProducts = nvSer.filterNhanVien(search).size();
 
         int total = (int) Math.ceil(totalProducts / pageSize) + 1;
         paging.setTotalPage(total);

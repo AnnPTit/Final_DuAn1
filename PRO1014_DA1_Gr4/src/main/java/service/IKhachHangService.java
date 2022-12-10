@@ -31,5 +31,5 @@ public interface IKhachHangService {
 
     List<KhachHang> pageListKhachHang(int position, int pageSize, String tenKh);
 
-    List<KhachHang> filterProductKhachHang(String tenKh);
+    List<KhachHang> filterKhachHang(String tenKh);
 }

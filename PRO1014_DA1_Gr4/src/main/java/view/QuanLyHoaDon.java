@@ -657,7 +657,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
         lbl_diachikh.setText(khachHang.getDiaChi());
         lbl_sodienthoaikh.setText(khachHang.getSdt());
         lbl_email.setText(khachHang.getEmail());
-     
+
     }//GEN-LAST:event_tbl_khachhangtbl_hoadonMouseClicked
 
     private void txtSearchKHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKHKeyReleased
@@ -755,7 +755,7 @@ public class QuanLyHoaDon extends javax.swing.JPanel {
 
     public void loadPageKhachHang() {
         String search = txtSearchKH.getText();
-        totalProducts = khachHangService.filterProductKhachHang(search).size();
+        totalProducts = khachHangService.filterKhachHang(search).size();
 
         int total = (int) Math.ceil(totalProducts / pageSize) + 1;
         paging.setTotalPage(total);
