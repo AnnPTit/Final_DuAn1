@@ -26,12 +26,12 @@ import service.impl.KhuyenMaiImpl;
  * @author T450s
  */
 public class KhuyenMai1 extends javax.swing.JPanel {
-
+    
     private IKhuyenMaiService kms = new KhuyenMaiImpl();
-
+    
     private final LayNgayFrame lnf = new LayNgayFrame();
     private List<KhuyenMai> listKM;
-
+    
     Integer pageSize = 5;
     Integer totalProducts = 0;
     private Page paging = new Page();
@@ -48,12 +48,12 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         loadPagination();
     }
-
+    
     public void loadTableByArr(List<KhuyenMai> listKMloa) {
         DefaultTableModel dtm = (DefaultTableModel) this.tblKhuyenMai.getModel();
         dtm.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+        
         for (KhuyenMai km : listKMloa) {
             Object rowData[] = {
                 km.getId(),
@@ -91,7 +91,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 //        }
 //    }
     public KhuyenMai getForm() {
-
+        
         boolean isValid = true;
         String tenKm = this.txtTenKm.getText().trim();
         if (tenKm.length() == 0) {
@@ -113,7 +113,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
         String ngayTao = this.txtNgayTao.getDate().toString().trim();
         Date ngtao = (Date) this.txtNgayTao.getDate();
-
+        
         String dieuKien = this.txtDieuKien.getText().trim();
         int DkapDung = 0;
         String phanGiam = this.txtPhanTramGiam.getText().trim();
@@ -133,14 +133,14 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 //phtramGiam = Integer.valueOf(phanGiam);
                 DkapDung = Integer.valueOf(dieuKien);
             } catch (NumberFormatException e) {
-
+                
                 lblMesDK.setText("Sai định dạng số");
                 lblMesDK.setForeground(Color.red);
                 txtDieuKien.requestFocus();
                 isValid = false;
                 return null;
             }
-
+            
             if (DkapDung <= 0) {
                 lblMesDK.setText("Điều kiện nhỏ hơn 0");
                 lblMesDK.setForeground(Color.red);
@@ -150,25 +150,25 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             } else {
                 lblMesDK.setText("");
             }
-
+            
             try {
                 phtramGiam = Integer.valueOf(phanGiam);
-
+                
             } catch (NumberFormatException e) {
 //                e.printStackTrace();
                 lblMesPTram.setText("Sai định dạng số");
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
-
+                
             }
-
+            
             if (phtramGiam <= 0) {
                 lblMesPTram.setText("Phần trăm số nhỏ hơn 0");
                 lblMesPTram.setForeground(Color.red);
                 txtPhanTramGiam.requestFocus();
                 isValid = false;
-
+                
             } else if (phtramGiam >= 100) {
                 lblMesPTram.setText("Phần trăm số không thể quá 100%");
                 lblMesPTram.setForeground(Color.red);
@@ -177,9 +177,9 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             } else {
                 lblMesPTram.setText("");
             }
-
+            
         }
-
+        
         int tthai = 1;
         String makm = this.txtMaKm.getText().trim();
         String maKm = "";
@@ -189,13 +189,13 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             maKm = makm;
         }
         Date ngHet = (Date) this.txtNgayHetHan.getDate();
-
+        
         int ssanh = ngHet.compareTo(ngtao);
         if (ssanh <= 0) {
             JOptionPane.showMessageDialog(this, "Mời bạn nhập ngày hết hạn lớn hơn ngày sửa");
             return null;
         }
-
+        
         if (isValid == false) {
             return null;
         } else {
@@ -203,11 +203,11 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             System.out.println(ngtao + "" + ngHet);
             return km;
         }
-
+        
     }
-
+    
     public void clearForm() {
-
+        
         txtMaKm.setText("");
         txtTenKm.setText("");
         txtNgayTao.setDate(new Date());
@@ -219,7 +219,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         this.cbbTrangThai.setSelectedIndex(0);
         this.lblMesMaKm.setText("");
     }
-
+    
     public int checkTonTai() {
         String ma = this.txtMaKm.getText().trim();
         KhuyenMai km = this.kms.getKhuyenMaiByMa(ma);
@@ -630,7 +630,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
-
+        
         loadPagination();
 
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
@@ -660,7 +660,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             return;
         }
         String id = this.tblKhuyenMai.getValueAt(row, 0).toString();
-
+        
         KhuyenMai km = this.getForm();
         if (km == null) {
             JOptionPane.showMessageDialog(this, "Mời bạn check lại form");
@@ -684,7 +684,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
         String id = this.tblKhuyenMai.getValueAt(row, 0).toString();
         int idm = Integer.valueOf(id);
-
+        
         int chooser = JOptionPane.showConfirmDialog(this, "Bạn có muốn ngừng áp dụng");
         if (chooser == 0) {
             this.kms.remove(idm);
@@ -696,51 +696,64 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
         int row = this.tblKhuyenMai.getSelectedRow();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date ngTao = txtNgayTao.getDate();
-        Date ngHet = txtNgayHetHan.getDate();
-        String c = null;
-        String d = null;
-
-//        if (!sdf.format(ngTao).equals(sdf.format(ngHet))) {
-//            c = sdf.format(ngTao);
-//            d = sdf.format(ngHet);
-//        }
-
-        int vt = cbbTrangThai.getSelectedIndex();
-        int tt1 = 0;
-        if (vt == 0) {
-            tt1 = 1;
-        } else {
-            tt1 = 0;
+        if (row == -1) {
+            return;
         }
-
-        pageKm = kms.pageListKhuyenMai(paging.getCurrent(), pageSize, c, d, tt1);
-
-        KhuyenMai a = pageKm.get(row);
-        txtMaKm.setText(a.getMakm());
-        txtTenKm.setText(a.getTenkm());
-        txtNgayTao.setDate(a.getNgayTao());
-        txtNgayHetHan.setDate(a.getNgayhethan());
-        txtPhanTramGiam.setText(a.getPhantramgiam() + "");
-        txtDieuKien.setText(a.getMinhoadon() + "");
-        txtGhiChu.setText(a.getGhichu());
-
-//        txtMaKm.setText(this.tblKhuyenMai.getValueAt(row, 1).toString());
-//        txtTenKm.setText(this.tblKhuyenMai.getValueAt(row, 2).toString());
+//        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date ngTao = txtNgayTao.getDate();
+//        Date ngHet = txtNgayHetHan.getDate();
+//        int htai = date.getDate();
+//        String c = null;
+//        String d = null;
 //
-//        String date = this.tblKhuyenMai.getValueAt(row, 3).toString();
-////        Date x = Date.valueOf(date);
-////        txtNgayTao.setDate(x);
-//        txtPhanTramGiam.setText(this.tblKhuyenMai.getValueAt(row, 4).toString());
-//        txtDieuKien.setText(this.tblKhuyenMai.getValueAt(row, 5).toString());
-//         String date2 = this.tblKhuyenMai.getValueAt(row, 6).toString();
-////        Date a = Date.valueOf(date2);
-////        txtNgayHetHan.setDate(a);
-//        txtGhiChu.setText(this.tblKhuyenMai.getValueAt(row, 7).toString());
-////        String tt = this.tblKhuyenMai.getValueAt(row, 8).toString();
-////        int trangt = Integer.valueOf(tt);
+////        if (!sdf.format(ngTao).equals(sdf.format(ngHet))) {
+////            c = sdf.format(ngTao);
+////            d = sdf.format(ngHet);
+////        }
+//
+//        int vt = cbbTrangThai.getSelectedIndex();
+//        int tt1 = 0;
+//        if (vt == 0) {
+//            tt1 = 1;
+//        } else {
+//            tt1 = 0;
+//        }
+//
+//        pageKm = kms.pageListKhuyenMai(paging.getCurrent(), pageSize, c, d, tt1);
+//
+//        KhuyenMai a = pageKm.get(row);
+//        txtMaKm.setText(a.getMakm());
+//        txtTenKm.setText(a.getTenkm());
+//        txtNgayTao.setDate(a.getNgayTao());
+//        txtNgayHetHan.setDate(a.getNgayhethan());
+//        txtPhanTramGiam.setText(a.getPhantramgiam() + "");
+//        txtDieuKien.setText(a.getMinhoadon() + "");
+//        txtGhiChu.setText(a.getGhichu());
+
+        txtMaKm.setText(this.tblKhuyenMai.getValueAt(row, 1).toString());
+        txtTenKm.setText(this.tblKhuyenMai.getValueAt(row, 2).toString());
+        String date = this.tblKhuyenMai.getValueAt(row, 3).toString();
+        Date c1 = null;
+        try {
+            c1= sdf.parse(date);
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+        txtNgayTao.setDate(c1);
+        txtPhanTramGiam.setText(this.tblKhuyenMai.getValueAt(row, 4).toString());
+        txtDieuKien.setText(this.tblKhuyenMai.getValueAt(row, 5).toString());
+        String date2 = this.tblKhuyenMai.getValueAt(row, 6).toString();
+        Date c2 = null;
+        try {
+            c2= sdf.parse(date2);
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+        txtNgayHetHan.setDate(c2);
+        txtGhiChu.setText(this.tblKhuyenMai.getValueAt(row, 7).toString());
+//        String tt = this.tblKhuyenMai.getValueAt(row, 8).toString();
+//        int trangt = Integer.valueOf(tt);
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -764,7 +777,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 
         loadPagination();
     }//GEN-LAST:event_btnTimKiemActionPerformed
-
+    
     public void loadPagination() {
         Date ngTao = this.txtNgayTao.getDate();
         Date ngHet = this.txtNgayHetHan.getDate();
@@ -778,10 +791,10 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             a = sdf.format(ngTao);
             b = sdf.format(ngHet);
         }
-
+        
         String x = a;
         String y = b;
-
+        
         int vt = cbbTrangThai.getSelectedIndex();
         int tt = 0;
         if (vt == 0) {
@@ -794,7 +807,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         int total = (int) Math.ceil(totalProducts / pageSize) + 1;
         paging.setTotalPage(total);
         paginationKM.setPagegination(1, paging.getTotalPage());
-
+        
         if (paging.getTotalPage() < paging.getCurrent()) {
             paginationKM.setPagegination(paging.getTotalPage(), paging.getTotalPage());
             loadTableByArr(kms.pageListKhuyenMai(paging.getTotalPage(), pageSize, x, y, tt1));
@@ -802,7 +815,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             paginationKM.setPagegination(paging.getCurrent(), paging.getTotalPage());
             loadTableByArr(kms.pageListKhuyenMai(paging.getCurrent(), pageSize, x, y, tt1));
         }
-
+        
         paginationKM.addEventPagination(new EventPagination() {
             @Override
             public void pageChanged(int page) {
@@ -810,7 +823,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
                 paging.setCurrent(page);
             }
         });
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
