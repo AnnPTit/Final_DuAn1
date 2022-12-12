@@ -84,7 +84,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
     KhachHang getData() {
         KhachHang kh = new KhachHang();
-        String ma = "";
+        String ma = txtMa.getText();
 
         if (ma.isBlank()) {
             ma = "KH" + (khSer.getAllKhachHang().size() + 1);
@@ -151,6 +151,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jLabel2.text")); // NOI18N
 
+        txtMa.setEditable(false);
         txtMa.setText(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.txtMa.text")); // NOI18N
 
         txtTen.setText(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.txtTen.text")); // NOI18N
@@ -427,15 +428,10 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
         if (validateForm()) {
-            String ma = "";
-            KhachHang findKhachHang = findKhachHangByMa(ma);
-            if (findKhachHang != null) {
-                JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!", "ERORR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             String result = new KhachHangImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
             loadPagination();
+            reset();
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -448,6 +444,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
             String result = new KhachHangImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
             loadPagination();
+            reset();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -460,6 +457,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 //        listKH = khSer.getAll();
 //        listPaging = listKH;
         loadPagination();
+        reset();
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -502,10 +500,6 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
     public boolean validateForm() {
 
-//        if (ma.isBlank()) {
-//            JOptionPane.showMessageDialog(this, "Không được bỏ trống mã");
-//            return false;
-//        }
         String ten = txtTen.getText();
         if (ten.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống tên");
