@@ -84,7 +84,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
     KhachHang getData() {
         KhachHang kh = new KhachHang();
-        String ma = txtMa.getText();
+        String ma = "";
 
         if (ma.isBlank()) {
             ma = "KH" + (khSer.getAllKhachHang().size() + 1);
@@ -221,7 +221,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(608, Short.MAX_VALUE)
+                .addContainerGap(602, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -425,12 +425,16 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tbKhachHangMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
         if (validateForm()) {
+            String ma = "";
+            KhachHang findKhachHang = findKhachHangByMa(ma);
+            if (findKhachHang != null) {
+                JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!", "ERORR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             String result = new KhachHangImpl().add(getData());
             JOptionPane.showMessageDialog(this, result);
-//            listKH = khSer.getAll();
-//            listPaging = listKH;
-
             loadPagination();
         }
 
@@ -439,6 +443,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int row = tbKhachHang.getSelectedRow();
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
+
         if (validateForm()) {
             String result = new KhachHangImpl().update(getData(), id);
             JOptionPane.showMessageDialog(this, result);
@@ -496,17 +501,11 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     }
 
     public boolean validateForm() {
-        String ma = txtMa.getText();
-        KhachHang findKhachHang = findKhachHangByMa(ma);
-        if (findKhachHang != null) {
-            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại, Vui lòng nhập mã mới!", "ERORR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+
 //        if (ma.isBlank()) {
 //            JOptionPane.showMessageDialog(this, "Không được bỏ trống mã");
 //            return false;
 //        }
-
         String ten = txtTen.getText();
         if (ten.isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được bỏ trống tên");
@@ -539,7 +538,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Không được để trống");
 //            return false;
 //        }
-        Pattern maiL = Pattern.compile("^^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$");
+        Pattern maiL = Pattern.compile("^(.+)@(.+)$");
         Matcher matcherEmail = maiL.matcher(email);
         if (!matcherFirst.matches()) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số");
