@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChucVu;
+import model.KhachHang;
 import model.NhanVien;
 import pagination.Page;
 import pagination.style.PaginationItemRenderStyle1;
@@ -107,7 +108,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     NhanVien getData() {
         NhanVien nv = new NhanVien();
         String maNv = "";
-        maNv = "NV0" + (nvSer.getAllNhanVien().size() + 1);
+        maNv = "NV" + (nvSer.getAllNhanVien().size() + 1);
         nv.setMaNV(maNv);
         //nv.setMaNV(txtMa.getText());
         nv.setTenNV(txtTen.getText());
@@ -493,9 +494,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         }
 
         Integer id = (Integer) tbNhanVien.getValueAt(row, 0);
+        NhanVien a = getData();
+        a.setMaNV((String) tbNhanVien.getValueAt(row, 1));
 
         if (validateForm()) {
-            String result = new NhanVienImpl().update(getData(), id);
+            String result = new NhanVienImpl().update(a, id);
             JOptionPane.showMessageDialog(this, result);
             loadPagination();
             clear();

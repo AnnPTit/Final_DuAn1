@@ -84,11 +84,9 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
     KhachHang getData() {
         KhachHang kh = new KhachHang();
-        String ma = txtMa.getText();
+        String ma;
+        ma = "KH" + (khSer.getAllKhachHang().size() + 1);
 
-        if (ma.isBlank()) {
-            ma = "KH" + (khSer.getAllKhachHang().size() + 1);
-        }
         kh.setMaKH(ma);
         kh.setTenKH(txtTen.getText());
         kh.setTrangThai(1);
@@ -335,6 +333,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
                 "Id", "Mã KH", "Tên KH", "Giới tính", "Địa chỉ", "Điện thoại", "Email", "Trạng thái"
             }
         ));
+        tbKhachHang.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         tbKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbKhachHangMouseClicked(evt);
@@ -438,10 +437,16 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int row = tbKhachHang.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Ban chua chon dong");
+            return;
+        }
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
+        KhachHang a = getData();
+        a.setMaKH((String) tbKhachHang.getValueAt(row, 1));
 
         if (validateForm()) {
-            String result = new KhachHangImpl().update(getData(), id);
+            String result = new KhachHangImpl().update(a, id);
             JOptionPane.showMessageDialog(this, result);
             loadPagination();
             reset();
