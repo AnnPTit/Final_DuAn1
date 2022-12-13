@@ -69,4 +69,9 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
         return kmr.filterProductKhuyenMai(ngTao, ngHet, tt);
     }
 
+    @Override
+    public void checkEndDate() {
+        kmr.checkEndDate();
+    }
+
 }

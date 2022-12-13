@@ -34,4 +34,6 @@ public interface IKhuyenMaiService {
     List<KhuyenMai> pageListKhuyenMai(int position, int pageSize, String ngTao, String ngHet, int tt);
     
     List<KhuyenMai> filterProductKhuyenMai(String ngTao, String ngHet, int tt);
+    
+    void checkEndDate();
 }
