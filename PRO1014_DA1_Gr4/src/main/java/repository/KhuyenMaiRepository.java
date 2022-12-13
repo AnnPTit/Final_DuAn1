@@ -64,10 +64,10 @@ public class KhuyenMaiRepository {
         try ( Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()) {
             Transaction tran = se.beginTransaction();
 
-            String hql = "Update KhuyenMai km set km.makm = :makm ,km.tenkm = :tenkm, km.ngayTao = :ngayTao , km.phantramgiam = :phantramgiam, km.minhoadon= :minhoadon, km.ngayhethan = :ngayHethan , km.ghichu= :ghichu, km.trangthai= :trangthai where km.id= :id";
+            String hql = "Update KhuyenMai km set km.tenkm = :tenkm, km.ngayTao = :ngayTao , km.phantramgiam = :phantramgiam, km.minhoadon= :minhoadon, km.ngayhethan = :ngayHethan , km.ghichu= :ghichu, km.trangthai= :trangthai where km.id= :id";
             Query q = se.createQuery(hql);
 
-            q.setParameter("makm", km.getMakm());
+//            q.setParameter("makm", km.getMakm());
             q.setParameter("tenkm", km.getTenkm());
             q.setParameter("ngayTao", km.getNgayTao(), TemporalType.DATE);
             q.setParameter("phantramgiam", km.getPhantramgiam());

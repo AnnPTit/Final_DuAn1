@@ -181,13 +181,8 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         }
         
         int tthai = 1;
-        String makm = this.txtMaKm.getText().trim();
-        String maKm = "";
-        if (makm.length() == 0) {
-            maKm = "KM00" + (kms.getList().size() + 1);
-        } else {
-            maKm = makm;
-        }
+        String maKm = "";     
+        maKm = "KM00" + (kms.getList().size() + 1);
         Date ngHet = (Date) this.txtNgayHetHan.getDate();
         
         int ssanh = ngHet.compareTo(ngtao);
@@ -213,7 +208,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         txtNgayTao.setDate(new Date());
         txtPhanTramGiam.setText("");
         txtDieuKien.setText("");
-        txtNgayHetHan.setDate(new Date());
+//        txtNgayHetHan.setDate(new Date());
         txtGhiChu.setText("");
         tblKhuyenMai.clearSelection();
         this.cbbTrangThai.setSelectedIndex(0);
@@ -286,6 +281,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(KhuyenMai1.class, "KhuyenMai1.jLabel2.text")); // NOI18N
 
+        txtMaKm.setEditable(false);
         txtMaKm.setForeground(new java.awt.Color(255, 204, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
@@ -641,12 +637,12 @@ public class KhuyenMai1 extends javax.swing.JPanel {
             // JOptionPane.showMessageDialog(this, "Moi ban check lai form");
             return;
         }
-        int x = this.checkTonTai();
-        if (x == 1) {
-            this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
-            this.lblMesMaKm.setForeground(Color.red);
-            return;
-        }
+//        int x = this.checkTonTai();
+//        if (x == 1) {
+//            this.lblMesMaKm.setText("Mã khuyến mãi đã tồn tại");
+//            this.lblMesMaKm.setForeground(Color.red);
+//            return;
+//        }
         kms.add(km);
         JOptionPane.showMessageDialog(this, "Thêm thành công");
         loadPagination();
