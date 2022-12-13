@@ -130,7 +130,7 @@ public class KhachHangRepository {
         em.getEntityManagerFactory().getCache().evictAll();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        Query query = (Query) em.createQuery("SELECT COUNT(id) FROM KhachHang");
+        Query query = (Query) em.createQuery("SELECT COUNT(id) FROM KhachHang kh where kh.trangThai = 1");
         query.setHint("javax.persistence.cache.retrieveMode", "BYPASS");
 
         @SuppressWarnings("unchecked")

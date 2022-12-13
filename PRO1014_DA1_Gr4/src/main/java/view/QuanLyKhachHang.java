@@ -58,6 +58,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
             loadTable(khSer.pageListKhachHang(page, pageSize, search));
             paging.setCurrent(page);
         });
+        lbTotalKhachHang.setText("Total: "+khSer.getSumCustomer());
     }
 
     public void loadTable(List<KhachHang> kh) {
