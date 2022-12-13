@@ -208,7 +208,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         txtNgayTao.setDate(new Date());
         txtPhanTramGiam.setText("");
         txtDieuKien.setText("");
-//        txtNgayHetHan.setDate(new Date());
+        txtNgayHetHan.setDate(new Date());
         txtGhiChu.setText("");
         tblKhuyenMai.clearSelection();
         this.cbbTrangThai.setSelectedIndex(0);
