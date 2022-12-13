@@ -197,6 +197,19 @@ public class KhuyenMaiRepository {
 
         return hdbs;
     }
+    
+    
+    public void checkEndDate(){
+        try (Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession()){
+            Transaction trann = se.beginTransaction();
+            String hql="update KhuyenMai km set km.trangthai =0 where km.ngayhethan < convert(varchar, getdate(), 23)";
+            Query q = se.createQuery(hql);
+            q.executeUpdate();
+            trann.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
 //        SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
