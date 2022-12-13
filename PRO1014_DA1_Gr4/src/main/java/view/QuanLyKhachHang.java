@@ -127,6 +127,11 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.jPanel2.border.title"))); // NOI18N
@@ -202,12 +207,16 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
             }
         });
 
+        msgDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(msgDiaChi, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.msgDiaChi.text")); // NOI18N
 
+        msgSdt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(msgSdt, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.msgSdt.text")); // NOI18N
 
+        msgEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(msgEmail, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.msgEmail.text")); // NOI18N
 
+        msgTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(msgTen, org.openide.util.NbBundle.getMessage(QuanLyKhachHang.class, "QuanLyKhachHang.msgTen.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -431,15 +440,17 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tbKhachHangMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
-        if (validateForm() != null) {
+        KhachHang a = this.validateForm();
+        if (a != null) {
             int chooser = JOptionPane.showConfirmDialog(this, "Bạn muốn thêm khách hàng mới ?");
             if (chooser == 0) {
-                String result = new KhachHangImpl().add(getData());
-                JOptionPane.showMessageDialog(this, result);
+                khSer.add(a);
                 loadPagination();
                 reset();
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm thất bại");
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -450,7 +461,7 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
             return;
         }
         Integer id = (Integer) tbKhachHang.getValueAt(row, 0);
-        KhachHang a = getData();
+        KhachHang a = validateForm();
         a.setMaKH((String) tbKhachHang.getValueAt(row, 1));
 
         if (validateForm() != null) {
@@ -493,11 +504,22 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
         txtEmail.setText("");
         txtDiaChi.setText("");
         buttonGroup1.clearSelection();
+        msgDiaChi.setText("");
+        msgEmail.setText("");
+        msgSdt.setText("");
+        msgTen.setText("");
     }
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         reset();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        msgDiaChi.setText("");
+        msgEmail.setText("");
+        msgSdt.setText("");
+        msgTen.setText("");
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     void searchByPhone() {
         DefaultTableModel tb = (DefaultTableModel) tbKhachHang.getModel();
