@@ -75,7 +75,7 @@ public class NhanVienRepository {
         Transaction tran = null;
         try ( Session ses = HibernateConfig.getFACTORY().openSession()) {
             tran = ses.beginTransaction();
-            ses.saveOrUpdate(nv);
+            ses.save(nv);
             tran.commit();
             return true;
         } catch (Exception e) {
