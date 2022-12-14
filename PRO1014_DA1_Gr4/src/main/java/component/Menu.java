@@ -54,17 +54,17 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/1.png"), "Trang chủ"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/12.png"), "Hàng hoá", "Sản phẩm" ));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/4.png"), "Giao dịch", "Bán Hàng", "Trả Hàng"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/8.png"), "Quản lý hóa đơn"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/3.png"), "Thống kê", "Thông kê doanh thu", "Thống kê doanh số"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/5.png"), "Nhân viên", "Danh sách nhân viên"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/10.png"), "Khách hàng", "Danh sách khách hàng"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/user.png"), "Cá Nhân"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/9.png"), "Khuyến mãi"));
-            addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/ExitAccount.png"), "Đăng xuất"));
-        }
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/1.png"), "Trang chủ"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/12.png"), "Hàng hoá", "Sản phẩm"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/4.png"), "Giao dịch", "Bán Hàng", "Trả Hàng"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/3.png"), "Thống kê", "Thông kê doanh thu", "Thống kê doanh số"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/8.png"), "Quản lý hóa đơn"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/5.png"), "Nhân viên", "Danh sách nhân viên"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/10.png"), "Khách hàng", "Danh sách khách hàng"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/user.png"), "Cá Nhân"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/9.png"), "Khuyến mãi"));
+        addMenu(new ModelMenu(new ImageIcon("src/main/resources/icon/ExitAccount.png"), "Đăng xuất"));
+    }
 
     private void addMenu(ModelMenu menu) {
         panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
