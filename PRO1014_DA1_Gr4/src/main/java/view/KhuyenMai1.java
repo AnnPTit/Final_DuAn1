@@ -275,6 +275,11 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(KhuyenMai1.class, "KhuyenMai1.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), null));
@@ -709,6 +714,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
+        clearMes();
         int row = this.tblKhuyenMai.getSelectedRow();
         if (row == -1) {
             return;
@@ -772,6 +778,7 @@ public class KhuyenMai1 extends javax.swing.JPanel {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         clearForm();
+        clearMes();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -799,6 +806,10 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this,"Kiểm tra thành công, số khuyến mãi đã ngừng áp dụng:"+(szsau-sztruoc)+"");
         loadTableByArr(kms.getAllByTrangT(1));
     }//GEN-LAST:event_btnKtraActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        clearMes();
+    }//GEN-LAST:event_jPanel1MouseClicked
     
     public void loadPagination() {
         Date ngTao = this.txtNgayTao.getDate();
@@ -848,6 +859,14 @@ public class KhuyenMai1 extends javax.swing.JPanel {
         
     }
 
+    public void clearMes(){
+        lbnMesTenKM.setText("");
+        lblMesDK.setText("");
+        lblMesMoTa.setText("");
+        lblMesNgayHet.setText("");
+        lblMesPTram.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnKtra;
