@@ -546,8 +546,8 @@ public final class QuanLyKhachHang extends javax.swing.JPanel {
 
         String ma = "";
         ma = "KH" + (khSer.getAllKhachHang().size() + 1);
-
         String ten = txtTen.getText();
+        
         if (ten.isBlank()) {
             msgTen.setText("*");
             msgTen.setForeground(Color.red);
