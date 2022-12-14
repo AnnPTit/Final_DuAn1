@@ -75,8 +75,6 @@ public class Main extends javax.swing.JFrame {
                         main.showForm(new TraHang1());
                     }
                 } else if (menuIndex == 3) {
-                    main.showForm(new QuanLyHoaDon());
-                } else if (menuIndex == 4) {
                     if (Auth.getIsCV() != 2) {
                         JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
                     } else {
@@ -86,6 +84,8 @@ public class Main extends javax.swing.JFrame {
                             main.showForm(new ThongKeDoanhSo());
                         }
                     }
+                } else if (menuIndex == 4) {
+                    main.showForm(new QuanLyHoaDon());
                 } else if (menuIndex == 5) {
                     if (Auth.getIsCV() != 2) {
                         JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
