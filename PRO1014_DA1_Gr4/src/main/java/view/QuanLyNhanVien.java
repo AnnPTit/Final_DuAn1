@@ -108,12 +108,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         txtTen.setText("");
         this.cbbChucVu.setSelectedIndex(0);
         buttonGroup1.clearSelection();
-
         msgDiaChi.setText("");
         msgEmail.setText("");
         msgMatKhau.setText("");
         msgSdt.setText("");
         msgTen1.setText("");
+        msgNgaySinh.setText("");
     }
 
     /**
@@ -572,6 +572,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tbNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMouseClicked
+        clear();
         int row = tbNhanVien.getSelectedRow();
         listNV = nvSer.pageListNhanVien(paging.getCurrent(), pageSize, txtSearch.getText());
         NhanVien nv = listNV.get(row);
@@ -590,6 +591,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         } else {
             rdoNu.setSelected(true);
         }
+        
     }//GEN-LAST:event_tbNhanVienMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked

@@ -85,7 +85,7 @@ public class KhuyenMaiRepository {
 
     public ArrayList<KhuyenMai> getAllKhuyenMaiMap(double minHoaDon) {
         Session se = hibernateConfig.HibernateConfig.getFACTORY().openSession();
-        Query q = se.createQuery("From KhuyenMai where MinHoaDon < : min and TrangThai = 1");
+        Query q = se.createQuery("From KhuyenMai where MinHoaDon < : min and TrangThai = 1 and Ngayhethan >= convert(varchar, getdate(), 23)");
         q.setParameter("min", (minHoaDon + 1));
         ArrayList<KhuyenMai> ds = (ArrayList<KhuyenMai>) q.getResultList();
         return ds;
