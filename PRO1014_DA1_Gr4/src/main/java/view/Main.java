@@ -98,9 +98,9 @@ public class Main extends javax.swing.JFrame {
                     if (subMenuIndex == 0) {
                         main.showForm(new QuanLyKhachHang());
                     }
-                } else if (menuIndex == 7) {
-                    main.showForm(new ThongTinCaNhan());
                 } else if (menuIndex == 8) {
+                    main.showForm(new ThongTinCaNhan());
+                } else if (menuIndex == 7) {
                     if (Auth.getIsCV() != 2) {
                         JOptionPane.showMessageDialog(rootPane, "Không có quyền truy cập chức năng này");
                     } else {
